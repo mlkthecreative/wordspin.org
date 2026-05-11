@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Privacy Policy — WordSpin™</title>
+  <meta name="description" content="WordSpin™ Privacy Policy — how we handle your data, cookies, and advertising." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.wordspin.org/privacy.html" />
+  <!-- ══ SECURITY HEADERS ══ -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none';"/>
+  <meta http-equiv="X-Frame-Options" content="DENY"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:    #1a1008;
+      --paper:  #f5efe3;
+      --amber:  #c8892a;
+      --muted:  #8a7a62;
+      --card:   #faf6ee;
+      --border: #d4c9b0;
+      --rust:   #b84c1e;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink:    #f0e6d0;
+        --paper:  #000000;
+        --amber:  #d4993a;
+        --muted:  #9a8a72;
+        --card:   #141414;
+        --border: #2a2a2a;
+        --rust:   #cc6644;
+      }
+    }
+
+    html, body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Mono', monospace;
+      line-height: 1.7;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    /* ── Grain overlay ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.5;
+    }
+
+    .page {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 3rem 1.6rem 5rem;
+    }
+
+    /* ── Back link ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 2.5rem;
+      -webkit-transition: color 0.15s;
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: var(--amber); }
+
+    /* ── Header ── */
+    .pp-header {
+      border-bottom: 1.5px solid var(--border);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .pp-site-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+    .pp-site-name span { color: var(--amber); font-style: italic; }
+
+    .pp-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 0.6rem;
+    }
+    .pp-date {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── Sections ── */
+    .pp-section {
+      margin-bottom: 2.4rem;
+    }
+    .pp-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .pp-section p {
+      font-size: 0.82rem;
+      line-height: 1.9;
+      color: var(--ink);
+      margin-bottom: 0.9rem;
+    }
+    .pp-section p:last-child { margin-bottom: 0; }
+
+    /* ── Cookie type cards ── */
+    .cookie-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    @media (min-width: 560px) {
+      .cookie-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .cookie-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-left: 3px solid var(--amber);
+      padding: 1rem 1.1rem;
+      border-radius: 2px;
+    }
+    .cookie-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      font-style: italic;
+      color: var(--amber);
+      margin-bottom: 0.4rem;
+    }
+    .cookie-card p {
+      font-size: 0.76rem !important;
+      line-height: 1.7 !important;
+      margin-bottom: 0 !important;
+      color: var(--muted) !important;
+    }
+
+    /* ── Highlight box ── */
+    .pp-highlight {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-left: 3px solid var(--rust);
+      padding: 1rem 1.2rem;
+      border-radius: 2px;
+      margin: 1rem 0;
+    }
+    .pp-highlight p {
+      font-size: 0.78rem !important;
+      margin-bottom: 0 !important;
+    }
+
+    /* ── External link ── */
+    .pp-link {
+      color: var(--amber);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      word-break: break-all;
+    }
+    .pp-link:hover { color: var(--rust); }
+
+    /* ── Footer ── */
+    .pp-footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .pp-footer span {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+  </style>
+  <script>
+    // Theme toggle — split into CSS vars (immediate) and DOM updates (after load)
+    (function() {
+      var root = document.documentElement;
+      var prefersDark = false;
+      try { if(window.matchMedia) prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch(e){}
+      var saved; try { saved = localStorage.getItem('wsTheme'); } catch(e){}
+      var isDark = saved ? saved === 'dark' : true; /* default dark, same as main site */
+
+      var themes = {
+        dark:  { '--ink':'#f0e6d0','--paper':'#000000','--amber':'#d4993a','--muted':'#9a8a72','--card':'#141414','--border':'#2a2a2a','--rust':'#cc6644' },
+        light: { '--ink':'#1a1008','--paper':'#f5efe3','--amber':'#c8892a','--muted':'#8a7a62','--card':'#faf6ee','--border':'#d4c9b0','--rust':'#b84c1e' }
+      };
+
+      function applyCSSVars(dark) {
+        root.setAttribute('data-theme', dark ? 'dark' : 'light');
+        var vars = dark ? themes.dark : themes.light;
+        for(var k in vars) root.style.setProperty(k, vars[k]);
+        if(document.body) {
+          document.body.style.backgroundColor = dark ? '#000000' : '#f5efe3';
+          document.body.style.color = dark ? '#f0e6d0' : '#1a1008';
+        }
+      }
+
+      function updateToggleUI(dark) {
+        var lbl = document.getElementById('ppThemeLabel');
+        var ico = document.getElementById('ppThemeIcon');
+        if(lbl) lbl.textContent = dark ? 'Dark' : 'Light';
+        if(ico) ico.textContent = dark ? '☽' : '☀︎';
+      }
+
+      function applyTheme(dark) {
+        isDark = dark;
+        applyCSSVars(dark);
+        updateToggleUI(dark);
+        try { localStorage.setItem('wsTheme', dark ? 'dark' : 'light'); } catch(e){}
+      }
+
+      // Apply CSS vars immediately (no DOM needed)
+      applyCSSVars(isDark);
+
+      // Wire DOM elements once they exist
+      function init() {
+        updateToggleUI(isDark);
+        var pill = document.getElementById('ppThemePill');
+        if(pill) {
+          pill.addEventListener('click', function() {
+            applyTheme(!isDark);
+          });
+        }
+      }
+
+      if(document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+</head>
+<body>
+
+<!-- Theme toggle -->
+<div style="position:fixed;top:0;left:0;right:0;z-index:9999;display:flex;justify-content:flex-start;pointer-events:none;padding:0;">
+  <div id="ppThemePill" style="display:flex;align-items:center;gap:0.4rem;background:var(--paper);padding:4px 10px;cursor:pointer;pointer-events:all;-webkit-tap-highlight-color:transparent;user-select:none;">
+    <span id="ppThemeLabel" style="font-size:0.72rem;letter-spacing:0.04em;color:var(--ink);font-family:'DM Mono',monospace;">Light</span>
+    <div id="ppThemeIcon" style="width:22px;height:22px;border-radius:50%;background:var(--paper);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.6rem;box-shadow:0 1px 4px rgba(0,0,0,0.15);">&#9788;&#65038;</div>
+  </div>
+</div>
+
+<div class="page" style="padding-top:2.5rem;">
+
+  <a class="back-link" href="index.html">← Back to WordSpin</a>
+
+  <header class="pp-header">
+    <div class="pp-site-name">Word<span>Spin</span><sup style="font-size:0.27em;vertical-align:super;letter-spacing:0;">™</sup></div>
+    <h1 class="pp-title">Privacy Policy</h1>
+    <p class="pp-date">Last updated: May 2026</p>
+  </header>
+
+  <!-- 1. Who we are -->
+  <section class="pp-section">
+    <h2>1. Who we are</h2>
+    <p>WordSpin™ is a free word-prompt storytelling game available at <strong>wordspin.org</strong>. We are committed to being transparent and honest about how this site works and what happens with your data.</p>
+    <p>This Privacy Policy explains what information is collected when you use WordSpin, how it is used, and what choices you have.</p>
+  </section>
+
+  <!-- 2. What data we collect -->
+  <section class="pp-section">
+    <h2>2. What data we collect</h2>
+    <p>WordSpin does not collect any personal information. Stories you write are saved only on your own device using your browser’s local storage. They are never uploaded to any server, never seen by us, and never shared with anyone. If you clear your browser data, your stories will be deleted from that device.</p>
+
+    <div class="pp-highlight">
+      <p>Your stories belong to you. They never leave your device.</p>
+    </div>
+
+    <p><strong>Data collected automatically:</strong> When you visit WordSpin, standard technical information may be logged by web servers — including your approximate location (country or region), browser type, and device type. We do not use this information to identify you personally.</p>
+  </section>
+
+  <!-- 3. Cookies -->
+  <section class="pp-section">
+    <h2>3. What are cookies and how do we use them</h2>
+    <p>Cookies are small text files that a website saves onto your device when you visit. WordSpin currently uses only one type of cookie — preference cookies — to remember your chosen settings.</p>
+
+    <div class="cookie-grid">
+      <div class="cookie-card">
+        <div class="cookie-card-title">Preference Cookies</div>
+        <p>Used to remember your chosen settings — light or dark mode, sound on or off. These are stored locally on your device and never shared with anyone.</p>
+      </div>
+      <div class="cookie-card">
+        <div class="cookie-card-title">Essential Cookies</div>
+        <p>Required for basic site functionality such as saving your stories locally. Without these, the site will not work correctly. These cannot be switched off.</p>
+      </div>
+    </div>
+
+    <p style="margin-top:1rem;">WordSpin does not currently use advertising cookies, analytics cookies, or any third-party tracking. This policy will be updated if that changes.</p>
+  </section>
+
+  <!-- 4. Accounts -->
+  <section class="pp-section">
+    <h2>4. Accounts and cloud storage</h2>
+    <p>WordSpin does not currently offer user accounts. All stories are saved locally on your device only. An optional account system is planned for a future update — this policy will be updated in full before that feature is made available, and you will be asked to consent at that time.</p>
+  </section>
+
+  <!-- 5. Children -->
+  <section class="pp-section">
+    <h2>5. Children and users under 13</h2>
+    <p>WordSpin is designed to be suitable for all ages and we actively encourage its use as an educational tool for children.</p>
+    <p>Because WordSpin does not collect any personal data, it is safe for children of all ages to use. No account is required, no email address is collected, and no information leaves the device.</p>
+    <p>Parents and teachers can introduce WordSpin to young children with complete confidence that no personal information is captured or stored anywhere.</p>
+  </section>
+
+  <!-- 6. Your rights -->
+  <section class="pp-section">
+    <h2>6. Your rights</h2>
+    <p>Because WordSpin does not collect or store any personal data, there is no data held about you on our end. Your stories exist only on your own device and are entirely under your control.</p>
+    <p>You can delete your stories at any time using the delete function within the game, or by clearing your browser’s local storage in your device settings.</p>
+    <p>If you have any questions about your data rights, you are welcome to contact us at any time.</p>
+  </section>
+
+  <!-- 7. Changes -->
+  <section class="pp-section">
+    <h2>7. Changes to this policy</h2>
+    <p>We may update this Privacy Policy from time to time as the site grows or new features are added. Any updates will be posted on this page with a revised date at the top. We encourage you to check back occasionally.</p>
+    <p>If significant changes are made — such as the introduction of advertising, accounts, or third-party data sharing — we will make this clearly visible on the site before those features go live.</p>
+  </section>
+
+  <!-- 8. Contact -->
+  <section class="pp-section">
+    <h2>8. Contact</h2>
+    <p>If you have any questions, concerns, or requests regarding this Privacy Policy, please contact us at:</p>
+    <p><strong>Email:</strong> <a class="pp-link" href="mailto:hello@wordspin.org">hello@wordspin.org</a></p>
+    <p>We aim to respond to all enquiries within 5 business days.</p>
+  </section>
+
+  <footer class="pp-footer">
+    <span>© 2026 WordSpin™. All rights reserved.</span>
+    <span>wordspin.org</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
