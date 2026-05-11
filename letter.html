@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="color-scheme" content="only light"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>From The Creator — WordSpin™</title>
+  <meta name="robots" content="noindex"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <!-- ══ SECURITY HEADERS ══ -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none';"/>
+  <meta http-equiv="X-Frame-Options" content="DENY"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: #0a0a0a; -webkit-text-size-adjust: 100%; color-scheme: only light; }
+    body {
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+      background: #0a0a0a;
+      font-family: 'DM Mono', monospace;
+      overflow-x: hidden;
+      overscroll-behavior: none;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
+    .page {
+      position: relative; z-index: 1;
+      max-width: 520px; margin: 0 auto;
+      padding: 2rem 1.2rem 5rem;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 0;
+    }
+    .nav {
+      width: 100%; display: flex;
+      align-items: center; justify-content: space-between;
+      margin-bottom: 3rem;
+    }
+    .nav-back {
+      font-size: 0.58rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
+      text-decoration: none; transition: color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .nav-back:hover { color: rgba(200,137,42,0.7); }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700;
+      color: rgba(255,255,255,0.15);
+    }
+    .nav-brand span { color: rgba(200,137,42,0.35); font-style: italic; }
+    .sub-label {
+      font-size: 0.55rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: rgba(200,137,42,0.45);
+      margin-bottom: 2.5rem; text-align: center;
+    }
+
+    /* ── Envelope ── */
+    .envelope-scene {
+      width: min(400px, 92vw); position: relative;
+      -webkit-perspective: 1200px; perspective: 1200px;
+    }
+    .env { position: relative; width: 100%; padding-top: 72%; }
+    .env-paper {
+      position: absolute; inset: 0; border-radius: 3px;
+      background-color: #f0ebe0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.45 0 0 0 0 0.35 0 0 0 0 0.2 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03' numOctaves='3' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.3 0 0 0 0 0.2 0 0 0 0 0.05 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+      box-shadow: 0 0 0 1px rgba(160,140,110,0.4), 0 30px 90px rgba(0,0,0,0.85), 0 8px 30px rgba(0,0,0,0.5);
+      overflow: hidden;
+    }
+    .env-paper::before {
+      content: ''; position: absolute;
+      top: -1px; left: -1px; right: -1px; height: 9px;
+      background: #f0ebe0; z-index: 20; pointer-events: none;
+      clip-path: polygon(0 100%,1% 10%,2% 90%,3% 20%,4% 80%,5% 5%,6% 90%,7% 25%,8% 75%,9% 15%,10% 85%,11% 30%,12% 70%,13% 10%,14% 80%,15% 25%,16% 75%,17% 5%,18% 90%,19% 20%,20% 80%,21% 10%,22% 85%,23% 35%,24% 65%,25% 15%,26% 80%,27% 25%,28% 75%,29% 10%,30% 90%,31% 20%,32% 80%,33% 40%,34% 60%,35% 10%,36% 85%,37% 20%,38% 80%,39% 30%,40% 70%,41% 5%,42% 90%,43% 25%,44% 75%,45% 15%,46% 85%,47% 30%,48% 70%,49% 10%,50% 90%,51% 20%,52% 80%,53% 35%,54% 65%,55% 10%,56% 85%,57% 25%,58% 75%,59% 15%,60% 80%,61% 5%,62% 90%,63% 25%,64% 75%,65% 15%,66% 85%,67% 30%,68% 70%,69% 10%,70% 80%,71% 20%,72% 85%,73% 35%,74% 65%,75% 5%,76% 90%,77% 20%,78% 80%,79% 30%,80% 70%,81% 10%,82% 85%,83% 25%,84% 75%,85% 15%,86% 80%,87% 30%,88% 70%,89% 10%,90% 85%,91% 20%,92% 80%,93% 35%,94% 65%,95% 10%,96% 85%,97% 25%,98% 75%,99% 15%,100% 70%,100% 0,0 0);
+    }
+    .env-paper::after {
+      content: ''; position: absolute;
+      bottom: -1px; left: -1px; right: -1px; height: 9px;
+      background: #f0ebe0; z-index: 20; pointer-events: none;
+      clip-path: polygon(0 0,1% 90%,2% 10%,3% 80%,4% 20%,5% 95%,6% 10%,7% 75%,8% 25%,9% 85%,10% 15%,11% 70%,12% 30%,13% 90%,14% 20%,15% 75%,16% 25%,17% 95%,18% 10%,19% 80%,20% 20%,21% 90%,22% 15%,23% 65%,24% 35%,25% 85%,26% 20%,27% 75%,28% 25%,29% 90%,30% 10%,31% 80%,32% 20%,33% 60%,34% 40%,35% 90%,36% 15%,37% 80%,38% 20%,39% 70%,40% 30%,41% 95%,42% 10%,43% 75%,44% 25%,45% 85%,46% 15%,47% 70%,48% 30%,49% 90%,50% 10%,51% 80%,52% 20%,53% 65%,54% 35%,55% 90%,56% 15%,57% 75%,58% 25%,59% 85%,60% 20%,61% 95%,62% 10%,63% 75%,64% 25%,65% 85%,66% 15%,67% 70%,68% 30%,69% 90%,70% 20%,71% 80%,72% 15%,73% 65%,74% 35%,75% 95%,76% 10%,77% 80%,78% 20%,79% 70%,80% 30%,81% 90%,82% 15%,83% 75%,84% 25%,85% 85%,86% 15%,87% 70%,88% 30%,89% 90%,90% 15%,91% 80%,92% 20%,93% 65%,94% 35%,95% 90%,96% 15%,97% 75%,98% 25%,99% 85%,100% 20%,100% 100%,0 100%);
+    }
+    .env-fold-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 55%;
+      background: rgba(0,0,0,0.04);
+      clip-path: polygon(0% 100%, 50% 18%, 100% 100%); z-index: 2;
+    }
+    .env-fold-left {
+      position: absolute; top: 0; bottom: 0; left: 0; width: 50%;
+      background: rgba(0,0,0,0.03);
+      clip-path: polygon(0% 0%, 100% 50%, 0% 100%); z-index: 3;
+    }
+    .env-fold-right {
+      position: absolute; top: 0; bottom: 0; right: 0; width: 50%;
+      background: rgba(0,0,0,0.03);
+      clip-path: polygon(100% 0%, 0% 50%, 100% 100%); z-index: 3;
+    }
+    .env-flap {
+      position: absolute; top: 0; left: 0; right: 0; height: 55%;
+      background: rgba(0,0,0,0.025);
+      clip-path: polygon(0% 0%, 100% 0%, 50% 82%);
+      transform-origin: top center;
+      transform: rotateX(0deg);
+      transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
+      z-index: 5;
+    }
+    .env-flap-line {
+      position: absolute; top: 53%; left: 0; right: 0;
+      height: 1px; background: rgba(100,80,50,0.12);
+      z-index: 6; transition: opacity 0.3s;
+    }
+    .envelope-scene.open .env-flap { transform: rotateX(-178deg); }
+    .envelope-scene.open .env-flap-line { opacity: 0; }
+
+    /* Wax seal */
+    .env-seal {
+      position: absolute; left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 15; width: 70px; height: 70px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #c42030, #7a0d18 65%, #4a0810);
+      box-shadow: 0 3px 14px rgba(100,10,20,0.7), 0 1px 4px rgba(0,0,0,0.6),
+        inset 0 -3px 8px rgba(0,0,0,0.4), inset 0 2px 6px rgba(255,160,160,0.1);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .env-seal:hover { transform: translate(-50%, -50%) scale(1.06); }
+    .env-seal:active { transform: translate(-50%, -50%) scale(0.95); }
+    .env-seal svg { width: 40px; height: 40px; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5)); }
+
+    .hint {
+      font-size: 0.56rem; letter-spacing: 0.24em;
+      text-transform: uppercase; color: rgba(255,255,255,0.28);
+      font-family: 'DM Mono', monospace;
+      margin-top: 1.4rem; text-align: center;
+      transition: opacity 0.4s;
+    }
+    .hint.hidden { opacity: 0; pointer-events: none; }
+
+    /* ── Letter ── */
+    .letter-wrap {
+      width: min(400px, 92vw);
+      max-height: 0; overflow: hidden;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0s;
+    }
+    .letter-wrap.open {
+      max-height: none; opacity: 1; pointer-events: auto;
+      animation: letterRise 0.65s 0.4s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    @keyframes letterRise {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Paper — matches reference image 1: warm off-white, fibrous, organic */
+    .letter-paper {
+      background-color: #ede6d3;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.009 0.42' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.42 0 0 0 0 0.28 0 0 0 0 0.1 0 0 0 0.13 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.38 0 0 0 0 0.24 0 0 0 0 0.07 0 0 0 0.065 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='700'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.022' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.35 0 0 0 0 0.2 0 0 0 0 0.04 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+      border-radius: 2px;
+      padding: 2.8rem 2.2rem 3rem;
+      position: relative;
+      box-shadow: 0 0 0 1px rgba(160,135,90,0.35), 0 20px 70px rgba(0,0,0,0.75), 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .letter-paper::before {
+      content: ''; position: absolute;
+      top: -5px; left: 0; right: 0; height: 7px;
+      background: #ede6d3;
+      clip-path: polygon(0% 100%,1.5% 0%,3% 100%,4.5% 20%,6% 100%,7.5% 0%,9% 100%,10.5% 35%,12% 100%,13.5% 5%,15% 100%,16.5% 30%,18% 100%,19.5% 10%,21% 100%,22.5% 25%,24% 100%,25.5% 0%,27% 100%,28.5% 20%,30% 100%,31.5% 5%,33% 100%,34.5% 30%,36% 100%,37.5% 10%,39% 100%,40.5% 25%,42% 100%,43.5% 0%,45% 100%,46.5% 20%,48% 100%,49.5% 5%,51% 100%,52.5% 30%,54% 100%,55.5% 10%,57% 100%,58.5% 25%,60% 100%,61.5% 0%,63% 100%,64.5% 20%,66% 100%,67.5% 5%,69% 100%,70.5% 30%,72% 100%,73.5% 10%,75% 100%,76.5% 25%,78% 100%,79.5% 0%,81% 100%,82.5% 20%,84% 100%,85.5% 5%,87% 100%,88.5% 30%,90% 100%,91.5% 10%,93% 100%,94.5% 25%,96% 100%,97.5% 0%,99% 100%,100% 50%,100% 100%,0% 100%);
+    }
+
+    .letter-salutation {
+      font-size: 0.7rem; letter-spacing: 0.12em;
+      color: rgba(60,35,15,0.45);
+      font-family: 'DM Mono', monospace;
+      margin-bottom: 1.4rem;
+    }
+    .letter-body {
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-size: 0.92rem;
+      line-height: 1.95; color: #1a1008;
+      white-space: pre-wrap;
+    }
+    .letter-rule {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(100,70,30,0.2), transparent);
+      margin: 1.8rem 0;
+    }
+    .letter-sig {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-weight: 700;
+      font-size: 1.25rem; color: #1a1008;
+      margin-top: 1.6rem; line-height: 1.5;
+    }
+    .letter-footer { text-align: center; padding: 2.5rem 0 0.5rem; }
+    .btn-return {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(255,255,255,0.28);
+      background: none; border: none; cursor: pointer;
+      text-decoration: underline; text-underline-offset: 3px;
+      -webkit-tap-highlight-color: transparent;
+      transition: color 0.2s;
+    }
+    .btn-return:hover { color: rgba(200,137,42,0.6); }
+
+    /* ── Force light rendering — resist browser forced dark mode ── */
+    @media (prefers-color-scheme: dark) {
+      .env-paper    { background-color: #f0ebe0 !important; }
+      .env-paper::before { background: #f0ebe0 !important; }
+      .env-paper::after  { background: #f0ebe0 !important; }
+      .env-flap, .env-fold-bottom, .env-fold-left, .env-fold-right {
+        /* Keep fold shadows subtle, not inverted */
+        filter: none !important;
+      }
+      .letter-paper { background-color: #ede6d3 !important; }
+      .letter-paper::before { background: #ede6d3 !important; }
+      .letter-body  { color: #1a1008 !important; }
+      .letter-sig   { color: #1a1008 !important; }
+      .letter-salutation { color: rgba(60,35,15,0.45) !important; }
+      .letter-rule  { background: linear-gradient(to right, transparent, rgba(100,70,30,0.2), transparent) !important; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <nav class="nav">
+    <a class="nav-back" href="index.html">← WordSpin</a>
+    <div class="nav-brand">Word<span>Spin</span><sup style="font-size:0.27em;vertical-align:super;letter-spacing:0;">™</sup></div>
+  </nav>
+  <p class="sub-label">From The Creator</p>
+
+  <div class="envelope-scene" id="envelopeScene">
+    <div class="env">
+      <div class="env-paper">
+        <div class="env-fold-bottom"></div>
+        <div class="env-fold-left"></div>
+        <div class="env-fold-right"></div>
+        <div class="env-flap" id="envFlap"></div>
+        <div class="env-flap-line"></div>
+        <div class="env-seal" id="waxSeal" role="button" aria-label="Open letter">
+          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="20" cy="25" rx="7.5" ry="4.8" fill="rgba(255,255,255,0.78)" transform="rotate(-12 20 25)"/>
+            <circle cx="29" cy="18" r="4.2" fill="rgba(255,255,255,0.78)"/>
+            <path d="M32.5 17 L38 16.2 L33 19.5" fill="rgba(255,255,255,0.88)"/>
+            <circle cx="30.5" cy="17" r="1" fill="rgba(80,8,12,0.8)"/>
+            <path d="M22 21 Q13 11 6 14 Q12 16.5 16.5 20.5 Q19.5 18.5 22 21Z" fill="rgba(255,255,255,0.72)"/>
+            <path d="M19 27 Q10 27 6 32 Q12 29.5 18.5 28Z" fill="rgba(255,255,255,0.58)"/>
+            <path d="M13 28 Q7 32 6 37 Q11 31.5 14.5 29.5Z" fill="rgba(255,255,255,0.65)"/>
+            <path d="M15 30 Q9 35 9 39 Q13 33.5 17 31Z" fill="rgba(255,255,255,0.52)"/>
+            <path d="M32 22 Q34 26.5 32 30" stroke="rgba(255,255,255,0.68)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+            <ellipse cx="35" cy="25" rx="2.5" ry="1.2" fill="rgba(255,255,255,0.55)" transform="rotate(28 35 25)"/>
+            <ellipse cx="33" cy="28.5" rx="2.3" ry="1.1" fill="rgba(255,255,255,0.48)" transform="rotate(-15 33 28.5)"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="hint" id="hint">Tap the wax seal to open</p>
+
+  <div class="letter-wrap" id="letterWrap">
+    <div class="letter-paper">
+      <div class="letter-salutation">WordSpin &nbsp;·&nbsp; From The Creator</div>
+      <div class="letter-salutation" style="margin-top:-1rem; margin-bottom:0.6rem; opacity:0.6;">27th April, 2026</div>
+      <div class="letter-rule"></div>
+      <div class="letter-body">If you have made it this far, you truly are curious! Thank you!!!
+
+This idea was created by a lover of words and the worlds that they can unlock. I fear that today, we (inclusive of myself) are too passive in our dealings and need to take (back) control of our minds before we lose them and find it too daunting to retrieve.
+
+As a first love instilled, or maybe already naturally occurring by an act of God, I created many word-centric games to play with my friends as a child. I had quite a knack for it! Unfortunately, as I grew and the pressure to be like everybody else did as well, I became overwhelmed and bent the knee. I muted the parts of myself that made me shine and bring light into the world because I was afraid and tired of being different.
+
+I want you to know that there is nothing wrong with being different. As long as you are not killing or stealing or lying or forcing yourself unto others — not respecting their consent, you are in a far better position because one mustn’t justify wrong in the name of good and excuse it with the words, “I’m different” or “but this is different”.
+
+There is that which comes from within that is good, and that which comes from within that is bad. There is no doubt however, that an innocence existed in us all that was eventually corrupted and continues to be, keeping us drifted from our core, our anchor.
+
+Depending on when you discover this letter, it is my prayer that your innocence returns with no shadows to stifle it because the core has been made known to you, and you are anchored in the name of Jesus!
+
+This is merely a tool to wake you up and keep you active.
+
+That said, I trust that finding this and reading it to this point is a good sign of you being well on your way to unlocking hidden treasures within and about yourself, and the world around you.
+
+God bless you.</div>
+      <div class="letter-rule"></div>
+      <span class="letter-sig">Truly,<br>MK.</span>
+    </div>
+    <div class="letter-footer">
+      <button class="btn-return" onclick="window.location.href='index.html'">← Return to WordSpin</button>
+    </div>
+  </div>
+
+</div>
+<script>
+  var seal       = document.getElementById('waxSeal');
+  var scene      = document.getElementById('envelopeScene');
+  var letterWrap = document.getElementById('letterWrap');
+  var hint       = document.getElementById('hint');
+  var opened     = false;
+
+  seal.addEventListener('click', function() {
+    if (opened) return;
+    opened = true;
+    scene.classList.add('open');
+    hint.classList.add('hidden');
+    setTimeout(function() {
+      letterWrap.classList.add('open');
+      setTimeout(function() {
+        letterWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }, 650);
+  });
+</script>
+</body>
+</html>
