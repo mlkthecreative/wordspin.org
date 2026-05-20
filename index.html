@@ -3576,7 +3576,7 @@
     front.classList.remove('revealed');
     wordEl.textContent = '?';
 
-    const STEPS = 7, STEP_MS = 85;
+    const STEPS = 6, STEP_MS = 90;
     let step = 0;
 
     // Resume audio context on user gesture
@@ -3584,35 +3584,42 @@
 
     function shuffleStep() {
       if(step >= STEPS) { dealCard(word, front, backs, wordEl); return; }
-      // Haptic + sound on each shuffle step
       if(step % 2 === 0) { doHaptic('shuffle'); playCardSound('shuffle'); }
       const dir = (step % 2 === 0) ? 1 : -1;
+      const easing = 'cubic-bezier(0.25,0.46,0.45,0.94)';
       backs.forEach((c, i) => {
         const spread = (i + 1) * 10 * dir;
         const lift   = -Math.abs(spread) * 0.3;
-        c.style.webkitTransition = '-webkit-transform ' + STEP_MS + 'ms cubic-bezier(0.25,0.46,0.45,0.94), transform ' + STEP_MS + 'ms cubic-bezier(0.25,0.46,0.45,0.94)';
-        c.style.transition = 'transform ' + STEP_MS + 'ms ease';
-        var ctf = 'perspective(900px) translateY(' + (lift - i*2) + 'px) translateX(' + (spread + i) + 'px) rotate(' + (spread * 0.35) + 'deg)';
-        c.style.webkitTransform = ctf;
-        c.style.transform = ctf;
+        var tf = 'perspective(900px) translateY(' + (lift - i*2) + 'px) translateX(' + (spread + i) + 'px) rotate(' + (spread * 0.35) + 'deg)';
+        c.style.webkitTransition = '-webkit-transform ' + STEP_MS + 'ms ' + easing;
+        c.style.transition       = 'transform ' + STEP_MS + 'ms ' + easing;
+        c.style.webkitTransform  = tf;
+        c.style.transform        = tf;
       });
       const w = (step % 2 === 0) ? -5 : 5;
-      front.style.webkitTransition = '-webkit-transform ' + STEP_MS + 'ms cubic-bezier(0.25,0.46,0.45,0.94), transform ' + STEP_MS + 'ms cubic-bezier(0.25,0.46,0.45,0.94)';
-      front.style.transition = 'transform ' + STEP_MS + 'ms ease';
       var ftf = 'perspective(900px) translateY(-5px) rotate(' + w + 'deg)';
-      front.style.webkitTransform = ftf;
-      front.style.transform = ftf;
+      front.style.webkitTransition = '-webkit-transform ' + STEP_MS + 'ms ' + easing;
+      front.style.transition       = 'transform ' + STEP_MS + 'ms ' + easing;
+      front.style.webkitTransform  = ftf;
+      front.style.transform        = ftf;
       step++;
       setTimeout(shuffleStep, STEP_MS);
     }
 
+    // Reset positions instantly before animating
     backs.forEach((c, i) => {
+      c.style.webkitTransition = 'none';
       c.style.transition = 'none';
-      c.style.transform  = `translateY(${i * -2}px) translateX(${i * 1}px)`;
+      c.style.webkitTransform = 'translateY(' + (i * -2) + 'px) translateX(' + (i * 1) + 'px)';
+      c.style.transform = 'translateY(' + (i * -2) + 'px) translateX(' + (i * 1) + 'px)';
     });
+    front.style.webkitTransition = 'none';
     front.style.transition = 'none';
-    front.style.transform  = '';
-    setTimeout(shuffleStep, 30);
+    front.style.webkitTransform = '';
+    front.style.transform = '';
+    // Force reflow so reset takes effect before animation starts
+    void deckArea.offsetWidth;
+    setTimeout(shuffleStep, 20);
   }
 
   function dealCard(word, front, backs, wordEl) {
@@ -4076,6 +4083,14 @@
   }
 
   // ── Init ──────────────────────────────────────────────────────
+  // Tapping the deck cards also triggers a shuffle
+  deckArea.addEventListener('pointerdown', function(e) {
+    if(e.target.closest('.deck-card') && !spinning) {
+      e.preventDefault();
+      spin();
+    }
+  });
+
   btnSpin.addEventListener('click', spin);
   btnSave.addEventListener('click', saveStory);
   btnClear.addEventListener('click', () => {
