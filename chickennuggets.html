@@ -404,7 +404,11 @@
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       /* Modal always uses its own solid background — never transparent */
-      background: var(--bg);
+      background-color: #ede6d3;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.009 0.42' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.42 0 0 0 0 0.28 0 0 0 0 0.1 0 0 0 0.13 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.38 0 0 0 0 0.24 0 0 0 0 0.07 0 0 0 0.065 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='700'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.022' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.35 0 0 0 0 0.2 0 0 0 0 0.04 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
     }
     .story-modal.open { display: block; }
 
@@ -420,8 +424,8 @@
     /* Modal header bar */
     .modal-topbar {
       position: sticky; top: 0; z-index: 2;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
+      background: rgba(237,230,211,0.97);
+      border-bottom: 1px solid rgba(160,130,70,0.25);
       padding: 1rem 1.4rem;
       display: flex; align-items: center; justify-content: space-between;
     }
@@ -430,7 +434,7 @@
       font-size: 0.6rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--amber);
+      color: #8a6a2a;
       font-family: 'DM Mono', monospace;
       background: none;
       border: none;
@@ -475,7 +479,7 @@
     .story-body {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic; font-size: 1.18rem;
-      line-height: 2; color: var(--ink);
+      line-height: 2; color: #1a1008;
       white-space: pre-wrap;
     }
     .story-sig {
@@ -547,11 +551,24 @@
       transition: opacity 0.2s, transform 0.2s;
     }
     .kahawa-wrap:hover { opacity: 1; -webkit-transform: translateY(-3px); transform: translateY(-3px); }
+
+    /* ── Mug beans — colour by theme ── */
+    .bean-outer { fill: #7a4a10; }  /* dark mode: brown */
+    .bean-inner { fill: #9a6a20; }
+    .bean-crease { stroke: #5a3008; }
+    :root[data-theme="light"] .bean-outer { fill: #c8892a; }  /* light mode: amber rim colour */
+    :root[data-theme="light"] .bean-inner { fill: #d4993a; }
+    :root[data-theme="light"] .bean-crease { stroke: #a87020; }
+
     .kahawa-mug {
-      width: 110px;
+      width: 140px;
       height: auto;
       overflow: visible;
       filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5));
+    }
+    /* Dark mode mug — cream/off-white tint */
+    :root[data-theme="dark"] .kahawa-mug {
+      filter: sepia(0.2) saturate(0.3) brightness(2.2) contrast(0.85);
     }
 
     /* Light mode text safety */
@@ -580,7 +597,7 @@
 <div class="page">
 
   <nav class="nav">
-    <a class="nav-back" href="https://wordspin.org">← WordSpin</a>
+    <a class="nav-back" href="https://wordspin.org">← Back to WordSpin</a>
     <div class="nav-brand">Word<span>Spin</span><sup style="font-size:0.27em;vertical-align:super;letter-spacing:0;">™</sup></div>
   </nav>
 
@@ -641,45 +658,87 @@
   <a href="#" id="donateBtn" class="kahawa-wrap" onclick="openKahawa(); return false;">
 
     <!-- Coffee mug SVG -->
-    <svg class="kahawa-mug" viewBox="0 0 120 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Steam wisps -->
-      <path d="M38 22 Q35 14 38 8 Q41 2 38 0" stroke="#c8892a" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.5">
-        <animate attributeName="opacity" values="0.5;0.15;0.5" dur="2.2s" repeatCount="indefinite"/>
-        <animate attributeName="d" values="M38 22 Q35 14 38 8 Q41 2 38 0;M38 22 Q41 14 38 8 Q35 2 38 0;M38 22 Q35 14 38 8 Q41 2 38 0" dur="2.2s" repeatCount="indefinite"/>
-      </path>
-      <path d="M52 20 Q49 12 52 6 Q55 0 52 -2" stroke="#c8892a" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.4">
-        <animate attributeName="opacity" values="0.4;0.1;0.4" dur="1.8s" begin="0.4s" repeatCount="indefinite"/>
-        <animate attributeName="d" values="M52 20 Q55 12 52 6 Q49 0 52 -2;M52 20 Q49 12 52 6 Q55 0 52 -2;M52 20 Q55 12 52 6 Q49 0 52 -2" dur="1.8s" begin="0.4s" repeatCount="indefinite"/>
-      </path>
-      <path d="M66 22 Q63 13 66 7 Q69 1 66 -1" stroke="#c8892a" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.5">
-        <animate attributeName="opacity" values="0.5;0.2;0.5" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
-        <animate attributeName="d" values="M66 22 Q69 13 66 7 Q63 1 66 -1;M66 22 Q63 13 66 7 Q69 1 66 -1;M66 22 Q69 13 66 7 Q63 1 66 -1" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
-      </path>
+    <svg class="kahawa-mug" viewBox="0 0 160 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Warm glow on mug face -->
+        <radialGradient id="mugGlow" cx="42%" cy="55%" r="55%">
+          <stop offset="0%"   stop-color="#7a4a10" stop-opacity="1"/>
+          <stop offset="60%"  stop-color="#3a1e08" stop-opacity="1"/>
+          <stop offset="100%" stop-color="#1a0a02" stop-opacity="1"/>
+        </radialGradient>
+        <!-- Rim top gradient -->
+        <linearGradient id="rimGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="#c8892a"/>
+          <stop offset="100%" stop-color="#7a4a10"/>
+        </linearGradient>
+        <!-- Saucer gradient -->
+        <radialGradient id="saucerGlow" cx="50%" cy="30%" r="60%">
+          <stop offset="0%"   stop-color="#5a3008"/>
+          <stop offset="100%" stop-color="#1a0a02"/>
+        </radialGradient>
+        <!-- Warm spotlight on page -->
+        <radialGradient id="spotlight" cx="50%" cy="60%" r="50%">
+          <stop offset="0%"   stop-color="#c8892a" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#c8892a" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
 
-      <!-- Mug body -->
-      <path d="M18 30 L24 95 Q24 100 30 100 L90 100 Q96 100 96 95 L102 30 Z" fill="#1a1008"/>
-      <!-- Mug body highlight -->
-      <path d="M22 30 L27.5 90 Q27.5 96 32 96 L88 96 Q92.5 96 92.5 90 L98 30 Z" fill="#2a1a0a"/>
-
-      <!-- Coffee liquid surface -->
-      <ellipse cx="60" cy="38" rx="40" ry="6" fill="#8b4513"/>
-      <ellipse cx="60" cy="37" rx="38" ry="4.5" fill="#c8892a" opacity="0.4"/>
-
-      <!-- Mug rim -->
-      <rect x="16" y="26" width="88" height="8" rx="4" fill="#2a1a0a"/>
-      <rect x="18" y="27" width="84" height="5" rx="3" fill="#3a2510" opacity="0.8"/>
-
-      <!-- Handle -->
-      <path d="M96 45 Q118 45 118 62 Q118 79 96 79" stroke="#2a1a0a" stroke-width="10" fill="none" stroke-linecap="round"/>
-      <path d="M96 45 Q114 45 114 62 Q114 79 96 79" stroke="#3a2510" stroke-width="6" fill="none" stroke-linecap="round"/>
-
-      <!-- Kahawa Kadogo text on mug -->
-      <text x="60" y="68" font-family="Georgia,serif" font-size="9.5" font-style="italic" font-weight="bold" fill="#c8892a" text-anchor="middle" opacity="0.9">Kahawa</text>
-      <text x="60" y="82" font-family="Georgia,serif" font-size="9.5" font-style="italic" font-weight="bold" fill="#c8892a" text-anchor="middle" opacity="0.9">Kadogo?</text>
+      <!-- Warm spotlight glow behind mug -->
+      <ellipse cx="80" cy="118" rx="70" ry="32" fill="url(#spotlight)"/>
 
       <!-- Saucer -->
-      <ellipse cx="60" cy="103" rx="52" ry="7" fill="#1a1008"/>
-      <ellipse cx="60" cy="102" rx="50" ry="5.5" fill="#2a1a0a"/>
+      <ellipse cx="80" cy="126" rx="56" ry="11" fill="url(#saucerGlow)"/>
+      <ellipse cx="80" cy="124" rx="54" ry="9"  fill="#3a1e08"/>
+      <ellipse cx="80" cy="123" rx="50" ry="7"  fill="#4a2810"/>
+      <!-- Saucer inner ring -->
+      <ellipse cx="80" cy="122" rx="28" ry="4"  fill="#2a1208" opacity="0.6"/>
+
+      <!-- Mug body -->
+      <path d="M28 52 L32 118 Q32 124 38 124 L122 124 Q128 124 128 118 L132 52 Z" fill="#1a0a02"/>
+      <path d="M28 52 L32 118 Q32 124 38 124 L122 124 Q128 124 128 118 L132 52 Z" fill="url(#mugGlow)"/>
+
+      <!-- Mug rim (top band) -->
+      <path d="M26 50 Q26 44 80 44 Q134 44 134 50 L134 56 Q134 62 80 62 Q26 62 26 56 Z" fill="url(#rimGrad)"/>
+      <!-- Rim top ellipse -->
+      <ellipse cx="80" cy="50" rx="54" ry="8" fill="#c8892a"/>
+      <ellipse cx="80" cy="49" rx="52" ry="6" fill="#d4993a"/>
+      <!-- Coffee surface inside rim -->
+      <ellipse cx="80" cy="50" rx="46" ry="5" fill="#1a0a02"/>
+      <ellipse cx="80" cy="50" rx="44" ry="4" fill="#2a1208"/>
+
+      <!-- Handle -->
+      <path d="M128 68 Q156 68 156 88 Q156 110 128 110" stroke="#3a1e08" stroke-width="12" fill="none" stroke-linecap="round"/>
+      <path d="M128 68 Q152 68 152 88 Q152 110 128 110" stroke="#5a3010" stroke-width="7"  fill="none" stroke-linecap="round"/>
+      <!-- Handle highlight -->
+      <path d="M130 72 Q148 72 148 88 Q148 106 130 106" stroke="#c8892a" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+      <!-- Three coffee beans on mug face -->
+      <!-- Bean left -->
+      <ellipse class="bean-outer" cx="58" cy="91" rx="7" ry="11" transform="rotate(-20 58 95)"/>
+      <ellipse class="bean-inner" cx="58" cy="91" rx="5.5" ry="9.5" transform="rotate(-20 58 95)"/>
+      <path class="bean-crease" d="M58 82 Q61 91 58 100" stroke-width="1.2" stroke-linecap="round" fill="none" transform="rotate(-20 58 95)" opacity="0.7"/>
+      <!-- Bean centre -->
+      <ellipse class="bean-outer" cx="78" cy="97" rx="7" ry="11"/>
+      <ellipse class="bean-inner" cx="78" cy="97" rx="5.5" ry="9.5"/>
+      <path class="bean-crease" d="M78 88 Q81 97 78 106" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.7"/>
+      <!-- Bean right -->
+      <ellipse class="bean-outer" cx="97" cy="89" rx="7" ry="11" transform="rotate(22 97 93)"/>
+      <ellipse class="bean-inner" cx="97" cy="89" rx="5.5" ry="9.5" transform="rotate(22 97 93)"/>
+      <path class="bean-crease" d="M97 80 Q100 89 97 98" stroke-width="1.2" stroke-linecap="round" fill="none" transform="rotate(22 97 93)" opacity="0.7"/>
+
+      <!-- Steam wisps -->
+      <path d="M58 38 Q54 28 58 20 Q62 12 58 4" stroke="#c8892a" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.45">
+        <animate attributeName="opacity" values="0.45;0.1;0.45" dur="2.4s" repeatCount="indefinite"/>
+        <animate attributeName="d" values="M58 38 Q54 28 58 20 Q62 12 58 4;M58 38 Q62 28 58 20 Q54 12 58 4;M58 38 Q54 28 58 20 Q62 12 58 4" dur="2.4s" repeatCount="indefinite"/>
+      </path>
+      <path d="M80 36 Q76 26 80 18 Q84 10 80 2" stroke="#c8892a" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.5">
+        <animate attributeName="opacity" values="0.5;0.12;0.5" dur="1.9s" begin="0.5s" repeatCount="indefinite"/>
+        <animate attributeName="d" values="M80 36 Q84 26 80 18 Q76 10 80 2;M80 36 Q76 26 80 18 Q84 10 80 2;M80 36 Q84 26 80 18 Q76 10 80 2" dur="1.9s" begin="0.5s" repeatCount="indefinite"/>
+      </path>
+      <path d="M102 38 Q98 28 102 20 Q106 12 102 4" stroke="#c8892a" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.4">
+        <animate attributeName="opacity" values="0.4;0.08;0.4" dur="2.7s" begin="1s" repeatCount="indefinite"/>
+        <animate attributeName="d" values="M102 38 Q106 28 102 20 Q98 12 102 4;M102 38 Q98 28 102 18 Q106 10 102 4;M102 38 Q106 28 102 20 Q98 12 102 4" dur="2.7s" begin="1s" repeatCount="indefinite"/>
+      </path>
     </svg>
 
   </a>
@@ -1002,26 +1061,8 @@ Inner meaning here could be that we sleep on the things that matter and could fe
 <!-- ── Kahawa Kadogo popup ── -->
 <div class="kahawa-backdrop" id="kahawaBackdrop"></div>
 <div class="kahawa-popup" id="kahawaPopup">
-  <!-- Three coffee beans -->
   <div class="kahawa-popup-beans">
-    <!-- Bean 1 — tilted left -->
-    <svg width="28" height="40" viewBox="0 0 28 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="-webkit-transform:rotate(-18deg);transform:rotate(-18deg);">
-      <ellipse cx="14" cy="20" rx="10" ry="16" fill="#4a2800"/>
-      <ellipse cx="14" cy="20" rx="8.5" ry="14.5" fill="#6b3a10"/>
-      <path d="M14 6 Q17 20 14 34" stroke="#3a1a00" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-    </svg>
-    <!-- Bean 2 — upright, slightly bigger -->
-    <svg width="32" height="46" viewBox="0 0 32 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="16" cy="23" rx="12" ry="19" fill="#4a2800"/>
-      <ellipse cx="16" cy="23" rx="10" ry="17" fill="#7a4a10"/>
-      <path d="M16 6 Q20 23 16 40" stroke="#3a1a00" stroke-width="2" stroke-linecap="round" fill="none"/>
-    </svg>
-    <!-- Bean 3 — tilted right -->
-    <svg width="28" height="40" viewBox="0 0 28 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="-webkit-transform:rotate(18deg);transform:rotate(18deg);">
-      <ellipse cx="14" cy="20" rx="10" ry="16" fill="#4a2800"/>
-      <ellipse cx="14" cy="20" rx="8.5" ry="14.5" fill="#6b3a10"/>
-      <path d="M14 6 Q17 20 14 34" stroke="#3a1a00" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-    </svg>
+    <span style="font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.3rem;color:var(--amber);letter-spacing:0.02em;">Kahawa Kadogo</span>
   </div>
   <p class="kahawa-popup-msg">If you have found value in the game or been left chewing on food for thought under Chicken Nuggets, do consider leaving a donation to not only encourage the author, but promote the growth of the WordSpin platform.</p>
   <a class="kahawa-continue" href="https://paystack.shop/pay/uie97cp07t" target="_blank" rel="noopener" id="kahawaContinue">Continue</a>
