@@ -3383,7 +3383,7 @@
     spinCount.textContent = `${spinTotal} shuffle${spinTotal !== 1 ? 's' : ''}`;
     chosenWord.textContent = word;
 
-    // Show definition button if definition exists
+    // Prepare definition
     const wordData = getWordData(word);
     defWordTitle.textContent = word + ' —';
     if(wordData) {
@@ -3397,16 +3397,19 @@
     }
     defToggle.style.display = 'inline-block';
 
-    chosenSec.classList.add('visible');
-    storySec.classList.add('visible');
-    storyInput.value = '';
-    updateWordCount();
-
-    // Scroll so YOUR PROMPT sits near top — shuffle button fully out of view
+    // Wait — let the user see the word on the card before anything moves
     setTimeout(function() {
-      var top = chosenSec.getBoundingClientRect().top + window.pageYOffset - 30;
-      window.scrollTo({ top: top, behavior: 'smooth' });
-    }, 120);
+      chosenSec.classList.add('visible');
+      storySec.classList.add('visible');
+      storyInput.value = '';
+      updateWordCount();
+
+      // Then scroll after sections are visible
+      setTimeout(function() {
+        var top = chosenSec.getBoundingClientRect().top + window.pageYOffset - 30;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }, 200);
+    }, 1200);
   }
   function updateWordCount() {
     const words = storyInput.value.trim().split(/\s+/).filter(Boolean).length;
