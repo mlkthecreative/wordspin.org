@@ -177,10 +177,12 @@
     }
     .nav-back {
       font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
-      color: rgba(255,255,255,0.3); text-decoration: none;
+      color: rgba(200,137,42,0.5); text-decoration: none;
       transition: color 0.2s; -webkit-tap-highlight-color: transparent;
     }
-    .nav-back:hover { color: rgba(200,137,42,0.7); }
+    .nav-back:hover { color: rgba(200,137,42,0.8); }
+    :root[data-theme="light"] .nav-back { color: rgba(160,100,20,0.6); }
+    :root[data-theme="light"] .nav-back:hover { color: rgba(160,100,20,0.9); }
     .nav-brand {
       font-family: 'Playfair Display', serif;
       font-size: 1rem; font-weight: 700; color: rgba(255,255,255,0.15);
