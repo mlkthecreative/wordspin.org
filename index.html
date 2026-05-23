@@ -1243,19 +1243,24 @@
     .modal-edit-area {
       display: none;
       width: 100%;
-      min-height: 180px;
+      min-height: 220px;
+      /* Auto-expand: height is set by JS, overflow hidden prevents internal scroll */
+      overflow: hidden;
+      resize: none;
       background: var(--input-bg);
       border: 1.5px solid var(--border);
       border-radius: 2px;
       font-family: 'Playfair Display', serif;
-      font-size: 1rem; font-style: italic;
-      line-height: 1.85; color: var(--ink);
-      padding: 1rem 1.2rem;
-      resize: vertical; outline: none;
-      box-shadow: 3px 3px 0 var(--border);
+      font-size: 1.05rem;
+      font-style: italic;
+      line-height: 1.85;
+      color: var(--ink);
+      padding: 1.4rem 1.6rem;
+      outline: none;
+      box-shadow: 4px 4px 0 var(--border);
       transition: border-color 0.2s, box-shadow 0.2s;
     }
-    .modal-edit-area:focus { border-color: var(--amber); box-shadow: 3px 3px 0 var(--amber); }
+    .modal-edit-area:focus { border-color: var(--amber); box-shadow: 4px 4px 0 var(--amber); }
 
     .modal-actions {
       display: flex;
@@ -3432,6 +3437,15 @@
   // Initialise on page load
   autoResizeTextarea();
 
+  // Auto-resize modal edit textarea — same logic as main textarea
+  function autoResizeModalTextarea() {
+    const modalEditArea = document.getElementById('modalEditArea');
+    if(!modalEditArea) return; // Safety check
+    modalEditArea.style.height = 'auto';
+    var newH = Math.max(220, modalEditArea.scrollHeight);
+    modalEditArea.style.height = newH + 'px';
+  }
+
   // saveStory defined below with Firebase support
 
   // ── Render saved — with bundles of 10 ────────────────────────
@@ -3676,6 +3690,8 @@
     modalSaveBtn.style.display = 'inline-block';
     modalCancelBtn.style.display = 'inline-block';
     modalEditArea.focus();
+    // Auto-expand textarea to fit content on open
+    autoResizeModalTextarea();
   }
 
   function exitEditMode() {
@@ -3688,6 +3704,9 @@
   }
 
   modalEditBtn.addEventListener('click', enterEditMode);
+
+  // Auto-resize modal textarea as user types
+  modalEditArea.addEventListener('input', autoResizeModalTextarea);
 
   modalCancelBtn.addEventListener('click', () => {
     modalEditArea.value = stories[modalStoryIndex].text; // reset
