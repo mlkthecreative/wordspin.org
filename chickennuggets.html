@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Chicken Nuggets</title>
   <meta name="description" content="Short stories inspired by single words. From the WordSpin universe."/>
   <meta name="robots" content="index, follow"/>
@@ -456,40 +456,6 @@
       background: transparent;
     }
 
-    /* Tablet: wider column, more padding */
-    @media (min-width: 700px) {
-      .story-modal-inner {
-        max-width: 680px;
-      }
-      .story-content {
-        padding: 3rem 3rem 2rem;
-      }
-      .modal-topbar {
-        padding: 1.1rem 3rem;
-      }
-    }
-
-    /* Desktop: two-column feel — wide margins frame a readable column */
-    @media (min-width: 1024px) {
-      .story-modal-inner {
-        max-width: 820px;
-      }
-      .story-content {
-        padding: 4rem 6rem 3rem;
-        column-count: 2;
-        column-gap: 4rem;
-        column-rule: 1px solid rgba(200,137,42,0.12);
-      }
-      .story-headline, .story-meta, .story-rule,
-      .story-heading, .story-verse, .story-sig,
-      .story-share, .scripture-block {
-        column-span: all;
-      }
-      .modal-topbar {
-        padding: 1.1rem 6rem;
-      }
-    }
-
     /* Modal header bar */
     .modal-topbar {
       position: sticky; top: 0; z-index: 2;
@@ -501,6 +467,28 @@
     :root[data-theme="dark"] .modal-topbar {
       background: rgba(10,10,10,0.97);
       border-bottom-color: rgba(200,137,42,0.15);
+    }
+
+    /* Tablet */
+    @media (min-width: 700px) {
+      .story-modal-inner { max-width: 680px; }
+      .story-content { padding: 3rem 3rem 2rem; }
+      .modal-topbar { padding: 1.1rem 3rem; }
+    }
+
+    /* Desktop: two-column */
+    @media (min-width: 1024px) {
+      .story-modal-inner { max-width: 820px; }
+      .story-content {
+        padding: 4rem 6rem 3rem;
+        column-count: 2;
+        column-gap: 4rem;
+        column-rule: 1px solid rgba(200,137,42,0.12);
+      }
+      .story-headline, .story-meta, .story-rule,
+      .story-heading, .story-verse, .story-sig,
+      .story-share, .scripture-block { column-span: all; }
+      .modal-topbar { padding: 1.1rem 6rem; }
     }
 
     /* Text size controls */
@@ -1390,7 +1378,7 @@ Inner meaning here could be that we sleep on the things that matter and could fe
   });
 
   // ── Direct story links via URL hash ──────────────────────────────
-  (function() {
+  document.addEventListener('DOMContentLoaded', function() {
     var hashMap = { 'pain': 'storyModal2', 'sleep': 'storyModal', 'scar': 'storyModal3' };
     var backdropMap = { 'pain': 'storyBackdrop2', 'sleep': 'storyBackdrop', 'scar': 'storyBackdrop3' };
     var hash = window.location.hash.replace('#', '').toLowerCase();
@@ -1398,16 +1386,13 @@ Inner meaning here could be that we sleep on the things that matter and could fe
       var modal = document.getElementById(hashMap[hash]);
       var backdrop = document.getElementById(backdropMap[hash]);
       var bg = document.getElementById('storyModalBg');
-      if(modal) {
-        modal.classList.add('open');
-        modal.scrollTop = 0;
-      }
+      if(modal) { modal.classList.add('open'); modal.scrollTop = 0; }
       if(backdrop) backdrop.classList.add('open');
       if(bg) bg.classList.add('open');
       document.body.style.overflow = 'hidden';
       document.documentElement.classList.add('story-open');
     }
-  })();
+  });
 
 </script>
 
