@@ -1215,15 +1215,8 @@
       padding: 2rem 2rem 2.4rem;
       z-index: 9001;
       box-shadow: 8px 8px 0 #c8bfa6, 0 20px 60px rgba(26,16,8,0.35);
-      transition: top 0.2s ease, transform 0.2s ease, max-height 0.2s ease;
     }
     .modal.open { display: block; }
-    /* When editing, JS uses visualViewport to set exact position above keyboard */
-    .modal.editing {
-      top: 2vh;
-      transform: translateX(-50%);
-      max-height: 96vh;
-    }
 
     /* hide the drag handle — not needed for centred modal */
     .modal-handle { display: none; }
@@ -1246,13 +1239,13 @@
       line-height: 1.9; color: var(--ink); white-space: pre-wrap;
     }
 
-    /* Edit mode textarea inside modal */
+    /* Edit mode textarea — fixed height, scrolls internally */
     .modal-edit-area {
       display: none;
       width: 100%;
-      min-height: 220px;
-      /* Auto-expand: height is set by JS, overflow hidden prevents internal scroll */
-      overflow: hidden;
+      height: 45vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       resize: none;
       background: var(--input-bg);
       border: 1.5px solid var(--border);
@@ -3696,9 +3689,8 @@
     modalEditBtn.style.display = 'none';
     modalSaveBtn.style.display = 'inline-block';
     modalCancelBtn.style.display = 'inline-block';
-    storyModal.classList.add('editing');
-    modalEditArea.focus();
     autoResizeModalTextarea();
+    modalEditArea.focus();
   }
 
   function exitEditMode() {
@@ -3708,23 +3700,6 @@
     modalEditBtn.style.display = 'inline-block';
     modalSaveBtn.style.display = 'none';
     modalCancelBtn.style.display = 'none';
-    storyModal.classList.remove('editing');
-    // Reset modal position
-    storyModal.style.top = '';
-    storyModal.style.maxHeight = '';
-    storyModal.style.transform = '';
-  }
-
-  // Resize modal when keyboard opens/closes
-  if(window.visualViewport) {
-    window.visualViewport.addEventListener('resize', function() {
-      if(!isEditing) return;
-      var vvHeight = window.visualViewport.height;
-      var vvTop = window.visualViewport.offsetTop;
-      storyModal.style.top = (vvTop + 8) + 'px';
-      storyModal.style.maxHeight = (vvHeight - 16) + 'px';
-      storyModal.style.transform = 'translateX(-50%)';
-    });
   }
 
   modalEditBtn.addEventListener('click', enterEditMode);
