@@ -153,6 +153,14 @@
       overflow-x: hidden;
     }
 
+    /* When a story modal is open, force html/body to match paper background */
+    html.story-open {
+      background: var(--paper);
+    }
+    html.story-open body {
+      background: var(--paper);
+    }
+
     /* Page grain */
     body::before {
       content: '';
@@ -404,22 +412,35 @@
       top: 0; left: 0; right: 0; bottom: 0;
       z-index: 9001;
       overflow-y: auto;
+      overflow-x: hidden;
       -webkit-overflow-scrolling: touch;
-      /* Background respects theme with paper texture */
+      background: var(--paper);
+    }
+    .story-modal.open { display: block; }
+
+    /* Fixed texture layer - lives outside modal so position:fixed works on mobile */
+    .story-modal-bg {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 9000;
+      pointer-events: none;
       background-color: var(--paper);
       background-image:
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.009 0.42' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.42 0 0 0 0 0.28 0 0 0 0 0.1 0 0 0 0.13 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"),
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.38 0 0 0 0 0.24 0 0 0 0 0.07 0 0 0 0.065 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"),
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='700'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.022' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.35 0 0 0 0 0.2 0 0 0 0 0.04 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
     }
-    .story-modal.open { display: block; }
+    .story-modal-bg.open { display: block; }
 
     .story-modal-inner {
-      min-height: 100%;
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
       max-width: 560px;
       margin: 0 auto;
-      padding: 0 0 4rem;
-      display: flex; flex-direction: column;
+      padding: 0 0 8rem;
       background: transparent;
     }
 
@@ -434,6 +455,47 @@
     :root[data-theme="dark"] .modal-topbar {
       background: rgba(10,10,10,0.97);
       border-bottom-color: rgba(200,137,42,0.15);
+    }
+
+    /* Text size controls */
+    .text-size-controls {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .text-size-btn {
+      padding: 0.4rem 0.65rem;
+      border: 1px solid rgba(160,130,70,0.3);
+      background: transparent;
+      color: #8a6a2a;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      border-radius: 3px;
+      transition: all 0.2s;
+    }
+    .text-size-btn:hover {
+      background: rgba(160,130,70,0.1);
+      border-color: rgba(160,130,70,0.5);
+    }
+    .text-size-btn.active {
+      background: #c8892a;
+      color: #faf6ee;
+      border-color: #c8892a;
+    }
+    :root[data-theme="dark"] .text-size-btn {
+      color: var(--amber);
+      border-color: rgba(200,137,42,0.3);
+    }
+    :root[data-theme="dark"] .text-size-btn:hover {
+      background: rgba(200,137,42,0.2);
+      border-color: rgba(200,137,42,0.6);
+    }
+    :root[data-theme="dark"] .text-size-btn.active {
+      background: var(--amber);
+      color: #0a0a0a;
+      border-color: var(--amber);
     }
     .modal-back {
       display: inline-block;
@@ -459,9 +521,33 @@
       padding: 2.2rem 1.6rem 2rem;
     }
 
+    /* Text size options - scale via custom property */
+    .story-content { --ts: 1; }
+    .story-content.text-small  { --ts: 0.85; }
+    .story-content.text-normal { --ts: 1; }
+    .story-content.text-large  { --ts: 1.18; }
+    .story-content.text-xlarge { --ts: 1.38; }
+
+    /* All story text elements scale with --ts */
+    .story-para, .story-body {
+      font-size: calc(1.18rem * var(--ts));
+    }
+    .story-headline {
+      font-size: calc(1.5rem * var(--ts));
+    }
+    .story-verse {
+      font-size: calc(1.2rem * var(--ts));
+    }
+    .story-heading {
+      font-size: calc(1.2rem * var(--ts));
+    }
+    .scripture-block {
+      font-size: calc(1.1rem * var(--ts));
+    }
+
     .story-headline {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem; font-style: italic; font-weight: 600;
+      font-style: italic; font-weight: 600;
       color: #c85a18; line-height: 1.4;
       margin-bottom: 0.4rem;
     }
@@ -477,14 +563,14 @@
     }
     .story-verse {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem; font-style: italic;
+      font-style: italic;
       color: #c85a18; line-height: 1.9;
       border-left: 2px solid rgba(200,90,24,0.4);
       padding-left: 1rem; margin-bottom: 1.4rem;
     }
     .story-body {
       font-family: 'Cormorant Garamond', serif;
-      font-style: italic; font-size: 1.18rem;
+      font-style: italic;
       line-height: 2; color: var(--ink);
       white-space: pre-wrap;
     }
@@ -495,7 +581,95 @@
       font-size: 1.2rem; color: var(--muted);
       margin-top: 2rem; line-height: 1.5;
     }
+    .story-heading {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--amber); text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 2rem 0 0;
+      line-height: 1.4;
+    }
 
+    /* Story links - inline clickable text and headings */
+    .story-link {
+      color: var(--amber);
+      text-decoration: none;
+      border-bottom: 1px solid var(--amber);
+      transition: opacity 0.2s;
+      cursor: pointer;
+    }
+    :root[data-theme="light"] .story-link {
+      color: #8a5a00;
+      border-bottom-color: #8a5a00;
+    }
+    .story-link:hover {
+      opacity: 0.7;
+    }
+    .story-heading .story-link {
+      border-bottom: none;
+      text-decoration: none;
+    }
+
+    /* Inline note popup */
+    .story-note-wrap {
+      position: relative;
+      display: inline;
+    }
+    .story-note-trigger {
+      color: var(--amber);
+      border-bottom: 1px dashed var(--amber);
+      cursor: pointer;
+    }
+    :root[data-theme="light"] .story-note-trigger {
+      color: #8a5a00;
+      border-bottom-color: #8a5a00;
+    }
+      -webkit-tap-highlight-color: transparent;
+    }
+    .story-note-popup {
+      display: none;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      background: var(--paper);
+      border: 1px solid rgba(200,137,42,0.4);
+      border-radius: 10px;
+      padding: 1.4rem 1.6rem;
+      max-width: 300px;
+      width: 85vw;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--ink);
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    }
+    .story-note-popup.open { display: block; }
+    .story-note-close {
+      display: block;
+      margin-top: 1rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      color: var(--amber);
+      text-transform: uppercase;
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: center;
+    }
+    .story-note-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 9998;
+      background: rgba(0,0,0,0.4);
+    }
+    .story-note-overlay.open { display: block; }
 
     /* Scripture blocks */
     .scripture-block {
@@ -504,7 +678,6 @@
       margin: 1.4rem 0;
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 1.1rem;
       line-height: 1.9;
       color: #5a8ab0;
     }
@@ -537,10 +710,9 @@
     .story-para {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 1.18rem;
       line-height: 2;
       color: var(--ink);
-      margin-bottom: 1.4rem;
+      margin-bottom: 2.4rem;
     }
 
     /* ── Kahawa Kadogo mug ── */
@@ -634,6 +806,16 @@
       <div class="card-pip-row bot"><span><svg width="14" height="11" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 Q2 10 4 7 Q6 3 10 2 Q14 1 17 3 Q21 4 22 8 Q24 12 22 16 Q20 19 16 20 Q12 21 9 20 Q5 18 4 14Z" fill="#c8892a" opacity="0.7"/><path d="M7 12 Q6.5 10 8 8 Q10 6 12.5 6 Q15.5 6 17 8.5 Q18.5 11 17.5 14 Q16.5 17 13.5 17.5 Q10.5 18 8.5 16 Q7 14.5 7 12Z" fill="#e8b050" opacity="0.7"/></svg></span><span><svg width="14" height="11" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 Q2 10 4 7 Q6 3 10 2 Q14 1 17 3 Q21 4 22 8 Q24 12 22 16 Q20 19 16 20 Q12 21 9 20 Q5 18 4 14Z" fill="#c8892a" opacity="0.7"/><path d="M7 12 Q6.5 10 8 8 Q10 6 12.5 6 Q15.5 6 17 8.5 Q18.5 11 17.5 14 Q16.5 17 13.5 17.5 Q10.5 18 8.5 16 Q7 14.5 7 12Z" fill="#e8b050" opacity="0.7"/></svg></span></div>
     </div>
 
+    <!-- Story card: Scar (index 2) -->
+    <div class="cn-card cn-story cn-story-2" id="storyCard2" role="button" aria-label="Read Scar story">
+      <div class="card-amber-bar">Word Prompt</div>
+      <div class="card-pip-row top"><span><svg width="14" height="11" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 Q2 10 4 7 Q6 3 10 2 Q14 1 17 3 Q21 4 22 8 Q24 12 22 16 Q20 19 16 20 Q12 21 9 20 Q5 18 4 14Z" fill="#c8892a" opacity="0.7"/><path d="M7 12 Q6.5 10 8 8 Q10 6 12.5 6 Q15.5 6 17 8.5 Q18.5 11 17.5 14 Q16.5 17 13.5 17.5 Q10.5 18 8.5 16 Q7 14.5 7 12Z" fill="#e8b050" opacity="0.7"/></svg></span><span><svg width="14" height="11" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 Q2 10 4 7 Q6 3 10 2 Q14 1 17 3 Q21 4 22 8 Q24 12 22 16 Q20 19 16 20 Q12 21 9 20 Q5 18 4 14Z" fill="#c8892a" opacity="0.7"/><path d="M7 12 Q6.5 10 8 8 Q10 6 12.5 6 Q15.5 6 17 8.5 Q18.5 11 17.5 14 Q16.5 17 13.5 17.5 Q10.5 18 8.5 16 Q7 14.5 7 12Z" fill="#e8b050" opacity="0.7"/></svg></span></div>
+      <div class="card-word-big">Scar</div>
+      <div class="card-rule"></div>
+      <div class="card-tap-hint">Tap to read</div>
+      <div class="card-pip-row bot"><span><svg width="14" height="11" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 Q2 10 4 7 Q6 3 10 2 Q14 1 17 3 Q21 4 22 8 Q24 12 22 16 Q20 19 16 20 Q12 21 9 20 Q5 18 4 14Z" fill="#c8892a" opacity="0.7"/><path d="M7 12 Q6.5 10 8 8 Q10 6 12.5 6 Q15.5 6 17 8.5 Q18.5 11 17.5 14 Q16.5 17 13.5 17.5 Q10.5 18 8.5 16 Q7 14.5 7 12Z" fill="#e8b050" opacity="0.7"/></svg></span><span><svg width="14" height="11" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 Q2 10 4 7 Q6 3 10 2 Q14 1 17 3 Q21 4 22 8 Q24 12 22 16 Q20 19 16 20 Q12 21 9 20 Q5 18 4 14Z" fill="#c8892a" opacity="0.7"/><path d="M7 12 Q6.5 10 8 8 Q10 6 12.5 6 Q15.5 6 17 8.5 Q18.5 11 17.5 14 Q16.5 17 13.5 17.5 Q10.5 18 8.5 16 Q7 14.5 7 12Z" fill="#e8b050" opacity="0.7"/></svg></span></div>
+    </div>
+
     <!-- Cover card — big nugget -->
     <div class="cn-card cn-cover" id="coverCard">
       <svg viewBox="0 0 110 82" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:78%;max-width:130px;">
@@ -657,7 +839,7 @@
 
   </div>
 
-  <p class="deck-count"><span>2</span> stories available</p>
+  <p class="deck-count"><span>3</span> stories available</p>
 
   <!-- ── Kahawa Kadogo donation ── -->
   <a href="#" id="donateBtn" class="kahawa-wrap" onclick="openKahawa(); return false;">
@@ -750,6 +932,9 @@
 
 </div>
 
+<!-- ── Story background (shared, outside modals so fixed works correctly on mobile) ── -->
+<div class="story-modal-bg" id="storyModalBg"></div>
+
 <!-- ── Story Modal ── -->
 <div class="story-backdrop" id="storyBackdrop"></div>
 <div class="story-modal" id="storyModal" role="dialog" aria-label="Story">
@@ -757,6 +942,12 @@
 
     <div class="modal-topbar">
       <button class="modal-back" onclick="cnCloseStory()" aria-label="Back">← Back to Chicken Nuggets</button>
+      <div class="text-size-controls">
+        <button class="text-size-btn" onclick="setTextSize('small', this)" aria-label="Small text">S</button>
+        <button class="text-size-btn active" onclick="setTextSize('normal', this)" aria-label="Normal text">M</button>
+        <button class="text-size-btn" onclick="setTextSize('large', this)" aria-label="Large text">L</button>
+        <button class="text-size-btn" onclick="setTextSize('xlarge', this)" aria-label="Extra large text">XL</button>
+      </div>
     </div>
 
     <div class="story-content">
@@ -846,6 +1037,7 @@ Inner meaning here could be that we sleep on the things that matter and could fe
   var stories = [
     { word: 'Pain',  modalId: 'storyModal2', backdropId: 'storyBackdrop2' },
     { word: 'Sleep', modalId: 'storyModal',  backdropId: 'storyBackdrop',  ratingKey: 'cn_rating_sleep' },
+    { word: 'Scar',  modalId: 'storyModal3', backdropId: 'storyBackdrop3', ratingKey: 'cn_rating_scar' },
   ];
 
   var deckArea  = document.getElementById('deckArea');
@@ -855,14 +1047,16 @@ Inner meaning here could be that we sleep on the things that matter and could fe
   // Track which card is at which position
   // positions: 'center', 'left', 'right'
   var cardPositions = {
-    'coverCard':  'center',
-    'storyCard0': 'left',
-    'storyCard1': 'right'
+    'coverCard':  'hidden',   // Hidden when spread is open
+    'storyCard0': 'center',   // Pain (initially centered)
+    'storyCard1': 'left',     // Sleep
+    'storyCard2': 'right'     // Scar
   };
 
   var storyForCard = {
     'storyCard0': 0,
-    'storyCard1': 1
+    'storyCard1': 1,
+    'storyCard2': 2
   };
 
   function applyPositions() {
@@ -870,7 +1064,9 @@ Inner meaning here could be that we sleep on the things that matter and could fe
       var el = document.getElementById(id);
       var pos = cardPositions[id];
       el.classList.remove('pos-center', 'pos-left', 'pos-right');
-      el.classList.add('pos-' + pos);
+      if(pos !== 'hidden') {
+        el.classList.add('pos-' + pos);
+      }
       // Update hint text based on position
       var hint = el.querySelector('.card-tap-hint');
       if(!hint) return;
@@ -884,23 +1080,41 @@ Inner meaning here could be that we sleep on the things that matter and could fe
     });
   }
 
-  function swapWithCenter(clickedId) {
-    // Find current center card
-    var centerId = null;
+  function rotateCards(direction) {
+    // direction: 'left' (tap left card) or 'right' (tap right card)
+    // Cycle only visible story cards: center → left → right → center (or reverse)
+    var centerCard, leftCard, rightCard;
+    
     Object.keys(cardPositions).forEach(function(id) {
-      if(cardPositions[id] === 'center') centerId = id;
+      if(cardPositions[id] === 'hidden') return; // Skip hidden cards
+      if(cardPositions[id] === 'center') centerCard = id;
+      if(cardPositions[id] === 'left') leftCard = id;
+      if(cardPositions[id] === 'right') rightCard = id;
     });
-    if(!centerId || centerId === clickedId) return;
-    // Swap positions
-    var clickedPos = cardPositions[clickedId];
-    cardPositions[centerId] = clickedPos;
-    cardPositions[clickedId] = 'center';
+    
+    // Safety check - make sure all three positions exist
+    if(!centerCard || !leftCard || !rightCard) return;
+    
+    // Rotate clockwise or counter-clockwise
+    if(direction === 'left') {
+      // Tap left: left → center, center → right, right → left
+      cardPositions[leftCard] = 'center';
+      cardPositions[centerCard] = 'right';
+      cardPositions[rightCard] = 'left';
+    } else if(direction === 'right') {
+      // Tap right: right → center, center → left, left → right
+      cardPositions[rightCard] = 'center';
+      cardPositions[centerCard] = 'left';
+      cardPositions[leftCard] = 'right';
+    }
+    
     applyPositions();
   }
 
   function openSpread() {
     isSpread = true;
     deckArea.classList.add('spread');
+    cardPositions['coverCard'] = 'hidden'; // Hide nugget when spread opens
     applyPositions();
   }
 
@@ -912,7 +1126,7 @@ Inner meaning here could be that we sleep on the things that matter and could fe
       el.classList.remove('pos-center', 'pos-left', 'pos-right');
     });
     // Reset positions
-    cardPositions = { 'coverCard': 'center', 'storyCard0': 'left', 'storyCard1': 'right' };
+    cardPositions = { 'coverCard': 'center', 'storyCard0': 'center', 'storyCard1': 'left', 'storyCard2': 'hidden' };
     coverCard.querySelector('.card-tap-hint').textContent = 'Tap to browse ▼';
   }
 
@@ -923,7 +1137,8 @@ Inner meaning here could be that we sleep on the things that matter and could fe
     m.classList.add('open');
     m.scrollTop = 0;
     document.body.style.overflow = 'hidden';
-    closeSpread();
+    document.documentElement.classList.add('story-open');
+    document.getElementById('storyModalBg').classList.add('open');
   }
 
   window.cnCloseStory = function() {
@@ -932,9 +1147,66 @@ Inner meaning here could be that we sleep on the things that matter and could fe
       document.getElementById(s.modalId).classList.remove('open');
     });
     document.body.style.overflow = '';
+    document.documentElement.classList.remove('story-open');
+    document.getElementById('storyModalBg').classList.remove('open');
     document.getElementById('cnThemePill').classList.remove('hidden');
   };
   function closeStory() { window.cnCloseStory(); }
+
+  // Story note popup
+  window.openStoryNote = function() {
+    window.closeStoryNote();
+
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    var bgColor = isDark ? '#1a1208' : '#ede6d3';
+    var textColor = isDark ? '#faf6ee' : '#2a1f0e';
+    var amberColor = isDark ? '#c8892a' : '#8a5a00';
+
+    var overlay = document.createElement('div');
+    overlay.id = 'storyNoteOverlay';
+    overlay.onclick = window.closeStoryNote;
+    overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;z-index:99998;background:rgba(0,0,0,0.15);';
+    document.body.appendChild(overlay);
+
+    var popup = document.createElement('div');
+    popup.id = 'storyNotePopup';
+    popup.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:99999;background:' + bgColor + ';border:1px solid rgba(200,137,42,0.3);border-radius:6px;padding:1.2rem 1.4rem;width:78vw;max-width:260px;font-family:Cormorant Garamond,serif;font-style:italic;font-size:1rem;line-height:1.8;color:' + textColor + ';text-align:center;';
+    popup.innerHTML = '🎶 Obedience is the very best way to show that you believe,<br>Doing exactly what the Lord commands, and doing it happily 🎶<br><br><button onclick="closeStoryNote()" style="font-family:DM Mono,monospace;font-size:0.55rem;letter-spacing:0.14em;color:' + amberColor + ';text-transform:uppercase;background:none;border:none;cursor:pointer;">close</button>';
+    document.body.appendChild(popup);
+  };
+
+  window.closeStoryNote = function() {
+    var o = document.getElementById('storyNoteOverlay');
+    var p = document.getElementById('storyNotePopup');
+    if(o) o.remove();
+    if(p) p.remove();
+  };
+
+  window.setTextSize = function(size, btn) {
+    // Find which modal is currently open
+    var openModal = null;
+    var modals = document.querySelectorAll('.story-modal');
+    for(var i = 0; i < modals.length; i++) {
+      if(modals[i].classList.contains('open')) {
+        openModal = modals[i];
+        break;
+      }
+    }
+    if(!openModal) return;
+    
+    var content = openModal.querySelector('.story-content');
+    if(!content) return;
+    
+    content.classList.remove('text-small', 'text-normal', 'text-large', 'text-xlarge');
+    content.classList.add('text-' + size);
+    
+    // Update all size buttons in this modal
+    var buttons = openModal.querySelectorAll('.text-size-btn');
+    for(var j = 0; j < buttons.length; j++) {
+      buttons[j].classList.remove('active');
+    }
+    btn.classList.add('active');
+  };
 
   // Cover: tap to open/close spread
   coverCard.addEventListener('click', function(e) {
@@ -945,8 +1217,9 @@ Inner meaning here could be that we sleep on the things that matter and could fe
       // Cover is in center — close spread
       closeSpread();
     } else {
-      // Cover is on a side — swap it back to center
-      swapWithCenter('coverCard');
+      // Cover is on a side — rotate it to center
+      var direction = cardPositions['coverCard'] === 'left' ? 'left' : 'right';
+      rotateCards(direction);
     }
   });
 
@@ -958,8 +1231,9 @@ Inner meaning here could be that we sleep on the things that matter and could fe
       // Already in center — open story
       openStory(0);
     } else {
-      // Bring to center
-      swapWithCenter('storyCard0');
+      // Rotate: tapping left card rotates left, right card rotates right
+      var direction = cardPositions['storyCard0'] === 'left' ? 'left' : 'right';
+      rotateCards(direction);
     }
   });
 
@@ -970,7 +1244,20 @@ Inner meaning here could be that we sleep on the things that matter and could fe
     if(cardPositions['storyCard1'] === 'center') {
       openStory(1);
     } else {
-      swapWithCenter('storyCard1');
+      var direction = cardPositions['storyCard1'] === 'left' ? 'left' : 'right';
+      rotateCards(direction);
+    }
+  });
+
+  // Story card 2 (Scar)
+  document.getElementById('storyCard2').addEventListener('click', function(e) {
+    e.stopPropagation();
+    if(!isSpread) return;
+    if(cardPositions['storyCard2'] === 'center') {
+      openStory(2);
+    } else {
+      var direction = cardPositions['storyCard2'] === 'left' ? 'left' : 'right';
+      rotateCards(direction);
     }
   });
 
@@ -989,6 +1276,12 @@ Inner meaning here could be that we sleep on the things that matter and could fe
   <div class="story-modal-inner">
     <div class="modal-topbar">
       <button class="modal-back" onclick="cnCloseStory()" aria-label="Back">← Back to Chicken Nuggets</button>
+      <div class="text-size-controls">
+        <button class="text-size-btn" onclick="setTextSize('small', this)" aria-label="Small text">S</button>
+        <button class="text-size-btn active" onclick="setTextSize('normal', this)" aria-label="Normal text">M</button>
+        <button class="text-size-btn" onclick="setTextSize('large', this)" aria-label="Large text">L</button>
+        <button class="text-size-btn" onclick="setTextSize('xlarge', this)" aria-label="Extra large text">XL</button>
+      </div>
     </div>
     <div class="story-content">
 
@@ -1063,6 +1356,88 @@ Inner meaning here could be that we sleep on the things that matter and could fe
   </div>
 </div>
 
+<div class="story-backdrop" id="storyBackdrop3"></div>
+<div class="story-modal" id="storyModal3" role="dialog" aria-label="Story: Scar">
+  <div class="story-modal-inner">
+    <div class="modal-topbar">
+      <button class="modal-back" onclick="cnCloseStory()" aria-label="Back">← Back to Chicken Nuggets</button>
+      <div class="text-size-controls">
+        <button class="text-size-btn" onclick="setTextSize('small', this)" aria-label="Small text">S</button>
+        <button class="text-size-btn active" onclick="setTextSize('normal', this)" aria-label="Normal text">M</button>
+        <button class="text-size-btn" onclick="setTextSize('large', this)" aria-label="Large text">L</button>
+        <button class="text-size-btn" onclick="setTextSize('xlarge', this)" aria-label="Extra large text">XL</button>
+      </div>
+    </div>
+    <div class="story-content">
+
+      <div class="story-headline">777H</div>
+      <div class="story-meta">23rd May, 2026 &nbsp;·&nbsp; MK.</div>
+      <div class="story-rule"></div>
+
+      <div class="story-para">It could be Heaven or it could be Hell.<br>I chose Heaven and so Heaven chose me.</div>
+
+      <div class="story-para">I woke up with a strong sense of purpose and an even stronger sense of sleep. As has become customary that one messenger I cannot ignore woke me up- a mosquito! It was a good time for me to put out what I had washed the night before to dry in hopes that they would be dry by the time I was ready to pack my bag for an impromptu trip.</div>
+
+      <div class="story-para">I did some WordSpin dev work for about an hour after a "failed" bible study attempt, had a bowl of porridge and went back to sleep. The weather was good! Even though it had been forecast to be rainy, it was bright and hot. My things dried- YES! "A prayer answered," I thought, "Thank you Lord!" I said.</div>
+
+      <div class="story-para">Ironing took more time than I anticipated. Such delicate material were those deras! Easily burnt, easily creased... perfect for the beach like fine linen. Looking at the time though, I had no time to be spending even more than I had spent trying to straighten every single crease. I might be a little bit OCD- blame it on the genes, blame it on the way I was raised!</div>
+
+      <div class="story-para">Fast forward and I ranged between short waves of anxiety and calm. Overall, I had "a peace" about the day that kept me grounded- faithful. I had a sense that the day would be good and that everything would work out just fine.</div>
+
+      <div class="story-heading">OBEDIENT LIL' MISSY</div>
+
+      <div class="story-para">Do you believe that before something very good happens, something terrible happens? It's almost as if these odds have to balance themselves out.</div>
+
+      <div class="story-para">I was encouraged to leave at 12:30 p.m, but planned to leave at 1 p.m. Somewhere between 1 and ten past one, I ordered an uber boda (motorbike). The rider was less than a minute away, which was unusual considering where I live. In fact(!) he was at the bottom of my road, sort of like he'd been waiting there (from a deeper point of view, it felt like he was meant to be there). I knew that with Nairobi traffic and where I needed to go, a bike would be the better option for me since I didn't have much to carry.</div>
+
+      <div class="story-para">I noticed his number plate (777H) immediately and smiled, "aligned" I thought. When we got to a stretch that I'd usually use with no problem for years (with the day before being the most recent), we were stopped and told there was no way through. The man who stopped us demanded that the man turn off his engine and that I get off. S@#&!</div>
+
+      <div class="story-para">Obedient miss me hopped off. In the voice of Trey Songz, <a href="https://youtu.be/lqWwA2MOCOA?si=_coauvntCaxS6OLY" target="_blank" rel="noopener" class="story-link">"time is not on our side"</a>. I thought that if it took more than five minutes to negotiate, I'd have to get someone new. Next thing I knew, the rider bolted away and I was left standing there, potentially stranded and bagless (because he had my main bag). S@#&!!</div>
+
+      <div class="story-para">A normal person would get very emotional about this. I felt a wave of worry and anxiety come over me but worked to calm it down. How? Well, I knew panic and anger would waste my energy. Negativity eats at the soul - <a href="https://www.bible.com/bible/114/MAT.25.24-28.NKJV" target="_blank" rel="noopener" class="story-link">FEAR</a> and <a href="https://www.bible.com/bible/114/PSA.37.8.NKJV" target="_blank" rel="noopener" class="story-link">ANGER</a> eat at the soul in a way nothing else can - we lose more than we ever gain by giving them space to grow. So, I chose faith. Faith said that I'd meet him on the other side- that maybe he'd just driven to the nearest matatu (bus) stage and I would find him there. So, I walked. IT WAS HOT!</div>
+
+      <div class="story-para">As I walked I thought about how the worst thing that could happen was not retrieving my bag, but at least I had all I needed to get on the train Mombasa. Though it would be at an extra cost, I could figure out my clothing situation at my destination. I also did what my grandfather calls a phone call to Heaven. It is an emergency dial to God, asking him for whatever you need. I asked that he put it in that man's heart to in the least not rob me, and in the best case scenario come back and take me so that I didn't miss my train. Ordering a new ride didn't look like a good idea considering the potential wait time. After my request, I tried to reach the rider two times as I neared the stage. No success, particularly because my phone was acting up. "I'll just try when I am right at the stage," I thought. Just like that, an incoming call from him came in. He told me that I could get my bag from the Total Petrol Station.</div>
+
+      <div class="story-para">Now, I don't know whether it was my brain that had been fried by the heat or the waves of emotion that had temporarily wiped my memory (or both) but I could not visualise where he was telling me to go to find my bag. It's possible I was tired too, considering I hadn't really slept the night before. This all just sounds like a recipe for disaster, doesn't it?!</div>
+
+      <div class="story-para">Despite that, I still kept my cool on the call. Why? It could have been worse! He could've decided to use what was in my bag as payment, FAR MORE than what he'd make from the overall trip. Instead, he called telling me where he wanted to leave it for me to get. He also didn't sound like he expected me to pay him, although, I didn't mind tipping him for his north facing moral code.</div>
+
+      <div class="story-para">I told him exactly where I was and he asked "how?!" and I said, "I walked. I thought that I would find you at the stage and we would continue with the trip".<br>"Wah. Umejaribu Mama... should I.... can I come back for you?" he asked.<br>I told him yes and that he'd find me right at the stage.<br>"Don't worry. I am coming. Don't worry," he said.</div>
+
+      <div class="story-heading"><a href="https://youtu.be/I7HahVwYpwo?si=f_cALIc0oKefL7S2" target="_blank" rel="noopener" class="story-link">MEET ME HALFWAY</a></div>
+
+      <div class="story-para">On the ride, I wondered (awed) about what had just happened. How everything seemed to be going wrong, but how it went it right because I believed it could and would. Sure, even before that, there was a sense (call it a promise) that the day would be good.</div>
+
+      <div class="story-para">I didn't IGNORE what was wrong, I just chose to focus on what was right, and what could make it even 'righter'. Wisdom says if not for God then for yourself- learn to preserve your energy! These are the words that I remembered though: <a href="https://www.bible.com/bible/114/MAT.21.21.NKJV" target="_blank" rel="noopener" class="story-link">If you have faith as a mustard seed, you will say to this mountain, "Move from here to there," and it will move; and nothing will be impossible for you.</a></div>
+
+      <div class="story-para">I sang songs of worship all the way to the station, with a short battery change stop in between. At the charging station, I told him that I thought he had abandoned me and he said, "No. I can't". Later, at the train station, the rider and I had a short exchange about men like the one who stopped us, and what he had been through because of them: losing much needed money to posers. He explained that if there was a chance to escape he would (which he did)! I understood, we talked for a bit more and he blessed my trip. I gave what I promised in my heart and moved on.</div>
+
+      <div class="story-para">Check in was chaotic given the time. "I guess everyone goes for the 3 p.m train!" I thought. It was hot, my two bags were a strain to carry and my body was tense despite my certainty in spirit. I had the patience of a monk some might say!</div>
+
+      <div class="story-para">People were very nice to me at the station. Nice in a way that felt out of the ordinary, including an armed security officer asking if he could help me. In my experience, they usually keep off unless it's a matter of security. Now, I consider that it may just be that I looked more tired than I am leading on, LOL!</div>
+
+      <div class="story-para">Sleep deprivation/lack of proper rest, having to quiet a storm that wanted to rise in me- stress control- walking in the heat to a destination I (if I'm being honest) was not "logically" guaranteed to find a need, only just hoping and praying. Yeah, I was QUITE TIRED, but not the kind of tire one is to regret. <a href="https://www.bible.com/bible/114/MAT.11.25-30.NKJV" target="_blank" rel="noopener" class="story-link">The reward supercedes the output, always.</a></div>
+
+      <div class="story-para">My plan to be on the boarding path at 2:45 p.m was accurate. You would think that time went back by a bit to make sure this happened as I had imagined it. "A peace" I say!</div>
+
+      <div class="story-para">On the train, I was sat next to a refreshing character who kept me chatting through the five hour, thirty minute ride. He was not only helpful, but quite generous. His energy was free of all the things that could hurt me and that was comforting considering how the world can be: Draining. But then again, it could be Heaven or it could be Hell, I chose Heaven, so Heaven chose me.</div>
+
+      <div class="story-para">What I had planned for the train ride was WordSpin, writing and sleep. What I got? Inspiration, connection and food (and so here I am with a lil' chicken nugget for you to chew on, lol!).</div>
+
+      <div class="story-rule"></div>
+
+      <div class="story-para">The moral of the story is BELIEVE IN GO(O)D THINGS and go(o)d things will come to you no matter what your situation is. Since I believe in one who created all good things, my faith was in Him and what He said. It always starts with a promise then we have to meet Him halfway by <span class="story-note-trigger" onclick="openStoryNote()">faith and obedience</span>.</div>
+
+      <div class="story-para">It's always easier when you're not the one carrying everything on your own. When you know there is a higher power, one who is not vindictive- looking for mistakes, but loving - looking out for you, then life becomes more abundant because <a href="https://www.bible.com/bible/114/PSA.36.7-9.NKJV" target="_blank" rel="noopener" class="story-link">you draw water from a well that never runs out</a>. <a href="https://www.bible.com/bible/114/MAT.6.25-34.NKJV" target="_blank" rel="noopener" class="story-link">You never have to worry or overthink, you just have to hand it over and the rest will be done for you</a>. Even those wounds and scars that you have, they become marks of beauty because of what you gain from them. Yes, even those painful lessons are valuable, especially because knowing the other side, the badness it can bring, makes you appreciate the side that takes and keeps the badness away. It can either affirm your faith or your fear - it's all a matter of perspective and I highly recommend FAITH!</div>
+
+      <div class="story-para"><em>PS My "failed" Bible study became a lived practical on how living the faith works. So, it was not a failed Bible study at all!</em></div>
+
+      <div class="story-rule"></div>
+      <span class="story-sig">MK.<br><span style="font-size:0.75rem;font-weight:400;opacity:0.55;letter-spacing:0.08em;">Author</span></span>
+    </div>
+  </div>
+</div>
+
 <!-- ── Kahawa Kadogo popup ── -->
 <div class="kahawa-backdrop" id="kahawaBackdrop"></div>
 <div class="kahawa-popup" id="kahawaPopup">
@@ -1073,6 +1448,7 @@ Inner meaning here could be that we sleep on the things that matter and could fe
   <a class="kahawa-continue" href="https://paystack.shop/pay/uie97cp07t" target="_blank" rel="noopener" id="kahawaContinue">Continue</a>
   <button class="kahawa-cancel" onclick="closeKahawa()">Maybe later</button>
 </div>
+
 
 </body>
 </html>
