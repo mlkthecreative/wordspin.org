@@ -1218,10 +1218,10 @@
       transition: top 0.2s ease, transform 0.2s ease, max-height 0.2s ease;
     }
     .modal.open { display: block; }
-    /* When editing, snap to top so keyboard doesn't cover textarea */
+    /* When editing, JS uses visualViewport to set exact position above keyboard */
     .modal.editing {
       top: 2vh;
-      transform: translate(-50%, 0);
+      transform: translateX(-50%);
       max-height: 96vh;
     }
 
@@ -3698,7 +3698,6 @@
     modalCancelBtn.style.display = 'inline-block';
     storyModal.classList.add('editing');
     modalEditArea.focus();
-    // Auto-expand textarea to fit content on open
     autoResizeModalTextarea();
   }
 
@@ -3710,6 +3709,22 @@
     modalSaveBtn.style.display = 'none';
     modalCancelBtn.style.display = 'none';
     storyModal.classList.remove('editing');
+    // Reset modal position
+    storyModal.style.top = '';
+    storyModal.style.maxHeight = '';
+    storyModal.style.transform = '';
+  }
+
+  // Resize modal when keyboard opens/closes
+  if(window.visualViewport) {
+    window.visualViewport.addEventListener('resize', function() {
+      if(!isEditing) return;
+      var vvHeight = window.visualViewport.height;
+      var vvTop = window.visualViewport.offsetTop;
+      storyModal.style.top = (vvTop + 8) + 'px';
+      storyModal.style.maxHeight = (vvHeight - 16) + 'px';
+      storyModal.style.transform = 'translateX(-50%)';
+    });
   }
 
   modalEditBtn.addEventListener('click', enterEditMode);
