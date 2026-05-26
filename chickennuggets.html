@@ -162,7 +162,7 @@
       background: var(--bg);
       color: var(--ink);
       font-family: 'DM Mono', monospace;
-      overflow-x: hidden;
+      overflow-x: clip;
     }
 
     /* When a story modal is open, force html/body to match paper background */
@@ -232,182 +232,187 @@
     /* ── Card Deck ── */
     .deck-area {
       position: relative;
-      width: 100%;
-      height: 380px;
-      margin-bottom: 1.4rem;
+      width: 240px;
+      height: 300px;
+      margin: 2rem auto 0;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .deck-card {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: 14px;
+      border: 1.5px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: visible;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      transform-origin: center center;
+      -webkit-user-select: none;
+      user-select: none;
     }
-
-    /* ── Cards — match main page exactly ── */
-    .cn-card {
-      position: absolute;
-      width: min(200px, 55vw);
-      height: 300px;
-      border-radius: 14px;
-      border: 1.5px solid rgba(200,137,42,0.3);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      -webkit-user-select: none; user-select: none;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-      overflow: hidden;
-      -webkit-transition: -webkit-transform 0.45s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease;
-      transition: transform 0.45s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease;
+    .deck-card.back {
+      background: #1a1208;
+      cursor: pointer;
     }
-
-    /* Story cards — always cream like front card on main page */
-    .cn-story {
-      background: #faf6ee;
-    }
-
-    /* Cover card — always dark like back card on main page */
-    .cn-cover {
-      background: #1a1008;
-    }
-    :root[data-theme="dark"] .cn-cover { background: #1a1008; }
-    :root[data-theme="light"] .cn-cover { background: #1a1008; }
-
-    /* Cover card — all cream, matching inner */
-    .cn-cover {
-      background: #faf6ee;
-    }
-    :root[data-theme="dark"] .cn-cover { background: #faf6ee; }
-    :root[data-theme="light"] .cn-cover { background: #faf6ee; }
-
-    /* Inner border inset on cover — just the border, no fill needed */
-    .cn-cover::before {
+    :root[data-theme="dark"] .deck-card.back { background: #faf6ee; }
+    :root[data-theme="dark"] .deck-card.back .ws-monogram { color: rgba(200,137,42,0.4); }
+    .deck-card.back::before {
       content: '';
       position: absolute;
       inset: 10px;
       border: 1.5px solid rgba(200,137,42,0.35);
       border-radius: 8px;
+    }
+    .ws-monogram {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      font-weight: 700;
+      color: rgba(200,137,42,0.5);
       pointer-events: none;
-      z-index: 0;
     }
-    .cn-cover > * { position: relative; z-index: 1; }
-
-    /* Cover card interaction */
-    .cn-cover {
+    .deck-card.front {
+      background: #faf6ee;
       z-index: 10;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
+      flex-direction: column;
+      gap: 0;
+      overflow: hidden;
     }
-    .cn-cover:active { -webkit-transform: translateY(-4px) scale(1.02); transform: translateY(-4px) scale(1.02); }
-
-    /* Story card interaction */
-    .cn-story {
-      z-index: 5;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-    }
-    /* default stacked — overridden by pos-* classes when spread */
-
-
-    /* Position classes — JS applies these when spread is open */
-    .cn-card.pos-center {
-      -webkit-transform: translateX(0) translateY(-12px) scale(1.02);
-      transform: translateX(0) translateY(-12px) scale(1.02);
-      box-shadow: 0 16px 44px rgba(0,0,0,0.55);
-      z-index: 12 !important;
-    }
-    .cn-card.pos-left {
-      -webkit-transform: translateX(-85px) translateY(18px) rotate(-10deg);
-      transform: translateX(-85px) translateY(18px) rotate(-10deg);
-      z-index: 6 !important;
-    }
-    .cn-card.pos-right {
-      -webkit-transform: translateX(85px) translateY(18px) rotate(10deg);
-      transform: translateX(85px) translateY(18px) rotate(10deg);
-      z-index: 5 !important;
-    }
-
-    /* Card text — dark ink on cream matches main page front */
-    /* Cover card text — always light on dark bg */
-    .card-cover-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem; font-weight: 700; font-style: italic;
-      color: #faf6ee; text-align: center; line-height: 1.3;
-      margin-bottom: 0.3rem;
-    }
-    .card-cover-sub {
-      font-size: 0.56rem; letter-spacing: 0.1em;
-      color: rgba(250,246,238,0.5); text-align: center;
-      font-family: 'DM Mono', monospace;
-    }
-    /* Story card tag — dark on cream */
-    .card-tag {
-      font-size: 0.5rem; letter-spacing: 0.28em; text-transform: uppercase;
-      color: rgba(26,16,8,0.5); margin-bottom: 0.6rem;
-      font-family: 'DM Mono', monospace;
-    }
-
-    /* WS monogram on cover — matches main page back card */
-    .card-ws-mono {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem; font-style: italic; font-weight: 700;
-      color: rgba(200,137,42,0.55);
-      margin-bottom: 0.5rem;
-    }
-
-    /* Story card word — amber on cream, matches front card word */
-    .card-word-big {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 8vw, 2.4rem);
-      font-style: italic; font-weight: 700;
-      color: #1a1008; text-align: center;
-      line-height: 1.1; margin-bottom: 0;
-    }
-
-    /* Amber header bar on story cards — matches front card header */
-    .card-amber-bar {
-      position: absolute; top: 0; left: 0; right: 0;
+    .deck-card.front .card-header {
+      width: 100%;
       background: #c8892a;
-      padding: 0.45rem 1rem;
-      font-size: 0.52rem; letter-spacing: 0.25em;
+      padding: 0.5rem 1rem;
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
       color: rgba(26,16,8,0.65);
       font-family: 'DM Mono', monospace;
       text-align: center;
     }
-
-    /* Pip rows — matches main page front card */
-    .card-pip-row {
-      position: absolute; width: 100%;
-      display: flex; justify-content: space-between;
+    .deck-card.front .card-word-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-style: italic;
+      font-weight: 700;
+      color: #1a1008;
+      text-align: center;
+      padding: 0 1.2rem;
+      flex: 1;
+      display: flex;
       align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease 0.1s;
+    }
+    .deck-card.front.revealed .card-word-text { opacity: 1; }
+    .deck-card.front .card-rule {
+      width: calc(100% - 2.4rem);
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--amber), transparent);
+      margin-bottom: 1.2rem;
+    }
+    .deck-card.front .card-pip-row {
+      position: absolute;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       padding: 0.6rem 0.8rem;
+      font-size: 0.75rem;
+      color: var(--amber);
       pointer-events: none;
     }
-    .card-pip-row.top { top: 2.2rem; }
-    .card-pip-row.bot { bottom: 0; -webkit-transform: rotate(180deg); transform: rotate(180deg); }
+    .deck-card.front .card-pip-row.top { top: 2.2rem; }
+    .deck-card.front .card-pip-row.bot { bottom: 0; transform: rotate(180deg); }
 
-    .card-tap-hint {
-      position: absolute; bottom: 1.2rem;
-      font-size: 0.5rem; letter-spacing: 0.22em;
-      text-transform: uppercase; color: rgba(200,137,42,0.6);
+    /* Tap hint below revealed card */
+    .deck-card.front.revealed::after {
+      content: 'Tap to read ▼';
+      position: absolute;
+      bottom: -2rem;
+      left: 0; right: 0;
+      text-align: center;
       font-family: 'DM Mono', monospace;
-    }
-    .card-rule {
-      width: calc(100% - 2.4rem); height: 1px;
-      background: linear-gradient(to right, transparent, var(--amber), transparent);
-      margin: 0.8rem 0;
-    }
-    .card-byline {
-      font-size: 0.56rem; color: rgba(26,16,8,0.45);
-      letter-spacing: 0.1em; text-align: center;
-      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(200,137,42,0.6);
     }
 
-    /* Count badge */
-    .deck-count {
-      font-size: 0.58rem; color: var(--muted);
-      letter-spacing: 0.12em; text-align: center; margin-bottom: 2.5rem;
+    .spin-count {
+      font-size: 0.62rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-align: center;
+      margin-top: 3rem;
     }
-    .deck-count span { color: var(--amber); }
+    .shuffle-btn {
+      margin-top: 0.8rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      background: none;
+      border: 1px solid rgba(200,137,42,0.35);
+      border-radius: 20px;
+      padding: 0.5rem 1.4rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .shuffle-btn:hover {
+      background: rgba(200,137,42,0.08);
+      border-color: var(--amber);
+    }
+    :root[data-theme="light"] .shuffle-btn {
+      color: #8a5a00;
+      border-color: rgba(138,90,0,0.35);
+    }
+
+    /* ── Word Picker ── */
+    .word-picker {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    .word-picker-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+    .word-picker-pills {
+      display: flex;
+      gap: 0.6rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .word-pill {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--amber);
+      background: none;
+      border: 1px solid rgba(200,137,42,0.3);
+      border-radius: 20px;
+      padding: 0.4rem 1.1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .word-pill:hover {
+      background: rgba(200,137,42,0.08);
+      border-color: var(--amber);
+    }
+    :root[data-theme="light"] .word-pill {
+      color: #8a5a00;
+      border-color: rgba(138,90,0,0.3);
+    }
+
 
     /* ── Story Modal ── */
     .story-backdrop {
@@ -563,11 +568,28 @@
     .story-content.text-xlarge { --ts: 1.38; }
 
     /* All story text elements scale with --ts */
-    .story-para, .story-body {
+    .story-para {
       font-size: calc(1.18rem * var(--ts));
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      line-height: 2;
+      color: var(--ink);
+      margin-bottom: 2.4rem;
+    }
+    .story-body {
+      font-size: calc(1.18rem * var(--ts));
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      line-height: 2;
+      color: var(--ink);
+      white-space: pre-wrap;
     }
     .story-headline {
       font-size: calc(1.5rem * var(--ts));
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 600;
+      color: #c85a18; line-height: 1.4;
+      margin-bottom: 0.4rem;
     }
     .story-verse {
       font-size: calc(1.2rem * var(--ts));
@@ -582,21 +604,41 @@
     }
     .story-heading {
       font-size: calc(1.2rem * var(--ts));
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--amber); text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 2rem 0 0;
+      line-height: 1.4;
     }
     .scripture-block {
       font-size: calc(1.1rem * var(--ts));
-    }
-
-    .story-headline {
+      border-left: 3px solid rgba(100,140,200,0.6);
+      padding: 0.8rem 0 0.8rem 1.2rem;
+      margin: 1.4rem 0;
       font-family: 'Cormorant Garamond', serif;
-      font-style: italic; font-weight: 600;
-      color: #c85a18; line-height: 1.4;
-      margin-bottom: 0.4rem;
+      font-style: italic;
+      line-height: 1.9;
+      color: #5a8ab0;
     }
+    :root[data-theme="light"] .scripture-block { color: #2a5a8a; }
+
     .story-meta {
       font-size: 0.62rem; color: var(--muted);
       letter-spacing: 0.1em; margin-bottom: 1.6rem;
       font-family: 'DM Mono', monospace;
+    }
+    .story-rule {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 1.4rem 0;
+    }
+    .story-sig {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 600;
+      font-size: 1.2rem; color: var(--muted);
+      margin-top: 2rem; line-height: 1.5;
     }
     .story-share {
       display: flex;
@@ -639,31 +681,6 @@
       transition: opacity 0.3s;
     }
     .story-share-copied.show { opacity: 1; }
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--border), transparent);
-      margin: 1.4rem 0;
-    }
-    .story-body {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      line-height: 2; color: var(--ink);
-      white-space: pre-wrap;
-    }
-    .story-sig {
-      display: block;
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic; font-weight: 600;
-      font-size: 1.2rem; color: var(--muted);
-      margin-top: 2rem; line-height: 1.5;
-    }
-    .story-heading {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      color: var(--amber); text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin: 2rem 0 0;
-      line-height: 1.4;
-    }
 
     /* Story links - inline clickable text and headings */
     .story-link {
@@ -746,17 +763,6 @@
     }
     .story-note-overlay.open { display: block; }
 
-    /* Scripture blocks */
-    .scripture-block {
-      border-left: 3px solid rgba(100,140,200,0.6);
-      padding: 0.8rem 0 0.8rem 1.2rem;
-      margin: 1.4rem 0;
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      line-height: 1.9;
-      color: #5a8ab0;
-    }
-    :root[data-theme="light"] .scripture-block { color: #2a5a8a; }
     .scripture-ref {
       display: block;
       font-family: 'DM Mono', monospace;
@@ -781,15 +787,6 @@
       -webkit-tap-highlight-color: transparent;
     }
     .yt-link:hover { opacity: 0.8; }
-    /* Story paragraph spacing */
-    .story-para {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      line-height: 2;
-      color: var(--ink);
-      margin-bottom: 2.4rem;
-    }
-
     /* ── Kahawa Kadogo mug ── */
     .kahawa-wrap {
       display: flex;
@@ -826,11 +823,6 @@
 
     /* Light mode text safety */
     :root[data-theme="light"] .story-sig  { color: #8a7a62; }
-    :root[data-theme="light"] .card-byline { color: #8a7a62; }
-    :root[data-theme="light"] .story-card-deck.top-card { background: #faf6ee; border-color: #d4c9b0; }
-    :root[data-theme="light"] .story-card-deck.stack-2 { background: #ede8dc; border-color: #ccc3aa; }
-    :root[data-theme="light"] .story-card-deck.stack-3 { background: #e5dfd2; border-color: #c4baa0; }
-    :root[data-theme="light"] .card-word-big { color: var(--amber); }
     :root[data-theme="light"] .section-title { color: #1a1008; }
     :root[data-theme="light"] .nav-brand { color: #1a1008; }
     :root[data-theme="light"] .nav-brand span { color: var(--amber); }
@@ -856,139 +848,70 @@
   <p class="section-label">Stories from the spin</p>
   <h1 class="section-title">Chicken <span>Nuggets</span></h1>
   <div class="section-divider"></div>
-  <p class="section-tagline">Each story is inspired by a single word.<br>Tap a card to read.</p>
+  <p class="section-tagline">Each story is inspired by a single word.<br>Shuffle to discover — or pick from the deck.</p>
 
   <!-- ── Card deck ── -->
-  <div class="deck-area" id="deckArea">
+  <div class="deck-area" id="deckArea"></div>
 
-    <!-- Story card: Sleep (index 1) -->
-    <div class="cn-card cn-story cn-story-1" id="storyCard1" role="button" aria-label="Read Sleep story">
-      <div class="card-amber-bar">Word Prompt</div>
-      <div class="card-pip-row top"><span><svg width="14" height="11" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 Q2 10 4 7 Q6 3 10 2 Q14 1 17 3 Q21 4 22 8 Q24 12 22 16 Q20 19 16 20 Q12 21 9 20 Q5 18 4 14Z" fill="#c8892a" opacity="0.7"/><path d="M7 12 Q6.5 10 8 8 Q10 6 12.5 6 Q15.5 6 17 8.5 Q18.5 11 17.5 14 Q16.5 17 13.5 17.5 Q10.5 18 8.5 16 Q7 14.5 7 12Z" fill="#e8b050" opacity="0.7"/></svg></span><span><svg width="14" height="11" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 Q2 10 4 7 Q6 3 10 2 Q14 1 17 3 Q21 4 22 8 Q24 12 22 16 Q20 19 16 20 Q12 21 9 20 Q5 18 4 14Z" fill="#c8892a" opacity="0.7"/><path d="M7 12 Q6.5 10 8 8 Q10 6 12.5 6 Q15.5 6 17 8.5 Q18.5 11 17.5 14 Q16.5 17 13.5 17.5 Q10.5 18 8.5 16 Q7 14.5 7 12Z" fill="#e8b050" opacity="0.7"/></svg></span></div>
-      <div class="card-word-big">Sleep</div>
-      <div class="card-rule"></div>
-      <div class="card-tap-hint">Tap to read</div>
-      <div class="card-pip-row bot"><span><svg width="14" height="11" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 Q2 10 4 7 Q6 3 10 2 Q14 1 17 3 Q21 4 22 8 Q24 12 22 16 Q20 19 16 20 Q12 21 9 20 Q5 18 4 14Z" fill="#c8892a" opacity="0.7"/><path d="M7 12 Q6.5 10 8 8 Q10 6 12.5 6 Q15.5 6 17 8.5 Q18.5 11 17.5 14 Q16.5 17 13.5 17.5 Q10.5 18 8.5 16 Q7 14.5 7 12Z" fill="#e8b050" opacity="0.7"/></svg></span><span><svg width="14" height="11" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 Q2 10 4 7 Q6 3 10 2 Q14 1 17 3 Q21 4 22 8 Q24 12 22 16 Q20 19 16 20 Q12 21 9 20 Q5 18 4 14Z" fill="#c8892a" opacity="0.7"/><path d="M7 12 Q6.5 10 8 8 Q10 6 12.5 6 Q15.5 6 17 8.5 Q18.5 11 17.5 14 Q16.5 17 13.5 17.5 Q10.5 18 8.5 16 Q7 14.5 7 12Z" fill="#e8b050" opacity="0.7"/></svg></span></div>
+  <p class="spin-count" id="spinCount">Tap the deck to shuffle</p>
+  <button class="shuffle-btn" id="shuffleBtn" onclick="cnSpin()">↺ Shuffle</button>
+
+  <!-- ── Word picker ── -->
+  <div class="word-picker" id="wordPicker">
+    <p class="word-picker-label">Or pick a story</p>
+    <div class="word-picker-pills" id="wordPickerPills">
+      <button class="word-pill" onclick="openStoryByWord('Pain')">Pain</button>
+      <button class="word-pill" onclick="openStoryByWord('Sleep')">Sleep</button>
+      <button class="word-pill" onclick="openStoryByWord('Scar')">Scar</button>
     </div>
-
-    <!-- Story card: Pain (index 0) -->
-    <div class="cn-card cn-story cn-story-0" id="storyCard0" role="button" aria-label="Read Pain story">
-      <div class="card-amber-bar">Word Prompt</div>
-      <div class="card-pip-row top"><span><svg width="14" height="11" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 Q2 10 4 7 Q6 3 10 2 Q14 1 17 3 Q21 4 22 8 Q24 12 22 16 Q20 19 16 20 Q12 21 9 20 Q5 18 4 14Z" fill="#c8892a" opacity="0.7"/><path d="M7 12 Q6.5 10 8 8 Q10 6 12.5 6 Q15.5 6 17 8.5 Q18.5 11 17.5 14 Q16.5 17 13.5 17.5 Q10.5 18 8.5 16 Q7 14.5 7 12Z" fill="#e8b050" opacity="0.7"/></svg></span><span><svg width="14" height="11" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 Q2 10 4 7 Q6 3 10 2 Q14 1 17 3 Q21 4 22 8 Q24 12 22 16 Q20 19 16 20 Q12 21 9 20 Q5 18 4 14Z" fill="#c8892a" opacity="0.7"/><path d="M7 12 Q6.5 10 8 8 Q10 6 12.5 6 Q15.5 6 17 8.5 Q18.5 11 17.5 14 Q16.5 17 13.5 17.5 Q10.5 18 8.5 16 Q7 14.5 7 12Z" fill="#e8b050" opacity="0.7"/></svg></span></div>
-      <div class="card-word-big">Pain</div>
-      <div class="card-rule"></div>
-      <div class="card-tap-hint">Tap to read</div>
-      <div class="card-pip-row bot"><span><svg width="14" height="11" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 Q2 10 4 7 Q6 3 10 2 Q14 1 17 3 Q21 4 22 8 Q24 12 22 16 Q20 19 16 20 Q12 21 9 20 Q5 18 4 14Z" fill="#c8892a" opacity="0.7"/><path d="M7 12 Q6.5 10 8 8 Q10 6 12.5 6 Q15.5 6 17 8.5 Q18.5 11 17.5 14 Q16.5 17 13.5 17.5 Q10.5 18 8.5 16 Q7 14.5 7 12Z" fill="#e8b050" opacity="0.7"/></svg></span><span><svg width="14" height="11" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 Q2 10 4 7 Q6 3 10 2 Q14 1 17 3 Q21 4 22 8 Q24 12 22 16 Q20 19 16 20 Q12 21 9 20 Q5 18 4 14Z" fill="#c8892a" opacity="0.7"/><path d="M7 12 Q6.5 10 8 8 Q10 6 12.5 6 Q15.5 6 17 8.5 Q18.5 11 17.5 14 Q16.5 17 13.5 17.5 Q10.5 18 8.5 16 Q7 14.5 7 12Z" fill="#e8b050" opacity="0.7"/></svg></span></div>
-    </div>
-
-    <!-- Story card: Scar (index 2) -->
-    <div class="cn-card cn-story cn-story-2" id="storyCard2" role="button" aria-label="Read Scar story">
-      <div class="card-amber-bar">Word Prompt</div>
-      <div class="card-pip-row top"><span><svg width="14" height="11" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 Q2 10 4 7 Q6 3 10 2 Q14 1 17 3 Q21 4 22 8 Q24 12 22 16 Q20 19 16 20 Q12 21 9 20 Q5 18 4 14Z" fill="#c8892a" opacity="0.7"/><path d="M7 12 Q6.5 10 8 8 Q10 6 12.5 6 Q15.5 6 17 8.5 Q18.5 11 17.5 14 Q16.5 17 13.5 17.5 Q10.5 18 8.5 16 Q7 14.5 7 12Z" fill="#e8b050" opacity="0.7"/></svg></span><span><svg width="14" height="11" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 Q2 10 4 7 Q6 3 10 2 Q14 1 17 3 Q21 4 22 8 Q24 12 22 16 Q20 19 16 20 Q12 21 9 20 Q5 18 4 14Z" fill="#c8892a" opacity="0.7"/><path d="M7 12 Q6.5 10 8 8 Q10 6 12.5 6 Q15.5 6 17 8.5 Q18.5 11 17.5 14 Q16.5 17 13.5 17.5 Q10.5 18 8.5 16 Q7 14.5 7 12Z" fill="#e8b050" opacity="0.7"/></svg></span></div>
-      <div class="card-word-big">Scar</div>
-      <div class="card-rule"></div>
-      <div class="card-tap-hint">Tap to read</div>
-      <div class="card-pip-row bot"><span><svg width="14" height="11" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 Q2 10 4 7 Q6 3 10 2 Q14 1 17 3 Q21 4 22 8 Q24 12 22 16 Q20 19 16 20 Q12 21 9 20 Q5 18 4 14Z" fill="#c8892a" opacity="0.7"/><path d="M7 12 Q6.5 10 8 8 Q10 6 12.5 6 Q15.5 6 17 8.5 Q18.5 11 17.5 14 Q16.5 17 13.5 17.5 Q10.5 18 8.5 16 Q7 14.5 7 12Z" fill="#e8b050" opacity="0.7"/></svg></span><span><svg width="14" height="11" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 Q2 10 4 7 Q6 3 10 2 Q14 1 17 3 Q21 4 22 8 Q24 12 22 16 Q20 19 16 20 Q12 21 9 20 Q5 18 4 14Z" fill="#c8892a" opacity="0.7"/><path d="M7 12 Q6.5 10 8 8 Q10 6 12.5 6 Q15.5 6 17 8.5 Q18.5 11 17.5 14 Q16.5 17 13.5 17.5 Q10.5 18 8.5 16 Q7 14.5 7 12Z" fill="#e8b050" opacity="0.7"/></svg></span></div>
-    </div>
-
-    <!-- Cover card — big nugget -->
-    <div class="cn-card cn-cover" id="coverCard">
-      <svg viewBox="0 0 110 82" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:78%;max-width:130px;">
-        <path d="M8 54 Q4 40 8 26 Q14 12 28 7 Q44 2 60 5 Q78 7 90 18 Q104 32 102 50 Q100 66 86 74 Q68 82 48 80 Q26 78 14 65 Q9 60 8 54Z" fill="#7a4a10"/>
-        <path d="M14 50 Q11 38 15 27 Q21 15 34 11 Q50 6 64 9 Q80 13 88 26 Q96 39 92 54 Q88 66 74 72 Q56 78 40 75 Q22 70 16 57 Q14 54 14 50Z" fill="#c8892a"/>
-        <path d="M20 48 Q18 37 22 28 Q28 18 40 14 Q55 9 68 13 Q82 17 87 30 Q92 43 86 55 Q80 66 66 70 Q50 74 36 70 Q22 64 20 52 Q20 50 20 48Z" fill="#d4993a"/>
-        <path d="M27 46 Q26 37 30 29 Q36 21 47 18 Q60 14 70 18 Q82 23 84 35 Q86 47 80 56 Q73 65 60 67 Q45 69 35 63 Q27 57 27 48 Q27 47 27 46Z" fill="#e8b050"/>
-        <!-- Breading bumps -->
-        <circle cx="35" cy="20" r="5" fill="#b87820" opacity="0.45"/>
-        <circle cx="58" cy="11" r="4" fill="#b87820" opacity="0.38"/>
-        <circle cx="78" cy="18" r="5" fill="#b87820" opacity="0.42"/>
-        <circle cx="89" cy="36" r="4.5" fill="#b87820" opacity="0.38"/>
-        <circle cx="84" cy="58" r="5" fill="#b87820" opacity="0.42"/>
-        <circle cx="62" cy="70" r="4" fill="#b87820" opacity="0.38"/>
-        <circle cx="38" cy="68" r="4.5" fill="#b87820" opacity="0.40"/>
-        <circle cx="18" cy="54" r="4" fill="#b87820" opacity="0.38"/>
-        <circle cx="16" cy="32" r="4" fill="#b87820" opacity="0.35"/>
-      </svg>
-      <div class="card-tap-hint" style="color:rgba(200,137,42,0.55);">Tap to browse ▼</div>
-    </div>
-
   </div>
-
-  <p class="deck-count"><span>3</span> stories available</p>
 
   <!-- ── Kahawa Kadogo donation ── -->
   <a href="#" id="donateBtn" class="kahawa-wrap" onclick="openKahawa(); return false;">
-
-    <!-- Coffee mug SVG -->
     <svg class="kahawa-mug" viewBox="0 0 160 150" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <!-- Warm glow on mug face -->
         <radialGradient id="mugGlow" cx="42%" cy="55%" r="55%">
           <stop offset="0%"   stop-color="#7a4a10" stop-opacity="1"/>
           <stop offset="60%"  stop-color="#3a1e08" stop-opacity="1"/>
           <stop offset="100%" stop-color="#1a0a02" stop-opacity="1"/>
         </radialGradient>
-        <!-- Rim top gradient -->
         <linearGradient id="rimGrad" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%"   stop-color="#c8892a"/>
           <stop offset="100%" stop-color="#7a4a10"/>
         </linearGradient>
-        <!-- Saucer gradient -->
         <radialGradient id="saucerGlow" cx="50%" cy="30%" r="60%">
           <stop offset="0%"   stop-color="#5a3008"/>
           <stop offset="100%" stop-color="#1a0a02"/>
         </radialGradient>
-        <!-- Warm spotlight on page -->
         <radialGradient id="spotlight" cx="50%" cy="60%" r="50%">
           <stop offset="0%"   stop-color="#c8892a" stop-opacity="0.18"/>
           <stop offset="100%" stop-color="#c8892a" stop-opacity="0"/>
         </radialGradient>
       </defs>
-
-      <!-- Warm spotlight glow behind mug -->
       <ellipse cx="80" cy="118" rx="70" ry="32" fill="url(#spotlight)"/>
-
-      <!-- Saucer -->
       <ellipse cx="80" cy="126" rx="56" ry="11" fill="url(#saucerGlow)"/>
       <ellipse cx="80" cy="124" rx="54" ry="9"  fill="#3a1e08"/>
       <ellipse cx="80" cy="123" rx="50" ry="7"  fill="#4a2810"/>
-      <!-- Saucer inner ring -->
       <ellipse cx="80" cy="122" rx="28" ry="4"  fill="#2a1208" opacity="0.6"/>
-
-      <!-- Mug body -->
       <path d="M28 52 L32 118 Q32 124 38 124 L122 124 Q128 124 128 118 L132 52 Z" fill="#1a0a02"/>
       <path d="M28 52 L32 118 Q32 124 38 124 L122 124 Q128 124 128 118 L132 52 Z" fill="url(#mugGlow)"/>
-
-      <!-- Mug rim (top band) -->
       <path d="M26 50 Q26 44 80 44 Q134 44 134 50 L134 56 Q134 62 80 62 Q26 62 26 56 Z" fill="url(#rimGrad)"/>
-      <!-- Rim top ellipse -->
       <ellipse cx="80" cy="50" rx="54" ry="8" fill="#c8892a"/>
       <ellipse cx="80" cy="49" rx="52" ry="6" fill="#d4993a"/>
-      <!-- Coffee surface inside rim -->
       <ellipse cx="80" cy="50" rx="46" ry="5" fill="#1a0a02"/>
       <ellipse cx="80" cy="50" rx="44" ry="4" fill="#2a1208"/>
-
-      <!-- Handle -->
       <path d="M128 68 Q156 68 156 88 Q156 110 128 110" stroke="#3a1e08" stroke-width="12" fill="none" stroke-linecap="round"/>
       <path d="M128 68 Q152 68 152 88 Q152 110 128 110" stroke="#5a3010" stroke-width="7"  fill="none" stroke-linecap="round"/>
-      <!-- Handle highlight -->
       <path d="M130 72 Q148 72 148 88 Q148 106 130 106" stroke="#c8892a" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
-
-      <!-- Three coffee beans on mug face -->
-      <!-- Bean left -->
       <ellipse class="bean-outer" cx="58" cy="91" rx="7" ry="11" transform="rotate(-20 58 95)"/>
       <ellipse class="bean-inner" cx="58" cy="91" rx="5.5" ry="9.5" transform="rotate(-20 58 95)"/>
       <path class="bean-crease" d="M58 82 Q61 91 58 100" stroke-width="1.2" stroke-linecap="round" fill="none" transform="rotate(-20 58 95)" opacity="0.7"/>
-      <!-- Bean centre -->
       <ellipse class="bean-outer" cx="78" cy="97" rx="7" ry="11"/>
       <ellipse class="bean-inner" cx="78" cy="97" rx="5.5" ry="9.5"/>
       <path class="bean-crease" d="M78 88 Q81 97 78 106" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.7"/>
-      <!-- Bean right -->
       <ellipse class="bean-outer" cx="97" cy="89" rx="7" ry="11" transform="rotate(22 97 93)"/>
       <ellipse class="bean-inner" cx="97" cy="89" rx="5.5" ry="9.5" transform="rotate(22 97 93)"/>
       <path class="bean-crease" d="M97 80 Q100 89 97 98" stroke-width="1.2" stroke-linecap="round" fill="none" transform="rotate(22 97 93)" opacity="0.7"/>
-
-      <!-- Steam wisps -->
       <path d="M58 38 Q54 28 58 20 Q62 12 58 4" stroke="#c8892a" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.45">
         <animate attributeName="opacity" values="0.45;0.1;0.45" dur="2.4s" repeatCount="indefinite"/>
         <animate attributeName="d" values="M58 38 Q54 28 58 20 Q62 12 58 4;M58 38 Q62 28 58 20 Q54 12 58 4;M58 38 Q54 28 58 20 Q62 12 58 4" dur="2.4s" repeatCount="indefinite"/>
@@ -1002,7 +925,6 @@
         <animate attributeName="d" values="M102 38 Q106 28 102 20 Q98 12 102 4;M102 38 Q98 28 102 18 Q106 10 102 4;M102 38 Q106 28 102 20 Q98 12 102 4" dur="2.7s" begin="1s" repeatCount="indefinite"/>
       </path>
     </svg>
-
   </a>
 
 </div>
@@ -1060,341 +982,6 @@ Inner meaning here could be that we sleep on the things that matter and could fe
     </div>
   </div>
 </div>
-<script>
-  window.openKahawa = function() {
-    document.getElementById('kahawaBackdrop').classList.add('open');
-    setTimeout(function() {
-      document.getElementById('kahawaPopup').classList.add('open');
-    }, 10);
-  };
-  window.closeKahawa = function() {
-    document.getElementById('kahawaPopup').classList.remove('open');
-    setTimeout(function() {
-      document.getElementById('kahawaBackdrop').classList.remove('open');
-    }, 250);
-  };
-  document.addEventListener('DOMContentLoaded', function() {
-    var bd = document.getElementById('kahawaBackdrop');
-    if(bd) bd.addEventListener('click', function(e) {
-      if(e.target === bd) window.closeKahawa();
-    });
-    // Continue button closes popup after brief delay
-    var cont = document.getElementById('kahawaContinue');
-    if(cont) cont.addEventListener('click', function() {
-      setTimeout(window.closeKahawa, 400);
-    });
-  });
-
-  // ── Theme ────────────────────────────────────────────────────────
-  (function() {
-    var root = document.documentElement;
-    var saved; try { saved = localStorage.getItem('wsTheme'); } catch(e){}
-    var isDark = saved ? saved === 'dark' : true;
-
-    function applyTheme(dark) {
-      isDark = dark;
-      root.setAttribute('data-theme', dark ? 'dark' : 'light');
-      root.style.background = dark ? '#0a0a0a' : '#f5efe3';
-      document.body.style.background = dark ? '#0a0a0a' : '#f5efe3';
-      var lbl = document.getElementById('cnThemeLabel');
-      var ico = document.getElementById('cnThemeIcon');
-      if(lbl) lbl.textContent = dark ? 'Dark' : 'Light';
-      if(ico) ico.textContent = dark ? '☽' : '☼︎';
-      try { localStorage.setItem('wsTheme', dark ? 'dark' : 'light'); } catch(e){}
-    }
-
-    applyTheme(isDark);
-
-    window.addEventListener('DOMContentLoaded', function() {
-      var pill = document.getElementById('cnThemePill');
-      if(pill) pill.addEventListener('click', function() { applyTheme(!isDark); });
-    });
-  })();
-
-  // ── Story modal ──────────────────────────────────────────────────
-  // ── Stories data ────────────────────────────────────────────────
-  var stories = [
-    { word: 'Pain',  modalId: 'storyModal2', backdropId: 'storyBackdrop2' },
-    { word: 'Sleep', modalId: 'storyModal',  backdropId: 'storyBackdrop',  ratingKey: 'cn_rating_sleep' },
-    { word: 'Scar',  modalId: 'storyModal3', backdropId: 'storyBackdrop3', ratingKey: 'cn_rating_scar' },
-  ];
-
-  var deckArea  = document.getElementById('deckArea');
-  var coverCard = document.getElementById('coverCard');
-  var isSpread  = false;
-
-  // Track which card is at which position
-  // positions: 'center', 'left', 'right'
-  var cardPositions = {
-    'coverCard':  'hidden',   // Hidden when spread is open
-    'storyCard0': 'center',   // Pain (initially centered)
-    'storyCard1': 'left',     // Sleep
-    'storyCard2': 'right'     // Scar
-  };
-
-  var storyForCard = {
-    'storyCard0': 0,
-    'storyCard1': 1,
-    'storyCard2': 2
-  };
-
-  function applyPositions() {
-    Object.keys(cardPositions).forEach(function(id) {
-      var el = document.getElementById(id);
-      var pos = cardPositions[id];
-      el.classList.remove('pos-center', 'pos-left', 'pos-right');
-      if(pos !== 'hidden') {
-        el.classList.add('pos-' + pos);
-      }
-      // Update hint text based on position
-      var hint = el.querySelector('.card-tap-hint');
-      if(!hint) return;
-      if(storyForCard[id] !== undefined) {
-        // Story card
-        hint.textContent = pos === 'center' ? 'Tap to read ▼' : 'Tap to browse';
-      } else {
-        // Cover card
-        hint.textContent = pos === 'center' ? 'Tap to close ▲' : '';
-      }
-    });
-  }
-
-  function rotateCards(direction) {
-    // direction: 'left' (tap left card) or 'right' (tap right card)
-    // Cycle only visible story cards: center → left → right → center (or reverse)
-    var centerCard, leftCard, rightCard;
-    
-    Object.keys(cardPositions).forEach(function(id) {
-      if(cardPositions[id] === 'hidden') return; // Skip hidden cards
-      if(cardPositions[id] === 'center') centerCard = id;
-      if(cardPositions[id] === 'left') leftCard = id;
-      if(cardPositions[id] === 'right') rightCard = id;
-    });
-    
-    // Safety check - make sure all three positions exist
-    if(!centerCard || !leftCard || !rightCard) return;
-    
-    // Rotate clockwise or counter-clockwise
-    if(direction === 'left') {
-      // Tap left: left → center, center → right, right → left
-      cardPositions[leftCard] = 'center';
-      cardPositions[centerCard] = 'right';
-      cardPositions[rightCard] = 'left';
-    } else if(direction === 'right') {
-      // Tap right: right → center, center → left, left → right
-      cardPositions[rightCard] = 'center';
-      cardPositions[centerCard] = 'left';
-      cardPositions[leftCard] = 'right';
-    }
-    
-    applyPositions();
-  }
-
-  function openSpread() {
-    isSpread = true;
-    deckArea.classList.add('spread');
-    cardPositions['coverCard'] = 'hidden'; // Hide nugget when spread opens
-    applyPositions();
-  }
-
-  function closeSpread() {
-    isSpread = false;
-    deckArea.classList.remove('spread');
-    // Remove pos classes
-    document.querySelectorAll('.cn-card').forEach(function(el) {
-      el.classList.remove('pos-center', 'pos-left', 'pos-right');
-    });
-    // Reset positions
-    cardPositions = { 'coverCard': 'center', 'storyCard0': 'center', 'storyCard1': 'left', 'storyCard2': 'hidden' };
-    coverCard.querySelector('.card-tap-hint').textContent = 'Tap to browse ▼';
-  }
-
-  function openStory(index) {
-    var s = stories[index];
-    document.getElementById(s.backdropId).classList.add('open');
-    var m = document.getElementById(s.modalId);
-    m.classList.add('open');
-    m.scrollTop = 0;
-    document.body.style.overflow = 'hidden';
-    document.documentElement.classList.add('story-open');
-    document.getElementById('storyModalBg').classList.add('open');
-  }
-
-  window.cnCloseStory = function() {
-    stories.forEach(function(s) {
-      document.getElementById(s.backdropId).classList.remove('open');
-      document.getElementById(s.modalId).classList.remove('open');
-    });
-    document.body.style.overflow = '';
-    document.documentElement.classList.remove('story-open');
-    document.getElementById('storyModalBg').classList.remove('open');
-    document.getElementById('cnThemePill').classList.remove('hidden');
-  };
-  function closeStory() { window.cnCloseStory(); }
-
-  // Story note popup
-  window.openStoryNote = function() {
-    window.closeStoryNote();
-
-    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    var bgColor = isDark ? '#1a1208' : '#ede6d3';
-    var textColor = isDark ? '#faf6ee' : '#2a1f0e';
-    var amberColor = isDark ? '#c8892a' : '#8a5a00';
-
-    var overlay = document.createElement('div');
-    overlay.id = 'storyNoteOverlay';
-    overlay.onclick = window.closeStoryNote;
-    overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;z-index:99998;background:rgba(0,0,0,0.15);';
-    document.body.appendChild(overlay);
-
-    var popup = document.createElement('div');
-    popup.id = 'storyNotePopup';
-    popup.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:99999;background:' + bgColor + ';border:1px solid rgba(200,137,42,0.3);border-radius:6px;padding:1.2rem 1.4rem;width:78vw;max-width:260px;font-family:Cormorant Garamond,serif;font-style:italic;font-size:1rem;line-height:1.8;color:' + textColor + ';text-align:center;';
-    popup.innerHTML = '🎶 Obedience is the very best way to show that you believe,<br>Doing exactly what the Lord commands, and doing it happily 🎶<br><br><button onclick="closeStoryNote()" style="font-family:DM Mono,monospace;font-size:0.55rem;letter-spacing:0.14em;color:' + amberColor + ';text-transform:uppercase;background:none;border:none;cursor:pointer;">close</button>';
-    document.body.appendChild(popup);
-  };
-
-  window.shareStory = function(slug) {
-    var url = 'https://wordspin.org/chickennuggets.html#' + slug;
-    var copiedEl = document.getElementById('share-copied-' + slug);
-
-    if(navigator.share) {
-      navigator.share({
-        title: 'Chicken Nuggets — ' + slug.charAt(0).toUpperCase() + slug.slice(1),
-        url: url
-      }).catch(function(){});
-    } else {
-      navigator.clipboard.writeText(url).then(function() {
-        if(copiedEl) {
-          copiedEl.classList.add('show');
-          setTimeout(function() { copiedEl.classList.remove('show'); }, 2000);
-        }
-      }).catch(function() {
-        // Fallback for older browsers
-        var ta = document.createElement('textarea');
-        ta.value = url;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        if(copiedEl) {
-          copiedEl.classList.add('show');
-          setTimeout(function() { copiedEl.classList.remove('show'); }, 2000);
-        }
-      });
-    }
-  };
-
-  window.closeStoryNote = function() {
-    var o = document.getElementById('storyNoteOverlay');
-    var p = document.getElementById('storyNotePopup');
-    if(o) o.remove();
-    if(p) p.remove();
-  };
-
-  window.setTextSize = function(size, btn) {
-    // Find which modal is currently open
-    var openModal = null;
-    var modals = document.querySelectorAll('.story-modal');
-    for(var i = 0; i < modals.length; i++) {
-      if(modals[i].classList.contains('open')) {
-        openModal = modals[i];
-        break;
-      }
-    }
-    if(!openModal) return;
-    
-    var content = openModal.querySelector('.story-content');
-    if(!content) return;
-    
-    content.classList.remove('text-small', 'text-normal', 'text-large', 'text-xlarge');
-    content.classList.add('text-' + size);
-    
-    // Update all size buttons in this modal
-    var buttons = openModal.querySelectorAll('.text-size-btn');
-    for(var j = 0; j < buttons.length; j++) {
-      buttons[j].classList.remove('active');
-    }
-    btn.classList.add('active');
-  };
-
-  // Cover: tap to open/close spread
-  coverCard.addEventListener('click', function(e) {
-    e.stopPropagation();
-    if(!isSpread) {
-      openSpread();
-    } else if(cardPositions['coverCard'] === 'center') {
-      // Cover is in center — close spread
-      closeSpread();
-    } else {
-      // Cover is on a side — rotate it to center
-      var direction = cardPositions['coverCard'] === 'left' ? 'left' : 'right';
-      rotateCards(direction);
-    }
-  });
-
-  // Story card 0 (Pain)
-  document.getElementById('storyCard0').addEventListener('click', function(e) {
-    e.stopPropagation();
-    if(!isSpread) return;
-    if(cardPositions['storyCard0'] === 'center') {
-      // Already in center — open story
-      openStory(0);
-    } else {
-      // Rotate: tapping left card rotates left, right card rotates right
-      var direction = cardPositions['storyCard0'] === 'left' ? 'left' : 'right';
-      rotateCards(direction);
-    }
-  });
-
-  // Story card 1 (Sleep)
-  document.getElementById('storyCard1').addEventListener('click', function(e) {
-    e.stopPropagation();
-    if(!isSpread) return;
-    if(cardPositions['storyCard1'] === 'center') {
-      openStory(1);
-    } else {
-      var direction = cardPositions['storyCard1'] === 'left' ? 'left' : 'right';
-      rotateCards(direction);
-    }
-  });
-
-  // Story card 2 (Scar)
-  document.getElementById('storyCard2').addEventListener('click', function(e) {
-    e.stopPropagation();
-    if(!isSpread) return;
-    if(cardPositions['storyCard2'] === 'center') {
-      openStory(2);
-    } else {
-      var direction = cardPositions['storyCard2'] === 'left' ? 'left' : 'right';
-      rotateCards(direction);
-    }
-  });
-
-  // Backdrops also close
-  stories.forEach(function(s) {
-    var backdrop = document.getElementById(s.backdropId);
-    if(backdrop) backdrop.addEventListener('click', function(e){ if(e.target===backdrop) closeStory(); });
-  });
-
-  // ── Direct story links via URL hash ──────────────────────────────
-  document.addEventListener('DOMContentLoaded', function() {
-    var hashMap = { 'pain': 'storyModal2', 'sleep': 'storyModal', 'scar': 'storyModal3' };
-    var backdropMap = { 'pain': 'storyBackdrop2', 'sleep': 'storyBackdrop', 'scar': 'storyBackdrop3' };
-    var hash = window.location.hash.replace('#', '').toLowerCase();
-    if(hashMap[hash]) {
-      var modal = document.getElementById(hashMap[hash]);
-      var backdrop = document.getElementById(backdropMap[hash]);
-      var bg = document.getElementById('storyModalBg');
-      if(modal) { modal.classList.add('open'); modal.scrollTop = 0; }
-      if(backdrop) backdrop.classList.add('open');
-      if(bg) bg.classList.add('open');
-      document.body.style.overflow = 'hidden';
-      document.documentElement.classList.add('story-open');
-    }
-  });
-
-</script>
 
 <!-- ── Story 2: Pain ── -->
 <div class="story-backdrop" id="storyBackdrop2"></div>
@@ -1586,5 +1173,345 @@ Inner meaning here could be that we sleep on the things that matter and could fe
 </div>
 
 
+
+<script>
+  window.openKahawa = function() {
+    document.getElementById('kahawaBackdrop').classList.add('open');
+    setTimeout(function() {
+      document.getElementById('kahawaPopup').classList.add('open');
+    }, 10);
+  };
+  window.closeKahawa = function() {
+    document.getElementById('kahawaPopup').classList.remove('open');
+    setTimeout(function() {
+      document.getElementById('kahawaBackdrop').classList.remove('open');
+    }, 250);
+  };
+  document.addEventListener('DOMContentLoaded', function() {
+    var bd = document.getElementById('kahawaBackdrop');
+    if(bd) bd.addEventListener('click', function(e) {
+      if(e.target === bd) window.closeKahawa();
+    });
+    // Continue button closes popup after brief delay
+    var cont = document.getElementById('kahawaContinue');
+    if(cont) cont.addEventListener('click', function() {
+      setTimeout(window.closeKahawa, 400);
+    });
+  });
+
+  // ── Theme ────────────────────────────────────────────────────────
+  (function() {
+    var root = document.documentElement;
+    var saved; try { saved = localStorage.getItem('wsTheme'); } catch(e){}
+    var isDark = saved ? saved === 'dark' : true;
+
+    function applyTheme(dark) {
+      isDark = dark;
+      root.setAttribute('data-theme', dark ? 'dark' : 'light');
+      root.style.background = dark ? '#0a0a0a' : '#f5efe3';
+      document.body.style.background = dark ? '#0a0a0a' : '#f5efe3';
+      var lbl = document.getElementById('cnThemeLabel');
+      var ico = document.getElementById('cnThemeIcon');
+      if(lbl) lbl.textContent = dark ? 'Dark' : 'Light';
+      if(ico) ico.textContent = dark ? '☽' : '☼︎';
+      try { localStorage.setItem('wsTheme', dark ? 'dark' : 'light'); } catch(e){}
+    }
+
+    applyTheme(isDark);
+
+    window.addEventListener('DOMContentLoaded', function() {
+      var pill = document.getElementById('cnThemePill');
+      if(pill) pill.addEventListener('click', function() { applyTheme(!isDark); });
+    });
+  })();
+
+  // ── Stories data ─────────────────────────────────────────────────
+  var stories = [
+    { word: 'Pain',  modalId: 'storyModal2', backdropId: 'storyBackdrop2' },
+    { word: 'Sleep', modalId: 'storyModal',  backdropId: 'storyBackdrop'  },
+    { word: 'Scar',  modalId: 'storyModal3', backdropId: 'storyBackdrop3' },
+  ];
+
+  // ── Deck / Shuffle ────────────────────────────────────────────────
+  var deckArea = document.getElementById('deckArea');
+  var spinning = false;
+
+  function buildDeck() {
+    deckArea.innerHTML = '';
+    // Back cards (stack)
+    for(var i = 0; i < 5; i++) {
+      var c = document.createElement('div');
+      c.className = 'deck-card back';
+      var tx = 'translateY(' + (i * -2) + 'px) translateX(' + (i * 1) + 'px)';
+      c.style.webkitTransform = tx;
+      c.style.transform = tx;
+      c.style.zIndex = i;
+      c.style.boxShadow = '2px 2px 6px rgba(26,16,8,0.18)';
+      var ws = document.createElement('span');
+      ws.className = 'ws-monogram';
+      ws.textContent = 'CN';
+      c.appendChild(ws);
+      deckArea.appendChild(c);
+    }
+    // Front card
+    var front = document.createElement('div');
+    front.className = 'deck-card front';
+    front.style.zIndex = 10;
+    front.style.boxShadow = '3px 3px 14px rgba(26,16,8,0.22)';
+    front.innerHTML = '<div class="card-header">Word Prompt</div>' +
+      '<div class="card-pip-row top"><span>✦</span><span>✦</span></div>' +
+      '<div class="card-word-text" id="cardWordText">?</div>' +
+      '<div class="card-rule"></div>' +
+      '<div class="card-pip-row bot"><span>✦</span><span>✦</span></div>';
+    deckArea.appendChild(front);
+
+    // Tap deck — shuffle if not revealed, open story if revealed
+    deckArea.addEventListener('click', function() {
+      var front = deckArea.querySelector('.deck-card.front');
+      if(front && front.classList.contains('revealed')) {
+        var word = document.getElementById('cardWordText').textContent;
+        if(word && word !== '?') openStoryByWord(word);
+      } else {
+        cnSpin();
+      }
+    });
+  }
+  buildDeck();
+
+  function cnSpin() {
+    if(spinning) return;
+    spinning = true;
+
+    // Reset revealed so next tap shuffles again
+    var frontEl = deckArea.querySelector('.deck-card.front');
+    if(frontEl) frontEl.classList.remove('revealed');
+    document.getElementById('spinCount').textContent = 'Tap the deck to shuffle';
+
+    var words = stories.map(function(s) { return s.word; });
+    // Shuffle array
+    for(var i = words.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = words[i]; words[i] = words[j]; words[j] = tmp;
+    }
+    var word = words[0];
+
+    var front  = deckArea.querySelector('.deck-card.front');
+    var backs  = deckArea.querySelectorAll('.deck-card.back');
+    var wordEl = document.getElementById('cardWordText');
+
+    front.classList.remove('revealed');
+    wordEl.textContent = '?';
+
+    var STEPS = 6, STEP_MS = 95, step = 0, lastTime = 0;
+    var easing = 'cubic-bezier(0.25,0.46,0.45,0.94)';
+
+    // Reset positions instantly
+    backs.forEach(function(c, i) {
+      c.style.webkitTransition = 'none';
+      c.style.transition = 'none';
+      c.style.webkitTransform = 'translateY(' + (i * -2) + 'px) translateX(' + (i * 1) + 'px)';
+      c.style.transform = 'translateY(' + (i * -2) + 'px) translateX(' + (i * 1) + 'px)';
+    });
+    front.style.webkitTransition = 'none';
+    front.style.transition = 'none';
+    front.style.webkitTransform = '';
+    front.style.transform = '';
+
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        backs.forEach(function(c) {
+          c.style.webkitTransition = '-webkit-transform ' + STEP_MS + 'ms ' + easing;
+          c.style.transition = 'transform ' + STEP_MS + 'ms ' + easing;
+        });
+        front.style.webkitTransition = '-webkit-transform ' + STEP_MS + 'ms ' + easing;
+        front.style.transition = 'transform ' + STEP_MS + 'ms ' + easing;
+
+        function shuffleStep(ts) {
+          if(step >= STEPS) {
+            cnDealCard(word, front, backs, wordEl);
+            return;
+          }
+          if(ts - lastTime < STEP_MS && lastTime !== 0) {
+            requestAnimationFrame(shuffleStep);
+            return;
+          }
+          lastTime = ts;
+          var dir = (step % 2 === 0) ? 1 : -1;
+          backs.forEach(function(c, i) {
+            var spread = (i + 1) * 10 * dir;
+            var lift = -Math.abs(spread) * 0.3;
+            var tf = 'translateY(' + (lift - i*2) + 'px) translateX(' + (spread + i) + 'px) rotate(' + (spread * 0.35) + 'deg)';
+            c.style.webkitTransform = tf;
+            c.style.transform = tf;
+          });
+          var w = (step % 2 === 0) ? -4 : 4;
+          var ftf = 'translateY(-4px) rotate(' + w + 'deg)';
+          front.style.webkitTransform = ftf;
+          front.style.transform = ftf;
+          step++;
+          requestAnimationFrame(shuffleStep);
+        }
+        requestAnimationFrame(shuffleStep);
+      });
+    });
+  }
+
+  function cnDealCard(word, front, backs, wordEl) {
+    backs.forEach(function(c, i) {
+      c.style.webkitTransition = '-webkit-transform 0.25s ease';
+      c.style.transition = 'transform 0.25s ease';
+      c.style.webkitTransform = 'translateY(' + (i * -2) + 'px) translateX(' + (i * 1) + 'px)';
+      c.style.transform = 'translateY(' + (i * -2) + 'px) translateX(' + (i * 1) + 'px)';
+    });
+    front.style.webkitTransition = '-webkit-transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease';
+    front.style.transition = 'transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease';
+    front.style.webkitTransform = 'translateY(-160px) rotate(-10deg)';
+    front.style.transform = 'translateY(-160px) rotate(-10deg)';
+    front.style.opacity = '0';
+
+    setTimeout(function() {
+      front.style.transition = 'none';
+      front.style.webkitTransform = 'translateY(60px) scale(0.9)';
+      front.style.transform = 'translateY(60px) scale(0.9)';
+      front.style.opacity = '0';
+      wordEl.textContent = word;
+
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          front.style.transition = 'transform 0.45s cubic-bezier(0.22,1,0.36,1), opacity 0.22s ease';
+          front.style.webkitTransform = 'translateY(0) scale(1)';
+          front.style.transform = 'translateY(0) scale(1)';
+          front.style.opacity = '1';
+          setTimeout(function() {
+            front.classList.add('revealed');
+            spinning = false;
+            document.getElementById('spinCount').textContent = 'Tap the card to read, or tap shuffle to find another';
+          }, 430);
+        });
+      });
+    }, 320);
+  }
+
+  // Open story by word name (used by word picker pills and shuffle reveal)
+  window.openStoryByWord = function(word) {
+    var match = null;
+    for(var i = 0; i < stories.length; i++) {
+      if(stories[i].word === word) { match = stories[i]; break; }
+    }
+    if(!match) return;
+    document.getElementById(match.backdropId).classList.add('open');
+    var m = document.getElementById(match.modalId);
+    m.classList.add('open');
+    m.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+    document.documentElement.classList.add('story-open');
+    document.getElementById('storyModalBg').classList.add('open');
+  };
+
+  // ── Story close ───────────────────────────────────────────────────
+  window.cnCloseStory = function() {
+    stories.forEach(function(s) {
+      document.getElementById(s.backdropId).classList.remove('open');
+      document.getElementById(s.modalId).classList.remove('open');
+    });
+    document.body.style.overflow = '';
+    document.documentElement.classList.remove('story-open');
+    document.getElementById('storyModalBg').classList.remove('open');
+    document.getElementById('cnThemePill').classList.remove('hidden');
+    // Reset deck so tapping shuffles again
+    var front = deckArea.querySelector('.deck-card.front');
+    if(front) { front.classList.remove('revealed'); front.classList.remove('read'); }
+    document.getElementById('spinCount').textContent = 'Tap the deck to shuffle';  };
+  function closeStory() { window.cnCloseStory(); }
+
+  // Backdrops close story
+  stories.forEach(function(s) {
+    var backdrop = document.getElementById(s.backdropId);
+    if(backdrop) backdrop.addEventListener('click', function(e) {
+      if(e.target === backdrop) closeStory();
+    });
+  });
+
+  // ── Story sharing ─────────────────────────────────────────────────
+  window.shareStory = function(slug) {
+    var url = 'https://wordspin.org/chickennuggets.html#' + slug;
+    var title = 'Chicken Nuggets — ' + slug.charAt(0).toUpperCase() + slug.slice(1);
+    var copiedEl = document.getElementById('share-copied-' + slug);
+
+    if(navigator.share) {
+      navigator.share({ title: title, url: url }).catch(function(){});
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.cssText = 'position:fixed;opacity:0;';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch(e) {}
+      document.body.removeChild(ta);
+      if(copiedEl) {
+        copiedEl.classList.add('show');
+        setTimeout(function() { copiedEl.classList.remove('show'); }, 2000);
+      }
+    }
+  };
+  window.openStoryNote = function() {
+    window.closeStoryNote();
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    var bgColor = isDark ? '#1a1208' : '#ede6d3';
+    var textColor = isDark ? '#faf6ee' : '#2a1f0e';
+    var amberColor = isDark ? '#c8892a' : '#8a5a00';
+    var overlay = document.createElement('div');
+    overlay.id = 'storyNoteOverlay';
+    overlay.onclick = window.closeStoryNote;
+    overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;z-index:99998;background:rgba(0,0,0,0.15);';
+    document.body.appendChild(overlay);
+    var popup = document.createElement('div');
+    popup.id = 'storyNotePopup';
+    popup.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:99999;background:' + bgColor + ';border:1px solid rgba(200,137,42,0.3);border-radius:6px;padding:1.2rem 1.4rem;width:78vw;max-width:260px;font-family:Cormorant Garamond,serif;font-style:italic;font-size:1rem;line-height:1.8;color:' + textColor + ';text-align:center;';
+    popup.innerHTML = '🎶 Obedience is the very best way to show that you believe,<br>Doing exactly what the Lord commands, and doing it happily 🎶<br><br><button onclick="closeStoryNote()" style="font-family:DM Mono,monospace;font-size:0.55rem;letter-spacing:0.14em;color:' + amberColor + ';text-transform:uppercase;background:none;border:none;cursor:pointer;">close</button>';
+    document.body.appendChild(popup);
+  };
+  window.closeStoryNote = function() {
+    var o = document.getElementById('storyNoteOverlay');
+    var p = document.getElementById('storyNotePopup');
+    if(o) o.remove();
+    if(p) p.remove();
+  };
+
+  // ── Text size ─────────────────────────────────────────────────────
+  window.setTextSize = function(size, btn) {
+    var openModal = null;
+    var modals = document.querySelectorAll('.story-modal');
+    for(var i = 0; i < modals.length; i++) {
+      if(modals[i].classList.contains('open')) { openModal = modals[i]; break; }
+    }
+    if(!openModal) return;
+    var content = openModal.querySelector('.story-content');
+    if(!content) return;
+    content.classList.remove('text-small', 'text-normal', 'text-large', 'text-xlarge');
+    content.classList.add('text-' + size);
+    var buttons = openModal.querySelectorAll('.text-size-btn');
+    for(var j = 0; j < buttons.length; j++) { buttons[j].classList.remove('active'); }
+    btn.classList.add('active');
+  };
+
+  // ── URL hash → open story directly ───────────────────────────────
+  (function() {
+    var hashMap = { 'pain': 'storyModal2', 'sleep': 'storyModal', 'scar': 'storyModal3' };
+    var backdropMap = { 'pain': 'storyBackdrop2', 'sleep': 'storyBackdrop', 'scar': 'storyBackdrop3' };
+    var hash = window.location.hash.replace('#', '').toLowerCase();
+    if(hashMap[hash]) {
+      var modal = document.getElementById(hashMap[hash]);
+      var backdrop = document.getElementById(backdropMap[hash]);
+      var bg = document.getElementById('storyModalBg');
+      if(modal) { modal.classList.add('open'); modal.scrollTop = 0; }
+      if(backdrop) backdrop.classList.add('open');
+      if(bg) bg.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      document.documentElement.classList.add('story-open');
+    }
+  })();
+
+</script>
 </body>
 </html>
