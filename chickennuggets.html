@@ -3,14 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
-  <title>Chicken Nuggets — WordSpin™</title>
-  <meta name="description" content="Chicken Nuggets — stories inspired by words from the WordSpin game."/>
+  <title>Chicken Nuggets</title>
+  <meta name="description" content="Short stories inspired by single words. From the WordSpin universe."/>
   <meta name="robots" content="index, follow"/>
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src 'none'; object-src 'none'; base-uri 'self';"/>
   <meta http-equiv="X-Frame-Options" content="DENY"/>
   <meta name="referrer" content="strict-origin-when-cross-origin"/>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNSIgZmlsbD0iIzExMSIvPjx0ZXh0IHg9IjE2IiB5PSIyMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXN0eWxlPSJpdGFsaWMiIGZpbGw9IiNjODg5MmEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPldTPC90ZXh0Pjwvc3ZnPg=="/>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <!-- Theme colour for browser chrome -->
+  <meta name="theme-color" content="#0a0a0a"/>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="WordSpin™"/>
+  <meta property="og:title" content="Chicken Nuggets"/>
+  <meta property="og:description" content="Short stories inspired by single words."/>
+  <meta property="og:url" content="https://wordspin.org/chickennuggets.html"/>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNSIgZmlsbD0iIzExMSIvPjxlbGxpcHNlIGN4PSIxNiIgY3k9IjE3IiByeD0iMTEiIHJ5PSI4IiBmaWxsPSIjYzg4OTJhIi8+PGVsbGlwc2UgY3g9IjE0IiBjeT0iMTUiIHJ4PSI3IiByeT0iNSIgZmlsbD0iI2U4YTg0YSIvPjxlbGxpcHNlIGN4PSIxMiIgY3k9IjE0IiByeD0iMyIgcnk9IjIiIGZpbGw9IiNmMGJjNmEiIG9wYWNpdHk9IjAuNyIvPjwvc3ZnPg=="/>  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=DM+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet">
 
   <style>
@@ -444,6 +454,40 @@
       background: transparent;
     }
 
+    /* Tablet: wider column, more padding */
+    @media (min-width: 700px) {
+      .story-modal-inner {
+        max-width: 680px;
+      }
+      .story-content {
+        padding: 3rem 3rem 2rem;
+      }
+      .modal-topbar {
+        padding: 1.1rem 3rem;
+      }
+    }
+
+    /* Desktop: two-column feel — wide margins frame a readable column */
+    @media (min-width: 1024px) {
+      .story-modal-inner {
+        max-width: 820px;
+      }
+      .story-content {
+        padding: 4rem 6rem 3rem;
+        column-count: 2;
+        column-gap: 4rem;
+        column-rule: 1px solid rgba(200,137,42,0.12);
+      }
+      .story-headline, .story-meta, .story-rule,
+      .story-heading, .story-verse, .story-sig,
+      .story-share, .scripture-block {
+        column-span: all;
+      }
+      .modal-topbar {
+        padding: 1.1rem 6rem;
+      }
+    }
+
     /* Modal header bar */
     .modal-topbar {
       position: sticky; top: 0; z-index: 2;
@@ -537,6 +581,14 @@
     }
     .story-verse {
       font-size: calc(1.2rem * var(--ts));
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: #c85a18;
+      line-height: 1.9;
+      border-left: 2px solid rgba(200,90,24,0.4);
+      padding-left: 1rem;
+      margin-bottom: 1.4rem;
+      white-space: pre-wrap;
     }
     .story-heading {
       font-size: calc(1.2rem * var(--ts));
@@ -556,17 +608,50 @@
       letter-spacing: 0.1em; margin-bottom: 1.6rem;
       font-family: 'DM Mono', monospace;
     }
-    .story-rule {
+    .story-share {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(200,137,42,0.15);
+    }
+    .story-share-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber);
+      background: none;
+      border: 1px solid rgba(200,137,42,0.35);
+      border-radius: 4px;
+      padding: 0.45rem 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .story-share-btn:hover {
+      background: rgba(200,137,42,0.1);
+      border-color: var(--amber);
+    }
+    :root[data-theme="light"] .story-share-btn {
+      color: #8a5a00;
+      border-color: rgba(138,90,0,0.35);
+    }
+    .story-share-copied {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .story-share-copied.show { opacity: 1; }
       height: 1px;
       background: linear-gradient(to right, transparent, var(--border), transparent);
       margin: 1.4rem 0;
-    }
-    .story-verse {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      color: #c85a18; line-height: 1.9;
-      border-left: 2px solid rgba(200,90,24,0.4);
-      padding-left: 1rem; margin-bottom: 1.4rem;
     }
     .story-body {
       font-family: 'Cormorant Garamond', serif;
@@ -938,6 +1023,7 @@
 <!-- ── Story Modal ── -->
 <div class="story-backdrop" id="storyBackdrop"></div>
 <div class="story-modal" id="storyModal" role="dialog" aria-label="Story">
+  <div id="sleep"></div>
   <div class="story-modal-inner">
 
     <div class="modal-topbar">
@@ -977,10 +1063,13 @@ Inner meaning here could be that we sleep on the things that matter and could fe
 
       <div class="story-rule"></div>
       <span class="story-sig">MK.<br><span style="font-size:0.75rem;font-weight:400;opacity:0.55;letter-spacing:0.08em;">Author</span></span>
+      <div class="story-share">
+        <button class="story-share-btn" onclick="shareStory('sleep')">↗ Share this story</button>
+        <span class="story-share-copied" id="share-copied-sleep">Copied!</span>
+      </div>
     </div>
   </div>
 </div>
-
 <script>
   window.openKahawa = function() {
     document.getElementById('kahawaBackdrop').classList.add('open');
@@ -1175,6 +1264,37 @@ Inner meaning here could be that we sleep on the things that matter and could fe
     document.body.appendChild(popup);
   };
 
+  window.shareStory = function(slug) {
+    var url = 'https://wordspin.org/chickennuggets.html#' + slug;
+    var copiedEl = document.getElementById('share-copied-' + slug);
+
+    if(navigator.share) {
+      navigator.share({
+        title: 'Chicken Nuggets — ' + slug.charAt(0).toUpperCase() + slug.slice(1),
+        url: url
+      }).catch(function(){});
+    } else {
+      navigator.clipboard.writeText(url).then(function() {
+        if(copiedEl) {
+          copiedEl.classList.add('show');
+          setTimeout(function() { copiedEl.classList.remove('show'); }, 2000);
+        }
+      }).catch(function() {
+        // Fallback for older browsers
+        var ta = document.createElement('textarea');
+        ta.value = url;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        if(copiedEl) {
+          copiedEl.classList.add('show');
+          setTimeout(function() { copiedEl.classList.remove('show'); }, 2000);
+        }
+      });
+    }
+  };
+
   window.closeStoryNote = function() {
     var o = document.getElementById('storyNoteOverlay');
     var p = document.getElementById('storyNotePopup');
@@ -1267,12 +1387,32 @@ Inner meaning here could be that we sleep on the things that matter and could fe
     if(backdrop) backdrop.addEventListener('click', function(e){ if(e.target===backdrop) closeStory(); });
   });
 
+  // ── Direct story links via URL hash ──────────────────────────────
+  (function() {
+    var hashMap = { 'pain': 'storyModal2', 'sleep': 'storyModal', 'scar': 'storyModal3' };
+    var backdropMap = { 'pain': 'storyBackdrop2', 'sleep': 'storyBackdrop', 'scar': 'storyBackdrop3' };
+    var hash = window.location.hash.replace('#', '').toLowerCase();
+    if(hashMap[hash]) {
+      var modal = document.getElementById(hashMap[hash]);
+      var backdrop = document.getElementById(backdropMap[hash]);
+      var bg = document.getElementById('storyModalBg');
+      if(modal) {
+        modal.classList.add('open');
+        modal.scrollTop = 0;
+      }
+      if(backdrop) backdrop.classList.add('open');
+      if(bg) bg.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      document.documentElement.classList.add('story-open');
+    }
+  })();
 
 </script>
 
 <!-- ── Story 2: Pain ── -->
 <div class="story-backdrop" id="storyBackdrop2"></div>
 <div class="story-modal" id="storyModal2" role="dialog" aria-label="Story: Pain">
+  <div id="pain"></div>
   <div class="story-modal-inner">
     <div class="modal-topbar">
       <button class="modal-back" onclick="cnCloseStory()" aria-label="Back">← Back to Chicken Nuggets</button>
@@ -1352,12 +1492,17 @@ Inner meaning here could be that we sleep on the things that matter and could fe
 
       <div class="story-rule"></div>
       <span class="story-sig">MK.<br><span style="font-size:0.75rem;font-weight:400;opacity:0.55;letter-spacing:0.08em;">Author</span></span>
+      <div class="story-share">
+        <button class="story-share-btn" onclick="shareStory('pain')">↗ Share this story</button>
+        <span class="story-share-copied" id="share-copied-pain">Copied!</span>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="story-backdrop" id="storyBackdrop3"></div>
 <div class="story-modal" id="storyModal3" role="dialog" aria-label="Story: Scar">
+  <div id="scar"></div>
   <div class="story-modal-inner">
     <div class="modal-topbar">
       <button class="modal-back" onclick="cnCloseStory()" aria-label="Back">← Back to Chicken Nuggets</button>
@@ -1434,6 +1579,10 @@ Inner meaning here could be that we sleep on the things that matter and could fe
 
       <div class="story-rule"></div>
       <span class="story-sig">MK.<br><span style="font-size:0.75rem;font-weight:400;opacity:0.55;letter-spacing:0.08em;">Author</span></span>
+      <div class="story-share">
+        <button class="story-share-btn" onclick="shareStory('scar')">↗ Share this story</button>
+        <span class="story-share-copied" id="share-copied-scar">Copied!</span>
+      </div>
     </div>
   </div>
 </div>
