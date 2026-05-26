@@ -1215,8 +1215,15 @@
       padding: 2rem 2rem 2.4rem;
       z-index: 9001;
       box-shadow: 8px 8px 0 #c8bfa6, 0 20px 60px rgba(26,16,8,0.35);
+      transition: top 0.2s ease, transform 0.2s ease, max-height 0.2s ease;
     }
     .modal.open { display: block; }
+    /* When editing, snap to top so keyboard doesn't cover textarea */
+    .modal.editing {
+      top: 2vh;
+      transform: translate(-50%, 0);
+      max-height: 96vh;
+    }
 
     /* hide the drag handle — not needed for centred modal */
     .modal-handle { display: none; }
@@ -3689,6 +3696,7 @@
     modalEditBtn.style.display = 'none';
     modalSaveBtn.style.display = 'inline-block';
     modalCancelBtn.style.display = 'inline-block';
+    storyModal.classList.add('editing');
     modalEditArea.focus();
     // Auto-expand textarea to fit content on open
     autoResizeModalTextarea();
@@ -3701,6 +3709,7 @@
     modalEditBtn.style.display = 'inline-block';
     modalSaveBtn.style.display = 'none';
     modalCancelBtn.style.display = 'none';
+    storyModal.classList.remove('editing');
   }
 
   modalEditBtn.addEventListener('click', enterEditMode);
