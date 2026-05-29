@@ -1480,6 +1480,163 @@
     .ad-cta:hover { transform: translate(-1px,-1px); box-shadow: 3px 3px 0 #9a6516; }
 
     /* ---- About / Description Section ---- */
+    /* ── Instructions section ── */
+    .instructions-section {
+      padding: 2.5rem 0 0;
+    }
+    .instructions-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background: none;
+      border: none;
+      border-bottom: 1.5px solid var(--border);
+      padding: 0.8rem 0;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .instructions-trigger-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--amber);
+    }
+    :root[data-theme="light"] .instructions-trigger-label { color: #8a5a00; }
+    .instructions-trigger-arrow {
+      font-size: 0.7rem;
+      color: var(--amber);
+      transition: transform 0.25s ease;
+    }
+    :root[data-theme="light"] .instructions-trigger-arrow { color: #8a5a00; }
+    .instructions-section.open .instructions-trigger-arrow { transform: rotate(180deg); }
+
+    .instructions-body {
+      display: none;
+      padding: 1.2rem 0 0.5rem;
+    }
+    .instructions-section.open .instructions-body { display: block; }
+
+    .instructions-mode-btns {
+      display: flex;
+      gap: 0.7rem;
+      margin-bottom: 1.4rem;
+    }
+    .instructions-mode-btn {
+      flex: 1;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      padding: 0.55rem 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .instructions-mode-btn.active {
+      color: var(--amber);
+      border-color: var(--amber);
+      background: rgba(200,137,42,0.06);
+    }
+    :root[data-theme="light"] .instructions-mode-btn.active { color: #8a5a00; border-color: #8a5a00; }
+
+    .instructions-panel { display: none; }
+    .instructions-panel.active { display: block; }
+
+    .instructions-steps {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      counter-reset: step;
+    }
+    .instructions-steps li {
+      counter-increment: step;
+      display: flex;
+      gap: 0.9rem;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      font-size: 0.8rem;
+      line-height: 1.7;
+      color: var(--ink);
+    }
+    .instructions-steps li::before {
+      content: counter(step);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--amber);
+      border: 1px solid rgba(200,137,42,0.4);
+      border-radius: 50%;
+      min-width: 1.4rem;
+      height: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.15rem;
+      flex-shrink: 0;
+    }
+    :root[data-theme="light"] .instructions-steps li::before { color: #8a5a00; border-color: rgba(138,90,0,0.4); }
+
+    .use-case-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .use-case-pill {
+      font-size: 0.75rem;
+      padding: 0.4rem 0.85rem;
+      border: 1px solid rgba(200,137,42,0.3);
+      border-radius: 20px;
+      color: var(--ink);
+      background: rgba(200,137,42,0.05);
+    }
+    :root[data-theme="light"] .use-case-pill { border-color: rgba(138,90,0,0.25); }
+
+    /* ── About accordions ── */
+    .about-accordion {
+      border-bottom: 1.5px solid var(--border);
+    }
+    .about-accordion-trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      -webkit-tap-highlight-color: transparent;
+      text-align: left;
+    }
+    :root[data-theme="light"] .about-accordion-trigger { color: #8a5a00; }
+    .about-accordion-arrow {
+      font-size: 0.7rem;
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+      margin-left: 0.8rem;
+    }
+    .about-accordion.open .about-accordion-arrow { transform: rotate(180deg); }
+    .about-accordion-body {
+      display: none;
+      padding: 0.2rem 0 1.4rem;
+      font-size: 0.82rem;
+      line-height: 1.85;
+      color: var(--ink);
+    }
+    .about-accordion-body p { margin-bottom: 0.9rem; }
+    .about-accordion-body p:last-child { margin-bottom: 0; }
+    .about-accordion.open .about-accordion-body { display: block; }
+
     .about-section {
       border-top: 1.5px solid #d4c9b0;
       padding-top: 3rem;
@@ -1881,94 +2038,161 @@
 
 <!-- ══ ABOUT / DESCRIPTION SECTION ══ -->
 <div style="max-width:860px; margin:0 auto; padding:0 2rem;">
+  <!-- How to play -->
+  <section class="about-section" style="padding-top:2rem;">
+
+    <div class="about-accordion open" id="accordionHow">
+      <button class="about-accordion-trigger" onclick="toggleAccordion('accordionHow')">
+        <span>How to play WordSpin</span>
+        <span class="about-accordion-arrow">▾</span>
+      </button>
+      <div class="about-accordion-body">
+        <ol class="instructions-steps">
+          <li>Choose your difficulty — Easy, Medium, or True Challenge — depending on how stretching you want your word prompt to be.</li>
+          <li>Tap Shuffle and watch the card deck deal. One card is drawn for you — your story starts here.</li>
+          <li>Read your word. Tap 🔍 for the definition and pronunciation if you need it. Don't overthink — notice what the word stirs in you first.</li>
+          <li>Write your story in the box below. A memory, a fiction, a poem, a confession, or a complete lie. There is no wrong answer.</li>
+          <li>Save your story to your personal collection, or shuffle again for a fresh creative writing prompt whenever you're ready.</li>
+        </ol>
+        <p style="font-size:0.78rem;color:var(--muted);margin-top:1.2rem;">Playing with others? See <button onclick="openInstructions()" style="background:none;border:none;padding:0;font-size:0.78rem;color:var(--amber);cursor:pointer;text-decoration:underline;font-family:inherit;">Solo &amp; Group instructions</button> below.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Instructions -->
+  <section class="instructions-section" id="instructionsSection">
+    <button class="instructions-trigger" onclick="toggleInstructions()">
+      <span class="instructions-trigger-label">Instructions</span>
+      <span class="instructions-trigger-arrow">▾</span>
+    </button>
+    <div class="instructions-body">
+      <div class="instructions-mode-btns">
+        <button class="instructions-mode-btn active" id="btnIndividual" onclick="showMode('individual')">Solo</button>
+        <button class="instructions-mode-btn" id="btnGroup" onclick="showMode('group')">Group</button>
+      </div>
+
+      <div class="instructions-panel active" id="panelIndividual">
+        <ol class="instructions-steps">
+          <li>Tap Shuffle to get a random word prompt.</li>
+          <li>Let the word sit for a moment — what came to mind first is what matters.</li>
+          <li>Write freely in the box below. No rules, no wrong answers — a memory, a scene, a feeling, a lie.</li>
+          <li>Tap Save Story when you're done. It stays on your device for you to revisit.</li>
+          <li>Shuffle again whenever you're ready for a new word.</li>
+        </ol>
+      </div>
+
+      <div class="instructions-panel" id="panelGroup">
+        <ol class="instructions-steps">
+          <li>Gather your group — works with 2 or more people, in person or remotely.</li>
+          <li>One person taps Shuffle and reveals the word to the group.</li>
+          <li>The word is your prompt. Let it spark a story, a memory, a debate, a confession. Whatever comes, say it out loud — writing is not necessary unless you want to!</li>
+          <li>Everyone responds in their own way. No rules, no wrong answers — just follow where it leads.</li>
+          <li>Shuffle again for the next round. The same word, infinite directions.</li>
+        </ol>
+
+        <div style="margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid rgba(200,137,42,0.2);">
+          <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin-bottom:0.8rem;">⏱ Competitive Mode</div>
+          <ol class="instructions-steps">
+            <li>Each player gets a different word prompt — tap Shuffle between turns.</li>
+            <li>Set a 3 minute timer per person. When the word drops, the clock starts.</li>
+            <li>Tell your story before time runs out. Pressure on, adrenaline up.</li>
+            <li>The group votes on their favourite after all players have gone.</li>
+            <li>Most votes wins the round. First to win 3 rounds wins the game.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="about-section">
 
-    <div class="about-intro">
-      <h2>What is <em>WordSpin</em>?</h2>
-      <p>WordSpin is a <strong>free word prompt game</strong> and <strong>creative storytelling tool</strong> that gives you a random word and challenges you to write a story from it. Whether you are alone with five minutes to spare or gathered with friends around a table, WordSpin turns a single word into an entire world. No rules, no categories, no wrong answers — just you, a word, and wherever your imagination takes you.</p>
-      <p>Used by writers, students, teachers, families, and anyone who wants a <strong>daily creative writing prompt</strong> delivered in seconds. Free to play, no account required, no download needed — works on any phone, tablet, or computer.</p>
-    </div>
-
-    <!-- Benefits grid -->
-    <div class="benefits-grid">
-      <div class="benefit-card">
-        <span class="benefit-icon">🧠</span>
-        <div class="benefit-title">Memory &amp; Brain Training</div>
-        <div class="benefit-desc">Responding to unexpected word prompts activates memory retrieval and strengthens neural pathways. A proven <strong>brain exercise</strong> disguised as a game — each shuffle is a gentle cognitive workout.</div>
-      </div>
-      <div class="benefit-card">
-        <span class="benefit-icon">✍️</span>
-        <div class="benefit-title">Improve Your Writing Skills</div>
-        <div class="benefit-desc">Regular <strong>creative writing practice</strong> with random prompts trains you to think fast, structure ideas, and find your authentic voice. The same technique used by professional writers as a daily warm-up.</div>
-      </div>
-      <div class="benefit-card">
-        <span class="benefit-icon">👥</span>
-        <div class="benefit-title">Group Storytelling Game</div>
-        <div class="benefit-desc">A brilliant <strong>social game for groups</strong> — shuffle the same word and compare stories aloud. Perfect as an icebreaker, party game, classroom activity, or family game night. No equipment needed.</div>
-      </div>
-      <div class="benefit-card">
-        <span class="benefit-icon">✨</span>
-        <div class="benefit-title">Beat Boredom Creatively</div>
-        <div class="benefit-desc">No scrolling, no passive watching. WordSpin replaces idle screen time with active creative thinking — any time, anywhere, any mood. The antidote to boredom that actually leaves you feeling good.</div>
-      </div>
-      <div class="benefit-card">
-        <span class="benefit-icon">📖</span>
-        <div class="benefit-title">Expand Your Vocabulary</div>
-        <div class="benefit-desc">Every shuffle introduces a word you rarely use. Writing with it moves it from passive recognition into active ownership — the most effective form of <strong>vocabulary building</strong> available. Words stick when you use them.</div>
+    <div class="about-accordion open" id="accordionWhat">
+      <button class="about-accordion-trigger" onclick="toggleAccordion('accordionWhat')">
+        <span>What is WordSpin?</span>
+        <span class="about-accordion-arrow">▾</span>
+      </button>
+      <div class="about-accordion-body">
+        <p>WordSpin is a free word prompt game and creative storytelling tool that gives you a random word and challenges you to write — or speak — a story from it. Whether you are alone with five minutes to spare or gathered with friends around a table, WordSpin turns a single word into an entire world.</p>
+        <p>No rules, no categories, no wrong answers — just you, a word, and wherever your imagination takes you. Free to play, no account required, no download needed — works on any phone, tablet, or computer.</p>
       </div>
     </div>
 
-    <!-- How to use -->
-    <div class="about-block">
-      <h3>How to play WordSpin — free word prompt game</h3>
-      <ul class="steps-list">
-        <li><span class="step-num">1</span><span>Choose your difficulty — <strong>Easy</strong>, <strong>Medium</strong>, or <strong>True Challenge</strong> — depending on how stretching you want your word prompt to be.</span></li>
-        <li><span class="step-num">2</span><span>Tap <strong>Shuffle</strong> and watch the card deck deal. One card is drawn for you — your story starts here.</span></li>
-        <li><span class="step-num">3</span><span>Read your word. Tap 🔍 for the definition and pronunciation if you need it. Don't overthink — notice what the word stirs in you first.</span></li>
-        <li><span class="step-num">4</span><span>Write your story in the box below. A memory, a fiction, a poem, a confession, or a complete lie. There is no wrong answer.</span></li>
-        <li><span class="step-num">5</span><span>Save your story to your personal collection, or shuffle again for a fresh <strong>creative writing prompt</strong> whenever you're ready.</span></li>
-      </ul>
+    <div class="about-accordion" id="accordionName">
+      <button class="about-accordion-trigger" onclick="toggleAccordion('accordionName')">
+        <span>Why the name WordSpin?</span>
+        <span class="about-accordion-arrow">▾</span>
+      </button>
+      <div class="about-accordion-body">
+        <p>Because that is exactly what a word does to the mind. The moment an unexpected prompt lands in front of you — <em>Harbour. Vertigo. Kindling.</em> — something turns. Like a gear catching, like wheels beginning to move. You reach for a memory, build a scene, search for a feeling. That turning <em>is</em> your brain working — and it is the most natural cognitive exercise there is.</p>
+        <p>WordSpin is named for that motion. Each shuffle is a tiny engine start. The more you play, the easier the engine fires. Memory pathways deepen. New story routes open. Words that once felt foreign become familiar, then fluent, then yours.</p>
+        <p>The benefits accumulate quietly: stronger recall, richer vocabulary, sharper storytelling instincts, greater confidence in social situations, and a growing ease with your own inner world. You move from passivity — scrolling, consuming, waiting — to activity — responding, creating, connecting. And with practice, to something even more powerful: proactivity.</p>
+      </div>
     </div>
 
-    <!-- Play with friends -->
-    <div class="about-block">
-      <h3>WordSpin as a group game — storytelling with friends and family</h3>
-      <p>WordSpin is one of the best <strong>group storytelling games</strong> available — free, instant, and requiring nothing but a device. Pass it around: each person shuffles a word and has two minutes to tell their story aloud. Let the group vote on the most creative, funniest, or most unexpectedly moving one.</p>
-      <p>For a more competitive version, everyone gets the <em>same</em> word and writes independently. Reading them aloud reveals how differently the same prompt lands in different minds — endlessly surprising, always entertaining. Works equally well as a <strong>classroom activity</strong>, an icebreaker for teams, a dinner party game, a family road trip activity, or a quiet two-player evening ritual.</p>
-      <p>No app download, no setup, no score to keep, no account required. Just words and the people willing to follow them somewhere.</p>
+    <div class="about-accordion" id="accordionBenefits">
+      <button class="about-accordion-trigger" onclick="toggleAccordion('accordionBenefits')">
+        <span>Uses &amp; Benefits</span>
+        <span class="about-accordion-arrow">▾</span>
+      </button>
+      <div class="about-accordion-body">
+
+        <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1rem;font-family:'DM Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;font-size:0.58rem;">Perfect for</p>
+        <div class="use-case-grid">
+          <div class="use-case-pill">👨‍👩‍👧 Family &amp; friends get-togethers</div>
+          <div class="use-case-pill">🤝 Boardroom icebreakers</div>
+          <div class="use-case-pill">🏫 Classrooms</div>
+          <div class="use-case-pill">🚗 Car rides</div>
+          <div class="use-case-pill">✈️ Travel &amp; waiting rooms</div>
+          <div class="use-case-pill">🎉 Dinner parties</div>
+          <div class="use-case-pill">✍️ Daily writing practice</div>
+          <div class="use-case-pill">🧠 Brain warm-ups</div>
+          <div class="use-case-pill">📱 Solo screen time</div>
+          <div class="use-case-pill">🏕️ Camps &amp; retreats</div>
+        </div>
+          <div class="benefit-card">
+            <span class="benefit-icon">🧠</span>
+            <div class="benefit-title">Memory &amp; Brain Training</div>
+            <div class="benefit-desc">Responding to unexpected word prompts activates memory retrieval and strengthens neural pathways. A proven brain exercise disguised as a game — each shuffle is a gentle cognitive workout.</div>
+          </div>
+          <div class="benefit-card">
+            <span class="benefit-icon">✍️</span>
+            <div class="benefit-title">Improve Your Writing Skills</div>
+            <div class="benefit-desc">Regular creative writing practice with random prompts trains you to think fast, structure ideas, and find your authentic voice. The same technique used by professional writers as a daily warm-up.</div>
+          </div>
+          <div class="benefit-card">
+            <span class="benefit-icon">👥</span>
+            <div class="benefit-title">Group Storytelling Game</div>
+            <div class="benefit-desc">A brilliant social game for groups — shuffle a word and let everyone respond in their own way. Perfect as an icebreaker, party game, classroom activity, or family game night. No equipment needed.</div>
+          </div>
+          <div class="benefit-card">
+            <span class="benefit-icon">✨</span>
+            <div class="benefit-title">Beat Boredom Creatively</div>
+            <div class="benefit-desc">No scrolling, no passive watching. WordSpin replaces idle screen time with active creative thinking — any time, anywhere, any mood. The antidote to boredom that actually leaves you feeling good.</div>
+          </div>
+          <div class="benefit-card">
+            <span class="benefit-icon">📖</span>
+            <div class="benefit-title">Expand Your Vocabulary</div>
+            <div class="benefit-desc">Every shuffle introduces a word you rarely use. Writing with it moves it from passive recognition into active ownership — the most effective form of vocabulary building available. Words stick when you use them.</div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
-    <!-- Writing improvement -->
-    <div class="about-block">
-      <h3>Why WordSpin is the best free creative writing prompt tool</h3>
-      <p>The single biggest barrier to <strong>creative writing</strong> is the blank page. WordSpin removes it entirely. Instead of waiting for inspiration, you are handed a starting point — and from that one word, everything flows.</p>
-      <p>Professional writers, journalists, screenwriters, and published authors have used <strong>word prompts</strong> as warm-up exercises for generations. WordSpin packages that same practice into something fast, repeatable, and genuinely enjoyable — whether you write for five minutes or fifty.</p>
-      <p>The <strong>vocabulary benefit</strong> is compounding. When you shuffle a word like <em>Estuary</em> or <em>Gloaming</em> and weave it into a story, it moves from vague recognition into active ownership. You do not just know the word — you know what it feels like to use it. Over time, your range expands naturally, without flashcards or memorisation drills.</p>
-    </div>
-
-    <!-- Why WordSpin -->
-    <div class="about-block">
-      <h3>Why the name <em>WordSpin</em>?</h3>
-      <p>Because that is exactly what a word does to the mind. The moment an unexpected prompt lands in front of you — <em>Harbour. Vertigo. Kindling.</em> — something turns. Like a gear catching, like wheels beginning to move. You reach for a memory, build a scene, search for a feeling. That turning <em>is</em> your brain working — and it is the most natural cognitive exercise there is.</p>
-      <p>WordSpin is named for that motion. Each shuffle is a tiny engine start. The more you play, the easier the engine fires. <strong>Memory pathways</strong> deepen. New story routes open. Words that once felt foreign become familiar, then fluent, then yours.</p>
-      <p>The benefits accumulate quietly: stronger recall, richer vocabulary, sharper storytelling instincts, greater confidence in social situations, and a growing ease with your own inner world. You move from passivity — scrolling, consuming, waiting — to activity — responding, creating, connecting. And with practice, to something even more powerful: <strong>proactivity</strong>. A <strong>brain training game</strong> that happens to be genuinely fun.</p>
-    </div>
-
-    <!-- Children -->
-    <div class="about-block">
-      <h3>WordSpin for children — educational screen time that builds real skills</h3>
-      <p>Screens are not going anywhere. But what children do on those screens makes an enormous difference. WordSpin transforms passive screen time into active thinking time — a shift with lasting effects on a young mind. This is <strong>educational screen time</strong> that parents and teachers can genuinely support.</p>
-      <p>For children, each shuffle is a small adventure. They encounter a word, reach for its meaning, and are invited to express something about it. This is <strong>language acquisition</strong> in its most natural form — curiosity-led, playful, and pressure-free. Over time, this expands vocabulary, refines sentence construction, and builds confidence to speak up, tell stories, and communicate clearly.</p>
-      <p><strong>Creativity develops</strong> too. When a child encounters the word <em>Shadow</em> or <em>Castle</em> and invents a story around it, they are practising imaginative thinking — the same cognitive process behind <strong>problem-solving</strong>, writing achievement, and creative expression throughout their lives.</p>
-      <p>WordSpin is equally powerful as a <strong>classroom tool for teachers</strong> and a home activity for parents. The game scales with age and ability — as valuable for a six-year-old discovering language as for a sixteen-year-old sharpening essay skills. iPad babies — redefined.</p>
+    <div class="about-accordion" id="accordionCN">
+      <button class="about-accordion-trigger" onclick="toggleAccordion('accordionCN')">
+        <span>Visit Chicken Nuggets</span>
+        <span class="about-accordion-arrow">▾</span>
+      </button>
+      <div class="about-accordion-body">
+        <p>Chicken Nuggets is a collection of short stories written by MK. — each one inspired by a single word from the WordSpin deck. A memory, a confession, a reflection, a philosophy, a moment. The words are the same ones you shuffle. The stories show you where they can go.</p>
+        <p><a href="https://wordspin.org/chickennuggets.html" style="color:var(--amber);text-decoration:underline;">Read Chicken Nuggets →</a></p>
+      </div>
     </div>
 
   </section>
 </div>
-
-
-
-<!-- ══ FOOTER ══ -->
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
@@ -2026,6 +2250,28 @@
 
 
 <script>
+  window.toggleAccordion = function(id) {
+    document.getElementById(id).classList.toggle('open');
+  };
+
+  window.openInstructions = function() {
+    var sec = document.getElementById('instructionsSection');
+    sec.classList.add('open');
+    sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  // ── Instructions ─────────────────────────────────────────────────
+  window.toggleInstructions = function() {
+    var sec = document.getElementById('instructionsSection');
+    sec.classList.toggle('open');
+  };
+  window.showMode = function(mode) {
+    document.getElementById('panelIndividual').classList.toggle('active', mode === 'individual');
+    document.getElementById('panelGroup').classList.toggle('active', mode === 'group');
+    document.getElementById('btnIndividual').classList.toggle('active', mode === 'individual');
+    document.getElementById('btnGroup').classList.toggle('active', mode === 'group');
+  };
+
   // ── Theme Toggle — cross-browser robust ──────────────────────
   (function() {
     var root  = document.documentElement;
@@ -3434,6 +3680,7 @@
     updateWordCount();
     autoResizeTextarea();
   });
+
   // Initialise on page load
   autoResizeTextarea();
 
