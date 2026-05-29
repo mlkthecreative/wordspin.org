@@ -47,6 +47,17 @@
       --border: #d4c9b0;
     }
 
+    /* Warmer palette inside story modals only */
+    :root[data-theme="light"] .story-modal {
+      --paper:  #ede4d0;
+      --ink:    #1a0e04;
+      --amber:  #8a5a00;
+      --muted:  #6a5a42;
+      --card:   #f5ede0;
+      --border: #c4b090;
+      background: #ede4d0;
+    }
+
     /* ── Theme toggle pill ── */
     .theme-pill {
       position: fixed; top: 6px; left: 6px; z-index: 9998;
@@ -201,8 +212,8 @@
       transition: color 0.2s; -webkit-tap-highlight-color: transparent;
     }
     .nav-back:hover { color: rgba(200,137,42,0.8); }
-    :root[data-theme="light"] .nav-back { color: rgba(160,100,20,0.6); }
-    :root[data-theme="light"] .nav-back:hover { color: rgba(160,100,20,0.9); }
+    :root[data-theme="light"] .nav-back { color: rgba(100,60,0,0.65); }
+    :root[data-theme="light"] .nav-back:hover { color: rgba(100,60,0,0.95); }
     .nav-brand {
       font-family: 'Playfair Display', serif;
       font-size: 1rem; font-weight: 700; color: rgba(255,255,255,0.15);
@@ -368,8 +379,10 @@
       border-color: var(--amber);
     }
     :root[data-theme="light"] .shuffle-btn {
-      color: #8a5a00;
-      border-color: rgba(138,90,0,0.35);
+      color: #5a3000;
+      border-color: rgba(90,48,0,0.7);
+      border-width: 1.5px;
+      background: rgba(90,48,0,0.05);
     }
 
     /* ── Word Picker ── */
@@ -409,19 +422,190 @@
       border-color: var(--amber);
     }
     :root[data-theme="light"] .word-pill {
-      color: #8a5a00;
-      border-color: rgba(138,90,0,0.3);
+      color: #5a3000;
+      border-color: rgba(90,48,0,0.6);
+      background: rgba(90,48,0,0.04);
     }
 
 
-    /* ── Story Modal ── */
-    .story-backdrop {
+    /* ── Story tags ── */
+    .story-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+    }
+    .story-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      border: 1px solid rgba(200,137,42,0.35);
+      color: var(--amber);
+    }
+    .story-tag.tag-mature {
+      border-color: rgba(180,60,40,0.4);
+      color: #c04030;
+    }
+    .story-tag.tag-child {
+      border-color: rgba(60,140,80,0.4);
+      color: #3a8a50;
+    }
+    .story-tag.tag-fiction {
+      border-color: rgba(80,100,180,0.4);
+      color: #5060b0;
+    }
+    .story-tag.tag-experience {
+      border-color: rgba(200,137,42,0.4);
+      color: var(--amber);
+    }
+    :root[data-theme="light"] .story-tag { color: #6a4a10; border-color: rgba(106,74,16,0.35); background: rgba(106,74,16,0.05); }
+    :root[data-theme="light"] .story-tag.tag-mature { color: #9a2010; border-color: rgba(154,32,16,0.35); }
+    :root[data-theme="light"] .story-tag.tag-child { color: #1a6a30; border-color: rgba(26,106,48,0.35); }
+    :root[data-theme="light"] .story-tag.tag-fiction { color: #2a3a90; border-color: rgba(42,58,144,0.35); }
+    :root[data-theme="light"] .story-tag.tag-experience { color: #6a4a10; border-color: rgba(106,74,16,0.35); }
+
+    /* ── Story background note ── */
+    .story-background {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      line-height: 1.9;
+      color: var(--muted);
+      padding: 1rem 1.2rem;
+      border-left: 2px solid rgba(200,137,42,0.25);
+      margin-bottom: 2rem;
+    }
+
+    /* ── Interview style ── */
+    .story-interview {
+      margin-bottom: 2rem;
+    }
+    .story-q {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: calc(1.08rem * var(--ts));
+      font-weight: 400;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 2.4rem;
+      line-height: 2;
+      padding-left: 1rem;
+      border-left: 2px solid rgba(200,137,42,0.35);
+    }
+    :root[data-theme="light"] .story-q { color: #6a5a42; }
+    .story-a {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: calc(1.08rem * var(--ts));
+      line-height: 2;
+      color: var(--ink);
+      margin-bottom: 2.4rem;
+    }
+    .diary-heading {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #1a1008;
+      padding: 0.8rem 0;
+    }
+    :root[data-theme="dark"] .diary-heading { color: #faf6ee; }
+
+    .journal-entry {
+      margin-bottom: 2.4rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(200,137,42,0.12);
+    }
+    .journal-entry:last-of-type { border-bottom: none; }
+    .journal-entry-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.7rem;
+      display: block;
+    }
+    :root[data-theme="light"] .journal-entry-label { color: #6a4000; }
+    .journal-entry p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: calc(1.08rem * var(--ts));
+      line-height: 2;
+      color: var(--ink);
+      margin-bottom: 0.9rem;
+    }
+    .journal-entry p:last-child { margin-bottom: 0; }
+    .journal-narrator {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: calc(1.08rem * var(--ts));
+      line-height: 2;
+      color: var(--muted);
+      margin-bottom: 2.4rem;
+    }
       display: none;
       position: fixed; inset: 0;
       background: rgba(0,0,0,0.7);
       z-index: 9000;
     }
     .story-backdrop.open { display: block; }
+
+    /* ── Content warning popup ── */
+    .content-warning-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 99998;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .content-warning-box {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-top: 3px solid var(--amber);
+      border-radius: 8px;
+      padding: 1.8rem;
+      width: min(320px, 88vw);
+      text-align: center;
+    }
+    .content-warning-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.8rem;
+    }
+    .content-warning-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--ink);
+      margin-bottom: 1.4rem;
+    }
+    .content-warning-btns {
+      display: flex; gap: 0.7rem; justify-content: center;
+    }
+    .cw-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: none;
+      color: var(--muted);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .cw-btn.proceed {
+      border-color: var(--amber);
+      color: var(--amber);
+    }
 
     .story-modal {
       display: none;
@@ -464,7 +648,7 @@
     /* Modal header bar */
     .modal-topbar {
       position: sticky; top: 0; z-index: 2;
-      background: rgba(237,230,211,0.97);
+      background: rgba(224,210,185,0.98);
       border-bottom: 1px solid rgba(160,130,70,0.25);
       padding: 1rem 1.4rem;
       display: flex; align-items: center; justify-content: space-between;
@@ -569,7 +753,7 @@
 
     /* All story text elements scale with --ts */
     .story-para {
-      font-size: calc(1.18rem * var(--ts));
+      font-size: calc(1.08rem * var(--ts));
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       line-height: 2;
@@ -577,7 +761,7 @@
       margin-bottom: 2.4rem;
     }
     .story-body {
-      font-size: calc(1.18rem * var(--ts));
+      font-size: calc(1.08rem * var(--ts));
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       line-height: 2;
@@ -592,7 +776,7 @@
       margin-bottom: 0.4rem;
     }
     .story-verse {
-      font-size: calc(1.2rem * var(--ts));
+      font-size: calc(1.08rem * var(--ts));
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       color: #c85a18;
@@ -603,7 +787,7 @@
       white-space: pre-wrap;
     }
     .story-heading {
-      font-size: calc(1.2rem * var(--ts));
+      font-size: calc(1.08rem * var(--ts));
       font-family: 'Playfair Display', serif;
       font-weight: 700;
       color: var(--amber); text-transform: uppercase;
@@ -640,6 +824,45 @@
       font-size: 1.2rem; color: var(--muted);
       margin-top: 2rem; line-height: 1.5;
     }
+    /* Scripture wall accordion */
+    .scripture-wall { margin: 1.4rem 0 2.4rem; }
+    .scripture-wall-item { border-bottom: 1px solid rgba(200,137,42,0.2); }
+    .scripture-wall-trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 0.9rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      -webkit-tap-highlight-color: transparent;
+      text-align: left;
+    }
+    :root[data-theme="light"] .scripture-wall-trigger { color: #6a4000; }
+    .scripture-wall-trigger .sw-arrow {
+      font-size: 0.7rem;
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+      margin-left: 0.8rem;
+    }
+    .scripture-wall-item.open .sw-arrow { transform: rotate(180deg); }
+    .scripture-wall-body {
+      display: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: calc(1rem * var(--ts));
+      line-height: 2;
+      color: var(--ink);
+      padding: 0.4rem 0 1.2rem;
+    }
+    .scripture-wall-item.open .scripture-wall-body { display: block; }
+
     .story-share {
       display: flex;
       align-items: center;
@@ -668,8 +891,8 @@
       border-color: var(--amber);
     }
     :root[data-theme="light"] .story-share-btn {
-      color: #8a5a00;
-      border-color: rgba(138,90,0,0.35);
+      color: #6a4000;
+      border-color: rgba(106,64,0,0.35);
     }
     .story-share-copied {
       font-family: 'DM Mono', monospace;
@@ -691,8 +914,8 @@
       cursor: pointer;
     }
     :root[data-theme="light"] .story-link {
-      color: #8a5a00;
-      border-bottom-color: #8a5a00;
+      color: #6a4000;
+      border-bottom-color: #6a4000;
     }
     .story-link:hover {
       opacity: 0.7;
@@ -713,8 +936,8 @@
       cursor: pointer;
     }
     :root[data-theme="light"] .story-note-trigger {
-      color: #8a5a00;
-      border-bottom-color: #8a5a00;
+      color: #6a4000;
+      border-bottom-color: #6a4000;
     }
       -webkit-tap-highlight-color: transparent;
     }
@@ -822,12 +1045,35 @@
     }
 
     /* Light mode text safety */
-    :root[data-theme="light"] .story-sig  { color: #8a7a62; }
+    :root[data-theme="light"] .story-sig  { color: #5a4a32; }
     :root[data-theme="light"] .section-title { color: #1a1008; }
     :root[data-theme="light"] .nav-brand { color: #1a1008; }
     :root[data-theme="light"] .nav-brand span { color: var(--amber); }
     :root[data-theme="light"] .section-label { color: rgba(160,100,20,0.7); }
     :root[data-theme="light"] .section-tagline { color: #5a4a3a; }
+    :root[data-theme="light"] .spin-count { color: var(--muted); }
+    :root[data-theme="light"] .story-rule { background: linear-gradient(to right, transparent, #b09060, transparent); }
+    :root[data-theme="light"] .story-verse { border-left-color: #a07840; color: #6a4000; }
+    :root[data-theme="light"] .story-heading { color: #6a4000; }
+    :root[data-theme="light"] .story-headline { color: #8a3010; }
+    :root[data-theme="light"] .modal-topbar { background: rgba(224,210,185,0.98); border-bottom-color: rgba(160,120,60,0.3); }
+    :root[data-theme="light"] .modal-back { color: #6a4000; }
+    :root[data-theme="light"] .text-size-btn { color: #6a4000; border-color: rgba(106,64,0,0.25); }
+    :root[data-theme="light"] .text-size-btn.active { background: #6a4000; color: #f0e4cc; }
+    :root[data-theme="light"] .journal-entry { border-bottom-color: rgba(160,120,60,0.2); }
+    :root[data-theme="light"] .journal-entry-label { color: #6a4000; }
+    :root[data-theme="light"] .journal-narrator { border-left-color: rgba(160,120,60,0.4); color: #5a4a32; }
+    :root[data-theme="light"] .diary-heading { color: #1a0e04; }
+    :root[data-theme="light"] .story-q { color: #6a4000; }
+    :root[data-theme="light"] .story-background-accordion button span { color: #6a4000 !important; }
+    :root[data-theme="light"] .deck-card.front { background: #faf6ee; }
+    :root[data-theme="light"] .deck-card.front .card-header { background: #c8892a; }
+    :root[data-theme="light"] .deck-card.front .card-word-text { color: #1a1008; }
+    :root[data-theme="light"] .deck-card.back { background: #1a1008; }
+    :root[data-theme="light"] .story-link { color: #6a4000; }
+    :root[data-theme="light"] .story-share-btn { color: #6a4000; border-color: rgba(106,64,0,0.3); }
+    :root[data-theme="light"] .scripture-wall-trigger { color: #6a4000 !important; }
+    :root[data-theme="light"] .scripture-wall-body { color: #2a1a08; }
   </style>
 </head>
 <body>
@@ -865,6 +1111,9 @@
       <button class="word-pill" onclick="openStoryByWord('Scar')">Scar</button>
       <button class="word-pill" onclick="openStoryByWord('Thanatopsis')">Thanatopsis</button>
       <button class="word-pill" onclick="openStoryByWord('Umber')">Umber</button>
+      <button class="word-pill" onclick="openStoryByWord('Inscription')">Inscription</button>
+      <button class="word-pill" onclick="openStoryByWord('Mementomori')">Mementomori</button>
+      <button class="word-pill" onclick="openStoryByWord('Light')">Light</button>
     </div>
   </div>
 
@@ -955,6 +1204,10 @@
       <div class="story-headline">“Love not sleep lest thou come unto poverty”</div>
       <div class="story-meta">Proverbs 20:13 &nbsp;·&nbsp; 26th April, 2026 &nbsp;·&nbsp; MK.</div>
 
+      <div class="story-tags">
+        <span class="story-tag tag-experience">Experience</span>
+        <span class="story-tag tag-child">All Ages</span>
+      </div>
       <div class="story-rule"></div>
 
       <div class="story-verse">“Love not sleep lest thou come unto poverty:
@@ -1002,6 +1255,7 @@ Inner meaning here could be that we sleep on the things that matter and could fe
     <div class="story-content">
 
       <div class="story-meta">21st May, 2026 &nbsp;·&nbsp; MK.</div>
+      <div class="story-tags"><span class="story-tag tag-experience">Experience</span><span class="story-tag tag-mature">Mature</span></div>
       <div class="story-rule"></div>
 
       <div class="story-para">Hearing Aba explain the timeline of events unfolding before our eyes had me questioning his sensibility.</div>
@@ -1093,6 +1347,7 @@ Inner meaning here could be that we sleep on the things that matter and could fe
 
       <div class="story-headline">777H</div>
       <div class="story-meta">23rd May, 2026 &nbsp;·&nbsp; MK.</div>
+      <div class="story-tags"><span class="story-tag tag-experience">Experience</span><span class="story-tag tag-mature">Mature</span></div>
       <div class="story-rule"></div>
 
       <div class="story-para">It could be Heaven or it could be Hell.<br>I chose Heaven and so Heaven chose me.</div>
@@ -1180,6 +1435,7 @@ Inner meaning here could be that we sleep on the things that matter and could fe
     <div class="story-content">
 
       <div class="story-meta">26th May, 2026 &nbsp;·&nbsp; MK.</div>
+      <div class="story-tags"><span class="story-tag tag-experience">Experience</span><span class="story-tag tag-mature">Mature</span></div>
       <div class="story-rule"></div>
 
       <div class="story-para">When I was twelve years old my grandfather signed me up for bible camp. I was very upset with him because it was a teens camp and I was not a teen. Furthermore, I didn't want to be lonely and I thought I would be because of it. I didn't want more isolation.</div>
@@ -1248,13 +1504,14 @@ Inner meaning here could be that we sleep on the things that matter and could fe
 
       <div class="story-headline">Mama Was Right</div>
       <div class="story-meta">27th May, 2026 &nbsp;·&nbsp; MK.</div>
+      <div class="story-tags"><span class="story-tag tag-experience">Experience</span><span class="story-tag tag-child">All Ages</span></div>
       <div class="story-rule"></div>
 
       <div class="story-para"><a href="https://chat.deepseek.com/share/xb6ei8z7q2vtjd1gaq" target="_blank" rel="noopener" class="story-link">Are umber and henna the same thing?</a><br>Wait, no! They cannot be because a henna lady told me it comes from a plant. Umber is described as coming from the earth. One might argue that plants come from the earth and get off on a technicality, HA!</div>
 
-      <div class="story-para">Umber makes me think of henna. There are no wrong answers in this game, just memories and stories mapped through word triggers. This triggers the memory of a professional henna artist who grew to like me enough to give me what I wanted for free because I loved it so much.</div>
+      <div class="story-para">There are no wrong answers in this game — what came to mind first is what matters. "Umber" triggers the memory of a professional henna artist who grew to like me enough to give me what I wanted for free because I loved it so much.</div>
 
-      <div class="story-para">The thing about it was that come Nairobi time, I'd be scrubbing my skin until it was visibly pink-red, lighter than the rest of me and swollen because it showing in school could get me in big trouble. For context, I am a dark skinned woman, to get to this extent meant I did the most! This may be why my aunt didn't like paying for it and eventually refused altogether — she must have known it wasn't worth it because of what I'd do to myself to get it off when school was opening and the henna was still quite fresh looking. If not that, it would generally be a waste of money because I wouldn't even enjoy it for long.<br>But WOW! Can you imagine what I had to do to get henna off my skin in a matter of days?! Henna?!!!</div>
+      <div class="story-para">The thing about it was that come Nairobi time, I'd be scrubbing my skin until it was visibly pink-red, lighter than the rest of me and swollen because it showing in school could get me in big trouble. For context, I am a dark skinned woman, to get to this extent meant I did the most! This may be why my aunt didn't like paying for it and eventually refused altogether — she must have known it wasn't worth it because of what I'd do to myself to get it off when school was opening and the henna was still quite fresh looking. If not that, it would generally be a waste of money because I wouldn't even enjoy it for long.<br>But WOW! Can you imagine what I had to do to get henna off my skin in a matter of days?! The kind of henna that's chemically infused making it last for even a month? That kind of henna?!</div>
 
       <div class="story-para">I learned to start the process early after the first few times. The pain taught me to do things in intervals rather than at one go. This way, I wouldn't literally be forcing off parts of my skin to go with the pigment, and nursing it with vaseline that would melt because of the heat emanating from the scrubbed and extra sensitive area, jumping at every touch.</div>
 
@@ -1264,7 +1521,7 @@ Inner meaning here could be that we sleep on the things that matter and could fe
 
       <div class="story-para">My mother asked me if I had ever seen a child with a tattoo and I said no but I could be the first! Don't limit the opportunity now! She asked me what would happen if I regretted what I got? Tattoos were permanent. Obviously, I didn't care. The henna story should tell you exactly how I would have behaved come regret, LOL! I'm not even going to give you the satisfaction of admitting that she was right! 👀</div>
 
-      <div class="story-para">"It's illegal to let you do it, you're a child, you have to be at least 16 but here the age limit is 18." She also told me that my skin and their skin was different so it probably wouldn't look as nice and I wouldn't want it anymore. <a href="https://youtu.be/3taEuL4EHAg?si=apTYuXskGkx9sU79" target="_blank" rel="noopener" class="story-link">Blah Blah Blah like that Ke$ha song.</a> They were all excuses to me therefore I remained insistent. So insistent that I imagine they avoided the tattoo parlour route whenever we were together because I would start demanding and begging to be taken in for one.</div>
+      <div class="story-para">"It's illegal to let you do it, you're a child, you have to be at least 16 but here the age limit is 18." She also told me that my skin and their skin was different so it probably wouldn't look as nice and I wouldn't want it anymore. Blah Blah Blah like that Ke$ha song. They were all excuses to me therefore I remained insistent. So insistent that I imagine they avoided the tattoo parlour route whenever we were together because I would start demanding and begging to be taken in for one.</div>
 
       <div class="story-para">There was a boy in my class who I liked. He got fire on his arm 🔥. No, it was not a real tattoo, it was one of those stick-ons and I had never heard of that! It matched the gym teacher's tattoo (who I also liked). He got a pat on his back for it from him and boy was I jealous — attention starved and fueled! Again, my parents heard from me. Crush fuel is even more intense because it has to do with wanting validation from the ones your eyes are starry for. On one end my tattoo love was affirmed and on another, I had an in to be noticed for something other than being black and from Africa.</div>
 
@@ -1272,7 +1529,7 @@ Inner meaning here could be that we sleep on the things that matter and could fe
 
       <div class="story-para">"Can you please tell her how old she needs to be to get a tattoo?"<br>"18," the lady said, "How old are you sweetie?"<br>"6" I said.<br>"Aw, yeah, we can't do that. But when you're 18, you can come and get one."<br>"But that's too far away..." I said with a broken heart. I can't remember the rest of the interaction because I was in my sad sad feelings about it. I was probably crying. Later, I resolved to that being my 18th birthday present. 16th if I was in a state that allowed it!</div>
 
-      <div class="story-para">Today, I have no interest in tattoos and one would never know it was THAT deep for me. It is probably for the best because I'd probably end up <a href="https://youtu.be/b7cFUJyndz4?si=0TZT_NTZ3mY6FLOE" target="_blank" rel="noopener" class="story-link">looking like Wiz Khalifa</a> if I started early. I'd be a walking canvas and it probably wouldn't look as good as I imagined it would. I'd take my skin through it to correct my in the heat of the moment decisions. Yeah, my Mama was right!</div>
+      <div class="story-para">Today, I have no interest in tattoos and one would never know it was THAT deep for me. It is probably for the best because I'd probably end up looking like Wiz Khalifa if I started early. I'd be a walking canvas and it probably wouldn't look as good as I imagined it would. I'd take my skin through it to correct my in the heat of the moment decisions. Yeah, my Mama was right!</div>
 
       <div class="story-rule"></div>
       <span class="story-sig">MK.<br><span style="font-size:0.75rem;font-weight:400;opacity:0.55;letter-spacing:0.08em;">Author</span></span>
@@ -1284,7 +1541,228 @@ Inner meaning here could be that we sleep on the things that matter and could fe
   </div>
 </div>
 
-<!-- ── Kahawa Kadogo popup ── -->
+<!-- ── Story 6: Inscription ── -->
+<div class="story-backdrop" id="storyBackdrop6"></div>
+<div class="story-modal" id="storyModal6" role="dialog" aria-label="Story: Inscription">
+  <div id="inscription"></div>
+  <div class="story-modal-inner">
+    <div class="modal-topbar">
+      <button class="modal-back" onclick="cnCloseStory()" aria-label="Back">← Back to Chicken Nuggets</button>
+      <div class="text-size-controls">
+        <button class="text-size-btn" onclick="setTextSize('small', this)" aria-label="Small text">S</button>
+        <button class="text-size-btn active" onclick="setTextSize('normal', this)" aria-label="Normal text">M</button>
+        <button class="text-size-btn" onclick="setTextSize('large', this)" aria-label="Large text">L</button>
+        <button class="text-size-btn" onclick="setTextSize('xlarge', this)" aria-label="Extra large text">XL</button>
+      </div>
+    </div>
+    <div class="story-content">
+
+      <div class="story-meta">28th May, 2026 &nbsp;·&nbsp; MK.</div>
+      <div class="story-tags"><span class="story-tag tag-experience">Experience</span><span class="story-tag tag-child">All Ages</span></div>
+      <div class="story-rule"></div>
+
+      <div class="story-para"><a href="https://youtu.be/9SciUYMSnBs?si=_7Og7-xrmy8c8Xka" target="_blank" rel="noopener" class="story-link">This one will be short and sweet.</a></div>
+
+      <div class="story-para">Shortly after my mother's death, I agreed to a double date. For me, it was blind. The one I was set up with knew as much about me as I knew about him so it wasn't just me who didn't know what to expect!</div>
+
+      <div class="story-para">On first sight, I thought he was short (because he was shorter than me) but I did not let that deter me from the point of the day which was to catch up with old friends and get to know a guy they thought I would mesh well with. The selling point was his maturity. As much as it was mentioned I don't think it was sold enough!</div>
+
+      <div class="story-para">At some point during that date, when we were both drunk and emotional (in a good way!), he told me that he was a boring person. I did not believe him because the day had gone so well and there was nothing boring about him to me. Nothing! I thought he was cute, I liked how calm he was in his speech, I liked how much of a relationship person he was — not a hoe (excuse my french but I am being drunk blunt for the sake of the scene) but a lover of love: a LOVER!<br>Just the way he held me and talked about his past relationship with such love and longing got me. For many, that might be a red flag because people expect the ones they are with to forget things that meant so much to them, to even behave like it never existed for their sake. I find that to be a selfish assault on their soul. If matters were recent why treat the person like they were not a person? If matters were impactful, why act like they weren't? There is and must be a much gentler approach. There has to be! Avoidance never helps, acceptance on the other hand? BINGO!!! These two can exist: A past that teaches and a present to live & learn.</div>
+
+      <div class="story-para">I believe one can learn a lot about a person from not only where they came from, but how they showed up when they were there. We learn their strengths and their weaknesses. Relationships are intimate. Relationships reveal vulnerable aspects about ourselves. Often, the story holds the answers and depending on your perspective, you can either be open and hopeful, or closed and pessimistic. Of course, this is why we're urged to get to know a person before we get with them. KNOW. Not create, KNOW!<br>From that knowing, grow. Guard your heart while you water it.</div>
+
+      <div class="story-para">He was a sensitive guy and what can I say? Sensitivity turns me on? Ha! I found this to be his most attractive trait — his ability to express his pain and joy without withholding or expecting anything in return. He was not transactional in a world that tells you if you do this as a man then she will do this or should do that. He was not out to get something from me, he was just comfortable in the moment and I could feel it. It was like sitting in perfect distance from a fire on a cold day with a warm cup of cocoa — consoling. I like that, it makes me warm inside.</div>
+
+      <div class="story-para">In hindsight, alcohol turns introverts into extroverts and extroverts into introverts, LOL! I also think though, it reveals aspects of ourselves to a more amplified degree — it's not apart from us, it is within us. It is not new, it is just revealed and exaggerated although sometimes I also think it can show the true magnitude of what is within a person, for example, the anger they hold or their inclination to anger, the pain they hold and so much more. For me, after my mother died, my drunkenness turned me into a well spoken unapologetic philosopher who always talked about the consequence of action and inaction in various ways. I now think it is because I was grieving that which I did and didn't do while she was alive — her death brought me great regret. I had so much pain attached to her in life as I did in death. Do you see what I am saying?</div>
+
+      <div class="story-para">Back to the story...<br>He was in fact boring! SIGH. The things I said about him did not change, it's his talking that did, and I liked to talk with him! I liked an active back and forth. Just these stories should tell you I often have a lot to say, especially if I am comfortable with you. It doesn't mean it is all the time because I enjoy silence too and may just want to sit there in silence with one's company, or be left alone for a while.</div>
+
+      <div class="story-para">I desired more from him and I knew it was in there somewhere, he just needed to be guided to it somehow. Necessity is the mother of invention they say. Just like that, a game I'd play verbally became physical and even got a name which later evolved to this (WordSpin). Even though I guided it, I made sure he knew how important his power of choice was so that he did not feel cornered or even overthink. It was a free space, a fun space. For the first time (with zero alcohol, oops!) we literally ran out of time playing! That day was one of my greatest highlights in dating because of watching him open up without the blockage when sober, and without the need of alcohol to lift the blockage. I suspected though, that I may have intimidated him with the way I expressed myself and had to bring it down to give him room to come up. It was never my intention to overwhelm him though I can just be a little extra when I am in the zone.</div>
+
+      <div class="story-para">Okay, so! All this came up because of what again? Oh yeah, inscription! During one date, before the game date, he came up with the fun idea of inscribing our experience of the day on a wine glass we'd gone through and sharing custody of it like it was a pet or a child. He came armed with a glass cutter even so he was a man with a plan! Very romantic. I think he may have even joked about burying it like a time capsule so that one day we'd come back to it and remember that day. Haha, like I said, he was a sensitive guy and I was SUUUPPEERRR into it!</div>
+
+      <div class="story-rule"></div>
+      <span class="story-sig">MK.<br><span style="font-size:0.75rem;font-weight:400;opacity:0.55;letter-spacing:0.08em;">Author</span></span>
+      <div class="story-share">
+        <button class="story-share-btn" onclick="shareStory('inscription')">↗ Share this story</button>
+        <span class="story-share-copied" id="share-copied-inscription">Copied!</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ── Story 10: Light ── -->
+<div class="story-backdrop" id="storyBackdrop10"></div>
+<div class="story-modal" id="storyModal10" role="dialog" aria-label="Story: Light">
+  <div id="light"></div>
+  <div class="story-modal-inner">
+    <div class="modal-topbar">
+      <button class="modal-back" onclick="cnCloseStory()" aria-label="Back">← Back to Chicken Nuggets</button>
+      <div class="text-size-controls">
+        <button class="text-size-btn" onclick="setTextSize('small', this)">S</button>
+        <button class="text-size-btn active" onclick="setTextSize('normal', this)">M</button>
+        <button class="text-size-btn" onclick="setTextSize('large', this)">L</button>
+        <button class="text-size-btn" onclick="setTextSize('xlarge', this)">XL</button>
+      </div>
+    </div>
+    <div class="story-content">
+
+      <div class="story-headline">Northern Light</div>
+      <div class="story-meta">21st January, 2026 &nbsp;·&nbsp; MK.</div>
+      <div class="story-tags">
+        <span class="story-tag tag-experience">Experience</span>
+        <span class="story-tag tag-child">All Ages</span>
+      </div>
+      <div class="story-rule"></div>
+
+      <div class="story-para">Whenever she tries, I do not flinch.<br>To her, I am an enigma, one with slow reflexes and no survival instinct.</div>
+
+      <div class="story-para">I say I have trust. Trust that the arm and leg that fling at me won't actually touch me.</div>
+
+      <div class="story-interview" style="text-align:center;">
+        <div class="story-q">"You wouldn't hurt me, would you?"</div>
+        <div class="story-a">"You never know..."</div>
+        <div class="story-q">"But I do. I know that you wouldn't."</div>
+        <div class="story-a">"How could you be so sure?"</div>
+        <div class="story-q">"I just am."</div>
+      </div>
+
+      <div class="story-para">It is this belief that leaves a strange wonder in her about me.</div>
+
+      <div class="story-para"><span style="color:#9b7fd4;">"You're like the Aurora Borealis,"</span></div>
+
+      <div class="story-para">Seldom known. Selcouth.</div>
+
+      <div class="story-rule"></div>
+
+      <div class="story-para">If I were a compass, one untampered, I'd always point North. North is up. North is the center. North is where we all should face. North is where we all should go.</div>
+
+      <div class="story-para">Yes, I know that many live in the south, and were forced to stay in the south. Familiar territory is far more comfortable than the unknown. But oh, if she could only look up! Look up my Dear!</div>
+
+      <div class="story-para">Look up at the beautiful network of colours in the sky. Look at how they motion in perfect yet inconceivable harmony. How? Why? When even did they come to be!? What are they? What do they mean?</div>
+
+      <div class="story-para">Despite how unbelievable they are, do we not perceive them as good? As AWE-FULL in the most positive of ways? Even the most miserable of miserables cannot deny this beautiful spectacle, one that inspires dreams and is much like a dream.</div>
+
+      <div class="story-para">They are like the mirage of a cold desert; one made of snow. Characteristic of slow, even dull and painful times. Yet, the people can always look up and see something that exists nowhere else but there, and have powerful feelings evoked in them.</div>
+
+      <div class="story-para">In the same way, they might be so used to it they do not see what outsiders can see, are not inspired the way outsiders are inspired. They do not see the light within their territory as strong, outstanding and beautiful as it is. Do not take it as the sign that it is. Do not take it as the miracle that it is.</div>
+
+      <div class="story-rule"></div>
+
+      <div class="story-para">God can make anything beautiful. God made no mistake. Even our limitation is not a mistake. It is as though there is a fail safe in every single thing, to revert it to a state of safety; beauty and wonder. And if we cannot see, somebody or something will help us see. Will help use this in a Northern Light Way.</div>
+
+      <div class="story-rule"></div>
+      <span class="story-sig">MK.<br><span style="font-size:0.75rem;font-weight:400;opacity:0.55;letter-spacing:0.08em;">Author</span></span>
+      <div class="story-share">
+        <button class="story-share-btn" onclick="shareStory('light')">↗ Share this story</button>
+        <span class="story-share-copied" id="share-copied-light">Copied!</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Story 7: Mementomori I ── -->
+<div class="story-backdrop" id="storyBackdrop7"></div>
+<div class="story-modal" id="storyModal7" role="dialog" aria-label="Story: Mementomori">
+  <div id="mementomori"></div>
+  <div class="story-modal-inner">
+    <div class="modal-topbar">
+      <button class="modal-back" onclick="cnCloseStory()" aria-label="Back">← Back to Chicken Nuggets</button>
+      <div class="text-size-controls">
+        <button class="text-size-btn" onclick="setTextSize('small', this)">S</button>
+        <button class="text-size-btn active" onclick="setTextSize('normal', this)">M</button>
+        <button class="text-size-btn" onclick="setTextSize('large', this)">L</button>
+        <button class="text-size-btn" onclick="setTextSize('xlarge', this)">XL</button>
+      </div>
+    </div>
+    <div class="story-content">
+
+      <div class="story-headline">Beyond</div>
+      <div class="story-meta">28th May, 2026 &nbsp;·&nbsp; MK.</div>
+      <div class="story-tags">
+        <span class="story-tag tag-experience">Experience</span>
+        <span class="story-tag tag-mature">Mature</span>
+      </div>
+
+      <div class="story-background-accordion" id="memoDefinitions">
+        <button onclick="toggleAccordion('memoDefinitions')" style="width:100%;background:none;border:none;border-bottom:1px solid rgba(200,137,42,0.2);padding:0.7rem 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;">
+          <span style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);">Definitions</span>
+          <span style="font-size:0.7rem;color:var(--amber);transition:transform 0.25s ease;" class="sb-arrow">▾</span>
+        </button>
+        <div class="sb-body" style="display:none;padding:0.8rem 0 1.2rem;">
+          <p style="font-family:'DM Mono',monospace;font-size:0.62rem;line-height:1.9;color:var(--muted);">Guka — Grandpa</p>
+        </div>
+      </div>
+
+      <div class="story-rule"></div>
+
+      <div style="border-left:2px solid rgba(200,137,42,0.35);padding-left:1rem;margin-bottom:2.4rem;">
+        <div class="story-para" style="margin-bottom:0.6rem;color:var(--muted);">Guka: I always like seeing you bright in the morning.</div>
+        <div class="story-para" style="margin-bottom:0.6rem;color:var(--muted);">Me: Am I bright?</div>
+        <div class="story-para" style="margin-bottom:0;color:var(--muted);">Him: <em>(delighted, warm)</em> Yaaa!</div>
+      </div>
+
+      <div class="story-para">The irony here is that I woke up only to cry about him because I had a dream about his sunset. In it he said, "you know what's happening, right?" and I said yes. He got into his bed and the transition began.</div>
+
+      <div class="story-para">I like to think that God gave me IN-SIGHT because he knew that without it I would be devastated. Like with my mother before him, I am given time to grieve while he still breathes so that come the time, I am not weighed down by the weight of the shock and pain that comes with the death of a loved one. Unlike my mother's case, I will not distance myself from him — I will not allow unfinished business.</div>
+
+      <div class="story-para">My mother's was a vision, not a dream. I was awake and sat at the edge of my bed listening to music. Next thing I knew, there was an image of a casket lowering into the ground and my thinking was "what will I say about her?". I hated my mind for that but felt it to be true and knew who it was about. It also marked the beginning of the painful process of what I can only describe as her soul separating from mine. This is a story for another day though, her's should not share the stage.</div>
+
+      <div class="story-para">I feel obligated to say that this is a rewrite of what I originally wrote. I did not like the format. Unfortunately, I never recorded the date of the dream before editing the note meaning the date information at the beginning of this page is wrong. The month is correct.</div>
+
+      <div class="story-para">I write this with the hope that it resonates with and encourages somebody out there. <span style="text-decoration:underline;text-underline-offset:3px;">Mementomori: death is inevitable. BUT(!) there is life after it.</span></div>
+
+      <div class="story-para">Having the advantage of a recently posted story inspired by the word thanatopsis, which means a contemplation of death, I have content to piggy back on.</div>
+
+      <div class="story-verse">What if the sky is glass? What if it breaks one day and it rains glass? How do we hide? Where do we hide? Some people will have shade while others will not, but eventually the broken glass will hurt them because they will have to walk on it. What about the people in the open? What a bloody and painful death that would be. What if the ground split open and I fell in a crack, no matter how much I tried to avoid the cracks. Or what if my legs were on either side of splitting earth and it split me in half? What is beyond death? Is it just darkness? Blankness? Is there really a better place?</div>
+
+      <div class="story-rule"></div>
+      <div class="story-heading">BEYOND</div>
+      <div class="story-rule"></div>
+
+      <div class="story-para" style="color:var(--muted);">"What is beyond death? Is it just darkness? Blankness? Is there really a better place?"</div>
+
+      <div class="story-para">Back then I was bleak. I do not remember thinking there was life after death because how could I believe in life if all that was before me was ghastly and deathly? I think of the headless horseman from 'Sleepy Hollow'. I asked if there really was a better place after death because living in a Christian household meant the knowledge of Heaven and Hell. Hell was a place you'd never want to be and Heaven was where you aimed to be. I had no ambitions, just depressive episodes and anxieties that were often dismissed as phases that would quickly pass. The thing is, I was a sensitive child and just how much was not appreciated. I was a sensitive child carrying weight I wasn't supposed to and I had to learn how to keep it together for the sake of image and normalcy.</div>
+
+      <div class="story-para">In the USA, where things were not as corrupted for me, I had a friend. Her name was Malaika. She looked like me but with hair (I had a shaved head) and was about the same age as me. We shared wonderful moments together: always on some sort of adventure on my Uncle's farm or meeting each other in the school hallways. Fast forward to 2025 and I have a discussion with my (step)dad about my happy experiences in Frederick and wherever else we travelled to in Maryland like a popular aquarium in Baltimore. I recounted how I touched a stingray which neither he nor my mother believed at the time because that would mean I was stung! But no, I was not because one could touch the head of it, not the tail/sting and come out just fine! I recalled the best tasting ice-cream ever that to this day I think about from time to time. I remembered my favourite kind of candy; candy corn and carving out pumpkin heads for Halloween and my time as Batman during that season, keeping the streets safe, LOL! We talked about many wonderful things that refreshed me! What surprised him was my accuracy in the memory of these things considering how young I was.</div>
+
+      <div class="story-para">I ended up bringing up how much I enjoyed Malaika and he replied, "OMG, you're having more PTSD. Malaika was your beautiful sister." More PTSD.... What was he talking about?</div>
+
+      <div class="story-para">Prior to throwing back to happier times in my life, the topic was my sleepless nights and how they related to the abuse that I went through. Opening the box that contained memories of it caused my body to react as I would back then. I stayed awake for my safety when the man was around because I had found out he liked to touch me in my sleep. Ever since, sleep was scarce for me in that home. What my brain could not remember and bring to the forefront, my body could. I had been triggered, therefore I could not sleep for weeks. It was a discussion with somebody else very close to me that opened the reason why to me. The happy talk was a pallet cleanser for me and soon after, I was able to sleep — TO REALLY SLEEP.</div>
+
+      <div class="story-para">Look, I don't want to focus on the sad things but it is good for you to know that there are bad things — evil things that I had to carry on my own for a very long time in secret. The bleakness was warranted. Disease and progressive conditions that lessen life quality and expectancy were a personal but open matter. Sexual violation, especially within a family, that was HUSH HUSH.</div>
+
+      <div class="story-para">My sister died when she was a few days old. It's tempting to say that I barely even knew her.<br>Based on what I just shared though, I did! We were the closest! This was before the move to Kenya and before the secret drama that engulfed my life. How can one explain my knowing her name yet I had never been told about her existence? Why did I know her soooo well? Why could I see her? Why could she see me? HOOOOWW?? So many questions that many may want to scientifically dissect to give an explanation when obviously it was a spiritual experience. We don't always have to be able to explain the mechanics of these things to prove whether they are real or not — just the feeling is enough, just the experience is enough.</div>
+
+      <div class="story-para">Here is the theory that I shared with someone dear to me: God can and will never let his children suffer. My experience with Malaika could have been so that I did not have to suffer the emptiness and grief of something missing in my life that I could not explain — a gap that could not be filled, a void that was seemingly endless. Again, just because we do not have the language to give answers does not mean the inexistence of that which is felt. Labels I fear, have ruined our ability to fully enjoy and experience life. For those who believe we are spiritual beings in physical bodies, you may relate! The way I see it now, it would have caused me more pain than I have known in my lifetime.</div>
+
+      <div class="story-para">I liken this to the account of Abel's murder. God said to Cain that he could hear Abel's blood crying out to him from the earth. Malaika was not murdered, she just didn't survive because we were born premature. If you know anything about bonding, you know that people who have been through the most traumatic experiences together (or similar traumas apart) have a bond unlike any other. What about those who shared a womb and an uncertainty of life?<br>What do they say to each other in spirit? How do they communicate? How do they hold each other up? Maybe they don't understand what's happening around them but they recognise energy: that which feels good and that which feels bad. You don't have to look far, just think about that one time you noticed a child uncomfortable around a person or place, only for it to be revealed that there was indeed a problem! Kids are often sensitive to these things especially in their very young states.</div>
+
+      <div class="story-para">When I met the man who later turned into my abuser, I felt an icy cold in the room that he was in. I also felt like my gut was turning inwards the closer I stepped to him — like a tightening recoil and fold. There was also a scent, not one I know how to describe, but definitely nothing manufactured by man (perfume) or produced by the body. I shivered yet it was Kenya's summertime: HOT HOT HOT! Oh how right that sense about him was from the jump! I wanted to be away, but was pulled in.</div>
+
+      <div class="story-para" style="text-decoration:underline;text-underline-offset:3px;">Fix your eyes on me — fix your soul with mine and we will be fine.</div>
+
+      <div class="story-para" style="margin-top:0;">I can't say I remember what we went through in our Mama's womb and even what we knew about our Mama. I think Malaika needed me as much as I needed her though. Even in physical separation, she seemed not to know she was "not there" whenever we were together. We were mirroring. Believe me, it was the most regular interaction between two kids which is why it passed as tangible for me. I have this one memory where I went to what I knew her grade to be to ask for her because I wanted to ask her something. The teacher wondered whether I had the wrong grade because there was no Malaika in her class. She asked me for another name, saying that maybe I used a nickname. I didn't have another name. I just said I knew her as Malaika and that was her real name! She apologised and said I probably had the wrong class. I walked away quite puzzled about this, sad even but not burdened. I wondered if maybe she had been moved or was just absent because that sort of thing happened due to sick days! I hoped she was okay and decided to wait for her to come back. The next time I remember seeing her was on my Uncle's farm, which was an exciting reunion for us both. I've gotta say, that farm was special! <span style="font-style:normal;">🤩</span></div>
+
+      <div class="story-para">My Mama talked about feeling Malaika's presence after her death. This came years later, when I decided based on her good mood, to ask her about my sister. Psychology says it is a phantom child but I say it was Malaika. We both experienced her and I wish I heard more about hers while she was around. I think what clouds us as adults is the negative energy we collect along the way. It is so much so that what we see is not as clear as what a young child would see, hear or feel. Simply put, our airwaves get clogged. Regardless, I truly believe we have the capacity to experience these spiritual things.</div>
+
+      <div class="story-verse">Matthew 18:2-5 NKJV<br>[2] Then Jesus called a little child to Him, set him in the midst of them, [3] and said, "Assuredly, I say to you, unless you are converted and become as little children, you will by no means enter the kingdom of heaven. [4] Therefore whoever humbles himself as this little child is the greatest in the kingdom of heaven. [5] Whoever receives one little child like this in My name receives Me.</div>
+
+      <div class="story-para">That said, I have written about feeling Mama's soul being pulled away from me. It put me through excruciating pain for months. I was certain it would kill me. I later learned that I was experiencing what she was experiencing. When it suddenly stopped, I knew she was gone. By the same token, I believe that God gave Malaika and I a chance to experience each other in a place and way free of pain because our beginning was chaotic and we were innocent. No tears, no anxiety.... NADA! Just memories built on a secure foundation founded on love. I remember her and she remembers me — I have no pain attached to these memories, just a fondness of a beautiful friend — my sister, an Angel, who made my life better and who I believe I made glad too. I am certain that when we meet again we'll pick it up like it was never left off!</div>
+
+      <div class="story-rule"></div>
+      <span class="story-sig">MK.<br><span style="font-size:0.75rem;font-weight:400;opacity:0.55;letter-spacing:0.08em;">Author</span></span>
+      <div class="story-para" style="font-size:calc(0.85rem * var(--ts));color:var(--muted);margin-top:1.2rem;"><em>PS Malaika means Angel.</em></div>
+      <div class="story-share">
+        <button class="story-share-btn" onclick="shareStory('mementomori')">↗ Share this story</button>
+        <span class="story-share-copied" id="share-copied-mementomori">Copied!</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="kahawa-backdrop" id="kahawaBackdrop"></div>
 <div class="kahawa-popup" id="kahawaPopup">
   <div class="kahawa-popup-beans">
@@ -1350,11 +1828,14 @@ Inner meaning here could be that we sleep on the things that matter and could fe
 
   // ── Stories data ─────────────────────────────────────────────────
   var stories = [
-    { word: 'Pain',        modalId: 'storyModal2', backdropId: 'storyBackdrop2' },
-    { word: 'Sleep',       modalId: 'storyModal',  backdropId: 'storyBackdrop'  },
-    { word: 'Scar',        modalId: 'storyModal3', backdropId: 'storyBackdrop3' },
-    { word: 'Thanatopsis', modalId: 'storyModal4', backdropId: 'storyBackdrop4' },
-    { word: 'Umber',       modalId: 'storyModal5', backdropId: 'storyBackdrop5' },
+    { word: 'Pain',           modalId: 'storyModal2', backdropId: 'storyBackdrop2' },
+    { word: 'Sleep',          modalId: 'storyModal',  backdropId: 'storyBackdrop'  },
+    { word: 'Scar',           modalId: 'storyModal3', backdropId: 'storyBackdrop3' },
+    { word: 'Thanatopsis',    modalId: 'storyModal4', backdropId: 'storyBackdrop4' },
+    { word: 'Umber',          modalId: 'storyModal5', backdropId: 'storyBackdrop5' },
+    { word: 'Inscription',    modalId: 'storyModal6', backdropId: 'storyBackdrop6' },
+    { word: 'Mementomori',    modalId: 'storyModal7',  backdropId: 'storyBackdrop7'  },
+    { word: 'Light',          modalId: 'storyModal10', backdropId: 'storyBackdrop10' },
   ];
 
   // ── Deck / Shuffle ────────────────────────────────────────────────
@@ -1403,6 +1884,25 @@ Inner meaning here could be that we sleep on the things that matter and could fe
   }
   buildDeck();
 
+  // Shuffle queue — cycles all words before repeating any
+  var shuffleQueue = [];
+  function getNextWord() {
+    if(shuffleQueue.length === 0) {
+      // Refill and shuffle the queue
+      shuffleQueue = stories.map(function(s) { return s.word; });
+      for(var i = shuffleQueue.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = shuffleQueue[i]; shuffleQueue[i] = shuffleQueue[j]; shuffleQueue[j] = tmp;
+      }
+      // Avoid showing same word twice in a row at the seam between cycles
+      var lastWord = document.getElementById('cardWordText').textContent;
+      if(shuffleQueue[0] === lastWord && shuffleQueue.length > 1) {
+        var swap = shuffleQueue[1]; shuffleQueue[1] = shuffleQueue[0]; shuffleQueue[0] = swap;
+      }
+    }
+    return shuffleQueue.shift();
+  }
+
   function cnSpin() {
     if(spinning) return;
     spinning = true;
@@ -1412,13 +1912,7 @@ Inner meaning here could be that we sleep on the things that matter and could fe
     if(frontEl) frontEl.classList.remove('revealed');
     document.getElementById('spinCount').textContent = 'Tap the deck to shuffle';
 
-    var words = stories.map(function(s) { return s.word; });
-    // Shuffle array
-    for(var i = words.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = words[i]; words[i] = words[j]; words[j] = tmp;
-    }
-    var word = words[0];
+    var word = getNextWord();
 
     var front  = deckArea.querySelector('.deck-card.front');
     var backs  = deckArea.querySelectorAll('.deck-card.back');
@@ -1549,7 +2043,20 @@ Inner meaning here could be that we sleep on the things that matter and could fe
     document.getElementById('spinCount').textContent = 'Tap the deck to shuffle';  };
   function closeStory() { window.cnCloseStory(); }
 
-  // Backdrops close story
+  // Scripture wall accordion
+  window.toggleScripture = function(btn) {
+    var item = btn.parentElement;
+    item.classList.toggle('open');
+  };
+
+  window.toggleAccordion = function(id) {
+    var el = document.getElementById(id);
+    var body = el.querySelector('.sb-body');
+    var arrow = el.querySelector('.sb-arrow');
+    var isOpen = body.style.display === 'block';
+    body.style.display = isOpen ? 'none' : 'block';
+    if(arrow) arrow.style.transform = isOpen ? '' : 'rotate(180deg)';
+  };
   stories.forEach(function(s) {
     var backdrop = document.getElementById(s.backdropId);
     if(backdrop) backdrop.addEventListener('click', function(e) {
@@ -1557,7 +2064,21 @@ Inner meaning here could be that we sleep on the things that matter and could fe
     });
   });
 
-  // ── Story sharing ─────────────────────────────────────────────────
+  // ── Content warning popup ─────────────────────────────────────────
+  window.contentWarning = function(url) {
+    var overlay = document.createElement('div');
+    overlay.className = 'content-warning-overlay';
+    overlay.innerHTML =
+      '<div class="content-warning-box">' +
+        '<div class="content-warning-title">⚠ Content Advisory</div>' +
+        '<div class="content-warning-text">The link you are about to open contains content that may not be suitable for all ages.</div>' +
+        '<div class="content-warning-btns">' +
+          '<button class="cw-btn" onclick="this.closest(\'.content-warning-overlay\').remove()">Go back</button>' +
+          '<button class="cw-btn proceed" onclick="window.open(\'' + url + '\',\'_blank\');this.closest(\'.content-warning-overlay\').remove()">Proceed</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+  };
   window.shareStory = function(slug) {
     var url = 'https://wordspin.org/chickennuggets.html#' + slug;
     var title = 'Chicken Nuggets — ' + slug.charAt(0).toUpperCase() + slug.slice(1);
@@ -1622,8 +2143,8 @@ Inner meaning here could be that we sleep on the things that matter and could fe
 
   // ── URL hash → open story directly ───────────────────────────────
   (function() {
-    var hashMap = { 'pain': 'storyModal2', 'sleep': 'storyModal', 'scar': 'storyModal3', 'thanatopsis': 'storyModal4', 'umber': 'storyModal5' };
-    var backdropMap = { 'pain': 'storyBackdrop2', 'sleep': 'storyBackdrop', 'scar': 'storyBackdrop3', 'thanatopsis': 'storyBackdrop4', 'umber': 'storyBackdrop5' };
+    var hashMap = { 'pain': 'storyModal2', 'sleep': 'storyModal', 'scar': 'storyModal3', 'thanatopsis': 'storyModal4', 'umber': 'storyModal5', 'inscription': 'storyModal6', 'mementomori': 'storyModal7', 'light': 'storyModal10' };
+    var backdropMap = { 'pain': 'storyBackdrop2', 'sleep': 'storyBackdrop', 'scar': 'storyBackdrop3', 'thanatopsis': 'storyBackdrop4', 'umber': 'storyBackdrop5', 'inscription': 'storyBackdrop6', 'mementomori': 'storyBackdrop7', 'light': 'storyBackdrop10' };
     var hash = window.location.hash.replace('#', '').toLowerCase();
     if(hashMap[hash]) {
       var modal = document.getElementById(hashMap[hash]);
