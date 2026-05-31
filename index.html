@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <link rel="manifest" href="/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="WordSpin">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNSIgZmlsbD0iIzExMSIvPjx0ZXh0IHg9IjE2IiB5PSIyMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXN0eWxlPSJpdGFsaWMiIGZpbGw9IiNjODg5MmEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPldTPC90ZXh0Pjwvc3ZnPg=="/>
   <link rel="shortcut icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNSIgZmlsbD0iIzExMSIvPjx0ZXh0IHg9IjE2IiB5PSIyMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXN0eWxlPSJpdGFsaWMiIGZpbGw9IiNjODg5MmEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPldTPC90ZXh0Pjwvc3ZnPg=="/>
   <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNSIgZmlsbD0iIzExMSIvPjx0ZXh0IHg9IjE2IiB5PSIyMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXN0eWxlPSJpdGFsaWMiIGZpbGw9IiNjODg5MmEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPldTPC90ZXh0Pjwvc3ZnPg=="/>
@@ -2176,6 +2181,11 @@
             <div class="benefit-desc">No scrolling, no passive watching. WordSpin replaces idle screen time with active creative thinking — any time, anywhere, any mood. The antidote to boredom that actually leaves you feeling good.</div>
           </div>
           <div class="benefit-card">
+            <span class="benefit-icon">🗣️</span>
+            <div class="benefit-title">Build Confidence in Speech</div>
+            <div class="benefit-desc">Responding to a word prompt out loud — whether alone or in a group — trains you to think on your feet and express yourself clearly. Over time, WordSpin sharpens verbal fluency and builds the kind of confidence that carries into real conversations.</div>
+          </div>
+          <div class="benefit-card">
             <span class="benefit-icon">📖</span>
             <div class="benefit-title">Expand Your Vocabulary</div>
             <div class="benefit-desc">Every shuffle introduces a word you rarely use. Writing with it moves it from passive recognition into active ownership — the most effective form of vocabulary building available. Words stick when you use them.</div>
@@ -2190,7 +2200,7 @@
         <span class="about-accordion-arrow">▾</span>
       </button>
       <div class="about-accordion-body">
-        <p>Chicken Nuggets is a collection of short stories written by MK. — each one inspired by a single word from the WordSpin deck. A memory, a confession, a reflection, a philosophy, a moment. The words are the same ones you shuffle. The stories show you where they can go.</p>
+        <p>Chicken Nuggets is a collection of short stories — each one inspired by a single word from the WordSpin deck. A memory, a confession, a reflection, a philosophy, a moment. The words are the same ones you shuffle. The stories show you where they can go.</p>
         <p><a href="https://wordspin.org/chickennuggets.html" style="color:var(--amber);text-decoration:underline;">Read Chicken Nuggets →</a></p>
       </div>
     </div>
@@ -4312,6 +4322,13 @@
 
   renderStories();
 
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js');
+    });
+  }
 </script>
 </body>
 </html>
