@@ -1502,11 +1502,13 @@
       -webkit-tap-highlight-color: transparent;
     }
     .instructions-trigger-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--amber);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-style: italic;
+      font-weight: 600;
+      color: #c85a18;
+      letter-spacing: 0;
+      text-transform: none;
     }
     :root[data-theme="light"] .instructions-trigger-label { color: #8a5a00; }
     .instructions-trigger-arrow {
@@ -2046,21 +2048,15 @@
   <!-- How to play -->
   <section class="about-section" style="padding-top:2rem;">
 
-    <div class="about-accordion open" id="accordionHow">
-      <button class="about-accordion-trigger" onclick="toggleAccordion('accordionHow')">
-        <span>How to play WordSpin</span>
-        <span class="about-accordion-arrow">▾</span>
-      </button>
-      <div class="about-accordion-body">
-        <ol class="instructions-steps">
-          <li>Choose your difficulty — Easy, Medium, or True Challenge — depending on how stretching you want your word prompt to be.</li>
-          <li>Tap Shuffle and watch the card deck deal. One card is drawn for you — your story starts here.</li>
-          <li>Read your word. Tap 🔍 for the definition and pronunciation if you need it. Don't overthink — notice what the word stirs in you first.</li>
-          <li>Write your story in the box below. A memory, a fiction, a poem, a confession, or a complete lie. There is no wrong answer.</li>
-          <li>Save your story to your personal collection, or shuffle again for a fresh creative writing prompt whenever you're ready.</li>
-        </ol>
-        <p style="font-size:0.78rem;color:var(--muted);margin-top:1.2rem;">Playing with others? See <button onclick="openInstructions()" style="background:none;border:none;padding:0;font-size:0.78rem;color:var(--amber);cursor:pointer;text-decoration:underline;font-family:inherit;">Solo &amp; Group instructions</button> below.</p>
-      </div>
+    <div style="border-top:1px solid rgba(200,137,42,0.2);padding-top:1rem;margin-bottom:0.4rem;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-style:italic;font-weight:600;color:#c85a18;margin-bottom:1.2rem;">How to Play</div>
+      <ol class="instructions-steps">
+        <li>Choose your difficulty — Easy, Medium, or True Challenge — depending on how stretching you want your word prompt to be.</li>
+        <li>Tap Shuffle and watch the card deck deal. One card is drawn for you — your story starts here.</li>
+        <li>Read your word. Tap 🔍 for the definition and pronunciation if you need it. Don't overthink — notice what the word stirs in you first.</li>
+        <li>Write your story in the box below. A memory, a fiction, a poem, a confession, or a complete lie. There is no wrong answer.</li>
+        <li>Save your story to your personal collection, or shuffle again for a fresh creative writing prompt whenever you're ready.</li>
+      </ol>
     </div>
 
   </section>
@@ -2068,7 +2064,7 @@
   <!-- Instructions -->
   <section class="instructions-section" id="instructionsSection">
     <button class="instructions-trigger" onclick="toggleInstructions()">
-      <span class="instructions-trigger-label">Instructions</span>
+      <span class="instructions-trigger-label">Solo &amp; Group Instructions</span>
       <span class="instructions-trigger-arrow">▾</span>
     </button>
     <div class="instructions-body">
@@ -2769,6 +2765,16 @@
       { word:"Crag", pron:"krag", def:"A steep rugged rock or cliff." },
       { word:"Dew", pron:"dyoo", def:"Tiny water droplets that form on surfaces overnight." },
       { word:"Sleep", pron:"sleep", def:"A natural state of rest in which the eyes close and the mind becomes unconscious." },
+            { word:"Birch", pron:"berch", def:"A slender tree with white papery bark." },
+      { word:"Crayon", pron:"KRAY-on", def:"A stick of coloured wax used for drawing." },
+      { word:"Doorstep", pron:"DOR-step", def:"A step in front of a door; the entrance to a home." },
+      { word:"Jetty", pron:"JET-ee", def:"A structure projecting into water as a landing pier." },
+      { word:"Mitten", pron:"MIT-un", def:"A glove with one section for all fingers and one for the thumb." },
+      { word:"Pudding", pron:"PUD-ing", def:"A sweet cooked dessert; a soft baked dish." },
+      { word:"Birdbath", pron:"BIRD-bath", def:"A shallow basin filled with water for birds to bathe in." },
+      { word:"Signpost", pron:"SYN-pohst", def:"A post bearing a sign that gives directions or information." },
+      { word:"Sparrow", pron:"SPAR-oh", def:"A small brown bird common in towns and gardens." },
+      { word:"Wristwatch", pron:"RIST-woch", def:"A watch worn on a strap around the wrist." },
     ],
     medium: [
       // 100 words — vivid but still accessible
@@ -3074,6 +3080,16 @@
       { word:"Lacerate", pron:"LAS-e-rayt", def:"To tear the flesh roughly; to cause anguish." },
       { word:"Mournful", pron:"MORN-ful", def:"Feeling or expressing deep sorrow." },
       { word:"Nonchalant", pron:"non-sha-LONT", def:"Calm and relaxed; not showing concern." },
+            { word:"Scullery", pron:"SKUL-er-ee", def:"A small room for washing dishes; a back kitchen." },
+      { word:"Undercurrent", pron:"UN-der-kur-unt", def:"A current below the surface; a hidden feeling or trend." },
+      { word:"Vestibule", pron:"VES-ti-byool", def:"An entrance hall or lobby; a small space between doors." },
+      { word:"Wane", pron:"wayn", def:"To decrease in size or strength; the moon decreasing after full." },
+      { word:"Yarrow", pron:"YAR-oh", def:"A wild plant with flat-topped clusters of white or yellow flowers." },
+      { word:"Croft", pron:"kroft", def:"A small rented farm in Scotland; a small enclosed field." },
+      { word:"Dowry", pron:"DOW-ree", def:"Property or money brought by a bride to her husband at marriage." },
+      { word:"Furrow", pron:"FUR-oh", def:"A long narrow cut in the ground; a deep wrinkle on the face." },
+      { word:"Harbourage", pron:"HAR-ber-ij", def:"A place of shelter or refuge; the act of giving shelter." },
+      { word:"Glimmer", pron:"GLIM-er", def:"A faint or unsteady light; a faint sign of something." },
     ],
     challenge: [
       // 100 rich, evocative, stretching words
@@ -3313,7 +3329,17 @@
       { word:"Viridity", pron:"vi-RID-i-tee", def:"The quality of being green; freshness and vitality." },
       { word:"Yugen", pron:"YOO-gen", def:"A Japanese concept of awareness of the universe triggering emotions too deep for words." },
       { word:"Zeugma", pron:"ZYOOG-ma", def:"A figure of speech applying a word to two others in different senses." },
-      { word:"Brachylogy", pron:"brak-IL-o-jee", def:"Concise speech; compression of meaning into few words." },
+      { word:"Adumbrate", pron:"AD-um-brayt", def:"To give a faint outline of; to overshadow or foreshadow." },
+      { word:"Phosphorescence", pron:"fos-fo-RES-ens", def:"The emission of light without heat; a faint glowing in the dark." },
+      { word:"Crepehanger", pron:"KRAYP-hang-er", def:"A person who takes a gloomy or pessimistic view of things." },
+      { word:"Eleutheromania", pron:"e-loo-ther-o-MAY-nee-a", def:"An intense and irresistible desire for freedom." },
+      { word:"Forswear", pron:"for-SWAIR", def:"To formally renounce or swear off something; to perjure oneself." },
+      { word:"Ingenue", pron:"AN-zhuh-nyoo", def:"An innocent, naive young woman; an actress playing such a role." },
+      { word:"Katabatic", pron:"kat-a-BAT-ik", def:"Relating to cold dense air flowing downhill under gravity." },
+      { word:"Logodaedaly", pron:"log-o-DEE-da-lee", def:"Skill in the invention and use of words." },
+      { word:"Moue", pron:"moo", def:"A pouting grimace expressing displeasure or doubt." },
+      { word:"Numinosity", pron:"nyoo-mi-NOS-i-tee", def:"The quality of being filled with a sense of the divine or supernatural." },
+          { word:"Brachylogy", pron:"brak-IL-o-jee", def:"Concise speech; compression of meaning into few words." },
       { word:"Dehiscence", pron:"de-HIS-uns", def:"The bursting open of a seed pod at maturity; a natural split." },
       { word:"Empiricism", pron:"em-PIR-i-siz-um", def:"The theory that knowledge derives from sensory experience." },
       { word:"Fideism", pron:"FY-dee-iz-um", def:"The doctrine that faith is independent of reason." },
