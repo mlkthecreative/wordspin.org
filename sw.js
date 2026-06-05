@@ -1,6 +1,5 @@
-const CACHE = 'wordspin-v2';
+const CACHE = 'wordspin-v3';
 const ASSETS = [
-  '/',
   '/index.html',
   '/chickennuggets.html',
   '/manifest.json',

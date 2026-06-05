@@ -693,6 +693,32 @@
       .modal-topbar { padding: 1.1rem 3rem; }
     }
 
+
+    /* Scripture popup */
+    .scripture-popup-overlay {
+      display:none;position:fixed;inset:0;z-index:9999;
+      background:rgba(0,0,0,0.55);align-items:center;justify-content:center;padding:1.5rem;
+    }
+    .scripture-popup-overlay.active { display:flex; }
+    .scripture-popup {
+      background:var(--card,#1a1a1a);border:1px solid rgba(200,137,42,0.3);
+      border-radius:8px;padding:1.4rem 1.4rem 1rem;max-width:480px;width:100%;
+      position:relative;max-height:80vh;overflow-y:auto;
+    }
+    .scripture-popup-ref {
+      font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.18em;
+      text-transform:uppercase;color:var(--amber);margin-bottom:0.8rem;display:block;
+    }
+    .scripture-popup-text {
+      font-family:'Cormorant Garamond',serif;font-size:calc(0.95rem * var(--ts));
+      font-style:italic;line-height:1.9;color:var(--muted);
+    }
+    .scripture-popup-close {
+      display:block;margin-top:1rem;text-align:right;
+      font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;
+      text-transform:uppercase;color:var(--amber);cursor:pointer;background:none;
+      border:none;padding:0;
+    }
     /* Desktop: single column for all stories */
     @media (min-width: 1024px) {
       .story-modal-inner { max-width: 820px; }
@@ -1139,6 +1165,7 @@
       <button class="word-pill" onclick="openStoryByWord('Umber')">Umber</button>
       <button class="word-pill" onclick="openStoryByWord('Inscription')">Inscription</button>
       <button class="word-pill" onclick="openStoryByWord('Mementomori')">Mementomori</button>
+      <button class="word-pill" onclick="openStoryByWord('Mementomori II')">Mementomori II</button>
       <button class="word-pill" onclick="openStoryByWord('Light')">Light</button>
       <button class="word-pill" onclick="openStoryByWord('Salt')">Salt</button>
     </div>
@@ -1780,6 +1807,10 @@ Inner meaning here could be that we sleep on the things that matter and could fe
       <div class="story-para">That said, I have written about feeling Mama's soul being pulled away from me. It put me through excruciating pain for months. I was certain it would kill me. I later learned that I was experiencing what she was experiencing. When it suddenly stopped, I knew she was gone. By the same token, I believe that God gave Malaika and I a chance to experience each other in a place and way free of pain because our beginning was chaotic and we were innocent. No tears, no anxiety.... NADA! Just memories built on a secure foundation founded on love. I remember her and she remembers me — I have no pain attached to these memories, just a fondness of a beautiful friend — my sister, an Angel, who made my life better and who I believe I made glad too. I am certain that when we meet again we'll pick it up like it was never left off!</div>
 
       <div class="story-rule"></div>
+      <div class="story-para" style="text-align:center;">
+        <span onclick="cnCloseStory();setTimeout(function(){openStoryByWord('Mementomori II')},300);" style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);text-decoration:underline;text-underline-offset:3px;cursor:pointer;">Continue → Mementomori II: Ancestors</span>
+      </div>
+      <div class="story-rule"></div>
       <span class="story-sig">MK.<br><span style="font-size:0.75rem;font-weight:400;opacity:0.55;letter-spacing:0.08em;">Author</span></span>
       <div class="story-para" style="font-size:calc(0.85rem * var(--ts));color:var(--muted);margin-top:1.2rem;"><em>PS Malaika means Angel.</em></div>
       <div class="story-share">
@@ -1789,6 +1820,207 @@ Inner meaning here could be that we sleep on the things that matter and could fe
     </div>
   </div>
 </div>
+
+<!-- ── Story 11: Mementomori II ── -->
+<div class="story-backdrop" id="storyBackdrop11"></div>
+<div class="story-modal" id="storyModal11" role="dialog" aria-label="Story: Mementomori II">
+  <div id="mementomori2"></div>
+  <div class="story-modal-inner">
+    <div class="modal-topbar">
+      <button class="modal-back" onclick="cnCloseStory()" aria-label="Back">← Back to Chicken Nuggets</button>
+      <div class="text-size-controls">
+        <button class="text-size-btn" onclick="setTextSize('small', this)">S</button>
+        <button class="text-size-btn active" onclick="setTextSize('normal', this)">M</button>
+        <button class="text-size-btn" onclick="setTextSize('large', this)">L</button>
+        <button class="text-size-btn" onclick="setTextSize('xlarge', this)">XL</button>
+      </div>
+    </div>
+    <div class="story-content">
+
+      <div class="story-headline">Ancestors</div>
+      <div class="story-meta">28th May, 2026 &nbsp;·&nbsp; MK.</div>
+      <div class="story-tags">
+        <span class="story-tag tag-experience">Experience</span>
+        <span class="story-tag tag-mature">Mature</span>
+      </div>
+
+      <div class="story-background-accordion" id="memo2Definitions">
+        <button onclick="toggleAccordion('memo2Definitions')" style="width:100%;background:none;border:none;border-bottom:1px solid rgba(200,137,42,0.2);padding:0.7rem 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;">
+          <span style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);">Definitions</span>
+          <span style="font-size:0.7rem;color:var(--amber);transition:transform 0.25s ease;" class="sb-arrow">▾</span>
+        </button>
+        <div class="sb-body" style="display:none;padding:0.8rem 0 1.2rem;">
+          <p style="font-family:'DM Mono',monospace;font-size:0.62rem;line-height:1.9;color:var(--muted);">Guka — Grandpa<br>NPC — Non-playable character (a character in a video game controlled by the computer, not the player)</p>
+        </div>
+      </div>
+
+      <div class="story-rule"></div>
+
+      <div class="story-background-accordion" id="memo2J42">
+        <button onclick="toggleAccordion('memo2J42')" style="width:100%;background:none;border:none;border-bottom:1px solid rgba(200,137,42,0.2);padding:0.7rem 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;">
+          <span style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);">Jasher 42: 29–41</span>
+          <span style="font-size:0.7rem;color:var(--amber);transition:transform 0.25s ease;" class="sb-arrow" style="transform:rotate(180deg);">▾</span>
+        </button>
+        <div class="sb-body" style="display:block;padding:0.8rem 0 1.2rem;">
+          <div class="story-verse" style="line-height:2;color:var(--muted);">29 And they said to each other, What is this thing that God has done to us in the road? and they knew not that this befell them on account of Joseph. And the men proceeded on the road, and they passed along the road of Ephrath where Rachel was buried.<br>30 And Joseph reached his mother's grave, and Joseph hastened and ran to his mother's grave, and fell upon the grave and wept.<br>31 And Joseph cried aloud upon his mother's grave, and he said, O my mother, my mother, O thou who didst give me birth, awake now, and rise and see thy son, how he has been sold for a slave, and no one to pity him.<br>32 O rise and see thy son, weep with me on account of my troubles, and see the heart of my brethren.<br>33 Arouse my mother, arouse, awake from thy sleep for me, and direct thy battles against my brethren. O how have they stripped me of my coat, and sold me already twice for a slave, and separated me from my father, and there is no one to pity me.<br>34 Arouse and lay thy cause against them before God, and see whom God will justify in the judgment, and whom he will condemn.<br>35 Rise, O my mother, rise, awake from thy sleep and see my father how his soul is with me this day, and comfort him and ease his heart.<br>36 And Joseph continued to speak these words, and Joseph cried aloud and wept bitterly upon his mother's grave; and he ceased speaking, and from bitterness of heart he became still as a stone upon the grave.<br>37 And Joseph heard a voice speaking to him from beneath the ground, which answered him with bitterness of heart, and with a voice of weeping and praying in these words:<br>38 My son, my son Joseph, I have heard the voice of thy weeping and the voice of thy lamentation; I have seen thy tears; I know thy troubles, my son, and it grieves me for thy sake, and abundant grief is added to my grief.<br>39 Now therefore my son, Joseph my son, hope to the Lord, and wait for him and do not fear, for the Lord is with thee, he will deliver thee from all trouble.<br>40 Rise my son, go down unto Egypt with thy masters, and do not fear, for the Lord is with thee, my son. And she continued to speak like unto these words unto Joseph, and she was still.<br>41 And Joseph heard this, and he wondered greatly at this, and he continued to weep; and after this one of the Ishmaelites observed him crying and weeping upon the grave, and his anger was kindled against him, and he drove him from there, and he smote him and cursed him.</div>
+        </div>
+      </div>
+
+      <div class="story-rule"></div>
+
+      <div class="story-para">My dream, the one that started this, featured the hand of my dead grandmother holding mine as I wept about my grandfather and prayed to God to receive him in all gentleness. This is eerie: the image of a body covered by a white cloth, still but somehow moving, reaching out to give comfort.</div>
+
+      <div class="story-para">Her days in the hospital were difficult for me because I was not allowed to be with her. They wanted me to focus on my schoolwork and getting good grades but that was impossible for me given how my heart was with her even from afar. When she died, regret and anger became my day to day. I was convinced that being with her was far better than being away from her and was angry at the people around me for not considering that. I was sure I would survive but it just now occurs to me that she might have not wanted me to see her like that, and to be left with such a poor image of her. My grandmother took great pride in her looks! She took even greater pride in her family and I am sure that hurting them was not something she wanted to do if she thought it would.</div>
+
+      <div class="story-para">There was something that I wanted her to know and it was that I loved her. If I could not say it, I hoped my presence would. Company speaks magnitudes. These things, I was denied. I cannot remember how long after her death I had a dream about her. In it, we picked her up from the hospital and she stood tall and vibrant. Her bag was put in the boot of the car and off we drove.</div>
+
+      <div class="story-para">I was confused because I knew she was dead. I might have even asked her what she was doing with us but she was silent. Mostly, I remember being quiet in the backseat of the volvo staring at her, processing what was happening. As I stared at her, she stared at Guka with gladness and love in her eyes. The way outside was not clear but I could tell where we were going and started to adapt to the idea of us being a family again. This time, it wouldn't be with worry, anxiety and fear for her life because clearly, SHE WAS HEALED.</div>
+
+      <div class="story-para">Once we got home and out of the car, I could not take my eyes off of her. I remember telling her that she looked good and she thanked me. She was even taller than me! I was happy that we had a fresh start together, excited that we were home TOGETHER. When it came time to enter the house, I could not go past the first step of the staircase that led to our front door. There was an invisible force preventing me from going past that point. That is when I noticed that Guka was frozen. Like an NPC in a game, he had played his part. I panicked and did my best to make him move, to make him see, to make him try because we had to go into the house TOGETHER. We couldn't lose her, not again.</div>
+
+      <div class="story-para">By the time this was happening, she was already at the top of the staircase and had opened the front door to reveal a warm bright light. She looked at me, so tender in the eyes and said, "I am home now". The tears I cried when I woke up were a release of the negative energy I had to do with to her. From then on, I was at peace. What I wanted her to know, she knew. What I needed to know was made known to me. On top of that, for the first time, I knew there was a Heaven and that she was there. I was also certain that she remembered us and loved us in a way only God knows.</div>
+
+      <div class="story-para">Why is this relevant? What is the connection between my story and Joseph's story? In the dream about my grandfather's transition, I broke down during a prayer. As this happened, she appeared on her side of their bed. The image though unsettling was not my focus nor was it even in my focus ability. Her hand which was uncovered and reaching out to mine was. My right hand held his while my left hand was held by hers. Gone in body for many years but there in spirit to give support during a major life event. There was no sense of negativity, just comfort and togetherness. I knew where my dear Guka was going, and it was good to know that I was not alone. Together in Spirit.</div>
+
+      <div class="story-rule"></div>
+
+      <a href="https://youtu.be/y8Jkls3xgvg?si=w2NP4FpOfRzmxAqt" target="_blank" rel="noopener" style="text-decoration:none;display:block;">
+        <div style="border-left:3px solid rgba(200,137,42,0.5);padding:1rem 1.2rem;margin-bottom:2.4rem;background:rgba(200,137,42,0.04);border-radius:0 4px 4px 0;">
+          <div class="story-para" style="font-style:italic;margin-bottom:0.4rem;color:var(--amber);">"I meant my ancestors. I will call into the past. Far back to the beginning of time and beg them to come and help me at the judgment. I will reach back and draw them into me. And they must come. For at this moment, I am the whole reason they have existed at all."</div>
+          <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;color:var(--amber);text-transform:uppercase;text-decoration:underline;text-underline-offset:2px;">— Cinque, Amistad</div>
+        </div>
+      </a>
+
+      <div class="story-para">My prayer life was upgraded when I put this into practice. During a critical time when I was at a crossroads, I was told that I could pray to God, reminding him of the ones before me who honoured him and ask that their promise and prayers for my bloodline be activated through me. In that realm, these prayers and memories remain, there is no expiry even if it was 500 years ago. Nothing is unaccounted for, nothing is forgotten, and often, it just needs prompting. That is what I understood from my Uncle's words.</div>
+
+      <div class="story-para">We find ourselves burdened with generational curses but somehow forget generational blessings that assist in breaking these barriers. If we look at the promises given to Abraham and arrange the order from descending to ascending, the prayers of descendants would be about remembering what God promised their blessed forefather Abraham, asking that God consider said word during whatever they are seeking. They would also remind God of what He did for their forefather and the actions of their forefather — those of faith and works of faith (obedience) to further strengthen their case. There is power in promise, there is <span onclick="showScripturePopup('Proverbs 22:1 NKJV', '[1] A good name is to be chosen rather than great riches, Loving favor rather than silver and gold.')" style="text-decoration:underline;text-underline-offset:3px;cursor:pointer;color:var(--amber);">power in a good name</span>, there is power in memory and there is MOST OF ALL power in the word of God. God is not unfaithful. Often, we do not thrive because we do not know!</div>
+
+      <div class="story-rule"></div>
+
+      <div class="story-background-accordion" id="memo2Jasher26">
+        <button onclick="toggleAccordion('memo2Jasher26')" style="width:100%;background:none;border:none;border-bottom:1px solid rgba(200,137,42,0.2);padding:0.7rem 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;">
+          <span style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);">Jasher 26:1–12</span>
+          <span style="font-size:0.7rem;color:var(--amber);transition:transform 0.25s ease;" class="sb-arrow">▾</span>
+        </button>
+        <div class="sb-body" style="display:none;padding:0.8rem 0 1.2rem;">
+          <div class="story-verse" style="color:var(--muted);">1 And in the fifty-ninth year of the life of Isaac the son of Abraham, Rebecca his wife was still barren in those days.<br>2 And Rebecca said unto Isaac, Truly I have heard, my lord, that thy mother Sarah was barren in her days until my Lord Abraham, thy father, prayed for her and she conceived by him.<br>3 Now therefore stand up, pray thou also to God and he will hear thy prayer and remember us through his mercies.<br>4 And Isaac answered his wife Rebecca, saying, Abraham has already prayed for me to God to multiply his seed, now therefore this barrenness must proceed to us from thee.<br>5 And Rebecca said unto him, But arise now thou also and pray, that the Lord may hear thy prayer and grant me children, and Isaac hearkened to the words of his wife, and Isaac and his wife rose up and went to the land of Moriah to pray there and to seek the Lord, and when they had reached that place Isaac stood up and prayed to the Lord on account of his wife because she was barren.<br>6 And Isaac said, O Lord God of heaven and earth, whose goodness and mercies fill the earth, thou who didst take my father from his father's house and from his birthplace, and didst bring him unto this land, and didst say unto him, To thy seed will I give the land, and thou didst promise him and didst declare unto him, I will multiply thy seed as the stars of heaven and as the sand of the sea, now may thy words be verified which thou didst speak unto my father.<br>7 For thou art the Lord our God, our eyes are toward thee to give us seed of men, as thou didst promise us, for thou art the Lord our God and our eyes are directed toward thee only.<br>8 And the Lord heard the prayer of Isaac the son of Abraham, and the Lord was entreated of him and Rebecca his wife conceived.<br>9 And in about seven months after the children struggled together within her, and it pained her greatly that she was wearied on account of them, and she said to all the women who were then in the land, Did such a thing happen to you as it has to me? and they said unto her, No.<br>10 And she said unto them, Why am I alone in this amongst all the women that were upon earth? and she went to the land of Moriah to seek the Lord on account of this; and she went to Shem and Eber his son to make inquiries of them in this matter, and that they should seek the Lord in this thing respecting her.<br>11 And she also asked Abraham to seek and inquire of the Lord about all that had befallen her.<br>12 And they all inquired of the Lord concerning this matter, and they brought her word from the Lord and told her, Two children are in thy womb, and two nations shall rise from them; and one nation shall be stronger than the other, and the greater shall serve the younger.</div>
+        </div>
+      </div>
+
+      <div class="story-background-accordion" id="memo2Jasher15">
+        <button onclick="toggleAccordion('memo2Jasher15')" style="width:100%;background:none;border:none;border-bottom:1px solid rgba(200,137,42,0.2);padding:0.7rem 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;">
+          <span style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);">Jasher 15:14–19</span>
+          <span style="font-size:0.7rem;color:var(--amber);transition:transform 0.25s ease;" class="sb-arrow">▾</span>
+        </button>
+        <div class="sb-body" style="display:none;padding:0.8rem 0 1.2rem;">
+          <div class="story-verse" style="color:var(--muted);">14 And when the officers of the king beheld Sarai they were struck with admiration at her beauty, and all the princes and servants of Pharaoh assembled to see Sarai, for she was very beautiful. And the king's officers ran and told Pharaoh all that they had seen, and they praised Sarai to the king; and Pharaoh ordered her to be brought, and the woman came before the king.<br>15 And Pharaoh beheld Sarai and she pleased him exceedingly, and he was struck with her beauty, and the king rejoiced greatly on her account, and made presents to those who brought him the tidings concerning her.<br>16 And the woman was then brought to Pharaoh's house, and Abram grieved on account of his wife, and he prayed to the Lord to deliver her from the hands of Pharaoh.<br>17 And Sarai also prayed at that time and said, O Lord God thou didst tell my Lord Abram to go from his land and from his father's house to the land of Canaan, and thou didst promise to do well with him if he would perform thy commands; now behold we have done that which thou didst command us, and we left our land and our families, and we went to a strange land and to a people whom we have not known before.<br>18 And we came to this land to avoid the famine, and this evil accident has befallen me; now therefore, O Lord God, deliver us and save us from the hand of this oppressor, and do well with me for the sake of thy mercy.<br>19 And the Lord hearkened to the voice of Sarai, and the Lord sent an angel to deliver Sarai from the power of Pharaoh.</div>
+        </div>
+      </div>
+
+      <div class="story-background-accordion" id="memo2Jasher32">
+        <button onclick="toggleAccordion('memo2Jasher32')" style="width:100%;background:none;border:none;border-bottom:1px solid rgba(200,137,42,0.2);padding:0.7rem 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;">
+          <span style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);">Jasher 32:15–23</span>
+          <span style="font-size:0.7rem;color:var(--amber);transition:transform 0.25s ease;" class="sb-arrow">▾</span>
+        </button>
+        <div class="sb-body" style="display:none;padding:0.8rem 0 1.2rem;">
+          <div class="story-verse" style="color:var(--muted);">15 And when he heard the words of his brother which he had spoken to the messengers of Jacob, Jacob was greatly afraid and he was distressed.<br>16 And Jacob prayed to the Lord his God, and he said, O Lord God of my fathers, Abraham and Isaac, thou didst say unto me when I went away from my father's house, saying, 17 I am the Lord God of thy father Abraham and the God of Isaac, unto thee do I give this land and thy seed after thee, and I will make thy seed as the stars of heaven, and thou shalt spread forth to the four sides of heaven, and in thee and in thy seed shall all the families of the earth be blessed.<br>18 And thou didst establish thy words, and didst give unto me riches and children and cattle, as the utmost wishes of my heart didst thou give unto thy servant; thou didst give unto me all that I asked from thee, so that I lacked nothing.<br>19 And thou didst afterward say unto me, Return to thy parents and to thy birth place and I will still do well with thee.<br>20 And now that I have come, and thou didst deliver me from Laban, I shall fall in the hands of Esau who will slay me, yea, together with the mothers of my children.<br>21 Now therefore, O Lord God, deliver me, I pray thee, also from the hands of my brother Esau, for I am greatly afraid of him.<br>22 And if there is no righteousness in me, do it for the sake of Abraham and my father Isaac.<br>23 For I know that through kindness and mercy have I acquired this wealth; now therefore I beseech thee to deliver me this day with thy kindness and to answer me.</div>
+        </div>
+      </div>
+
+      <div class="story-rule"></div>
+
+
+
+      <div class="story-para">What I like about Jasher, a hidden book which many people do not know about though it is <span onclick="showScripturePopup('Joshua 10:12–14 NKJV', '[12] Then Joshua spoke to the Lord in the day when the Lord delivered up the Amorites before the children of Israel, and he said in the sight of Israel: &ldquo;Sun, stand still over Gibeon; And Moon, in the Valley of Aijalon.&rdquo;<br>[13] So the sun stood still, And the moon stopped, Till the people had revenge Upon their enemies. Is this not written in the Book of Jasher? So the sun stood still in the midst of heaven, and did not hasten to go down for about a whole day.<br>[14] And there has been no day like that, before it or after it, that the Lord heeded the voice of a man; for the Lord fought for Israel.')" style="text-decoration:underline;text-underline-offset:3px;cursor:pointer;color:var(--amber);">quoted in main scripture</span>, is how detailed it is. I am and will probably always be a context person. Context means give me more than just a summary — give me the full story because I get answers through stories, I gain perspective and from perspective, I gain understanding! Tell it to me as it is and as it was.</div>
+
+      <div class="story-para">On an even deeper level, the humanisation of people makes the grace of God much more pronounced. It even teaches what grace means, and what God's role in our lives is! It teaches what our role is: what submission means, what faith means, what obedience means.</div>
+
+      <div class="story-para">We believe and are maybe even taught the Old Testament God and the New Testament God are different because of all the violence in times of old making Him look cruel and vindictive, but reading Jasher showed me that they are not different and that is why context of the times matters! He is the same now as He was then. I learn about His nature and that of the supernatural. How all these things come together and co-exist. Jasher taught me that even the greatest in the Old Testament were people with people problems who chose God and so He empowered them.</div>
+
+      <div class="story-para">Abram, before his name change, was not just RANDOMLY called by God, instructed to leave his land and given a promise. He went through a phase where he SOUGHT God. He wanted to know WHAT God was until what turned into WHO God was. God revealed Himself to him. Does this not back up what is written in the New Testament about about <span onclick="showScripturePopup('Matthew 7:7–12 NKJV', '[7] &ldquo;Ask, and it will be given to you; seek, and you will find; knock, and it will be opened to you. [8] For everyone who asks receives, and he who seeks finds, and to him who knocks it will be opened. [9] Or what man is there among you who, if his son asks for bread, will give him a stone? [10] Or if he asks for a fish, will he give him a serpent? [11] If you then, being evil, know how to give good gifts to your children, how much more will your Father who is in heaven give good things to those who ask Him! [12] Therefore, whatever you want men to do to you, do also to them, for this is the Law and the Prophets.')" style="text-decoration:underline;text-underline-offset:3px;cursor:pointer;color:var(--amber);">seeking and finding?</span> Knocking and the door being opened? Asking and receiving? <span onclick="showScripturePopup('Matthew 6:25–34 NKJV', '[25] &ldquo;Therefore I say to you, do not worry about your life, what you will eat or what you will drink; nor about your body, what you will put on. Is not life more than food and the body more than clothing? [26] Look at the birds of the air, for they neither sow nor reap nor gather into barns; yet your heavenly Father feeds them. Are you not of more value than they? [27] Which of you by worrying can add one cubit to his stature? [28] So why do you worry about clothing? Consider the lilies of the field, how they grow: they neither toil nor spin; [29] and yet I say to you that even Solomon in all his glory was not arrayed like one of these. [30] Now if God so clothes the grass of the field, which today is, and tomorrow is thrown into the oven, will He not much more clothe you, O you of little faith? [31] Therefore do not worry, saying, What shall we eat? or What shall we drink? or What shall we wear? [32] For after all these things the Gentiles seek. For your heavenly Father knows that you need all these things. [33] But seek first the kingdom of God and His righteousness, and all these things shall be added to you. [34] Therefore do not worry about tomorrow, for tomorrow will worry about its own things. Sufficient for the day is its own trouble.')" style="text-decoration:underline;text-underline-offset:3px;cursor:pointer;color:var(--amber);">Seeking the Kingdom of God first and then all else being added?</span> Abram felt there was more than just bowing to the moon, or the sun, or the stars and the idols that his father worshipped. The man actually did have faith and for it he received goodness in great abundance. He was however VERY human and reading Jasher showed me by just how much!</div>
+
+      <div class="story-para">No more than one and a half years after my Uncle's advice did I find backing in his words about using the names (and memories) of believing ancestors in my bloodline for the sake of my prayers to God for Him to remember and consider in my life for application. It feels like an unfair advantage but I hope it encourages you to be the "unfair" advantage your great great great grandchildren have when your prayers for them are remembered and answered in the Lord's faithfulness. The same way you think about and work towards generational wealth to make sure your children and their children onwards are secure, think of their spiritual needs and aid. Put that into prayer. Secure your people — speak miracle and blessing upon their lives.</div>
+
+      <div class="story-background-accordion" id="memo2Peter">
+        <button onclick="toggleAccordion('memo2Peter')" style="width:100%;background:none;border:none;border-bottom:1px solid rgba(200,137,42,0.2);padding:0.7rem 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;">
+          <span style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);">1 Peter 4:7–8 NKJV</span>
+          <span style="font-size:0.7rem;color:var(--amber);transition:transform 0.25s ease;" class="sb-arrow" style="transform:rotate(180deg);">▾</span>
+        </button>
+        <div class="sb-body" style="display:block;padding:0.8rem 0 1.2rem;">
+          <div class="story-verse" style="line-height:2;color:var(--muted);">[7] But the end of all things is at hand; therefore be serious and watchful in your prayers.<br>[8] And above all things have fervent love for one another, for "love will cover a multitude of sins."</div>
+        </div>
+      </div>
+
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-style:italic;font-weight:600;color:#c85a18;margin:2rem 0 1rem;">Jesus the Ancestor</div>
+
+      <div class="story-para">Please though, do not get me wrong! The finished work on the cross is enough for you! His name is enough for you. His blood is enough for you! DON'T YOU EVER FORGET IT! To quote a part of Jacob's prayer to God where he quotes the words of God: <em><span style="text-decoration:underline;text-underline-offset:3px;">I am the Lord God of thy father Abraham and the God of Isaac, unto thee do I give this land and thy seed after thee, and I will make thy seed as the stars of heaven, and thou shalt spread forth to the four sides of heaven, and in thee and in thy seed shall all the families of the earth be blessed.</span></em></div>
+
+      <div class="story-background-accordion" id="memo2John">
+        <button onclick="toggleAccordion('memo2John')" style="width:100%;background:none;border:none;border-bottom:1px solid rgba(200,137,42,0.2);padding:0.7rem 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;">
+          <span style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);">John 14:12–14 NKJV</span>
+          <span style="font-size:0.7rem;color:var(--amber);transition:transform 0.25s ease;" class="sb-arrow" style="transform:rotate(180deg);">▾</span>
+        </button>
+        <div class="sb-body" style="display:block;padding:0.8rem 0 1.2rem;">
+          <div class="story-verse" style="line-height:2;color:var(--muted);">[12] "Most assuredly, I say to you, he who believes in Me, the works that I do he will do also; and greater works than these he will do, because I go to My Father.<br>[13] And whatever you ask in My name, that I will do, that the Father may be glorified in the Son.<br>[14] If you ask anything in My name, I will do it.</div>
+        </div>
+      </div>
+
+      <div class="story-para">This is why we pray in the name of Jesus! Think about how easy God has made things for us. How much more accessible He is because of the bridge made for the world that is Jesus!</div>
+
+
+      <div class="story-background-accordion" id="memo2John2">
+        <button onclick="toggleAccordion('memo2John2')" style="width:100%;background:none;border:none;border-bottom:1px solid rgba(200,137,42,0.2);padding:0.7rem 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;">
+          <span style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);">1 John 2:1–2 NKJV</span>
+          <span style="font-size:0.7rem;color:var(--amber);transition:transform 0.25s ease;" class="sb-arrow" style="transform:rotate(180deg);">▾</span>
+        </button>
+        <div class="sb-body" style="display:block;padding:0.8rem 0 1.2rem;">
+          <div class="story-verse" style="line-height:2;color:var(--muted);">[1] My little children, these things I write to you, so that you may not sin. And if anyone sins, we have an Advocate with the Father, Jesus Christ the righteous.<br>[2] And He Himself is the propitiation for our sins, and not for ours only but also for the whole world.</div>
+        </div>
+      </div>
+
+      <div class="story-para">I am aware of the danger of misunderstanding what I have written about ancestry and prayer. It is possible that misunderstanding and lack of structure or sound foundation is what ushered ancestor worship into so many communities, even within the chosen nation of God. I must make clear that this is NOT what I am advocating for! I imagine that a power was noted, but the source of it forgotten and neglected (maybe even abused in one way or another). Just looking at how much we like instant gratification today (which is far from new like a great poet once wrote) confirms this — sometimes we don't want to do the work, or don't even understand the point of it so we resist and find other ways to serve our wants and needs "faster" and seemingly more "accurately" because of tangibility.</div>
+
+      <div class="story-para">When Moses went up on the Mountain to hear from God, the people below grew impatient and even forgot who they were dealing with and what He had done for them. Just like that, came idols because it is hardwired in humans to want to worship something. We were made for it and that's why it is so easy to fall into it. Think of all the good things you have done for people. Now think about how they have treated you when they start to lose sight of your goodness OR never had it to begin with. It really is just a human thing, to lose sight of things, especially when we get too used to them or have no value for them. This is why we can't afford to get "comfortable" with God. Remember who He is, remember who you are and what He says you are. Remember what He has done for you because believe me(!) things could have been far worse if He wasn't present to some capacity. Remember His word. It is a ticket written 'never ending humility' and thankfully, we have a Helper to remind us!</div>
+
+      <div class="story-para">I did not get into this with the intention of becoming 'preachy'. There are times though, it just happens and there is no stopping it! This is one of those times! I believe though, it is for our (including me) benefit.</div>
+
+      <div class="story-para">Jesus is THE ANCESTOR! The one we are told to pray through. The name we are told to use, the one through which, all things are possible with faith. This I believe makes life much more straightforward for us in regard to connecting with God because there are many confusions and this can very easily end up being one of them, even though unintentionally! There is one purely righteous one who we can and should depend on. What I have said, I treat more like a WI-FI booster — the power of having community and fellowship. The power of having family that believes. The power of that which is encouraged greatly in the New Testament — love and having each other's back. What good is a family if it cannot even support you and you as a member of the family cannot support others? <span onclick="showScripturePopup('Matthew 12:22–30 NKJV', '[22] Then one was brought to Him who was demon-possessed, blind and mute; and He healed him, so that the blind and mute man both spoke and saw. [23] And all the multitudes were amazed and said, &ldquo;Could this be the Son of David?&rdquo; [24] Now when the Pharisees heard it they said, &ldquo;This fellow does not cast out demons except by Beelzebub, the ruler of the demons.&rdquo; [25] But Jesus knew their thoughts, and said to them: &ldquo;Every kingdom divided against itself is brought to desolation, and every city or house divided against itself will not stand. [26] If Satan casts out Satan, he is divided against himself. How then will his kingdom stand? [27] And if I cast out demons by Beelzebub, by whom do your sons cast them out? Therefore they shall be your judges. [28] But if I cast out demons by the Spirit of God, surely the kingdom of God has come upon you. [29] Or how can one enter a strong man's house and plunder his goods, unless he first binds the strong man? And then he will plunder his house. [30] He who is not with Me is against Me, and he who does not gather with Me scatters abroad.&rdquo;')" style="text-decoration:underline;text-underline-offset:3px;cursor:pointer;color:var(--amber);">A Kingdom divided?</span> You are always stronger together, and you are always to consider each other, not letting any fall or be burdened — you share to lighten the load and to move towards a common goal. You are quite literally <span onclick="showScripturePopup('1 Corinthians 12:1–31 NKJV', '[1] Now concerning spiritual gifts, brethren, I do not want you to be ignorant: [2] You know that you were Gentiles, carried away to these dumb idols, however you were led. [3] Therefore I make known to you that no one speaking by the Spirit of God calls Jesus accursed, and no one can say that Jesus is Lord except by the Holy Spirit. [4] There are diversities of gifts, but the same Spirit. [5] There are differences of ministries, but the same Lord. [6] And there are diversities of activities, but it is the same God who works all in all. [7] But the manifestation of the Spirit is given to each one for the profit of all: [8] for to one is given the word of wisdom through the Spirit, to another the word of knowledge through the same Spirit, [9] to another faith by the same Spirit, to another gifts of healings by the same Spirit, [10] to another the working of miracles, to another prophecy, to another discerning of spirits, to another different kinds of tongues, to another the interpretation of tongues. [11] But one and the same Spirit works all these things, distributing to each one individually as He wills. [12] For as the body is one and has many members, but all the members of that one body, being many, are one body, so also is Christ. [13] For by one Spirit we were all baptized into one body—whether Jews or Greeks, whether slaves or free—and have all been made to drink into one Spirit. [14] For in fact the body is not one member but many. [15] If the foot should say, &ldquo;Because I am not a hand, I am not of the body,&rdquo; is it therefore not of the body? [16] And if the ear should say, &ldquo;Because I am not an eye, I am not of the body,&rdquo; is it therefore not of the body? [17] If the whole body were an eye, where would be the hearing? If the whole were hearing, where would be the smelling? [18] But now God has set the members, each one of them, in the body just as He pleased. [19] And if they were all one member, where would the body be? [20] But now indeed there are many members, yet one body. [21] And the eye cannot say to the hand, &ldquo;I have no need of you&rdquo;; nor again the head to the feet, &ldquo;I have no need of you.&rdquo; [22] No, much rather, those members of the body which seem to be weaker are necessary. [23] And those members of the body which we think to be less honorable, on these we bestow greater honor; and our unpresentable parts have greater modesty, [24] but our presentable parts have no need. But God composed the body, having given greater honor to that part which lacks it, [25] that there should be no schism in the body, but that the members should have the same care for one another. [26] And if one member suffers, all the members suffer with it; or if one member is honored, all the members rejoice with it. [27] Now you are the body of Christ, and members individually. [28] And God has appointed these in the church: first apostles, second prophets, third teachers, after that miracles, then gifts of healings, helps, administrations, varieties of tongues. [29] Are all apostles? Are all prophets? Are all teachers? Are all workers of miracles? [30] Do all have gifts of healings? Do all speak with tongues? Do all interpret? [31] But earnestly desire the best gifts. And yet I show you a more excellent way.')" style="text-decoration:underline;text-underline-offset:3px;cursor:pointer;color:var(--amber);">one body governed by one Holy Spirit.</span></div>
+
+
+      <div class="story-background-accordion" id="memo2Cor13b">
+        <button onclick="toggleAccordion('memo2Cor13b')" style="width:100%;background:none;border:none;border-bottom:1px solid rgba(200,137,42,0.2);padding:0.7rem 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;">
+          <span style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);">1 Corinthians 13:1–13 NKJV</span>
+          <span style="font-size:0.7rem;color:var(--amber);transition:transform 0.25s ease;" class="sb-arrow">▾</span>
+        </button>
+        <div class="sb-body" style="display:none;padding:0.8rem 0 1.2rem;">
+          <div class="story-verse" style="line-height:2;color:var(--muted);">[1] Though I speak with the tongues of men and of angels, but have not love, I have become sounding brass or a clanging cymbal.<br>[2] And though I have the gift of prophecy, and understand all mysteries and all knowledge, and though I have all faith, so that I could remove mountains, but have not love, I am nothing.<br>[3] And though I bestow all my goods to feed the poor, and though I give my body to be burned, but have not love, it profits me nothing.<br>[4] Love suffers long and is kind; love does not envy; love does not parade itself, is not puffed up;<br>[5] does not behave rudely, does not seek its own, is not provoked, thinks no evil;<br>[6] does not rejoice in iniquity, but rejoices in the truth;<br>[7] bears all things, believes all things, hopes all things, endures all things.<br>[8] Love never fails. But whether there are prophecies, they will fail; whether there are tongues, they will cease; whether there is knowledge, it will vanish away.<br>[9] For we know in part and we prophesy in part.<br>[10] But when that which is perfect has come, then that which is in part will be done away.<br>[11] When I was a child, I spoke as a child, I understood as a child, I thought as a child; but when I became a man, I put away childish things.<br>[12] For now we see in a mirror, dimly, but then face to face. Now I know in part, but then I shall know just as I also am known.<br>[13] And now abide faith, hope, love, these three; but the greatest of these is love.</div>
+        </div>
+      </div>
+
+      <div class="story-rule"></div>
+
+      <div class="story-para">I wonder, have you ever had an encounter in your life where you knew it was God speaking? God calling? Even when and if you were in a very rebellious place? A very dark place? Even a man like Saul, who later became Paul has proof of heritage that goes all the way back to Abraham — A Benjamite! If that does not speak the power of God's blessing and promise, and also the power of being connected to Him in some way, even many generations back, how can we say that your faith and obedience today, will not count for your grandchildren's children many years after you have left the earth no matter their situation? And if all things are possible with faith (which they are and it is written) can you not secure your people such that even if they fall, seemingly very far from the tree (like Saul before his encounter on the road) they can (will) be called home? They recognise the voice of their Shepherd, just as it is written — God's elect. I think Paul's story is a great example of God's Grace, God's power being made strong and impossible to ignore in weakness. Most of all, I see the greatest love story ever written: from God to the world. "....love will cover a multitude of sins."</div>
+
+      <div class="story-para">All that said, I hope I have made myself clear!</div>
+
+      <div class="story-rule"></div>
+
+      <div class="story-para">Like Joseph, I wondered after that dream. But what stood out even more is how when I needed it the most, in the depths of my grief which could only be because of the love I have for him and the bond that we share, wondering what I would do and where I would go without my dear friend my grandfather, the hand of the only person who could and would understand what his death meant for me was there for me to hold to support me. Like Rachel speaking to her son from the grave, empathising with her son's grief, I was, though in silence and by one action, assured that it would all be okay and that I am looked after because God is in control of everything, having accounted for even the things I question(ed).</div>
+
+      <div class="story-para">On an even more personal level, I believe my grandmother's love for her family was very strong. Strong enough for her to have been given an opportunity to communicate with everyone who mattered to her and who she mattered to after her death to bid a proper farewell. Who knows, maybe she asked or maybe the Lord saw her heart and <span onclick="showScripturePopup(' ', 'and them what they needed ❤️‍🩹')" style="text-decoration:underline;text-underline-offset:3px;cursor:pointer;color:var(--amber);">gave her what she needed</span>. I was surprised to find out I was not the only one who dreamed about her after she died. What is that thing that is written about witnesses? Yeah, that! Given that we lived together and she was a mother to me, like my grandfather is a father to me, to have had a dream where she appeared again, well... What does that say about life after death? This concludes the second part of Mementomori. Death is inevitable, but there is life after it!</div>
+
+      <div class="story-para">PS. Do you know God's promises to you?<br>Love is the greatest commandment. Do you see the power of love?</div>
+
+      <div class="story-rule"></div>
+      <span class="story-sig">MK.<br><span style="font-size:0.75rem;font-weight:400;opacity:0.55;letter-spacing:0.08em;">Author</span></span>
+      <div class="story-share">
+        <button class="story-share-btn" onclick="shareStory('mementomori2')">↗ Share this story</button>
+        <span class="story-share-copied" id="share-copied-mementomori2">Copied!</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- ── Story 9: Salt ── -->
 <div class="story-backdrop" id="storyBackdrop9"></div>
@@ -2185,6 +2417,7 @@ Inner meaning here could be that we sleep on the things that matter and could fe
     { word: 'Umber',          modalId: 'storyModal5', backdropId: 'storyBackdrop5' },
     { word: 'Inscription',    modalId: 'storyModal6', backdropId: 'storyBackdrop6' },
     { word: 'Mementomori',    modalId: 'storyModal7',  backdropId: 'storyBackdrop7'  },
+    { word: 'Mementomori II', modalId: 'storyModal11', backdropId: 'storyBackdrop11' },
     { word: 'Salt',           modalId: 'storyModal9',  backdropId: 'storyBackdrop9'  },
     { word: 'Light',          modalId: 'storyModal10', backdropId: 'storyBackdrop10' },
   ];
@@ -2255,6 +2488,18 @@ Inner meaning here could be that we sleep on the things that matter and could fe
   }
 
   var hasShuffled = false;
+
+
+  function showScripturePopup(ref, text) {
+    document.getElementById('scripturePopupRef').textContent = ref;
+    document.getElementById('scripturePopupText').innerHTML = text;
+    document.getElementById('scripturePopupOverlay').classList.add('active');
+  }
+  function closeScripturePopup(e) {
+    if(e.target === document.getElementById('scripturePopupOverlay')) {
+      document.getElementById('scripturePopupOverlay').classList.remove('active');
+    }
+  }
 
   function cnSpin() {
     if(spinning) return;
@@ -2497,8 +2742,8 @@ Inner meaning here could be that we sleep on the things that matter and could fe
 
   // ── URL hash → open story directly ───────────────────────────────
   (function() {
-    var hashMap = { 'pain': 'storyModal2', 'sleep': 'storyModal', 'scar': 'storyModal3', 'thanatopsis': 'storyModal4', 'umber': 'storyModal5', 'inscription': 'storyModal6', 'mementomori': 'storyModal7', 'light': 'storyModal10' };
-    var backdropMap = { 'pain': 'storyBackdrop2', 'sleep': 'storyBackdrop', 'scar': 'storyBackdrop3', 'thanatopsis': 'storyBackdrop4', 'umber': 'storyBackdrop5', 'inscription': 'storyBackdrop6', 'mementomori': 'storyBackdrop7', 'light': 'storyBackdrop10' };
+    var hashMap = { 'pain': 'storyModal2', 'sleep': 'storyModal', 'scar': 'storyModal3', 'thanatopsis': 'storyModal4', 'umber': 'storyModal5', 'inscription': 'storyModal6', 'mementomori': 'storyModal7', 'mementomori ii': 'storyModal11', 'light': 'storyModal10' };
+    var backdropMap = { 'pain': 'storyBackdrop2', 'sleep': 'storyBackdrop', 'scar': 'storyBackdrop3', 'thanatopsis': 'storyBackdrop4', 'umber': 'storyBackdrop5', 'inscription': 'storyBackdrop6', 'mementomori': 'storyBackdrop7', 'mementomori ii': 'storyBackdrop11', 'light': 'storyBackdrop10' };
     var hash = window.location.hash.replace('#', '').toLowerCase();
     if(hashMap[hash]) {
       var modal = document.getElementById(hashMap[hash]);
@@ -2513,5 +2758,14 @@ Inner meaning here could be that we sleep on the things that matter and could fe
   })();
 
 </script>
+
+  <!-- Scripture Popup -->
+  <div class="scripture-popup-overlay" id="scripturePopupOverlay" onclick="closeScripturePopup(event)">
+    <div class="scripture-popup" id="scripturePopupBox">
+      <span class="scripture-popup-ref" id="scripturePopupRef"></span>
+      <div class="scripture-popup-text" id="scripturePopupText"></div>
+      <button class="scripture-popup-close" onclick="document.getElementById('scripturePopupOverlay').classList.remove('active')">Close ✕</button>
+    </div>
+  </div>
 </body>
 </html>
