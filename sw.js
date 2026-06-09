@@ -1,11 +1,10 @@
-const CACHE = 'wordspin-v4';
+const CACHE = 'wordspin-v5';
 const ASSETS = [
   '/index.html',
   '/chickennuggets.html',
   '/manifest.json',
   '/icon-192.png',
-  '/icon-512.png',
-  '/The_Shadow_Man__Demo__MK.m4a'
+  '/icon-512.png'
 ];
 
 self.addEventListener('install', e => {
@@ -25,7 +24,18 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  e.respondWith(
-    caches.match(e.request).then(cached => cached || fetch(e.request))
-  );
+  // Network first for HTML files — always get fresh content
+  if (e.request.url.endsWith('.html') || e.request.url.endsWith('/')) {
+    e.respondWith(
+      fetch(e.request).then(res => {
+        var clone = res.clone();
+        caches.open(CACHE).then(cache => cache.put(e.request, clone));
+        return res;
+      }).catch(() => caches.match(e.request))
+    );
+  } else {
+    e.respondWith(
+      caches.match(e.request).then(cached => cached || fetch(e.request))
+    );
+  }
 });
