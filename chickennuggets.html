@@ -2097,19 +2097,9 @@ Inner meaning here could be that we sleep on the things that matter and could fe
           <span style="font-size:0.7rem;color:var(--amber);transition:transform 0.25s ease;" class="sb-arrow">▾</span>
         </button>
         <div class="sb-body" style="display:none;padding:0.8rem 0 0.4rem;">
-          <div style="margin-bottom:2rem;" oncontextmenu="return false;">
-            <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin-bottom:0.8rem;">🎧 Listen</div>
-            <audio id="shadowAudio" src="The_Shadow_Man__Demo__MK.mp3" controlsList="nodownload noplaybackrate" preload="metadata" style="display:none;"></audio>
-            <div style="display:flex;align-items:center;gap:1rem;background:rgba(200,137,42,0.06);border:1px solid rgba(200,137,42,0.2);border-radius:6px;padding:0.8rem 1rem;">
-              <button id="shadowPlayBtn" onclick="toggleShadowAudio()" style="background:none;border:none;cursor:pointer;color:var(--amber);font-size:1.4rem;padding:0;line-height:1;flex-shrink:0;">▶</button>
-              <div style="flex:1;">
-                <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.12em;color:var(--muted);margin-bottom:0.4rem;">The Shadow Man (Demo) — MK.</div>
-                <div style="background:rgba(200,137,42,0.15);border-radius:2px;height:3px;cursor:pointer;position:relative;" onclick="seekShadowAudio(event, this)">
-                  <div id="shadowProgress" style="background:var(--amber);height:100%;border-radius:2px;width:0%;transition:width 0.1s linear;pointer-events:none;"></div>
-                </div>
-              </div>
-              <div id="shadowTime" style="font-family:'DM Mono',monospace;font-size:0.55rem;color:var(--muted);flex-shrink:0;">0:00</div>
-            </div>
+          <div style="margin-bottom:2rem;">
+            <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin-bottom:0.8rem;">🎧 The Shadow Man (Demo) — MK.</div>
+            <audio src="shadow-man-demo.mp3" controls controlsList="nodownload" style="width:100%;"></audio>
           </div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:calc(1rem * var(--ts));font-style:italic;line-height:2;color:var(--muted);">
             <div style="margin-bottom:1.4rem;"><span style="font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);font-style:normal;">Chorus</span><br>
