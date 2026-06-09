@@ -1167,6 +1167,7 @@
       <button class="word-pill" onclick="openStoryByWord('Mementomori')">Mementomori</button>
       <button class="word-pill" onclick="openStoryByWord('Mementomori II')">Mementomori II</button>
       <button class="word-pill" onclick="openStoryByWord('Light')">Light</button>
+      <button class="word-pill" onclick="openStoryByWord('Silhouette')">Silhouette</button>
       <button class="word-pill" onclick="openStoryByWord('Salt')">Salt</button>
     </div>
   </div>
@@ -2022,10 +2023,10 @@ Inner meaning here could be that we sleep on the things that matter and could fe
 </div>
 
 
-<!-- ── Story 9: Salt ── -->
-<div class="story-backdrop" id="storyBackdrop9"></div>
-<div class="story-modal" id="storyModal9" role="dialog" aria-label="Story: Salt">
-  <div id="salt"></div>
+<!-- ── Story 12: Silhouette ── -->
+<div class="story-backdrop" id="storyBackdrop12"></div>
+<div class="story-modal" id="storyModal12" role="dialog" aria-label="Story: Silhouette">
+  <div id="silhouette"></div>
   <div class="story-modal-inner">
     <div class="modal-topbar">
       <button class="modal-back" onclick="cnCloseStory()" aria-label="Back">← Back to Chicken Nuggets</button>
@@ -2038,307 +2039,98 @@ Inner meaning here could be that we sleep on the things that matter and could fe
     </div>
     <div class="story-content">
 
-      <div class="story-headline">The Anatomy of Sin</div>
-      <div class="story-meta">30th Jan, 2026 &nbsp;·&nbsp; MK.</div>
+      <div class="story-headline">The Shadow Man</div>
+      <div class="story-meta">9th Jun, 2026 &nbsp;·&nbsp; MK.</div>
       <div class="story-tags">
-        <span class="story-tag tag-fiction">Fiction</span>
-        <span class="story-tag tag-mature">Mature. 18+</span>
+        <span class="story-tag tag-experience">Experience</span>
+        <span class="story-tag tag-mature">Mature</span>
       </div>
-      <div class="story-background-accordion" id="saltBackground">
-        <button onclick="toggleAccordion('saltBackground')" style="width:100%;background:none;border:none;border-bottom:1px solid rgba(200,137,42,0.2);padding:0.7rem 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;">
-          <span style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);">Short Background</span>
+
+      <div class="story-background-accordion" id="silhouetteBackground">
+        <button onclick="toggleAccordion('silhouetteBackground')" style="width:100%;background:none;border:none;border-bottom:1px solid rgba(200,137,42,0.2);padding:0.7rem 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;">
+          <span style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);">Definitions</span>
           <span style="font-size:0.7rem;color:var(--amber);transition:transform 0.25s ease;" class="sb-arrow">▾</span>
         </button>
         <div class="sb-body" style="display:none;padding:0.8rem 0 1.2rem;">
-          <p style="font-family:'DM Mono',monospace;font-size:0.62rem;line-height:1.9;color:var(--muted);margin-bottom:1rem;">Every other week, he gives me three words to work with. Every week between these weeks, I give him three words to work with. Below is one from January 2026 that the word salt triggered the memory of. I "cheated" that time around because I procrastinated for so long that I had 8 plus weeks worth of words and no mental bandwidth to write multiple stories — there was just no way! 5 weeks worth were then merged into one story that I grew particularly proud of!</p>
-          <p style="font-family:'DM Mono',monospace;font-size:0.62rem;line-height:1.9;color:var(--muted);margin-bottom:1rem;">The story is of a woman defined by her role as a wife, mother and woman of God who longs for more. Pandora's box (pun intended) is opened after the death of her sister.</p>
-          <p style="font-family:'DM Mono',monospace;font-size:0.62rem;line-height:1.9;color:var(--muted);">Here are the words:<br>1. <span style="text-decoration:underline;text-underline-offset:2px;">Rosary</span>, <span style="text-decoration:underline;text-underline-offset:2px;">land</span>, <span style="text-decoration:underline;text-underline-offset:2px;">mandala</span><br>2. <span style="text-decoration:underline;text-underline-offset:2px;">Fasting</span>, <span style="text-decoration:underline;text-underline-offset:2px;">wunderbar</span>, <span style="text-decoration:underline;text-underline-offset:2px;">autocorrect</span><br>3. <span style="text-decoration:underline;text-underline-offset:2px;">Honeycomb</span>, <span style="text-decoration:underline;text-underline-offset:2px;">complain</span>, <span style="text-decoration:underline;text-underline-offset:2px;">road</span><br>4. <span style="text-decoration:underline;text-underline-offset:2px;">Demand</span>, <span style="text-decoration:underline;text-underline-offset:2px;">goated</span>, <span style="text-decoration:underline;text-underline-offset:2px;">multiply</span><br>5. <span style="text-decoration:underline;text-underline-offset:2px;">Hardcore</span>, <span style="text-decoration:underline;text-underline-offset:2px;">voodoo</span>, <span style="text-decoration:underline;text-underline-offset:2px;">grain</span></p>
+          <p style="font-family:'DM Mono',monospace;font-size:0.62rem;line-height:1.9;color:var(--muted);">Cûcû — Grandma<br>Guka — Grandpa<br>Lachrymal — relating to or producing tears</p>
         </div>
       </div>
-      <div class="story-rule"></div>
-      <div class="story-heading">Introduction</div>
-
-      <div class="story-para">I am nun-clad. From head to toe I cover my body. From head to toe nothing fits to show my shape.</div>
-      <div class="story-para">I hide my hair and face, and meet no man's eye unless he is my spiritual guide or husband.<br>Husbands usually double as spiritual guides since they are heads of the home.</div>
-      <div class="story-para">I have only my husband. He is the only one whose eye I meet, he is the only man I see.</div>
-      <div class="story-para">Mass is boring. It happens three times a week. Saying that it's boring feels like sacrilege, but we're not so strict that it cannot be said out loud. Opinions and suggestions are welcomed to make it more excitin- just not too exciting.</div>
-
-      <div class="story-interview">
-        <div class="story-q">"Does your life excite you?"</div>
-        <div class="story-a">I have responsibility. I have duty. I have love for my daughter. I have love for my family. I have respect for my husband. I have a role to play.</div>
-        <div class="story-q">"So... No?"</div>
-        <div class="story-a">I don't think so.</div>
-        <div class="story-q">"And do you want excitement? Do you want to be excited?"</div>
-        <div class="story-a">Yes. I do not know how to find or make that now. I do not know what that looks like.<br>My daughter is the closest thing I have to lasting excitement. But really, I am more sad for her than I am enthusiastic.<br><br>This life is indited for her already, but I want her to live better than me because something is missing.</div>
-      </div>
-
-      <div class="story-rule" style="margin-top:2rem;"></div>
-      <div class="diary-heading">Her Diary</div>
-      <div class="story-rule" style="margin-bottom:2rem;"></div>
-
-      <div style="background:rgba(200,137,42,0.04);border:1px solid rgba(200,137,42,0.15);border-radius:6px;padding:1.6rem 1.4rem 0.4rem;margin-bottom:2.4rem;">
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 1</span>
-        <p>My sister is dead. We plan to go home for the funeral. I will remain behind for as long as they need me to help.</p>
-        <p>We travel tomorrow evening.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 2</span>
-        <p>Why does God let this happen?</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 3</span>
-        <p>My daughter will stay with me. Her dad can't do it alone.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 4</span>
-        <p>Even though somber, I like it here.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 5</span>
-        <p>I just found out my sister was pregnant when she died. Why does God let this happen?</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 6</span>
-        <p>I met a man's gaze today. What I felt scared me.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 7</span>
-        <p>I can't stop thinking about him. What is this?!</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 8</span>
-        <p>I saw him again. I think I missed him because it was a relief to see him.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 9</span>
-        <p>Kendi isn't well. I may have to take her to the clinic if it worsens. I'll do what I can with what I've got first.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 10</span>
-        <p>Kendi's fever broke today. Thank God! We are in the clear. My baby will be fine.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 11</span>
-        <p>Wednesday service.<br>That's how a praise and worship service should be! I haven't felt like this since I was a little older than Kendi. Wow! I can't wait for Sunday.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 12</span>
-        <p>Learned that Lucy was married?! How? When? And why didn't she tell anyone!!!</p>
-        <p>It is good to know that there was someone in her life who cared. Good to know who the father of the baby was.</p>
-        <p>He is a trucker. He got robbed and could not reach her until he came back to town.</p>
-        <p>He's distraught. I want to comfort him.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 13</span>
-        <p>He is the second man my eyes have met so far. He told me we have the same eyes. I am scared of what that made me feel.</p>
-        <p>Sad. My sister, a part of me, is really dead.<br>Desire. He looked at me in a way my husband has never looked at me before.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 14</span>
-        <p>Yesterday, we took a bus to a piece of <span style="text-decoration:underline;text-underline-offset:2px;">land</span> he had acquired for him and Lucy to build a home or start a business. They hadn't settled on what it would be for because he got it as a surprise, and for them to decide together.</p>
-        <p>It wasn't much, yet it was everything.<br>I am ashamed to say that I wanted him in that moment. I wanted him in a way I should only want my husband.</p>
-        <p>When I got home, I could not even write. I just read and prayed to God to forgive me for feeling and thinking in that way about a man who was not MY HUSBAND.</p>
-        <p>Today, I have pretended to be too busy to even see him. He will be hanging around a lot it seems. I have to keep away from him.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 15</span>
-        <p>Sunday Service was great. Just as exciting as the midweek service. In my highness of goodness, I met his eyes again. I wanted him again. I can't help but feel that he wants me too.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 16</span>
-        <p>I can't stop thinking about him....</p>
-        <p>Kendi likes it here. She's made friends she likes and she is happy. I think, for her sake, we'll stay a little bit longer. I'll tell her dad.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 17</span>
-        <p>He looks very nice. His arms, his chest, his stomach, his face, his hands, his legs, his feet.<br>I keep thinking about him. I am running from him and then I see him and then I.... I like it. I like him. I want to see more of him. But it is wrong. It is so wrong.</p>
-        <p>If I keep my head down, if I immediately turn away when I see him, no matter how close or how far, I will be okay.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 18</span>
-        <p>"If you have nice hair like your sister's, why do you cover it?" He asked me.</p>
-        <p>That question made me angry. I walked away.<br>I did not even look at him.</p>
-        <p>What does that mean?! I am so angry!</p>
-        <p>I was so angry I wanted to push him against the wall, or strangle him, or slap him, or hit him really hard. I still want to do these things. I will stay far far away.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 19</span>
-        <p>He came to apologise for offending me. He said he didn't mean to.</p>
-        <p>This was the first time since the land day that we were alone. This was the first time that we were alone in a room, MY room.</p>
-        <p>He presented me with a <span style="text-decoration:underline;text-underline-offset:2px;">Rosary</span>. I told him I am not "that kind" of a Catholic. He said it was a peace offering. He didn't want me to think he was after anything wrong, he didn't want the wrong impression to stick with me. And so, the Rosary was for peace, love and faith between us; and just to assure me his intentions were good.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 20</span>
-        <p>Yesterday was wonderful. "<span style="text-decoration:underline;text-underline-offset:2px;">Wunderbar</span>" he taught is how they say wonderful in Germany. He learned this doing a small job for Germans in Nairobi.</p>
-        <p>His life sounds so exciting. So free. So adventurous. I like it.</p>
-        <p>I see why my sister liked him. I see why she kept him a secret.</p>
-        <p>He's a life no one here has ever lived, and an easy page turner: so open about it, so unashamed about it. He is refreshing.</p>
-        <p>I know no man like him besides our late father.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 21</span>
-        <p>It's going to be a long <span style="text-decoration:underline;text-underline-offset:2px;">road</span> home. I will miss it here. I will miss the feeling of home.</p>
-        <p>I will miss him.</p>
-        <p>It is safer for us to be apart. It is safer for me. I have a life, a life I had for select moments forgotten about while I was with him.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 22</span>
-        <p>Hugging him was the calmest, saddest and most turned on I have been in the arms of a man. I don't understand. Am I in love with him?</p>
-        <p>He said he will miss me and it made me blush. I looked in his eyes and said I'll miss him too. I wanted to kiss him, but I couldn't. I didn't. I can't and will never.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 23</span>
-        <p>It's been a week since I wrote. There is a lot I had to catch up on.</p>
-        <p>We tried again for a child, and this time I liked it. I liked it because Lukas intruded: his eyes, his neck, his chest, his smell, his warmth.<br>I felt things I have never felt before while my husband was in me.</p>
-        <p>My husband is happy. I am happy.</p>
-        <p>I think it's wise not to let that happen again. But I also think it's wise to let it happen again. It's exciting, it's interesting, and it keeps us together... I orgasmed.</p>
-        <p>It's true, you know when you know. There's nothing like it.</p>
-        <p>I am not sleeping with another man. I am sleeping with my husband. And even though another man is in my head, I have never touched him, and he has never touched me.</p>
-        <p>Why not stay happy in this place?</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 100</span>
-        <p>I want to go home. I want to see how they are all doing. It's been months since Lucy's death. A check in is due. Family time is due.</p>
-        <p>Kendi being in school will make it easier for her dad. He won't have to entertain her much, except for the weekends.</p>
-        <p>Lucky for him, she is obsessed with <span style="text-decoration:underline;text-underline-offset:2px;">mandala</span> art. She will remain quite self occupied, as she has been for the past month. I am glad she has found something she is passionate about and stuck to it. She has her excitement. Now I need mine.</p>
-        <p>I need love, I need passion, I need attention, I need to be against the <span style="text-decoration:underline;text-underline-offset:2px;">grain</span>, just for a short while.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 115</span>
-        <p>My hair is out. My hair is out for him.<br>He was right, it is beautiful hair. I like it like this. If he arrives at night, he might not see it. But I will keep it out.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 116</span>
-        <p>He liked it. It was dark, but he felt it. He liked the way it felt. I like the way he felt brushing over it.</p>
-        <p>He was happy to see me, but too tired to stay up with me. Trucking can do that to a man.</p>
-        <p>I will leave him to rest. I will help him rest.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 120</span>
-        <p>"Did you miss me?" I asked him this morning.</p>
-        <p>"Almost all the time" he told me.</p>
-        <p>"What did you miss about me?"</p>
-        <p>"Your ear, your strength, your eyes... your presence, and the things I haven't seen."</p>
-        <p>"How can you miss things you haven't seen?"</p>
-        <p>"I have a good imagination."</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 121</span>
-        <p>"I have a good imagination."<br>I have a good imagination too. I should have just said that. He caught me off guard. I was too nervous to speak.</p>
-        <p>Has he been thinking about me the same way I have been thinking about him?</p>
-        <p>I stopped when things got too boring for me to even hang on. I needed to see him again. Even if for a few hours. I needed him fresh in my mind again.</p>
-        <p>Newer. Newer for improved visions.<br>Closer. Closer for longer.<br>With less and then more, more and then less, until none... maybe.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 122</span>
-        <p>If I wasn't married, I'd be with him. If I were married to him, I'd be happy.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 128</span>
-        <p>I am close to sin. I am too close to sin. When I am with him, I want to touch him. I want him to touch me. It is time I started planning my trip back.</p>
-        <p>I can tell he wants me because unlike me, he is forthcoming. I can tell he wants me to be comfortable, so he doesn't make big moves.</p>
-        <p>He flirts with his eyes, his tone, his statements, his walk. I want what I want but I am afraid. I think he is afraid of being wrong, so he keeps a safe enough distance...</p>
-        <p>I wish.... I wish he would give me something. Give me something tangible... Give me something longer lasting...</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 130</span>
-        <p>He noticed his peace offering on my chest, and then he noticed my chest. His eyes stuck to my chest.<br>What he couldn't see he could see, even though there was more to be seen.</p>
-        <p>I liked the look on his face, I wanted more of it, so I showed him more. Quickly, like a flash, but slower.</p>
-        <p>He gave me something to think about; what I couldn't see, I could see. He let me see, he didn't hide it.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 138</span>
-        <p>I spent the past three days playing with my husband, pretending that HE IS my husband.<br>We have had the best time together. I don't like that he has to leave for two weeks, but it is well.</p>
-        <p>This might be good for me, being just me and my daughter. <span style="text-decoration:underline;text-underline-offset:2px;">Fasting</span> from what my body <span style="text-decoration:underline;text-underline-offset:2px;">demands</span>, and focusing on what my baby needs.</p>
-        <p>I wonder if he has noticed there is a pattern? That I come back with such strong drive and desire for him? I wonder if he wonders what I think about when I close my eyes and rise to the occasion.</p>
-        <p>Grief, he once said comes out in various ways. He said that the first time around, but he did not <span style="text-decoration:underline;text-underline-offset:2px;">complain</span>. He seemed rather charmed; elated.</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 139</span>
-        <p>Is my womb closed? Why can't I have another child? We have slept together more in the past few months than we have in years yet, nothing! It has been better than before and yet nothing!</p>
-        <p>Why? What have I done wrong?<br>I was told that to increase the chance of pregnancy, I should sleep with my husband more frequently.</p>
-        <p>I did not like it, but I did. We tried. Nothing!<br>When I finally liked it, it became less difficult to try. The frequency came up easily, but.... nothing!?</p>
-        <p>Could it be because I have thought of another man while we sex? Have I sinned against the Lord and my husband? But surely, it can't be wrong if I have not slept with the man, only dreamed of it, can it?</p>
-        <p>The only sin I can identify is showing him my breasts. He showed me his penis. We didn't touch. We looked, we covered, we went on with our day.</p>
-        <p>I repented of this...<br>I left because of it...<br>I was sure that if I stayed, I would touch him and he would touch me.... and we wouldn't stop until everything was done.</p>
-        <p>If he were a <span style="text-decoration:underline;text-underline-offset:2px;">honeycomb</span>, I would have licked and sucked the honey clean from the comb. I fled. I fled just like we are told to do, "Flee from temptation".</p>
-        <p>I fled, and I brought myself home...<br>Home to my husband who became the honeycomb I dry out.</p>
-        <p>Maybe I will find out I am pregnant this time around. I want another child, just one more to make our number even.</p>
-        <p><span style="text-decoration:underline;text-underline-offset:2px;">Multiply</span>! Multiply! "Be fruitful and multiply."</p>
-      </div>
-
-      <div class="journal-entry">
-        <span class="journal-entry-label">Entry 142</span>
-        <p>I am burdened.<br>My heart is not right.<br>My mind is not right.<br>What was taught today proves that I have sinned.</p>
-        <p>Matthew 5:27</p>
-        <p>Like <span style="text-decoration:underline;text-underline-offset:2px;">autocorrect</span> on a keyboard, it has been spelled out for me.</p>
-        <p>I am an adulterous woman. I have been adulterous for nearly a year. Covetousness.</p>
-        <p>Turning away from it all is the only way to do right by my God and my husband. My family!</p>
-      </div>
-
-      <div class="journal-entry" style="border-bottom:none;">
-        <span class="journal-entry-label">Entry 155</span>
-        <p>Why would they do this?! Why would they do this to me?!</p>
-      </div>
-
-      </div><!-- end diary wrapper -->
 
       <div class="story-rule"></div>
 
-      <div class="journal-narrator">She refrained from writing her thoughts and feelings about Lukas from then on because of how incriminating it would be if found and read by anyone but her.<br><br>She contemplated burning the book — watching the life she dreamed go aflame: burned fiercely to death, ash blown away by the wind.<br><br>The longer she hung on to the book, the harder her core turned. Hardened core... '<span style="text-decoration:underline;text-underline-offset:2px;">hardcore</span>'.<br><br>Her contemplation and inhibition faded, she wanted documented memory within her reach whenever she felt like she needed reminding, which was often.<br><br>She was something like Lot's wife looking back, turning into a pillar of salt.<br><br>In <span style="text-decoration:underline;text-underline-offset:2px;">Voodoo</span>, salt is used to ward off sinister spirits. For protection, one would have to pour it at every entry way.<br><br>In Christianity, the instruction given to believers is to be the salt and light of the earth.<br><br>Whatever the case, the salt here was not of benefit.<br><br>In a bizarre way, she justified her inaction, claiming it saved her family from falling apart.</div>
+      <div class="story-para"><span style="text-decoration:underline;text-underline-offset:3px;">Imagination. Imagination. Imagination.</span><br>How many children are dismissed in the name of imagination? How many children dismiss themselves in the name of imagination? How much of this is learned? How much of this natural?</div>
 
-      <div class="story-rule"></div>
+      <div class="story-para">There was a man in the corner of my room every night. All he did was watch me. I did not have distinct features to work with, but he was shaped like a man — his silhouette was that of a man in a loose fitting suit and he always faced me meaning his eyes, though not visible, were on me.</div>
 
-      <div class="story-background-accordion" id="saltEndNote">
-        <button onclick="toggleAccordion('saltEndNote')" style="width:100%;background:none;border:none;border-bottom:1px solid rgba(200,137,42,0.2);padding:0.7rem 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;">
-          <span style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);">End Note</span>
+      <div class="story-para">I spent a few nights in my grandparents' room because I was afraid of the shadow man (this is what I called him). He is the reason why the light outside my bedroom was kept on and why my door had to be left open to let the light in. I was afraid of him.</div>
+
+      <div class="story-para">There came a time my grandmother told me that I had to grow up. I had to come out of that "phase" I was in. She'd often tell the story of maize stalks turning into people cheering and a maize cob being a microphone in her mind when she'd fantasize about being a famous musician like Michael Jackson. That was all fantasy though, it was not real and so my shadow man could not be real.</div>
+
+      <div class="story-para">I did not like that she did not believe me because I knew he was real and he did not give me good feelings inside. Trying to prove his existence was a futile endeavour because I was the only one who could see him, and he only came out at a certain time at night, and then disappeared at a certain time before the sun came up.</div>
+
+      <div class="story-para">One night, I decided to give him the benefit of the doubt. Rather than an endless stare down until I hopefully fell asleep pretending I was not afraid (because I always thought showing fear gave him power), I spoke to it. I thought, "if nothing happens then Cûcû is right." I greeted him and nothing happened! I smiled — the kind of relief — and settled into safety, thinking about how Cûcû was right about him and how foolish I had been thinking that what I saw was real.<br><span style="text-decoration:underline;text-underline-offset:3px;">A phase. A phase. A phase. Children go through phases!</span></div>
+
+      <div class="story-para">He widened his stance, crossing his arms as he did. I felt cold — TERROR! I told my Cûcû the following morning and she laughed about how "ahead" my mind was. What I had to say was entertaining to her at that point. She wanted more but I had no more to give except that his position had changed and it was even scarier for me.</div>
+
+      <div class="story-para">Fast forward and I stole a rosary from my friend Dolly. The intention wasn't for the shadow man, I just thought they were cool but because I wasn't Catholic there was no point in buying me one so my requests were always rejected. Stealing was the next best thing since I had no money to buy one for myself. Yeah, I was a little bit of a thief back then and I think it made me a tad bit vulnerable to the shadow man.</div>
+
+      <div class="story-para">On another night, I did more than call him to me, I gave him a presumed identity. Why? I wanted to give myself something to be comfortable about. Neither Cûcû nor Guka believed me and I was tired of being teased (mocked) about it. There and then, I imagined he was someone sent to <span style="text-decoration:underline;text-underline-offset:3px;">look over</span> me. A dead relative? A guardian angel? My father? I never knew my father but he might as well have been! I then thought, "NO!" Maybe it's been Guka all along! Maybe he watches over me as I sleep and that's why the two can never exist in the same place at the same time.<br>"Maybe it's a secret. Maybe this is how much they love me — how much Guka loves me."</div>
+
+      <div class="story-para">"Guka?" I called to it.<br>"Guka is that you?" I asked.<br>"Guka I know it's you..." I said.</div>
+      <div class="story-para">In the three instances nothing happened. Nothing about him changed. He didn't react or respond. He just stood there, arms crossed, legs wide, eyes fixed on me. I was disappointed, sad and afraid. I turned over to face the wall so I didn't have to face the direction in which he stood.</div>
+
+      <div class="story-para">Three taps on my shoulder. I turned and voilà! There by my bed, standing over me, stood this shadow figure that still had no distinct features yet a body I could not see through. He had come to me. I immediately broke into lachrymal prayer, grasping onto the stolen rosary and (not stolen) Bible that I had under my pillow with all my might. I had developed a habit of sleeping with a bible near me since I felt like the shadow man was a threat that only God could protect me from. It's funny because I can't even say I was a believer like that yet deep down I knew it was the only way — my only defense.</div>
+
+      <div class="story-para">What did I pray? Well, I only remember calling Jesus and God for help. Somewhere along the way I fell asleep. Who knows? Maybe I cried myself to sleep or was put to sleep. Whatever the case, I remember it being morning and there being something different about it. From then on, I never saw the shadow man in my room again.</div>
+
+      <div class="story-para">Months later, enough time for me to have moved on with my life, Cûcû asked me whether I remembered that thing I had been seeing in my room and I said yes. She asked if I had been seeing it and I said not for a long time. She then said my cousin had been complaining about seeing a shadow figure in her room that her sister (they shared a room) could not see and it sounded very much like what I had described. She then asked whether I had given her the idea because she was terrified of the thing and I was the only person she could have heard it from. I said the only people who knew about it were the ones who lived with me.</div>
+
+      <div class="story-para">Now, while she found a way to pin it on coincidence and "imagination", I thought it transferred to my cousin. How? Because of me, sleepovers were a thing at home. Cûcû did not want me to be a lonely child so she made sure the age mates in the family who were reachable spent time together over the holidays at our home. We had a house that could accommodate it so why not? I must say, she was GREAT at bringing people together and keeping the mood light and fun. Untouchable she was!</div>
+
+      <div class="story-para">What if it latched on to her somehow? What if in sending it away from me, it went to her? I won't even act like I have all the answers! All I know is what I saw and had never even mentioned to others besides Guka and Cûcû (because I didn't want to come off as "uncool" or crazy based on the reaction I got at home) my cousin was seeing and experiencing, proving it was real.</div>
+
+      <div class="story-para" style="font-style:italic;">"Tell her to pray." I said</div>
+
+      <div class="story-background-accordion" id="shadowSongAccordion">
+        <button onclick="toggleAccordion('shadowSongAccordion')" style="width:100%;background:none;border:none;border-bottom:1px solid rgba(200,137,42,0.2);padding:0.7rem 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;">
+          <span style="font-size:1rem;">🎶</span>
           <span style="font-size:0.7rem;color:var(--amber);transition:transform 0.25s ease;" class="sb-arrow">▾</span>
         </button>
-        <div class="sb-body" style="display:none;padding:0.8rem 0 1.2rem;">
-          <div class="journal-narrator">We can continue with her story if you'd like a part two.</div>
-          <div class="journal-narrator">This story is <span style="text-decoration:underline;text-underline-offset:2px;">GOATED</span> because I got very creative with the use of the words. Could be called cheating, but I say GOAT! 😂</div>
+        <div class="sb-body" style="display:none;padding:0.8rem 0 0.4rem;">
+          <div style="margin-bottom:2rem;" oncontextmenu="return false;">
+            <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin-bottom:0.8rem;">🎧 Listen</div>
+            <audio id="shadowAudio" src="The_Shadow_Man__Demo__MK.m4a" controlsList="nodownload noplaybackrate" preload="metadata" style="display:none;"></audio>
+            <div style="display:flex;align-items:center;gap:1rem;background:rgba(200,137,42,0.06);border:1px solid rgba(200,137,42,0.2);border-radius:6px;padding:0.8rem 1rem;">
+              <button id="shadowPlayBtn" onclick="toggleShadowAudio()" style="background:none;border:none;cursor:pointer;color:var(--amber);font-size:1.4rem;padding:0;line-height:1;flex-shrink:0;">▶</button>
+              <div style="flex:1;">
+                <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.12em;color:var(--muted);margin-bottom:0.4rem;">The Shadow Man (Demo) — MK.</div>
+                <div style="background:rgba(200,137,42,0.15);border-radius:2px;height:3px;cursor:pointer;position:relative;" onclick="seekShadowAudio(event, this)">
+                  <div id="shadowProgress" style="background:var(--amber);height:100%;border-radius:2px;width:0%;transition:width 0.1s linear;pointer-events:none;"></div>
+                </div>
+              </div>
+              <div id="shadowTime" style="font-family:'DM Mono',monospace;font-size:0.55rem;color:var(--muted);flex-shrink:0;">0:00</div>
+            </div>
+          </div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:calc(1rem * var(--ts));font-style:italic;line-height:2;color:var(--muted);">
+            <div style="margin-bottom:1.4rem;"><span style="font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);font-style:normal;">Chorus</span><br>
+Was it a dream<br>Or a nightmare?<br>Was I awake?<br>Was I asleep<br>The Shadow man<br>He stood and stared<br>He did not move<br>Until I asked</div>
+            <div style="margin-bottom:1.4rem;"><span style="font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);font-style:normal;">Verse 1</span><br>
+He was bad<br>I knew he was<br>From somewhere dark<br>So I held a cross<br>Not religious<br>But I think it worked<br>After he touched<br>He disappeared</div>
+            <div style="margin-bottom:1.4rem;">I don't think I imagined a thing<br>I was too young to go that far<br>My grandmother, she was not serious<br>It gave her a good laugh<br>Ha ha ha ha<br>It gave her a good laugh</div>
+            <div style="margin-bottom:1.4rem;"><span style="font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);font-style:normal;">Chorus.</span></div>
+            <div style="margin-bottom:1.4rem;"><span style="font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);font-style:normal;">Verse 2</span><br>
+Mysterious<br>Mysterious<br>I could not see his eyes<br>But I could feel them glued on me</div>
+            <div style="margin-bottom:1.4rem;">Keep up<br>You better keep up<br>I swear I'm not lying<br>Why would I lie about a man in my room<br>He terrifies me<br>Keep up<br>You better keep up<br>Why would I lie<br>Can't you see him over there in corner?</div>
+            <div><span style="font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);font-style:normal;">Chorus.</span></div>
+          </div>
         </div>
       </div>
 
       <div class="story-rule"></div>
       <span class="story-sig">MK.<br><span style="font-size:0.75rem;font-weight:400;opacity:0.55;letter-spacing:0.08em;">Author</span></span>
       <div class="story-share">
-        <button class="story-share-btn" onclick="shareStory('salt')">↗ Share this story</button>
-        <span class="story-share-copied" id="share-copied-salt">Copied!</span>
+        <button class="story-share-btn" onclick="shareStory('silhouette')">↗ Share this story</button>
+        <span class="story-share-copied" id="share-copied-silhouette">Copied!</span>
       </div>
     </div>
   </div>
@@ -2418,6 +2210,7 @@ Inner meaning here could be that we sleep on the things that matter and could fe
     { word: 'Inscription',    modalId: 'storyModal6', backdropId: 'storyBackdrop6' },
     { word: 'Mementomori',    modalId: 'storyModal7',  backdropId: 'storyBackdrop7'  },
     { word: 'Mementomori II', modalId: 'storyModal11', backdropId: 'storyBackdrop11' },
+    { word: 'Silhouette',     modalId: 'storyModal12', backdropId: 'storyBackdrop12' },
     { word: 'Salt',           modalId: 'storyModal9',  backdropId: 'storyBackdrop9'  },
     { word: 'Light',          modalId: 'storyModal10', backdropId: 'storyBackdrop10' },
   ];
@@ -2500,6 +2293,45 @@ Inner meaning here could be that we sleep on the things that matter and could fe
       document.getElementById('scripturePopupOverlay').classList.remove('active');
     }
   }
+
+
+  // Shadow Man audio player
+  (function() {
+    var audio = null;
+    window.toggleShadowAudio = function() {
+      audio = document.getElementById('shadowAudio');
+      var btn = document.getElementById('shadowPlayBtn');
+      if (audio.paused) {
+        audio.play();
+        btn.textContent = '⏸';
+      } else {
+        audio.pause();
+        btn.textContent = '▶';
+      }
+    };
+    window.seekShadowAudio = function(e, bar) {
+      audio = document.getElementById('shadowAudio');
+      var rect = bar.getBoundingClientRect();
+      var ratio = (e.clientX - rect.left) / rect.width;
+      audio.currentTime = ratio * audio.duration;
+    };
+    document.addEventListener('DOMContentLoaded', function() {
+      var audio = document.getElementById('shadowAudio');
+      if (!audio) return;
+      audio.addEventListener('timeupdate', function() {
+        var pct = audio.duration ? (audio.currentTime / audio.duration * 100) : 0;
+        document.getElementById('shadowProgress').style.width = pct + '%';
+        var m = Math.floor(audio.currentTime / 60);
+        var s = Math.floor(audio.currentTime % 60);
+        document.getElementById('shadowTime').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+      });
+      audio.addEventListener('ended', function() {
+        document.getElementById('shadowPlayBtn').textContent = '▶';
+        document.getElementById('shadowProgress').style.width = '0%';
+        document.getElementById('shadowTime').textContent = '0:00';
+      });
+    });
+  })();
 
   function cnSpin() {
     if(spinning) return;
@@ -2637,8 +2469,7 @@ Inner meaning here could be that we sleep on the things that matter and could fe
     document.getElementById('storyModalBg').classList.remove('open');
     document.getElementById('cnThemePill').classList.remove('hidden');
     // Reset deck so tapping shuffles again
-    var front = deckArea.querySelector('.deck-card.front');
-    if(front) { front.classList.remove('revealed'); front.classList.remove('read'); }
+    if(deckArea) { var front = deckArea.querySelector('.deck-card.front'); if(front) { front.classList.remove('revealed'); front.classList.remove('read'); } }
     document.getElementById('spinCount').textContent = 'Tap the deck to shuffle'; hasShuffled = false; };
   function closeStory() { window.cnCloseStory(); }
 

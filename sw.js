@@ -1,10 +1,11 @@
-const CACHE = 'wordspin-v3';
+const CACHE = 'wordspin-v4';
 const ASSETS = [
   '/index.html',
   '/chickennuggets.html',
   '/manifest.json',
   '/icon-192.png',
-  '/icon-512.png'
+  '/icon-512.png',
+  '/The_Shadow_Man__Demo__MK.m4a'
 ];
 
 self.addEventListener('install', e => {
