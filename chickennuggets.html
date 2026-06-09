@@ -6,7 +6,7 @@
   <title>Chicken Nuggets</title>
   <meta name="description" content="Short stories inspired by single words. From the WordSpin universe."/>
   <meta name="robots" content="index, follow"/>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src 'none'; object-src 'none'; base-uri 'self';"/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; media-src https://res.cloudinary.com; connect-src https://*.googleapis.com https://res.cloudinary.com; frame-src 'none'; object-src 'none'; base-uri 'self';"/>
   <meta http-equiv="X-Frame-Options" content="DENY"/>
   <meta name="referrer" content="strict-origin-when-cross-origin"/>
 
@@ -2089,29 +2089,66 @@ Inner meaning here could be that we sleep on the things that matter and could fe
 
       <div class="story-para">What if it latched on to her somehow? What if in sending it away from me, it went to her? I won't even act like I have all the answers! All I know is what I saw and had never even mentioned to others besides Guka and Cûcû (because I didn't want to come off as "uncool" or crazy based on the reaction I got at home) my cousin was seeing and experiencing, proving it was real.</div>
 
-      <div class="story-para" style="font-style:italic;">"Tell her to pray." I said</div>
+      <div class="story-para" style="font-style:italic;">"Tell her to pray." I said.</div>
 
       <div class="story-background-accordion" id="shadowSongAccordion">
         <button onclick="toggleAccordion('shadowSongAccordion')" style="width:100%;background:none;border:none;border-bottom:1px solid rgba(200,137,42,0.2);padding:0.7rem 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;">
-          <span style="font-size:1rem;">🎶</span>
+          <span style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);">The Shadow Man (Song Demo)</span>
           <span style="font-size:0.7rem;color:var(--amber);transition:transform 0.25s ease;" class="sb-arrow">▾</span>
         </button>
         <div class="sb-body" style="display:none;padding:0.8rem 0 0.4rem;">
-          <div style="margin-bottom:2rem;">
-            <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin-bottom:0.8rem;">🎧 The Shadow Man (Demo) — MK.</div>
-            <audio src="shadow-man-demo.mp3" controls controlsList="nodownload" style="width:100%;"></audio>
+          <div style="margin-bottom:2rem;" oncontextmenu="return false;">
+            <div id="smPlayer" style="display:flex;align-items:center;gap:0.8rem;background:rgba(200,137,42,0.06);border:1px solid rgba(200,137,42,0.2);border-radius:6px;padding:0.8rem 1rem;">
+              <button id="smBtn" onclick="smToggle()" style="background:none;border:none;cursor:pointer;color:var(--amber);font-size:1.3rem;padding:0;line-height:1;flex-shrink:0;">▶</button>
+              <div style="flex:1;min-width:0;">
+                <div id="smBar" onclick="smSeek(event)" style="background:rgba(200,137,42,0.2);border-radius:3px;height:4px;cursor:pointer;position:relative;margin-bottom:0.3rem;">
+                  <div id="smFill" style="background:var(--amber);height:100%;border-radius:3px;width:0%;pointer-events:none;"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;">
+                  <span id="smCur" style="font-family:'DM Mono',monospace;font-size:0.5rem;color:var(--muted);">0:00</span>
+                  <span id="smDur" style="font-family:'DM Mono',monospace;font-size:0.5rem;color:var(--muted);">0:00</span>
+                </div>
+              </div>
+            </div>
+            <audio id="smAudio" preload="none" crossorigin="anonymous">
+              <source src="https://res.cloudinary.com/du9neq7gj/video/upload/v1781030231/The_Shadow_Man_Demo_zwkp5v.mp3" type="audio/mpeg">
+            </audio>
           </div>
+          <div class="story-background-accordion" id="shadowLyricsAcc">
+            <button onclick="toggleAccordion('shadowLyricsAcc')" style="width:100%;background:none;border:none;border-bottom:1px solid rgba(200,137,42,0.2);padding:0.7rem 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;">
+              <span style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);">Lyrics</span>
+              <span style="font-size:0.7rem;color:var(--amber);transition:transform 0.25s ease;" class="sb-arrow">▾</span>
+            </button>
+            <div class="sb-body" style="display:none;padding:0.4rem 0 0;">
           <div style="font-family:'Cormorant Garamond',serif;font-size:calc(1rem * var(--ts));font-style:italic;line-height:2;color:var(--muted);">
             <div style="margin-bottom:1.4rem;"><span style="font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);font-style:normal;">Chorus</span><br>
-Was it a dream<br>Or a nightmare?<br>Was I awake?<br>Was I asleep<br>The Shadow man<br>He stood and stared<br>He did not move<br>Until I asked</div>
+Was it a dream<br>Or a nightmare?<br>Was I awake?<br>Was I asleep?<br>The Shadow man<br>He stood and stared<br>He did not move<br>Until I asked</div>
             <div style="margin-bottom:1.4rem;"><span style="font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);font-style:normal;">Verse 1</span><br>
 He was bad<br>I knew he was<br>From somewhere dark<br>So I held a cross<br>Not religious<br>But I think it worked<br>After he touched<br>He disappeared</div>
             <div style="margin-bottom:1.4rem;">I don't think I imagined a thing<br>I was too young to go that far<br>My grandmother, she was not serious<br>It gave her a good laugh<br>Ha ha ha ha<br>It gave her a good laugh</div>
-            <div style="margin-bottom:1.4rem;"><span style="font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);font-style:normal;">Chorus.</span></div>
+            <div style="margin-bottom:1.4rem;"><span style="font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);font-style:normal;">Chorus</span><br>
+Was it a dream<br>
+Or a nightmare?<br>
+Was I awake?<br>
+Was I asleep?<br>
+The Shadow man<br>
+He stood and stared<br>
+He did not move<br>
+Until I asked</div>
             <div style="margin-bottom:1.4rem;"><span style="font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);font-style:normal;">Verse 2</span><br>
 Mysterious<br>Mysterious<br>I could not see his eyes<br>But I could feel them glued on me</div>
             <div style="margin-bottom:1.4rem;">Keep up<br>You better keep up<br>I swear I'm not lying<br>Why would I lie about a man in my room<br>He terrifies me<br>Keep up<br>You better keep up<br>Why would I lie<br>Can't you see him over there in corner?</div>
-            <div><span style="font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);font-style:normal;">Chorus.</span></div>
+            <div><span style="font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);font-style:normal;">Chorus</span><br>
+Was it a dream<br>
+Or a nightmare?<br>
+Was I awake?<br>
+Was I asleep?<br>
+The Shadow man<br>
+He stood and stared<br>
+He did not move<br>
+Until I asked</div>
+          </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2285,44 +2322,58 @@ Mysterious<br>Mysterious<br>I could not see his eyes<br>But I could feel them gl
   }
 
 
-  // Shadow Man audio player
-  window.toggleShadowAudio = function() {
-    var audio = document.getElementById('shadowAudio');
-    var btn = document.getElementById('shadowPlayBtn');
-    if (!audio) return;
-    if (audio.paused) {
-      audio.play().catch(function(e){ console.log('Audio play failed:', e); });
-      btn.textContent = '⏸';
-      audio.ontimeupdate = function() {
-        var pct = audio.duration ? (audio.currentTime / audio.duration * 100) : 0;
-        var prog = document.getElementById('shadowProgress');
-        var time = document.getElementById('shadowTime');
-        if (prog) prog.style.width = pct + '%';
-        if (time) {
-          var m = Math.floor(audio.currentTime / 60);
-          var s = Math.floor(audio.currentTime % 60);
-          time.textContent = m + ':' + (s < 10 ? '0' : '') + s;
-        }
-      };
-      audio.onended = function() {
-        btn.textContent = '▶';
-        var prog = document.getElementById('shadowProgress');
-        var time = document.getElementById('shadowTime');
-        if (prog) prog.style.width = '0%';
-        if (time) time.textContent = '0:00';
-      };
-    } else {
-      audio.pause();
-      btn.textContent = '▶';
+  // Shadow Man custom player
+  (function() {
+    var au, loaded = false;
+    function fmt(t) {
+      var m = Math.floor(t/60), s = Math.floor(t%60);
+      return m + ':' + (s<10?'0':'') + s;
     }
-  };
-  window.seekShadowAudio = function(e, bar) {
-    var audio = document.getElementById('shadowAudio');
-    if (!audio || !audio.duration) return;
-    var rect = bar.getBoundingClientRect();
-    var ratio = (e.clientX - rect.left) / rect.width;
-    audio.currentTime = ratio * audio.duration;
-  };
+    function init() {
+      au = document.getElementById('smAudio');
+      if (!au) return;
+      au.addEventListener('loadedmetadata', function() {
+        var d = document.getElementById('smDur');
+        if (d) d.textContent = fmt(au.duration);
+      });
+      au.addEventListener('timeupdate', function() {
+        var pct = au.duration ? (au.currentTime/au.duration*100) : 0;
+        var f = document.getElementById('smFill');
+        var c = document.getElementById('smCur');
+        if (f) f.style.width = pct + '%';
+        if (c) c.textContent = fmt(au.currentTime);
+      });
+      au.addEventListener('ended', function() {
+        var b = document.getElementById('smBtn');
+        var f = document.getElementById('smFill');
+        var c = document.getElementById('smCur');
+        if (b) b.textContent = '▶';
+        if (f) f.style.width = '0%';
+        if (c) c.textContent = '0:00';
+      });
+      loaded = true;
+    }
+    window.smToggle = function() {
+      if (!loaded) init();
+      au = document.getElementById('smAudio');
+      if (!au) return;
+      var b = document.getElementById('smBtn');
+      if (au.paused) {
+        au.load();
+        au.play().then(function(){ if(b) b.textContent = '⏸'; }).catch(function(e){ console.warn(e); });
+      } else {
+        au.pause();
+        if (b) b.textContent = '▶';
+      }
+    };
+    window.smSeek = function(e) {
+      au = document.getElementById('smAudio');
+      if (!au || !au.duration) return;
+      var bar = document.getElementById('smBar');
+      var rect = bar.getBoundingClientRect();
+      au.currentTime = ((e.clientX - rect.left) / rect.width) * au.duration;
+    };
+  })();
 
   function cnSpin() {
     if(spinning) return;
