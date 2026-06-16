@@ -635,6 +635,74 @@
       color: var(--amber);
     }
 
+    /* ── Gisèle Pelicot links popup ── */
+    .gisele-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 99999;
+      align-items: center; justify-content: center;
+    }
+    .gisele-overlay.open { display: flex; }
+    .gisele-box {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-top: 3px solid var(--amber);
+      border-radius: 8px;
+      padding: 1.8rem;
+      width: min(340px, 90vw);
+    }
+    .gisele-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.5rem;
+    }
+    .gisele-warning {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      border-left: 2px solid rgba(200,137,42,0.3);
+      padding-left: 0.8rem;
+    }
+    .gisele-links { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1.2rem; }
+    .gisele-link {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      color: var(--amber);
+      text-decoration: none;
+      line-height: 1.4;
+      border-bottom: 1px solid rgba(200,137,42,0.2);
+      padding-bottom: 0.5rem;
+    }
+    .gisele-link:last-child { border-bottom: none; padding-bottom: 0; }
+    .gisele-close {
+      width: 100%;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.5rem;
+      color: var(--muted);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .gisele-trigger {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+
     .story-modal {
       display: none;
       position: fixed;
@@ -1271,18 +1339,17 @@ Open thine eyes, and thou shall be satisfied with bread.”</div>
 
       <div class="story-body">I take this as literal and symbolic. We were made to work for our upkeep.
 
-In Literature classes (my favourite! How shocking!?) we were taught about outer meanings and inner meanings.
+In Literature classes (my favourite!) we were taught about outer meanings and inner meanings.
 
 Outer meaning here could be: if you love to sleep, then you will not eat, and you will fall into a desperate situation characterised by LACK.
 
-While this is true, it has bred a dangerous culture that frowns upon rest by linking it to laziness. This could be the reason why children in boarding schools (in parts of Africa) are not given the time to close their eyes and rest — because it is seen as a waste of time that could be used to do classwork or some sort of ‘show you are busy and focused’ activity. This ends up nurturing children who carry this mentality to their homes and children when they finally have them, causing a guilt or shame to develop in them for taking even a few minutes to themselves.
+While this is true, it has bred a dangerous culture that frowns on rest by linking it to laziness. This could be the reason why children in boarding schools (in parts of Africa) are not given the time to close their eyes and rest &mdash; because it is seen as a waste of time that could be used to do classwork or some sort of &#8216;show you are busy and focused&#8217; activity. This ends up nurturing children who carry this mentality to their homes and children when they finally have them, causing shame and guilt to develop in them for taking even a few minutes to themselves.
 
-Might I remind you that even God took a day to rest and appreciate his good creation in Genesis — in fact, after every day “he saw it was good.” By extension, he gave us a rest day. It is good to rest and it is good to appreciate the work that you have done. “PRACTICE GRATITUDE,” as therapists would say!
+Might I remind you that even God took a day to rest and appreciate His good creation in Genesis &mdash; in fact, after every day &#8220;He saw it was good.&#8221; In extension, He gave us a rest day. It is good to rest and it is good to appreciate the work that you have done. &#8220;Practice gratitude,&#8221; is what therapists would say!
 
+Inner meaning here could be that we sleep on the things that matter and could feed us &mdash; give us bread. To me, this looks like not utilising the gifts and talents that have been given to us. How this links to &#8216;outer meaning&#8217; is we work ourselves in a very linear way, OR RATHER, are made to move on a linear path that causes us NOT to see the benefit of using what comes so naturally to us. It is not entirely our fault! I think this is part of the reason why we are encouraged to seek the Kingdom of God first, and then all these things shall be added to us. Why? Only He can properly help us / make us maintain the integrity of His design of and for us: from its goodness to its exponential growth potential being actualised. Be fruitful and multiply.
 
-Inner meaning here could be that we sleep on the things that matter and could feed us — give us bread. To me, this looks like not utilising the gifts and talents that have been given to us. How this links to ‘outer meaning’ is we work ourselves in a very linear way, or rather are made to move on a linear path that causes us NOT to see the benefit of using what comes so naturally to us (it is not entirely our fault!). I think this is part of the reason why we are encouraged to seek the Kingdom of God first, and then all these things shall be added to us. Why? Only he can PROPERLY help us / make us maintain the integrity of his design of us — from its goodness to its exponential growth potential being actualised: be fruitful and multiply.
-
-“Open thine eyes, and thou shall be satisfied with bread.”</div>
+&#8220;Open thine eyes, and thou shall be satisfied with bread.&#8221;</div>
 
       <div class="story-rule"></div>
       <span class="story-sig">MK.<br><span style="font-size:0.75rem;font-weight:400;opacity:0.55;letter-spacing:0.08em;">Author</span></span>
@@ -2507,7 +2574,7 @@ Until I asked</div>
       <div class="story-meta">11th Jun, 2026 &nbsp;&#183;&nbsp; MK.</div>
       <div class="story-tags">
         <span class="story-tag tag-experience">Experience</span>
-        <span class="story-tag tag-mature">Mature</span>
+        <span class="story-tag tag-mature">Mature. 18+</span>
       </div>
 
       <div class="story-rule"></div>
@@ -2532,13 +2599,9 @@ Until I asked</div>
 
       <div class="story-para">From his perspective, awareness is useless. Dangerous even. Why? Because it lets people know they can get away with it if they want. There is no fear instilled except in the victims and potential victims (and those close to the two). How does that help? Who does that help? On one end it lets women and girls know they need to be guarded &mdash; they need to protect themselves. On another it creates an overprotective father, brother or uncle because of the jungle out there &mdash; locking up their children, their girlfriends, their wives, their nieces etc all because they want to protect them. But this hinders them from living: all they know is constriction, rules and fear: should nots and cannots. Again, why does it have to be the victims that pay for what is being done to them? Instead, severe consequence has to be introduced and enforced.</div>
 
-      <div class="story-rule"></div>
-
       <div class="story-heading">DINAH</div>
 
       <div class="story-para" style="color:var(--muted);">"I am not going to be stupid and say that my daughters will not be harassed because they will. But I would much rather live in a world where those who try are punished for their actions."<br><span style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;font-style:normal;">&#126; A.A</span></div>
-
-      <div class="story-rule"></div>
 
       <!-- Genesis 34 accordion -->
       <div class="story-background-accordion" id="tangleGenesis">
@@ -2732,6 +2795,24 @@ Until I asked</div>
         </div>
       </div>
 
+      <div class="story-para" style="margin-top:1.4rem;">For a while now, I have been under the impression that the only book I need to read is the Bible (so it includes the missing bits). There is no need to read fragments of truth or to better phrase it conglomerates of lies and truth. For this reason, it has been the only book I have been into for a year now. The one thing that will give me the truth, the whole truth and nothing but the truth, SO HELP ME GOD! Anything else I read or watch or hear has to find its place in what I have read and learned from the only Book I need. It has to link back somehow.</div>
+
+      <div class="story-para">When I read the detailed account of Dinah's story in Jasher, I experienced consolation. I was soon after no longer burdened by the question of the courage or integrity of the ones responsible for me when they found out about what had happened to me. I also started to loosen my expectations (be flexible) because humans are humans &mdash; beautifully and wonderfully made, but corrupted in ugly ways that limit their capability to show up properly, even though their heart may be in the right place (not forgetting even the Bible says that the heart is not to be trusted, but the one who reads them all is because He makes all paths straight).</div>
+
+      <div class="story-para">From the interpretation that I got it seems as though Jacob was going to allow his daughter to live with a man who kidnapped, raped and kept her (and who would probably continue to violate her to his soul's content considering the fact that he took her, raped her and kept as if she was some kind of object and not a person with a choice over herself) for his name's sake and for the sake of not starting a war which would put all his people at risk. He'd built a good reputation and place in the land, he didn't want that ruined. He had secured places for his people and life was good! Why reduce all that to dust? He sent help, maybe as a way to make sure she had support, but that seems like the best he was going to do for her. One for the sake of many. Does this sound familiar? It sure does to me!</div>
+
+      <div class="story-para">On the other hand, Dinah's brothers were not having it. The Law and their sister had been broken. By law (we're talking God's Law which is ultimately about the protection and nurturing of life) they had a right to seek justice and it was by blood &mdash; seeking death of the perpetrator (and his people since they saw no need to address the matter showing what kind of people they were too). Someone wise told me that rape was just as good as murder because it resulted in a dead woman (men too, this happens to them too) or child walking &mdash; life draining and drained from them (a life stolen) causing them to spread the same. The fruit of it, not blaming the victim by the way(!) is not good for the world. Rape robs a person of their life force (their will, reason and confidence to live) and blinds them with evil. Is depression not a draining force? What about anxiety? What about anger and wrath? Are these things not all consuming in human beings, especially when unaddressed for long? What about suicide? What brought it about in the first place? Do you see what I mean? It is THAT serious!</div>
+
+      <div class="story-para">To further emphasize this, what you read in the first part of this read: women forced into survival mode rather than 'live my life' mode. Truly, how unfair and how great of a crime to humanity is that? To them and furthermore to the world? Evil. Just evil. A plague of death spreading like a furious wildfire!</div>
+
+      <div class="story-para">God did then as much as He does now believe in justice for the oppressed. If you don't believe, google the verses that cover helping those who cannot help themselves &mdash; the needy, the sick, the poor, the heavy hearted, the demon afflicted, the hungry etc. The "Old Testament God" worked hard to eradicate the spread of evil and the death that comes with it. Remember, His design for us is about LIFE not DEATH. Think of Eden. His ability to see what we cannot means that we can't challenge His vision. The argument about why He let things happen as they did if He truly was all knowing is foolish to me now because of "all the gods" that exist, this is the One who grants us free will &mdash; the ability to choose without Him meddling with us. He does not do so without letting us know the paths and the consequences for said paths! He gives you a whole instruction manual with cautionary and motivational stories, yet, we still doubt His Word?! Doubt His love? Doubt His care?</div>
+
+      <div class="story-para">I used to think that death (murder) was a bit much as a punishment for things. It felt like everything led to the spilling of blood in the OT, like there really was no right step for us, and everything was just WRONG &mdash; writing full of God's wrath wrath wrath. Now however, I see the logic in why it existed to such a degree. Rather than let a dangerous disease spread, you KILL IT so that many are saved from it and its effects. For example, had Jacob's way been followed, who's to say that the women of the Hebrews would be safe in the hands of their new partners, especially considering the name the Hebrews had and how the outsiders they mingled with lived? Would Dinah's story not serve as a genesis for the systematic abuse of their women because the Hebrew men refused to do something about it? Refused to protect their own and stand their ground when they had a chance (a much more favourable chance)? Followed by that, would it not in turn get the men abused too? Think about the disrespectful and degrading culture that would have been bred had the brothers not sought justice when and even how they did. It would probably end up being a power game and gain for the people of Shechem and their neighbours to "humble" the Hebrews &mdash; the "Great" Hebrews and their God are not so great after all, huh? Also, on a much more personal level, I am not sure how discreet and safe keeping of Dinah Shechem would have been considering what is written about his behaviour with her in public after what he did, which was NOT A SECRET. It felt like a taunt even! If you have heard anything of the case of <span class="gisele-trigger" onclick="openGisele()">Gis&egrave;le Pelicot</span>, whose husband Dominique Pelicot, liked to pimp her out while she was passed out, then you know what I mean! Dinah would endure far worse until he either got sick of her or she died/killed herself. Just like her brothers said to their father, "Should he deal with our sister as with an harlot?"</div>
+
+      <div class="story-para">Severe consequences for molesters and rapists... That is a good example of a story about it and even God's hand and blessing in it. When I shared one of my stories with a close friend of mine, his reaction was this: THE MAN MUST DIE. I thought he was a bit much out of fear because we were talking murder, and we can't murder because that is "not the Christian way" of living. Even if murder is on the mind, it's not right but according to him some things are justified such as that because a man cannot and should not get away with damaging a life like that and I agree. I don't know when "Christianity" became such a soft sport, one accommodating of great evils in the name of kindness, grace and humility. NO! Our systems lost power when they lost the rule of consequence &mdash; severity in lesson making and teaching for such crimes. Worse of all, no serious follow up and enforcement when it comes to these matters in the least! Just like my new friend said: failed systems leading to last resorts that shouldn't be our burden to carry. Our systems and ones in charge of the systems have failed us. Look at us now!</div>
+
+      <div class="story-para">There is an interesting statement that one of the brothers made, one that showed that forcing one's self on a woman was not a part of their culture nor was it tolerated if it did exist. It might have even been rare. Rare why? Rare because they had laws in place for such where the offenders were immediately punished. The kind of punishment must have kept them in line because I can't imagine they put very many people to death for this</div>
+
       <div class="story-rule"></div>
       <span class="story-sig">MK.<br><span style="font-size:0.75rem;font-weight:400;opacity:0.55;letter-spacing:0.08em;">Author</span></span>
       <div class="story-share">
@@ -2739,6 +2820,20 @@ Until I asked</div>
         <span class="story-share-copied" id="share-copied-tangle">Copied!</span>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Gisèle Pelicot popup -->
+<div class="gisele-overlay" id="giseleOverlay" onclick="if(event.target===this)closeGisele()">
+  <div class="gisele-box">
+    <div class="gisele-title">Gis&egrave;le Pelicot</div>
+    <div class="gisele-warning">&#9888; Each of the following videos contains disturbing content detailing physical and sexual violence. Viewer discretion is strongly advised.</div>
+    <div class="gisele-links">
+      <a class="gisele-link" href="https://youtu.be/RKc6OvAakIc?si=3m58MerfWOPjvQU-" target="_blank" rel="noopener">1. Gis&egrave;le interviewed by the New York Times (2026)</a>
+      <a class="gisele-link" href="https://youtu.be/nUnmeU4rmfY?si=TAIWmSlxgavJDbTI" target="_blank" rel="noopener">2. 60 Minutes Australia &mdash; Gis&egrave;le Pelicot case timeline and details</a>
+      <a class="gisele-link" href="https://youtu.be/mooL4iXKeZA?si=uSIu9w8cHz9vn8AL" target="_blank" rel="noopener">3. 60 Minutes Australia &mdash; What women go through with abusive partners</a>
+    </div>
+    <button class="gisele-close" onclick="closeGisele()">Close</button>
   </div>
 </div>
 
@@ -2761,8 +2856,13 @@ Until I asked</div>
       document.getElementById('kahawaPopup').classList.add('open');
     }, 10);
   };
+  window.openGisele = function() {
+    document.getElementById('giseleOverlay').classList.add('open');
+  };
+  window.closeGisele = function() {
+    document.getElementById('giseleOverlay').classList.remove('open');
+  };
   window.closeKahawa = function() {
-    document.getElementById('kahawaPopup').classList.remove('open');
     setTimeout(function() {
       document.getElementById('kahawaBackdrop').classList.remove('open');
     }, 250);
