@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>404 — Word Not Found · WordSpin</title>
+  <meta name="robots" content="noindex"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=DM+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:    #0a0a0a;
+      --amber: #c8892a;
+      --ink:   #f0e6d0;
+      --muted: #9a8a72;
+      --card:  #141414;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Mono', monospace;
+      overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    /* ── Page layout ──────────────────────────────── */
+    .page {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.9rem;
+      padding: 1.2rem 1rem;
+      position: relative;
+    }
+
+    /* ── Header ───────────────────────────────────── */
+    .top { text-align: center; }
+
+    .eyebrow {
+      font-size: 0.52rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: rgba(200,137,42,0.5);
+    }
+
+    .code-wrap {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 0.1em;
+      line-height: 1;
+      margin: 0.15rem 0 0.2rem;
+    }
+
+    .code {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.8rem, 14vw, 6.5rem);
+      font-weight: 700;
+      color: rgba(200,137,42,0.12);
+      letter-spacing: -0.02em;
+    }
+
+    .sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(0.85rem, 2.8vw, 1.05rem);
+      color: rgba(240,230,208,0.45);
+    }
+
+    /* ── Canvas wrapper ───────────────────────────── */
+    .game-wrap {
+      width: 100%;
+      max-width: 560px;
+      position: relative;
+      user-select: none;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      border: 1px solid rgba(200,137,42,0.12);
+      border-radius: 6px;
+      cursor: pointer;
+      background: #0a0a0a;
+    }
+
+    /* ── Hint ─────────────────────────────────────── */
+    .hint {
+      margin-top: 0.55rem;
+      font-size: 0.52rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(200,137,42,0.42);
+      text-align: center;
+      transition: opacity 0.4s;
+    }
+
+    /* ── Footer ───────────────────────────────────── */
+    .home-link {
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(200,137,42,0.4);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .home-link:hover { color: rgba(200,137,42,0.85); }
+
+    /* ── Reduced motion ───────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      canvas { display: none; }
+      .game-wrap::after {
+        content: 'This page does not exist.';
+        display: block;
+        text-align: center;
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="top">
+    <div class="eyebrow">Word&thinsp;not&thinsp;found</div>
+    <div class="code-wrap">
+      <span class="code">4</span><span class="code">0</span><span class="code">4</span>
+    </div>
+    <p class="sub">This page went off-script.</p>
+  </div>
+
+  <div class="game-wrap">
+    <canvas id="g"></canvas>
+    <p class="hint" id="hint">tap · space · ↑ to jump</p>
+  </div>
+
+  <a href="https://wordspin.org" class="home-link">← Back to WordSpin</a>
+
+</div>
+
+<script>
+(function() {
+'use strict';
+
+// ── Canvas setup ───────────────────────────────────────────────────────
+const CV = document.getElementById('g');
+const cx = CV.getContext('2d');
+const hint = document.getElementById('hint');
+
+// Internal resolution
+const CW = 560, CH = 230;
+CV.width = CW; CV.height = CH;
+
+// ── Constants ──────────────────────────────────────────────────────────
+const GROUND   = CH - 34;
+const AMBER    = '#c8892a';
+const AMBER_LO = 'rgba(200,137,42,0.22)';
+const INK      = '#f0e6d0';
+const CARD_BG  = '#141414';
+const GRAVITY  = 0.65;
+const JUMP_V   = -15.5;
+
+// Story words that drift in the background
+const BG_WORDS = [
+  'pain','sleep','scar','umber','corner','light','tangle',
+  'salt','inscription','thanatopsis','silhouette','mementomori'
+];
+
+// ── State ──────────────────────────────────────────────────────────────
+let phase = 'idle'; // idle | play | dead
+let score = 0, hi = 0, spd = 0, tick = 0, raf;
+let nugs = [], nextNug = 0;
+let sparks = [];
+let bumpY = 0, bumpV = 0; // idle card bounce
+
+// ── Background words ───────────────────────────────────────────────────
+const bgW = BG_WORDS.map((w, i) => ({
+  w,
+  x: 20 + Math.random() * (CW - 60),
+  y: 18 + Math.random() * (GROUND - 36),
+  spd: 0.18 + Math.random() * 0.22,
+  a: 0.038 + Math.random() * 0.04
+}));
+
+// ── Player card ────────────────────────────────────────────────────────
+const P = {
+  x: 72, y: GROUND - 68,
+  w: 48, h: 66,
+  vy: 0, on: true,
+  legT: 0,
+
+  reset() {
+    this.y = GROUND - this.h + 1;
+    this.vy = 0; this.on = true; this.legT = 0;
+  },
+
+  jump() {
+    if (this.on) { this.vy = JUMP_V; this.on = false; }
+  },
+
+  update() {
+    this.vy += GRAVITY;
+    this.y  += this.vy;
+    if (this.y >= GROUND - this.h) {
+      this.y  = GROUND - this.h;
+      this.vy = 0;
+      this.on = true;
+    }
+    if (this.on) this.legT += 0.28;
+  },
+
+  draw(alpha) {
+    cx.save();
+    if (alpha !== undefined) cx.globalAlpha = alpha;
+    const px = this.x + this.w / 2;
+    const py = this.y + this.h / 2;
+    cx.translate(px, py);
+
+    // Tilt forward in air
+    if (!this.on) {
+      const tilt = Math.max(-0.22, Math.min(0.28, this.vy * 0.018));
+      cx.rotate(tilt);
+    }
+
+    const hw = this.w / 2, hh = this.h / 2;
+
+    // Card body
+    cx.fillStyle = CARD_BG;
+    cx.strokeStyle = AMBER;
+    cx.lineWidth = 1.6;
+    rr(cx, -hw, -hh, this.w, this.h, 5);
+    cx.fill(); cx.stroke();
+
+    // Inner frame
+    cx.strokeStyle = 'rgba(200,137,42,0.28)';
+    cx.lineWidth = 0.8;
+    rr(cx, -hw+3, -hh+3, this.w-6, this.h-6, 3);
+    cx.stroke();
+
+    // "WS" monogram
+    cx.fillStyle = AMBER;
+    cx.font = 'bold italic 18px "Playfair Display", serif';
+    cx.textAlign = 'center';
+    cx.textBaseline = 'middle';
+    cx.fillText('WS', 0, -2);
+
+    // Corner pips — W top-left, S bottom-right
+    cx.fillStyle = 'rgba(200,137,42,0.5)';
+    cx.font = 'bold 8px "Playfair Display", serif';
+    cx.textAlign = 'left'; cx.textBaseline = 'top';
+    cx.fillText('W', -hw+4, -hh+4);
+    cx.save();
+    cx.rotate(Math.PI);
+    cx.textAlign = 'left'; cx.textBaseline = 'top';
+    cx.fillText('S', -hw+4, -hh+4);
+    cx.restore();
+
+    // Running legs
+    if (this.on) {
+      const l1 = Math.sin(this.legT) * 5;
+      const l2 = Math.sin(this.legT + Math.PI) * 5;
+      cx.strokeStyle = AMBER;
+      cx.lineWidth = 2.8;
+      cx.lineCap = 'round';
+      cx.beginPath();
+      cx.moveTo(-10, hh);   cx.lineTo(-10 + l1, hh + 12);
+      cx.moveTo( 10, hh);   cx.lineTo( 10 + l2, hh + 12);
+      cx.stroke();
+    }
+
+    cx.restore();
+  }
+};
+
+// ── Nugget drawing ─────────────────────────────────────────────────────
+// Three blob shapes defined by 6 bezier control-point sets (r = radius)
+const BLOBS = [
+  (c,r) => { // fat oval
+    c.beginPath();
+    c.moveTo(r*.85, 0);
+    c.bezierCurveTo(r*1.05, r*-.65, r*.55, r*-1.05, 0, r*-.95);
+    c.bezierCurveTo(r*-.6,  r*-.85, r*-1.05, r*-.2,  r*-1,  r*.35);
+    c.bezierCurveTo(r*-.95, r*.9,   r*-.3,  r*1.1,  r*.35, r*1.05);
+    c.bezierCurveTo(r*.9,   r*1,    r*1.1,  r*.55,  r*.85, 0);
+    c.closePath();
+  },
+  (c,r) => { // tall chunk
+    c.beginPath();
+    c.moveTo(r*.5,  r*-.95);
+    c.bezierCurveTo(r*1.05, r*-.7,  r*1.05, r*.25,  r*.8,  r*.75);
+    c.bezierCurveTo(r*.5,   r*1.15, r*-.5,  r*1.15, r*-.8, r*.75);
+    c.bezierCurveTo(r*-1.1, r*.2,   r*-.9,  r*-.65, r*-.5, r*-.95);
+    c.bezierCurveTo(r*-.2,  r*-1.2, r*.3,   r*-1.1, r*.5,  r*-.95);
+    c.closePath();
+  },
+  (c,r) => { // wide slab
+    c.beginPath();
+    c.moveTo(r*.95, r*-.15);
+    c.bezierCurveTo(r*1.15, r*.35,  r*.75,  r*1.05, 0,    r*1.05);
+    c.bezierCurveTo(r*-.8,  r*1.05, r*-1.1, r*.45,  r*-1, r*-.2);
+    c.bezierCurveTo(r*-.9,  r*-.8,  r*-.3,  r*-1.1, r*.3, r*-1.05);
+    c.bezierCurveTo(r*.82,  r*-.9,  r*1.1,  r*-.55, r*.95, r*-.15);
+    c.closePath();
+  }
+];
+
+function drawNug(n) {
+  cx.save();
+  cx.translate(n.x, n.y);
+  cx.rotate(n.ang);
+
+  const blob = BLOBS[n.t];
+
+  // Drop shadow
+  cx.save();
+  cx.scale(1.05, 0.22);
+  cx.translate(0, n.r * 5.5);
+  cx.fillStyle = 'rgba(0,0,0,0.35)';
+  blob(cx, n.r); cx.fill();
+  cx.restore();
+
+  // Base (dark)
+  cx.fillStyle = '#7a4a0a';
+  blob(cx, n.r); cx.fill();
+
+  // Breading (amber)
+  cx.save();
+  cx.scale(0.86, 0.86);
+  cx.fillStyle = AMBER;
+  blob(cx, n.r); cx.fill();
+  cx.restore();
+
+  // Top sheen
+  cx.save();
+  cx.scale(0.55, 0.55);
+  cx.fillStyle = '#e8a030';
+  blob(cx, n.r); cx.fill();
+  cx.restore();
+
+  // Crispy spots
+  cx.fillStyle = 'rgba(90,40,0,0.55)';
+  for (let i = 0; i < 5; i++) {
+    const a = (i / 5) * Math.PI * 2 + n.t * 0.7;
+    const d = n.r * 0.44;
+    cx.beginPath();
+    cx.ellipse(
+      Math.cos(a)*d, Math.sin(a)*d,
+      n.r * 0.13, n.r * 0.1,
+      a, 0, Math.PI*2
+    );
+    cx.fill();
+  }
+
+  cx.restore();
+}
+
+function spawnNug() {
+  const t = Math.floor(Math.random() * 3);
+  const r = 19 + Math.random() * 9;
+  const tall = (t === 1); // tall blob needs extra y offset
+  nugs.push({
+    x: CW + r + 8,
+    y: GROUND - r * (tall ? 1.1 : 0.95),
+    r, t,
+    ang: Math.random() * Math.PI * 2
+  });
+  // Tighter spacing as score climbs
+  nextNug = Math.max(38, 65 - score * 0.18) + Math.random() * 55;
+}
+
+// ── Sparks ─────────────────────────────────────────────────────────────
+function burst(x, y) {
+  for (let i = 0; i < 22; i++) {
+    const a = (i / 22) * Math.PI * 2;
+    const s = 2.5 + Math.random() * 5;
+    sparks.push({
+      x, y,
+      vx: Math.cos(a) * s,
+      vy: Math.sin(a) * s - 3.5,
+      life: 1,
+      r: 1.8 + Math.random() * 4,
+      amber: Math.random() > 0.35
+    });
+  }
+}
+
+// ── Helpers ────────────────────────────────────────────────────────────
+function rr(c, x, y, w, h, r) {
+  c.beginPath();
+  c.moveTo(x+r, y);
+  c.lineTo(x+w-r, y);      c.arcTo(x+w, y,   x+w, y+r,   r);
+  c.lineTo(x+w, y+h-r);    c.arcTo(x+w, y+h, x+w-r, y+h, r);
+  c.lineTo(x+r, y+h);      c.arcTo(x,   y+h, x,   y+h-r, r);
+  c.lineTo(x,   y+r);      c.arcTo(x,   y,   x+r, y,     r);
+  c.closePath();
+}
+
+function fmtScore(n) { return String(Math.floor(n)).padStart(5,'0'); }
+
+// ── Drawing layers ─────────────────────────────────────────────────────
+function drawBg(scroll) {
+  bgW.forEach(s => {
+    cx.fillStyle = `rgba(200,137,42,${s.a})`;
+    cx.font = 'italic 10px "Cormorant Garamond",serif';
+    cx.textAlign = 'left'; cx.textBaseline = 'middle';
+    cx.fillText(s.w, s.x, s.y);
+    if (scroll) {
+      s.x -= s.spd;
+      if (s.x < -60) s.x = CW + 10;
+    }
+  });
+}
+
+function drawGround() {
+  cx.strokeStyle = 'rgba(200,137,42,0.2)';
+  cx.lineWidth = 1;
+  cx.beginPath();
+  cx.moveTo(0, GROUND); cx.lineTo(CW, GROUND);
+  cx.stroke();
+  // subtle shadow strip
+  const g = cx.createLinearGradient(0, GROUND, 0, GROUND+8);
+  g.addColorStop(0, 'rgba(200,137,42,0.06)');
+  g.addColorStop(1, 'rgba(0,0,0,0)');
+  cx.fillStyle = g;
+  cx.fillRect(0, GROUND, CW, 8);
+}
+
+function drawHUD() {
+  cx.font = '11px "DM Mono",monospace';
+  cx.fillStyle = 'rgba(200,137,42,0.55)';
+  cx.textAlign = 'right'; cx.textBaseline = 'top';
+  cx.fillText(fmtScore(score), CW-14, 12);
+  if (hi > 0) {
+    cx.fillStyle = 'rgba(200,137,42,0.28)';
+    cx.fillText('HI ' + fmtScore(hi), CW-14, 27);
+  }
+}
+
+function drawIdlePrompt() {
+  // pulsing ring around the card
+  const pulse = 0.5 + 0.5 * Math.sin(tick * 0.06);
+  cx.save();
+  cx.globalAlpha = 0.18 + pulse * 0.1;
+  cx.strokeStyle = AMBER;
+  cx.lineWidth = 1;
+  cx.beginPath();
+  cx.ellipse(P.x + P.w/2, P.y + P.h/2, P.w * 0.9, P.h * 0.75, 0, 0, Math.PI*2);
+  cx.stroke();
+  cx.restore();
+}
+
+function drawDeadScreen() {
+  // Vignette
+  const g = cx.createRadialGradient(CW/2, CH/2, CH*0.15, CW/2, CH/2, CH*0.75);
+  g.addColorStop(0,'rgba(0,0,0,0)');
+  g.addColorStop(1,'rgba(0,0,0,0.72)');
+  cx.fillStyle = g; cx.fillRect(0,0,CW,CH);
+
+  cx.textAlign = 'center'; cx.textBaseline = 'middle';
+
+  // GAME OVER
+  cx.fillStyle = INK;
+  cx.font = 'bold 24px "Playfair Display",serif';
+  cx.fillText('GAME OVER', CW/2, CH/2 - 24);
+
+  // Divider
+  cx.strokeStyle = 'rgba(200,137,42,0.35)';
+  cx.lineWidth = 1;
+  cx.beginPath(); cx.moveTo(CW/2-50, CH/2-10); cx.lineTo(CW/2+50, CH/2-10); cx.stroke();
+
+  // Score
+  cx.font = '11px "DM Mono",monospace';
+  cx.fillStyle = 'rgba(200,137,42,0.85)';
+  cx.fillText('SCORE  ' + fmtScore(score), CW/2, CH/2 + 6);
+
+  if (hi > 0) {
+    cx.fillStyle = 'rgba(200,137,42,0.45)';
+    cx.fillText('BEST   ' + fmtScore(hi), CW/2, CH/2 + 22);
+  }
+
+  // Retry prompt
+  const blink = Math.floor(tick / 22) % 2 === 0;
+  if (blink) {
+    cx.fillStyle = 'rgba(200,137,42,0.48)';
+    cx.font = '9px "DM Mono",monospace';
+    cx.fillText('TAP TO TRY AGAIN', CW/2, CH/2 + 44);
+  }
+}
+
+// ── Game loops ─────────────────────────────────────────────────────────
+function idleLoop() {
+  if (phase !== 'idle') return;
+  tick++;
+
+  // Gentle card bob
+  bumpV += (0 - bumpY) * 0.04;
+  bumpV *= 0.88;
+  bumpY += bumpV;
+  if (Math.abs(bumpV) < 0.01 && Math.abs(bumpY) < 0.01) bumpY = bumpV = 0;
+
+  cx.clearRect(0, 0, CW, CH);
+  drawBg(false);
+  drawGround();
+
+  // Gently bobbing card
+  const savedY = P.y;
+  P.y = GROUND - P.h + bumpY * 0.5;
+  P.legT += 0.04;
+  P.draw();
+  P.y = savedY;
+
+  drawIdlePrompt();
+  drawHUD();
+
+  raf = requestAnimationFrame(idleLoop);
+}
+
+function playLoop() {
+  if (phase !== 'play') return;
+  tick++;
+
+  spd   = 3.6 + (score / 80) * 2.8;
+  score += spd * 0.024;
+
+  P.update();
+
+  // Spawn / move nuggets
+  nextNug--;
+  if (nextNug <= 0) spawnNug();
+  nugs.forEach(n => { n.x -= spd; n.ang -= 0.045; });
+  nugs = nugs.filter(n => n.x > -60);
+
+  // Collision (circle vs shrunk card rect)
+  const pad = 5;
+  const px1 = P.x + pad, px2 = P.x + P.w - pad;
+  const py1 = P.y + pad, py2 = P.y + P.h - pad;
+  for (const n of nugs) {
+    const cx2 = Math.max(px1, Math.min(n.x, px2));
+    const cy2 = Math.max(py1, Math.min(n.y, py2));
+    const dx = n.x - cx2, dy = n.y - cy2;
+    if (dx*dx + dy*dy < n.r * n.r * 0.72) {
+      die(); return;
+    }
+  }
+
+  cx.clearRect(0, 0, CW, CH);
+  drawBg(true);
+  drawGround();
+  nugs.forEach(drawNug);
+  P.draw();
+  drawHUD();
+
+  raf = requestAnimationFrame(playLoop);
+}
+
+function deathLoop() {
+  tick++;
+
+  // Update sparks
+  sparks.forEach(s => {
+    s.x += s.vx; s.y += s.vy;
+    s.vy += 0.32; s.life -= 0.026;
+  });
+  sparks = sparks.filter(s => s.life > 0);
+
+  cx.clearRect(0, 0, CW, CH);
+  drawBg(false);
+  drawGround();
+  nugs.forEach(drawNug);
+
+  // Faded broken card
+  P.draw(0.25);
+
+  // Sparks
+  sparks.forEach(s => {
+    cx.globalAlpha = s.life;
+    cx.fillStyle = s.amber ? AMBER : '#e8d0a0';
+    cx.beginPath();
+    cx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+    cx.fill();
+    cx.globalAlpha = 1;
+  });
+
+  drawHUD();
+
+  if (sparks.length > 0) {
+    raf = requestAnimationFrame(deathLoop);
+  } else {
+    // sparks done — show game over and loop for blink
+    gameOverLoop();
+  }
+}
+
+function gameOverLoop() {
+  if (phase !== 'dead') return;
+  tick++;
+
+  cx.clearRect(0, 0, CW, CH);
+  drawBg(false);
+  drawGround();
+  nugs.forEach(drawNug);
+  P.draw(0.22);
+  drawHUD();
+  drawDeadScreen();
+
+  raf = requestAnimationFrame(gameOverLoop);
+}
+
+// ── Phase transitions ──────────────────────────────────────────────────
+function startGame() {
+  cancelAnimationFrame(raf);
+  phase = 'play'; tick = 0;
+  score = 0; spd = 3.6;
+  nugs = []; nextNug = 75; sparks = [];
+  P.reset();
+  hint.style.opacity = '0';
+  playLoop();
+}
+
+function die() {
+  phase = 'dead';
+  hi = Math.max(hi, Math.floor(score));
+  burst(P.x + P.w/2, P.y + P.h/2);
+  cancelAnimationFrame(raf);
+  deathLoop();
+}
+
+// ── Input ──────────────────────────────────────────────────────────────
+function action() {
+  if (phase === 'idle') { startGame(); return; }
+  if (phase === 'play')  { P.jump();   return; }
+  if (phase === 'dead')  { startGame(); return; }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') {
+    e.preventDefault(); action();
+  }
+});
+CV.addEventListener('click', action);
+CV.addEventListener('touchstart', e => { e.preventDefault(); action(); }, { passive:false });
+
+// ── Kick off ───────────────────────────────────────────────────────────
+idleLoop();
+
+})();
+</script>
+
+</body>
+</html>
