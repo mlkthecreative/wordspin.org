@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNSIgZmlsbD0iIzExMSIvPjx0ZXh0IHg9IjE2IiB5PSIyMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXN0eWxlPSJpdGFsaWMiIGZpbGw9IiNjODg5MmEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPldTPC90ZXh0Pjwvc3ZnPg=="/>
+
+  <title>Made by MK — Wallpapers &amp; Custom Messages | WordSpin</title>
+  <meta name="description" content="Commission a WordSpin wallpaper — a word, its pronunciation and its meaning, set in WordSpin house style for your phone, tablet or wall. Or ask MK to write you something."/>
+  <link rel="canonical" href="https://www.wordspin.org/products.html"/>
+
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://www.wordspin.org/products.html"/>
+  <meta property="og:title" content="Made by MK — Wallpapers &amp; Custom Messages"/>
+  <meta property="og:description" content="A word, its pronunciation and its meaning — set by hand for your screen or your wall."/>
+  <meta property="og:site_name" content="WordSpin"/>
+
+  <meta name="theme-color" content="#1a1008"/>
+  <meta name="color-scheme" content="light dark"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=DM+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Light mode (default) ── */
+    :root {
+      --ink: #1a1008;
+      --paper: #f5efe3;
+      --cream: #ede4d0;
+      --amber: #c8892a;
+      --rust: #b84c1e;
+      --muted: #8a7a62;
+      --card: #faf6ee;
+      --border: #d4c9b0;
+      --input-bg: #faf6ee;
+      --shadow: rgba(26,16,8,0.12);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ink: #f0e6d0;
+        --paper: #000000;
+        --cream: #111111;
+        --amber: #d4993a;
+        --rust: #cc6644;
+        --muted: #9a8a72;
+        --card: #141414;
+        --border: #2a2a2a;
+        --input-bg: #0d0d0d;
+        --shadow: rgba(0,0,0,0.6);
+        --is-dark: 1;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --ink: #f0e6d0;
+      --paper: #000000;
+      --cream: #111111;
+      --amber: #d4993a;
+      --rust: #cc6644;
+      --muted: #9a8a72;
+      --card: #141414;
+      --border: #2a2a2a;
+      --input-bg: #0d0d0d;
+      --shadow: rgba(0,0,0,0.6);
+      --is-dark: 1;
+    }
+
+    :root[data-theme="light"] {
+      --ink: #1a1008;
+      --paper: #f5efe3;
+      --cream: #ede4d0;
+      --amber: #c8892a;
+      --rust: #b84c1e;
+      --muted: #8a7a62;
+      --card: #faf6ee;
+      --border: #d4c9b0;
+      --input-bg: #faf6ee;
+      --shadow: rgba(26,16,8,0.12);
+    }
+
+    /* ── Spacing scale ──
+       One ladder, used everywhere. Space encodes relationship:
+       things that belong together sit closer than things that don't. */
+    :root {
+      --s1: 0.4rem;    /* label to the thing it labels */
+      --s2: 0.9rem;    /* heading to its own paragraph */
+      --s3: 1.6rem;    /* paragraph to paragraph */
+      --s4: 2.6rem;    /* block to block inside one section */
+      --s5: 4rem;      /* section to section */
+      --s6: 5.5rem;    /* major break */
+    }
+
+    html { background: var(--paper); }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Mono', monospace;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    input, textarea, select { font-size: 16px; }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.6;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem;
+      padding: var(--s2) 1.3rem;
+      background: var(--paper);
+      border-bottom: 1px solid var(--border);
+    }
+    .back-link {
+      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--amber); text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .back-link:hover { opacity: 0.7; }
+    .theme-toggle {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      border: 1px solid var(--border); border-radius: 999px;
+      background: var(--card); color: var(--muted);
+      padding: 0.35rem 0.75rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    /* ── Page ── */
+    .page {
+      max-width: 860px; margin: 0 auto;
+      padding: 2.8rem 1.5rem 4rem;
+      display: flex; flex-direction: column;
+      gap: var(--s5);
+    }
+
+    /* ── Header ── */
+    header { text-align: center; }
+    .eyebrow {
+      font-size: 0.68rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--amber);
+    }
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 8vw, 4rem);
+      font-weight: 700; letter-spacing: -0.02em; line-height: 1;
+      margin: var(--s1) 0 var(--s2);
+    }
+    .page-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.12rem, 3.4vw, 1.45rem);
+      color: var(--muted);
+      max-width: 30rem; margin: 0 auto;
+      line-height: 1.55;
+    }
+    header::after {
+      content: ''; display: block;
+      width: 60px; height: 2px; background: var(--amber);
+      margin: var(--s4) auto 0;
+    }
+
+    /* ── Product block ── */
+    .product {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 0;
+      text-align: center;
+    }
+    /* Deliberate rhythm rather than one uniform gap */
+    .product > * + *          { margin-top: var(--s3); }
+    .product .product-lede    { margin-top: var(--s2); }  /* hugs its heading */
+    .product .preview-wrap    { margin-top: var(--s4); }  /* stands apart */
+    .product .product-note    { margin-top: var(--s4); }
+    .product .formats         { margin-top: var(--s3); }
+    .product .ask-btn         { margin-top: var(--s4); }
+    /* Matches .diff-btn on the main site: 1.5px border, 2px radius,
+       0.2em tracking. Rendered in the filled/active state, since this
+       is a label rather than a control you can toggle. */
+    .product-num {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.45rem 1rem;
+      border: 1.5px solid var(--amber);
+      border-radius: 2px;
+      background: var(--amber);
+      /* Always dark ink on the amber fill — in dark mode --ink is cream,
+         which would sit on amber at almost no contrast. */
+      color: #1a1008;
+    }
+    .product-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 5.5vw, 2.3rem);
+      font-weight: 700; line-height: 1.12;
+      margin-top: var(--s2);
+      display: inline-block;
+      text-decoration: underline;
+      text-decoration-color: var(--amber);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 10px;
+    }
+    .product-lede {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.15rem, 3.2vw, 1.4rem);
+      line-height: 1.6; color: var(--ink);
+      max-width: 34rem; margin: 0 auto;
+    }
+    .product-note {
+      font-size: 0.9rem; line-height: 1.8; color: var(--muted);
+      max-width: 34rem; margin: 0 auto;
+    }
+
+    /* ── Wallpaper preview ── */
+    .preview-wrap {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 0;
+    }
+    .preview-wrap .preview-cap   { margin-top: var(--s2); }
+    .preview-wrap .preview-ctrls { margin-top: var(--s2); }
+    .phone-frame {
+      width: 250px; max-width: 74vw;
+      aspect-ratio: 9 / 19.5;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      background: #0b0b0b;
+      box-shadow: 0 12px 34px var(--shadow);
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 1.6rem 1.15rem;
+      text-align: center;
+      transition: background 0.35s;
+    }
+    .phone-frame.on-cream { background: #f4ecda; }
+
+    .wp-word {
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-weight: 700;
+      font-size: 1.82rem; line-height: 1.1;
+      color: #d4993a;
+      word-break: break-word;
+    }
+    .phone-frame.on-cream .wp-word { color: #a86a12; }
+
+    .wp-pron {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem; letter-spacing: 0.13em;
+      color: rgba(240,230,208,0.5);
+      margin-top: 0.5rem;
+    }
+    .phone-frame.on-cream .wp-pron { color: rgba(26,16,8,0.45); }
+
+    .wp-rule {
+      width: 30px; height: 1px;
+      background: rgba(212,153,58,0.45);
+      margin: 0.85rem 0;
+    }
+
+    .wp-mean {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.88rem; line-height: 1.45;
+      color: rgba(240,230,208,0.82);
+    }
+    .phone-frame.on-cream .wp-mean { color: rgba(26,16,8,0.75); }
+
+    .wp-note {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.75rem; line-height: 1.4;
+      color: rgba(212,153,58,0.72);
+      margin-top: 1.1rem;
+      padding-top: 0.7rem;
+      border-top: 1px solid rgba(212,153,58,0.18);
+      min-height: 0;
+    }
+    .phone-frame.on-cream .wp-note { color: rgba(168,106,18,0.85); }
+    .wp-note:empty { display: none; }
+
+    .wp-mark {
+      position: absolute; bottom: 1rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-weight: 700;
+      font-size: 0.58rem;
+      color: rgba(212,153,58,0.3);
+      letter-spacing: 0.05em;
+    }
+    .phone-frame.on-cream .wp-mark { color: rgba(168,106,18,0.32); }
+
+    .preview-cap {
+      font-size: 0.64rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted);
+      text-align: center;
+    }
+
+    /* Preview controls */
+    .preview-ctrls {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;
+    }
+    .chip {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.4rem 0.75rem;
+      border: 1px solid var(--border); border-radius: 999px;
+      background: transparent; color: var(--muted);
+      cursor: pointer; transition: all 0.18s;
+    }
+    .chip:hover { border-color: var(--amber); color: var(--amber); }
+    .chip.active {
+      background: var(--amber); border-color: var(--amber);
+      color: var(--paper);
+    }
+
+    /* ── Format list ── */
+    .formats {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 4px; overflow: hidden;
+    }
+    .fmt { background: var(--card); padding: var(--s3) 1.2rem; text-align: center; }
+    .fmt-h {
+      font-size: 0.68rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--amber);
+      margin-bottom: var(--s2);
+    }
+    .fmt-d { font-size: 0.86rem; line-height: 1.7; color: var(--muted); }
+
+    /* ── Enquiry button ── */
+    .ask-btn {
+      align-self: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.74rem; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 0.85rem 1.6rem;
+      background: transparent;
+      border: 1px solid var(--amber);
+      border-radius: 3px;
+      color: var(--amber);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ask-btn:hover { background: var(--amber); color: var(--paper); }
+
+    /* ── Divider ── */
+    .div-rule {
+      display: flex; align-items: center; gap: 1rem;
+      color: var(--border);
+      /* .page's gap already spaces both sides — a margin here would stack */
+      margin: 0;
+    }
+    .div-rule::before, .div-rule::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .div-rule span {
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-size: 0.85rem;
+      color: rgba(200,137,42,0.4);
+    }
+
+    /* ── How it works ── */
+    .how {
+      border-top: 1px solid var(--border);
+      padding-top: var(--s5); text-align: center;
+    }
+    .how-h {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 700;
+      margin-bottom: var(--s4);
+    }
+    .steps {
+      list-style: none;
+      display: flex; flex-direction: column; gap: var(--s3);
+      max-width: 34rem; margin: 0 auto; text-align: left;
+    }
+    .steps li {
+      display: flex; gap: 0.9rem; align-items: flex-start;
+      font-size: 0.9rem; line-height: 1.75; color: var(--muted);
+    }
+    .steps li b { color: var(--ink); font-weight: 400; }
+    .step-n {
+      flex-shrink: 0;
+      width: 26px; height: 26px;
+      border: 1px solid rgba(200,137,42,0.4); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.66rem; color: var(--amber);
+      margin-top: 0.12rem;
+    }
+
+    /* ── Sheet (brief) ── */
+    .sheet-back {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.72);
+      display: none; align-items: flex-start; justify-content: center;
+      padding: 1.2rem; overflow-y: auto;
+    }
+    .sheet-back.open { display: flex; }
+    .sheet {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      max-width: 520px; width: 100%;
+      margin: auto;
+      padding: var(--s4) 1.6rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .sheet-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700;
+      margin-bottom: var(--s1);
+    }
+    .sheet-sub {
+      font-size: 0.82rem; line-height: 1.7; color: var(--muted);
+      margin-bottom: var(--s4);
+    }
+    .qbox {
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--amber);
+      border-radius: 3px;
+      padding: var(--s3) 1.1rem;
+      margin-bottom: var(--s4);
+    }
+    .qbox-h {
+      font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--amber); margin-bottom: var(--s2);
+    }
+    .qbox ul { list-style: none; display: flex; flex-direction: column; gap: var(--s1); }
+    .qbox li {
+      font-size: 0.83rem; line-height: 1.6; color: var(--muted);
+      padding-left: 0.85rem; position: relative;
+    }
+    .qbox li::before {
+      content: '·'; position: absolute; left: 0.15rem; color: var(--amber);
+    }
+    .fld { margin-bottom: var(--s3); }
+    .fld label {
+      display: block;
+      font-size: 0.63rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: var(--s1);
+    }
+    .fld input, .fld textarea {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.65rem 0.75rem;
+      color: var(--ink);
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      resize: vertical;
+    }
+    .fld input:focus, .fld textarea:focus {
+      outline: none; border-color: var(--amber);
+    }
+    .fld textarea { min-height: 110px; line-height: 1.6; }
+    .sheet-foot { display: flex; gap: 0.7rem; margin-top: var(--s4); }
+    .sheet-foot button {
+      flex: 1;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.9rem 0.5rem;
+      border-radius: 3px; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-send {
+      background: var(--amber); border: 1px solid var(--amber); color: var(--paper);
+    }
+    .btn-send:hover { opacity: 0.85; }
+    .btn-cancel {
+      background: transparent; border: 1px solid var(--border); color: var(--muted);
+    }
+    .btn-cancel:hover { border-color: var(--muted); }
+    .sheet-price {
+      font-size: 0.78rem; line-height: 1.6; color: var(--muted);
+      text-align: center; margin-top: var(--s3);
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding-top: var(--s4); text-align: center;
+      display: flex; flex-direction: column; gap: var(--s2);
+    }
+    .foot-mail {
+      font-size: 0.85rem; color: var(--amber); text-decoration: none;
+    }
+    .foot-mark {
+      font-size: 0.66rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    /* ══ FORMAT CARDS ══
+       Three cards. Two columns leaves an orphan empty cell, so:
+       one column on narrow, three across once there is room. */
+    .formats { grid-template-columns: 1fr; }
+    @media (min-width: 620px) {
+      .formats { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* Narrow phones — pull the whole ladder in a notch so the page
+       does not feel like it is mostly gaps. */
+    @media (max-width: 480px) {
+      :root {
+        --s3: 1.3rem;
+        --s4: 2.1rem;
+        --s5: 3.2rem;
+        --s6: 4.2rem;
+      }
+      .page { padding: 2.2rem 1.2rem 3rem; }
+      .phone-frame { width: 232px; }
+    }
+
+    /* ══ WIDE SCREENS ══
+       One centred column at every width — the same balance on a phone,
+       a tablet and a desktop. The measure is capped so long lines never
+       stretch past comfortable reading width. */
+    @media (min-width: 900px) {
+      :root {
+        --s4: 2.9rem;
+        --s5: 4.6rem;
+        --s6: 6rem;
+      }
+      .page {
+        max-width: 760px;
+        padding: 4rem 3rem 5.5rem;
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 2.5rem;
+        row-gap: 1.6rem;
+        text-align: left;
+      }
+      .steps li { justify-content: flex-start; }
+
+      .fmt { padding: var(--s4) 1.4rem; }
+    }
+
+    @media (min-width: 1200px) {
+      .page { max-width: 800px; }
+      .phone-frame { width: 262px; }
+    }
+
+    /* Short landscape (a phone turned sideways) — shrink the frame so it
+       does not swallow the viewport. */
+    @media (max-height: 560px) and (orientation: landscape) {
+      .phone-frame { width: 178px; padding: 1.1rem 0.9rem; }
+      .wp-word { font-size: 1.32rem; }
+      .wp-mean { font-size: 0.78rem; }
+      .page { padding-top: 2rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="/" class="back-link">← WordSpin</a>
+  <button class="theme-toggle" id="themeBtn" aria-label="Toggle theme">
+    <span id="themeLabel">Dark</span> <span id="themeIcon">☾</span>
+  </button>
+</div>
+
+<div class="page">
+
+  <header>
+    <div class="eyebrow">Made by MK</div>
+    <h1 class="page-title">Commissions</h1>
+    <p class="page-sub">A word is a small thing to give someone. Set properly, it stops being small.</p>
+  </header>
+
+  <!-- ══ PRODUCT 1 — WALLPAPERS ══ -->
+  <section class="product">
+    <div>
+      <div class="product-num">One</div>
+      <h2 class="product-name">Wallpapers</h2>
+    </div>
+
+    <p class="product-lede">
+      A word, how it sounds, and what it means &mdash; set by hand in WordSpin's own
+      lettering and sent to you as a file. For a lock screen you'll read every
+      morning, or for a wall.
+    </p>
+
+    <div class="preview-wrap">
+      <div class="phone-frame" id="frame">
+        <div class="wp-word" id="pvWord">Marrow</div>
+        <div class="wp-pron" id="pvPron">🗣️&nbsp;&nbsp;MAR-oh</div>
+        <div class="wp-rule"></div>
+        <div class="wp-mean" id="pvMean">The soft tissue inside bones, or the essential part of something.</div>
+        <div class="wp-note" id="pvNote">for Amara &mdash; keep writing</div>
+        <div class="wp-mark">WordSpin</div>
+      </div>
+      <div class="preview-cap">Live preview &middot; tap to change</div>
+      <div class="preview-ctrls">
+        <button class="chip active" data-word="0">Marrow</button>
+        <button class="chip" data-word="1">Funambulist</button>
+        <button class="chip" data-word="2">Acacia</button>
+        <button class="chip" id="tone">On cream</button>
+      </div>
+    </div>
+
+    <p class="product-note">
+      Choose any word from the WordSpin bank &mdash; there are over 930. Want a word
+      that isn't there? Ask, and I'll set it anyway. You can add a short note
+      underneath: a name, a date, a line worth keeping. Nothing longer than that,
+      though &mdash; if you want something written for you, that's the next one down.
+    </p>
+
+    <div class="formats">
+      <div class="fmt">
+        <div class="fmt-h">Phone</div>
+        <div class="fmt-d">Sized to your handset, so nothing important sits behind the clock.</div>
+      </div>
+      <div class="fmt">
+        <div class="fmt-h">Tablet &amp; desktop</div>
+        <div class="fmt-d">Wider layout, same lettering. Tell me the screen and I'll fit it.</div>
+      </div>
+      <div class="fmt">
+        <div class="fmt-h">Print</div>
+        <div class="fmt-d">A3, A4 or A5 at print resolution. Take it to any printer, or I can send it framed.</div>
+      </div>
+    </div>
+
+    <button class="ask-btn" data-ask="wallpaper">Ask about a wallpaper</button>
+  </section>
+
+  <div class="div-rule"><span>&sect;</span></div>
+
+  <!-- ══ PRODUCT 2 — MESSAGES ══ -->
+  <section class="product">
+    <div>
+      <div class="product-num">Two</div>
+      <h2 class="product-name">Custom messages</h2>
+    </div>
+
+    <p class="product-lede">
+      Sometimes the words matter more than the word. Tell me who it's for and what
+      you're trying to say, and I'll write it.
+    </p>
+
+    <p class="product-note">
+      This is a different thing from a wallpaper. There, the word is the subject and
+      any note is a small addition. Here, the writing <em>is</em> the piece &mdash; a
+      birthday, a leaving, a wedding, an apology, a thank-you that's been owed for
+      years. Delivered as a written piece you can read, print or frame. Where a
+      WordSpin word fits the occasion, I'll build it around one; where it doesn't,
+      I won't force it.
+    </p>
+
+    <button class="ask-btn" data-ask="message">Ask about a message</button>
+  </section>
+
+  <!-- ══ HOW IT WORKS ══ -->
+  <section class="how">
+    <h3 class="how-h">How this works</h3>
+    <ol class="steps">
+      <li>
+        <span class="step-n">1</span>
+        <span><b>You send a brief.</b> The button opens a short set of questions.
+        Answer what you can &mdash; a vague brief is still a brief, and I'll ask about the rest.</span>
+      </li>
+      <li>
+        <span class="step-n">2</span>
+        <span><b>I reply with a price and a date.</b> Nothing is priced in advance, because
+        nothing here is the same twice. You'll know both before anything is made.</span>
+      </li>
+      <li>
+        <span class="step-n">3</span>
+        <span><b>You see it before it's finished.</b> A draft comes to you first. Three rounds of
+        changes are included; beyond that we'll talk.</span>
+      </li>
+      <li>
+        <span class="step-n">4</span>
+        <span><b>It arrives.</b> Files by email. Anything printed or framed is posted, and
+        I'll tell you the shipping cost up front.</span>
+      </li>
+    </ol>
+  </section>
+
+  <footer>
+    <a href="mailto:wordspinbeta@gmail.com" class="foot-mail">wordspinbeta@gmail.com</a>
+    <div class="foot-mark">WordSpin &mdash; by MK</div>
+  </footer>
+
+</div>
+
+<!-- ══ BRIEF SHEET ══ -->
+<div class="sheet-back" id="sheetBack">
+  <div class="sheet">
+    <div class="sheet-title" id="shTitle">Wallpapers</div>
+    <p class="sheet-sub" id="shSub">Tell me what you want and I'll come back with a price and a date.</p>
+
+    <div class="qbox">
+      <div class="qbox-h">Worth telling me</div>
+      <ul id="shQs"></ul>
+    </div>
+
+    <div class="fld">
+      <label for="fName">Your name</label>
+      <input type="text" id="fName" autocomplete="name"/>
+    </div>
+
+    <div class="fld">
+      <label for="fBrief">Your brief</label>
+      <textarea id="fBrief" placeholder=""></textarea>
+    </div>
+
+    <div class="sheet-foot">
+      <button class="btn-cancel" id="btnCancel">Cancel</button>
+      <button class="btn-send" id="btnSend">Send enquiry</button>
+    </div>
+
+    <p class="sheet-price">
+      Nothing is priced here. What it costs depends on what it is, and we'll work
+      that out together.
+    </p>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+// ── Theme toggle ──────────────────────────────────────────────
+var root = document.documentElement;
+var tBtn = document.getElementById('themeBtn');
+var tLbl = document.getElementById('themeLabel');
+var tIco = document.getElementById('themeIcon');
+
+function isDark() {
+  var set = root.getAttribute('data-theme');
+  if (set) return set === 'dark';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+function paintToggle() {
+  var d = isDark();
+  tLbl.textContent = d ? 'Light' : 'Dark';
+  tIco.textContent = d ? '☀' : '☾';
+}
+tBtn.addEventListener('click', function(){
+  root.setAttribute('data-theme', isDark() ? 'light' : 'dark');
+  paintToggle();
+});
+paintToggle();
+
+// ── Wallpaper preview ─────────────────────────────────────────
+var WORDS = [
+  { w:'Marrow', p:'🗣️  MAR-oh',
+    m:'The soft tissue inside bones, or the essential part of something.',
+    n:'for Amara — keep writing' },
+  { w:'Funambulist', p:'🗣️  fyoo-NAM-byoo-list',
+    m:'A tightrope walker; one who navigates life with precarious balance.',
+    n:'' },
+  { w:'Acacia', p:'🗣️  a-KAY-sha',
+    m:'A thorny shrub or tree common in Africa, known for yellow flowers.',
+    n:'Nairobi, 2019' }
+];
+
+var frame = document.getElementById('frame');
+var pvW = document.getElementById('pvWord');
+var pvP = document.getElementById('pvPron');
+var pvM = document.getElementById('pvMean');
+var pvN = document.getElementById('pvNote');
+
+function showWord(i) {
+  var d = WORDS[i];
+  pvW.textContent = d.w;
+  pvP.textContent = d.p;
+  pvM.textContent = d.m;
+  pvN.innerHTML = d.n;
+}
+
+document.querySelectorAll('.chip[data-word]').forEach(function(c){
+  c.addEventListener('click', function(){
+    document.querySelectorAll('.chip[data-word]').forEach(function(x){
+      x.classList.remove('active');
+    });
+    c.classList.add('active');
+    showWord(parseInt(c.dataset.word, 10));
+  });
+});
+
+var toneBtn = document.getElementById('tone');
+toneBtn.addEventListener('click', function(){
+  var cream = frame.classList.toggle('on-cream');
+  toneBtn.textContent = cream ? 'On black' : 'On cream';
+  toneBtn.classList.toggle('active', cream);
+});
+
+// Cycle words when the phone itself is tapped
+var wi = 0;
+frame.addEventListener('click', function(){
+  wi = (wi + 1) % WORDS.length;
+  showWord(wi);
+  document.querySelectorAll('.chip[data-word]').forEach(function(x, k){
+    x.classList.toggle('active', k === wi);
+  });
+});
+
+// ── Brief sheet ───────────────────────────────────────────────
+var PRODUCTS = {
+  wallpaper: {
+    title: 'Wallpapers',
+    sub: 'A word, its sound and its meaning — set for your screen or your wall.',
+    qs: [
+      'Which word? (any WordSpin word, or one you want added)',
+      'Phone, tablet, desktop or print?',
+      'If print — A3, A4 or A5. Print only, or framed?',
+      'Dark or cream?',
+      'A short note underneath, if you want one',
+      'Is there a date you need it by?'
+    ],
+    hint: 'e.g. The word "Marrow", for my phone, dark. Small note underneath saying "for Dee, 3rd of March". Needed before the 20th if possible.'
+  },
+  message: {
+    title: 'Custom messages',
+    sub: 'Tell me who it is for and what you are trying to say.',
+    qs: [
+      'Who is it for, and what is your relationship to them?',
+      'What is the occasion?',
+      'What do you want it to say, even roughly?',
+      'Anything about them I should know — a habit, a phrase, a shared joke',
+      'How long? A few lines, or a full piece?',
+      'Read on a screen, printed, or framed?',
+      'Is there a date you need it by?'
+    ],
+    hint: 'e.g. For my sister, who is leaving the country in April. We grew up sharing a room and she always said I never say anything serious. A few lines, printed, framed if you do that.'
+  }
+};
+
+var back  = document.getElementById('sheetBack');
+var shT   = document.getElementById('shTitle');
+var shS   = document.getElementById('shSub');
+var shQ   = document.getElementById('shQs');
+var fName = document.getElementById('fName');
+var fBrief= document.getElementById('fBrief');
+var current = 'wallpaper';
+
+function openSheet(key) {
+  current = key;
+  var p = PRODUCTS[key];
+  shT.textContent = p.title;
+  shS.textContent = p.sub;
+  shQ.innerHTML = '';
+  p.qs.forEach(function(q){
+    var li = document.createElement('li');
+    li.textContent = q;
+    shQ.appendChild(li);
+  });
+  fBrief.placeholder = p.hint;
+  back.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(function(){ fName.focus(); }, 120);
+}
+
+function closeSheet() {
+  back.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('[data-ask]').forEach(function(b){
+  b.addEventListener('click', function(){ openSheet(b.dataset.ask); });
+});
+
+document.getElementById('btnCancel').addEventListener('click', closeSheet);
+back.addEventListener('click', function(e){ if (e.target === back) closeSheet(); });
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape' && back.classList.contains('open')) closeSheet();
+});
+
+document.getElementById('btnSend').addEventListener('click', function(){
+  var p = PRODUCTS[current];
+  var name  = fName.value.trim();
+  var brief = fBrief.value.trim();
+
+  if (!brief) { fBrief.focus(); return; }
+
+  var subject = 'WordSpin — ' + p.title;
+  var body =
+    'WORDSPIN — ' + p.title.toUpperCase() + '\n\n' +
+    brief + '\n\n' +
+    '---\n' +
+    (name ? 'From: ' + name + '\n' : '') +
+    'Sent from wordspin.org';
+
+  window.location.href = 'mailto:wordspinbeta@gmail.com'
+    + '?subject=' + encodeURIComponent(subject)
+    + '&body='    + encodeURIComponent(body);
+});
+
+})();
+</script>
+
+</body>
+</html>

@@ -1413,7 +1413,7 @@
     .about-accordion.open .about-accordion-body { display: block; }
 
     .about-section {
-      border-top: 1.5px solid #d4c9b0;
+      border-top: none;
       padding-top: 3rem;
     }
     .about-intro {
@@ -1756,12 +1756,13 @@
   </section>
 
   <!-- Instructions -->
-  <section class="instructions-section" id="instructionsSection">
+  <section class="instructions-section" id="instructionsSection" style="border-top:none;">
     <div class="instructions-trigger-label" style="font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-style:italic;font-weight:600;color:#c85a18;margin-bottom:1rem;display:block;">Solo &amp; Group Instructions</div>
     <div class="instructions-body" style="display:block;">
       <div class="instructions-mode-btns">
         <button class="instructions-mode-btn active" id="btnIndividual" onclick="showMode('individual')">Solo</button>
         <button class="instructions-mode-btn" id="btnGroup" onclick="showMode('group')">Group</button>
+        <button class="instructions-mode-btn" id="btnVerbal" onclick="showMode('verbal')">Verbal</button>
       </div>
 
       <div class="instructions-panel active" id="panelIndividual">
@@ -1794,45 +1795,46 @@
           </ol>
         </div>
       </div>
-    </div>
-
-
-  </section>
+      <div class="instructions-panel" id="panelVerbal">
+        <ol class="instructions-steps">
+          <li>Tap Shuffle to get your word prompt.</li>
+          <li>Let it land. Whatever comes to mind first — a memory, a feeling, a story, a rant — that's your material.</li>
+          <li>Open your phone's voice recorder (or any recording app) and hit record.</li>
+          <li>Speak freely. No script, no editing in your head — just talk to the word. You can go for 30 seconds or 30 minutes.</li>
+          <li>Stop when it feels done. Listen back if you want, or let it sit. Either way, it's yours.</li>
+        </ol>
+        <div style="margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid rgba(200,137,42,0.2);">
+          <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin-bottom:0.8rem;">&#128161; Tips</div>
+          <ol class="instructions-steps">
+            <li>You don't need to be eloquent. Stumbling, pausing, and changing your mind mid-sentence is part of it.</li>
+            <li>Treat it like you're talking to someone you trust — not performing for an audience.</li>
+            <li>If you get stuck, just say the word out loud and keep going from there.</li>
+          </ol>
+        </div>
+      </div>
 </div>
 
 <!-- ══ ABOUT ACCORDIONS ══ -->
-<div style="max-width:860px; margin:0 auto; padding:0 2rem;">
+<div style="max-width:860px; margin:0 auto; padding:0 1rem;">
   <section class="about-section">
 
-    <div class="about-accordion open" id="accordionWhat">
-      <button class="about-accordion-trigger" onclick="toggleAccordion('accordionWhat')">
-        <span>What is WordSpin?</span>
-        <span class="about-accordion-arrow">▾</span>
-      </button>
-      <div class="about-accordion-body">
+    <div style="margin-bottom:1.6rem;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-style:italic;font-weight:600;color:var(--amber);margin-bottom:1rem;">What is WordSpin?</div>
+      <div class="about-accordion-body" style="display:block;">
         <p>WordSpin is a free word prompt game and creative storytelling tool that gives you a random word and challenges you to write — or speak — a story from it. Whether you are alone with five minutes to spare or gathered with friends around a table, WordSpin turns a single word into an entire world.</p>
         <p>No rules, no categories, no wrong answers — just you, a word, and wherever your imagination takes you. Free to play, no account required, no download needed — works on any phone, tablet, or computer.</p>
+        <div style="margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid rgba(200,137,42,0.15);">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;font-weight:600;color:var(--amber);margin-bottom:0.8rem;white-space:nowrap;">&#x2699;&#xFE0F; Why The Name &lsquo;WordSpin&rsquo;? &#x2699;&#xFE0F;</div>
+          <p>Because that is exactly what a word does to the mind. The moment an unexpected prompt lands in front of you — <em>Harbour. Vertigo. Kindling.</em> — something turns. Like a gear catching, like wheels beginning to move. You reach for a memory, build a scene, search for a feeling. That turning <em>is</em> your brain working — and it is the most natural cognitive exercise there is.</p>
+          <p>WordSpin is named for that motion. Each shuffle is a tiny engine start. The more you play, the easier the engine fires. Memory pathways deepen. New story routes open. Words that once felt foreign become familiar, then fluent, then yours.</p>
+          <p>The benefits accumulate quietly: stronger recall, richer vocabulary, sharper storytelling instincts, greater confidence in social situations, and a growing ease with your own inner world. You move from passivity — scrolling, consuming, waiting — to activity — responding, creating, connecting. And with practice, to something even more powerful: proactivity.</p>
+        </div>
       </div>
     </div>
 
-    <div class="about-accordion" id="accordionName">
-      <button class="about-accordion-trigger" onclick="toggleAccordion('accordionName')">
-        <span>Why the name WordSpin?</span>
-        <span class="about-accordion-arrow">▾</span>
-      </button>
-      <div class="about-accordion-body">
-        <p>Because that is exactly what a word does to the mind. The moment an unexpected prompt lands in front of you — <em>Harbour. Vertigo. Kindling.</em> — something turns. Like a gear catching, like wheels beginning to move. You reach for a memory, build a scene, search for a feeling. That turning <em>is</em> your brain working — and it is the most natural cognitive exercise there is.</p>
-        <p>WordSpin is named for that motion. Each shuffle is a tiny engine start. The more you play, the easier the engine fires. Memory pathways deepen. New story routes open. Words that once felt foreign become familiar, then fluent, then yours.</p>
-        <p>The benefits accumulate quietly: stronger recall, richer vocabulary, sharper storytelling instincts, greater confidence in social situations, and a growing ease with your own inner world. You move from passivity — scrolling, consuming, waiting — to activity — responding, creating, connecting. And with practice, to something even more powerful: proactivity.</p>
-      </div>
-    </div>
-
-    <div class="about-accordion" id="accordionBenefits">
-      <button class="about-accordion-trigger" onclick="toggleAccordion('accordionBenefits')">
-        <span>Uses &amp; Benefits</span>
-        <span class="about-accordion-arrow">▾</span>
-      </button>
-      <div class="about-accordion-body">
+    <div style="margin-bottom:1.6rem;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-style:italic;font-weight:600;color:var(--amber);margin-bottom:1rem;">Uses &amp; Benefits</div>
+      <div class="about-accordion-body" style="display:block;">
         <p style="font-family:'DM Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;font-size:0.58rem;color:var(--muted);margin-bottom:1rem;">Perfect for</p>
         <div class="use-case-grid">
           <div class="use-case-pill">👨‍👩‍👧 Family &amp; friends get-togethers</div>
@@ -1881,24 +1883,18 @@
       </div>
     </div>
 
-    <div class="about-accordion" id="accordionKnow">
-      <button class="about-accordion-trigger" onclick="toggleAccordion('accordionKnow')">
-        <span>What You Need to Know</span>
-        <span class="about-accordion-arrow">▾</span>
-      </button>
-      <div class="about-accordion-body">
+    <div style="margin-bottom:1.6rem;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-style:italic;font-weight:600;color:var(--amber);margin-bottom:1rem;">What You Need to Know</div>
+      <div class="about-accordion-body" style="display:block;">
         <p>Your stories are saved directly to your device's browser storage — nothing is sent to a server, and no account is required. This means your collection is private, lives only on your device, and is always available offline once the page has loaded.</p>
         <p>Because your stories are stored in the browser, <strong>clearing your browser cache or site data will permanently delete your saved stories.</strong> There is no way to recover them after this happens, so export or copy anything you'd like to keep before clearing.</p>
         <p>Stories saved on one device or browser will not appear on another. If you switch browsers or devices, your collection does not transfer.</p>
       </div>
     </div>
 
-    <div class="about-accordion" id="accordionCN">
-      <button class="about-accordion-trigger" onclick="toggleAccordion('accordionCN')">
-        <span>Visit Chicken Nuggets</span>
-        <span class="about-accordion-arrow">▾</span>
-      </button>
-      <div class="about-accordion-body">
+    <div style="margin-bottom:1.6rem;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-style:italic;font-weight:600;color:var(--amber);margin-bottom:1rem;white-space:nowrap;display:flex;align-items:center;gap:0.4rem;">&#x1F414; Visit Chicken Nuggets <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 100 100" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><ellipse cx="50" cy="54" rx="38" ry="30" fill="#c8860a"/><ellipse cx="50" cy="54" rx="38" ry="30" fill="url(#ng)" /><ellipse cx="50" cy="50" rx="38" ry="30" fill="#e8a020"/><ellipse cx="38" cy="42" rx="10" ry="7" fill="#d4920a" opacity="0.6"/><ellipse cx="60" cy="56" rx="8" ry="6" fill="#d4920a" opacity="0.5"/><ellipse cx="44" cy="60" rx="7" ry="5" fill="#c8860a" opacity="0.5"/><ellipse cx="62" cy="40" rx="6" ry="5" fill="#d4920a" opacity="0.4"/><ellipse cx="50" cy="50" rx="38" ry="30" fill="none" stroke="#b87010" stroke-width="2.5"/><defs><radialGradient id="ng" cx="35%" cy="35%" r="60%"><stop offset="0%" stop-color="#f5c842"/><stop offset="100%" stop-color="#c8780a"/></radialGradient></defs></svg></div>
+      <div class="about-accordion-body" style="display:block;">
         <p>Chicken Nuggets is a collection of short stories — each one inspired by a single word from the WordSpin deck. A memory, a confession, a reflection, a philosophy, a moment. The words are the same ones you shuffle. The stories show you where they can go.</p>
         <p><a href="https://wordspin.org/chickennuggets.html" style="color:var(--amber);text-decoration:underline;">Read Chicken Nuggets →</a></p>
       </div>
@@ -1917,6 +1913,7 @@
   <div class="footer-bottom">
     <span>© 2026 WordSpin™. All rights reserved.</span>
 <a href="chickennuggets.html" style="color:#a09070; font-size:0.6rem; letter-spacing:0.1em; text-decoration:underline; text-underline-offset:3px;">Chicken Nuggets</a>
+    <a href="products.html" style="color:#a09070; font-size:0.6rem; letter-spacing:0.1em; text-decoration:underline; text-underline-offset:3px;">Made by MK</a>
     <a class="creator-link" href="loveletter.html" style="color:#a09070; font-size:0.6rem; letter-spacing:0.1em; text-decoration:underline; text-underline-offset:3px;">From The Creator</a>
     <a href="privacy.html" style="color:#a09070; font-size:0.6rem; letter-spacing:0.1em; text-decoration:underline; text-underline-offset:3px;">Privacy Policy</a>
   </div>
@@ -1982,8 +1979,10 @@
   window.showMode = function(mode) {
     document.getElementById('panelIndividual').classList.toggle('active', mode === 'individual');
     document.getElementById('panelGroup').classList.toggle('active', mode === 'group');
+    document.getElementById('panelVerbal').classList.toggle('active', mode === 'verbal');
     document.getElementById('btnIndividual').classList.toggle('active', mode === 'individual');
     document.getElementById('btnGroup').classList.toggle('active', mode === 'group');
+    document.getElementById('btnVerbal').classList.toggle('active', mode === 'verbal');
   };
 
   // ── Theme Toggle — cross-browser robust ──────────────────────
