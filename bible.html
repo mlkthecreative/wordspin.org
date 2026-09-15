@@ -36,8 +36,8 @@
       --input-bg: #faf6ee;
       --shadow: rgba(26,16,8,0.12);
 
-      --s1: 0.4rem; --s2: 0.9rem; --s3: 1.6rem;
-      --s4: 2.6rem; --s5: 4rem;   --s6: 5.5rem;
+      --s1: 0.5rem; --s2: 0.8rem; --s3: 1.3rem;
+      --s4: 2.1rem; --s5: 3.4rem; --s6: 5.4rem;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -98,30 +98,53 @@
     }
 
     /* ── Page ── */
+    /* gap:0 — each section sets the space it needs from the one before it,
+       so the rhythm reflects how the parts relate rather than one flat value. */
     .page {
       max-width: 760px; margin: 0 auto;
       padding: 2.8rem 1.5rem 4rem;
       display: flex; flex-direction: column;
-      align-items: center; gap: var(--s5);
+      align-items: center; gap: 0;
       text-align: center;
     }
+    .page > * { width: 100%; }
+    header { width: 100%; }
+
+    .testament-row  { margin-top: var(--s4); }   /* matches the space above the rule */
+    .deck-wrap      { margin-top: var(--s5); }
+    .chosen         { margin-top: var(--s5); }
+    .write          { margin-top: var(--s4); }
+    .saved          { margin-top: var(--s6); }   /* the one major break */
+    footer          { margin-top: var(--s5); }
 
     header { text-align: center; }
     .eyebrow {
       font-size: 0.68rem; letter-spacing: 0.3em;
       text-transform: uppercase; color: var(--amber);
+      /* 0.3em of tracking hangs off the last letter; half of it back
+         keeps the word optically centred over the rule beneath. */
+      text-indent: 0.3em;
+    }
+    /* Short rule closing the section label, echoing the longer one that
+       closes the whole header. Narrower, because it marks a smaller thing. */
+    .eyebrow-rule {
+      width: 34px; height: 1px; background: var(--amber);
+      opacity: 0.55; margin: 0.75rem auto 0;
     }
     .page-title {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2.4rem, 8vw, 4rem);
       font-weight: 700; letter-spacing: -0.02em; line-height: 1;
-      margin: var(--s1) 0 var(--s2);
+      margin: 1.15rem 0 0;
     }
     .page-sub {
       font-family: 'Cormorant Garamond', serif; font-style: italic;
       font-size: clamp(1.12rem, 3.4vw, 1.45rem);
-      color: var(--muted); max-width: 30rem; margin: 0 auto; line-height: 1.55;
+      color: var(--muted); max-width: 30rem; line-height: 1.55;
+      margin: var(--s2) auto 0;
     }
+    /* Equal space above and below — it divides two things, so it should not
+       belong more to the one above it. The page gap after header matches. */
     header::after {
       content: ''; display: block; width: 60px; height: 2px;
       background: var(--amber); margin: var(--s4) auto 0;
@@ -217,7 +240,7 @@
 
     .spin-count {
       font-size: 0.72rem; color: var(--muted);
-      letter-spacing: 0.1em; text-align: center; margin-top: var(--s3);
+      letter-spacing: 0.1em; text-align: center; margin-top: var(--s2);
     }
 
     /* ── Chosen name ── */
@@ -517,13 +540,13 @@
     }
 
     @media (max-width: 480px) {
-      :root { --s3: 1.3rem; --s4: 2.1rem; --s5: 3.2rem; }
+      :root { --s2: 0.7rem; --s3: 1.1rem; --s4: 1.8rem; --s5: 2.9rem; --s6: 4.6rem; }
       .page { padding: 2.2rem 1.1rem 3rem; }
       /* Deck stays 240x300 exactly as on the homepage — it was shrinking here
          and reading as a different, smaller component. */
     }
     @media (min-width: 900px) {
-      :root { --s4: 2.9rem; --s5: 4.6rem; }
+      :root { --s3: 1.5rem; --s4: 2.4rem; --s5: 3.9rem; --s6: 6.2rem; }
       .page { padding: 4rem 3rem 5.5rem; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -544,6 +567,7 @@
 
   <header>
     <div class="eyebrow">Bible Spin</div>
+    <div class="eyebrow-rule"></div>
     <h1 class="page-title">Names</h1>
     <p class="page-sub">Eighty names from Scripture. Shuffle one and write from it.</p>
   </header>
