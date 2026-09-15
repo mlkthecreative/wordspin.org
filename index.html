@@ -627,6 +627,15 @@
       z-index: 2; font-family: 'DM Mono', monospace;
     }
     .expand-btn:hover { opacity: 1; color: var(--amber); border-color: var(--amber); }
+    /* Drawn, not typed: the ⤢ glyph carries its own sidebearings and sits
+       off-centre in any box. An SVG on a symmetric viewBox does not. */
+    .expand-btn {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0;
+    }
+    .xp-ico { width: 15px; height: 15px; display: block; }
+    .box-wrap.expanded .expand-btn .xp-ico { width: 17px; height: 17px; }
+
     /* Fixed rather than a modal, so the textarea is never re-created and the
        caret, scroll position and undo history all survive the expand. */
     .box-wrap.expanded {
@@ -1755,7 +1764,7 @@
     </div>
     <div class="box-wrap" id="boxWrap">
       <textarea id="storyInput" placeholder="Begin here..."></textarea>
-      <button class="expand-btn" id="expandBtn" aria-label="Expand the writing box" title="Expand">⤢</button>
+      <button class="expand-btn" id="expandBtn" aria-label="Expand the writing box" title="Expand"><svg class="xp-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><path d="M8 8 L12.4 3.6"/><path d="M9.4 3 H13 V6.6"/></g><g transform="rotate(180 8 8)"><path d="M8 8 L12.4 3.6"/><path d="M9.4 3 H13 V6.6"/></g></svg></button>
     </div>
     <div class="story-actions">
       <button class="btn-secondary" id="btnClear">Clear</button>
@@ -3463,6 +3472,8 @@
 
   // Expanding writing box — mirrors bible.html
   (function(){
+    var EXPAND_ICO = "<svg class='xp-ico' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><g><path d='M8 8 L12.4 3.6'/><path d='M9.4 3 H13 V6.6'/></g><g transform='rotate(180 8 8)'><path d='M8 8 L12.4 3.6'/><path d='M9.4 3 H13 V6.6'/></g></svg>";
+    var COLLAPSE_ICO = "<svg class='xp-ico' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><g><path d='M13 3 L9.2 6.8'/><path d='M12.6 7 H9 V3.4'/></g><g transform='rotate(180 8 8)'><path d='M13 3 L9.2 6.8'/><path d='M12.6 7 H9 V3.4'/></g></svg>";
     var boxWrap=document.getElementById('boxWrap'),
         expandBtn=document.getElementById('expandBtn'),
         charCount=document.getElementById('charCount'),
@@ -3473,7 +3484,7 @@
     function setExpanded(on){
       boxWrap.classList.toggle('expanded', on);
       document.body.classList.toggle('box-open', on);
-      expandBtn.textContent = on ? '⤡' : '⤢';
+      expandBtn.innerHTML = on ? COLLAPSE_ICO : EXPAND_ICO;
       expandBtn.setAttribute('aria-label', on ? 'Collapse the writing box' : 'Expand the writing box');
       if(on){ bigCount.textContent = charCount.textContent; storyInput.focus(); }
     }
