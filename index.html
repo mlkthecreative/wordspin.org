@@ -615,6 +615,72 @@
     }
     textarea::placeholder { color: var(--muted); opacity: 0.6; }
 
+    /* Draw pile status */
+    .pile-aside {
+      display: block; margin: 0.8rem auto 0;
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.12em; background: none; border: none;
+      color: var(--amber); cursor: pointer; padding: 0.2rem 0.3rem;
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+    .pile-aside:hover { opacity: 0.7; }
+
+    /* Set-aside sheet */
+    .aside-sheet {
+      position: fixed; inset: 0; z-index: 1100;
+      background: rgba(0,0,0,0.72); display: none;
+      align-items: flex-end; justify-content: center;
+    }
+    .aside-sheet.open { display: flex; }
+    .aside-panel {
+      background: var(--card); border-top: 2px solid var(--amber);
+      border-radius: 8px 8px 0 0; width: 100%; max-width: 520px;
+      max-height: 78vh; display: flex; flex-direction: column;
+      padding: 1.3rem 1.2rem calc(1.3rem + env(safe-area-inset-bottom, 0px));
+    }
+    @media (min-width: 620px) {
+      .aside-sheet { align-items: center; }
+      .aside-panel { border-radius: 8px; border: 1px solid var(--border); border-top: 2px solid var(--amber); }
+    }
+    .aside-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: 0.8rem; border-bottom: 1px solid var(--border);
+    }
+    .aside-title {
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber);
+    }
+    .aside-x {
+      background: none; border: none; color: var(--muted);
+      font-size: 0.85rem; cursor: pointer; padding: 0.2rem 0.4rem;
+    }
+    .aside-x:hover { color: var(--amber); }
+    .aside-list {
+      flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+      padding: 1.3rem 0; display: flex; flex-wrap: wrap;
+      gap: 0.4rem; align-content: flex-start;
+    }
+    .aside-chip {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 0.9rem; color: var(--ink);
+      border: 1px solid var(--border); border-radius: 2px;
+      padding: 0.35rem 0.7rem;
+    }
+    .aside-chip small {
+      font-family: 'DM Mono', monospace; font-style: normal;
+      font-size: 0.55rem; color: var(--muted);
+      letter-spacing: 0.1em; margin-left: 0.4rem;
+    }
+    .aside-foot {
+      display: flex; gap: 0.6rem; padding-top: 1.3rem;
+      border-top: 1px solid var(--border);
+    }
+    .aside-foot .btn-primary, .aside-foot .btn-secondary { flex: 1; text-align: center; }
+    /* Playing the set-aside pile only */
+    .pile-aside.only-mode { color: var(--rust); }
+    .deck-area.spent { opacity: 0.45; }
+    .deck-area.spent .deck-card.front { border-style: dashed; }
+
     /* Expanding writing box */
     .box-wrap { position: relative; width: 100%; }
     .expand-btn {
@@ -1739,6 +1805,21 @@
     </div>
     <div class="deck-area" id="deckArea"></div>
     <p class="spin-count" id="spinCount">Tap cards to shuffle</p>
+    <button class="pile-aside" id="pileAside" style="display:none"></button>
+
+    <div class="aside-sheet" id="asideSheet">
+      <div class="aside-panel">
+        <div class="aside-head">
+          <span class="aside-title">Set aside</span>
+          <button class="aside-x" id="asideClose" aria-label="Close">✕</button>
+        </div>
+        <div class="aside-list" id="asideList"></div>
+        <div class="aside-foot">
+          <button class="btn-secondary" id="asideOnly">Play these only</button>
+          <button class="btn-primary" id="asideReturn">Return to deck</button>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- Chosen Word -->
@@ -3147,21 +3228,90 @@
 
   // Active difficulty level
   let currentLevel = 'easy';
-  var sessionUsed = {};
 
-  function getWords() {
-    var allWords = WORD_BANK[currentLevel].map(function(w){ return w.word; });
-    var unused = allWords.filter(function(w){ return !sessionUsed[w]; });
-    // If all words used in this level, reset session for this level
-    if(unused.length === 0) {
-      Object.keys(sessionUsed).forEach(function(k){ delete sessionUsed[k]; });
-      return allWords;
-    }
-    return unused;
+// ── Draw pile ────────────────────────────────────────────────────────
+// A physical deck doesn't put a card back before the next draw. This
+// mirrors that: every card dealt is SET ASIDE and cannot come up again
+// until the pile is gathered back in. Survives reloads, so finishing a
+// story and reopening the page doesn't hand you the same name again.
+function DrawPile(storeKey){
+  var drawn = {};                       // id -> true
+  try {
+    var raw = window.localStorage.getItem(storeKey);
+    if(raw) drawn = JSON.parse(raw) || {};
+  } catch(e) { drawn = {}; }
+
+  function persist(){
+    try { window.localStorage.setItem(storeKey, JSON.stringify(drawn)); }
+    catch(e) { /* private mode — the pile just won't outlive the session */ }
   }
 
-  function markWordUsed(word) {
-    sessionUsed[word] = true;
+  return {
+    // Cards still in the pile, out of the pool currently in play
+    remaining: function(pool, idOf){
+      return pool.filter(function(x){ return !drawn[idOf(x)]; });
+    },
+    setAsideCount: function(){
+      var n=0; for(var k in drawn) if(drawn[k]) n++; return n;
+    },
+    // Deal one, without replacement. Returns null when the pile is spent.
+    deal: function(pool, idOf){
+      var left = pool.filter(function(x){ return !drawn[idOf(x)]; });
+      if(!left.length) return null;
+      var pick = left[Math.floor(Math.random()*left.length)];
+      drawn[idOf(pick)] = true;
+      persist();
+      return pick;
+    },
+    // Gather every set-aside card back into the pile
+    gather: function(){ drawn = {}; persist(); },
+    isSetAside: function(id){ return !!drawn[id]; }
+  };
+}
+
+  // Replaces the old sessionUsed map, which worked but only in memory: it was
+  // lost on every reload and silently reset itself once a level was exhausted,
+  // so a word could return immediately without the reader being told.
+  var pile = DrawPile('wordspinWordPile');
+  function wordId(w){ return w; }
+
+  function getWords() {
+    return WORD_BANK[currentLevel].map(function(w){ return w.word; });
+  }
+
+  // When true the deck deals only from words already set aside — a replay,
+  // which does not consume the pile.
+  var onlyMode = false;
+
+  function asideWords(){
+    return getWords().filter(function(w){ return pile.isSetAside(wordId(w)); });
+  }
+
+  function refreshPile(){
+    var pooled = getWords();
+    var aside  = asideWords();
+    var left   = pooled.length - aside.length;
+    var btn    = document.getElementById('pileAside');
+    var count  = document.getElementById('spinCount');
+    var deck   = document.getElementById('deckArea');
+    if(!btn || !count) return;
+
+    if(onlyMode){
+      count.textContent = aside.length + ' set aside · replaying';
+      if(deck) deck.classList.remove('spent');
+    } else if(left === 0){
+      count.textContent = 'Deck empty';
+      if(deck) deck.classList.add('spent');
+    } else {
+      count.textContent = left + '/' + pooled.length + ' left';
+      if(deck) deck.classList.remove('spent');
+    }
+
+    btn.textContent = onlyMode
+      ? 'replaying ' + aside.length + ' — back to deck'
+      : (aside.length === 1 ? '1 set aside' : aside.length + ' set aside');
+    btn.classList.toggle('only-mode', onlyMode);
+    btn.style.display = (aside.length > 0 || onlyMode) ? 'block' : 'none';
   }
 
   // Get definition for a word
@@ -3234,7 +3384,7 @@
       btn.classList.add(`active-${currentLevel}`);
       // Reset deck for new level
       buildDeck();
-      spinCount.textContent = `Tap cards to shuffle`;
+      refreshPile();
       // Hide definition if shown
       defPanel.classList.remove('open');
       defToggle.style.display = 'none';
@@ -3301,7 +3451,19 @@
     defToggle.textContent = '🔍';
 
     const levelWords = getWords();
-    const word   = shuffle(levelWords)[0];
+    let word;
+    if(onlyMode){
+      const replay = asideWords();
+      word = replay.length ? replay[Math.floor(Math.random()*replay.length)] : null;
+    } else {
+      word = pile.deal(levelWords, wordId);
+    }
+    if(!word){
+      spinning = false;
+      refreshPile();
+      showToast(onlyMode ? 'Nothing set aside here' : 'Deck empty — tap "set aside" to return them');
+      return;
+    }
     const front  = deckArea.querySelector('.deck-card.front');
     const backs  = deckArea.querySelectorAll('.deck-card.back');
     const wordEl = document.getElementById('cardWordText');
@@ -3421,11 +3583,11 @@
   }
 
   function onSpinEnd(word) {
-    markWordUsed(word);
+    // The pile marks the card as set aside at deal time, so nothing to do here
     currentWord = word;
     spinning = false;
     spinTotal++;
-    spinCount.textContent = `${spinTotal} shuffle${spinTotal !== 1 ? 's' : ''}`;
+    refreshPile();
     chosenWord.textContent = word;
 
     // Prepare definition
@@ -3878,6 +4040,43 @@
 
   // ── Toast ──────────────────────────────────────────────────────
   let toastTimer;
+  (function(){
+    var btn   = document.getElementById('pileAside'),
+        sheet = document.getElementById('asideSheet'),
+        list  = document.getElementById('asideList');
+    if(!btn || !sheet) return;
+
+    function openAside(){
+      var aside = asideWords();
+      if(!aside.length){ showToast('Nothing set aside yet'); return; }
+      list.innerHTML = aside.map(function(w){
+        return '<span class="aside-chip">' + w + '</span>';
+      }).join('');
+      sheet.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeAside(){
+      sheet.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    btn.addEventListener('click', function(){
+      if(onlyMode){ onlyMode=false; refreshPile(); showToast('Back to the full deck'); return; }
+      openAside();
+    });
+    document.getElementById('asideClose').addEventListener('click', closeAside);
+    sheet.addEventListener('click', function(e){ if(e.target===sheet) closeAside(); });
+    document.getElementById('asideReturn').addEventListener('click', function(){
+      pile.gather(); onlyMode=false; closeAside(); refreshPile();
+      showToast('Shuffled back into the deck');
+    });
+    document.getElementById('asideOnly').addEventListener('click', function(){
+      onlyMode=true; closeAside(); refreshPile();
+      showToast('Replaying the set-aside words');
+    });
+    refreshPile();
+  })();
+
   function showToast(msg) {
     toast.textContent = msg;
     toast.classList.add('show');

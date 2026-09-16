@@ -238,12 +238,84 @@
     .deck-card.front .card-pip-row.top { top: 2.2rem; }
     .deck-card.front .card-pip-row.bot { bottom: 0; transform: rotate(180deg); }
 
+    .pile-aside {
+      display: block; margin: var(--s2) auto 0;
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.12em; background: none; border: none;
+      color: var(--amber); cursor: pointer; padding: 0.2rem 0.3rem;
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+    .pile-aside:hover { opacity: 0.7; }
+
+    /* Set-aside sheet */
+    .aside-sheet {
+      position: fixed; inset: 0; z-index: 1100;
+      background: rgba(0,0,0,0.72); display: none;
+      align-items: flex-end; justify-content: center;
+    }
+    .aside-sheet.open { display: flex; }
+    .aside-panel {
+      background: var(--card); border-top: 2px solid var(--amber);
+      border-radius: 8px 8px 0 0; width: 100%; max-width: 520px;
+      max-height: 78vh; display: flex; flex-direction: column;
+      padding: var(--s3) 1.2rem calc(var(--s3) + env(safe-area-inset-bottom, 0px));
+    }
+    @media (min-width: 620px) {
+      .aside-sheet { align-items: center; }
+      .aside-panel { border-radius: 8px; border: 1px solid var(--border); border-top: 2px solid var(--amber); }
+    }
+    .aside-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: var(--s2); border-bottom: 1px solid var(--border);
+    }
+    .aside-title {
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber);
+    }
+    .aside-x {
+      background: none; border: none; color: var(--muted);
+      font-size: 0.85rem; cursor: pointer; padding: 0.2rem 0.4rem;
+    }
+    .aside-x:hover { color: var(--amber); }
+    .aside-list {
+      flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+      padding: var(--s3) 0; display: flex; flex-wrap: wrap;
+      gap: 0.4rem; align-content: flex-start;
+    }
+    .aside-chip {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 0.9rem; color: var(--ink);
+      border: 1px solid var(--border); border-radius: 2px;
+      padding: 0.35rem 0.7rem;
+    }
+    .aside-chip small {
+      font-family: 'DM Mono', monospace; font-style: normal;
+      font-size: 0.55rem; color: var(--muted);
+      letter-spacing: 0.1em; margin-left: 0.4rem;
+    }
+    .aside-foot {
+      display: flex; gap: 0.6rem; padding-top: var(--s3);
+      border-top: 1px solid var(--border);
+    }
+    .aside-foot .wbtn { flex: 1; text-align: center; padding: 0.75rem 0.6rem; }
+    /* Playing the set-aside pile only */
+    .pile-aside.only-mode { color: var(--rust); }
+    /* The deck reads as empty once every card has been dealt */
+    .deck-area.spent { opacity: 0.45; cursor: default; }
+    .deck-area.spent .deck-card.front { border-style: dashed; }
+
     .spin-count {
       font-size: 0.72rem; color: var(--muted);
       letter-spacing: 0.1em; text-align: center; margin-top: var(--s2);
     }
 
     /* ── Chosen name ── */
+
+    /* The topbar is sticky, so scrolling an element to the top of the
+       viewport parks it UNDERNEATH the bar. scroll-margin-top reserves
+       the bar's height plus air, so the card's label lands clear of it. */
+    .chosen { scroll-margin-top: 5.5rem; }
+
     .chosen {
       display: flex; flex-direction: column; align-items: center;
       width: 100%; gap: 0;
@@ -283,18 +355,18 @@
 
     .def-box {
       background: var(--cream); border-left: 3px solid var(--amber);
-      padding: var(--s3) 1.3rem; text-align: left;
+      padding: var(--s4) 1.5rem; text-align: left;
       border-radius: 0 3px 3px 0;
     }
     /* Each section of the breakdown, divided by a hairline */
     .def-sec + .def-sec {
       border-top: 1px solid var(--border);
-      margin-top: var(--s3); padding-top: var(--s3);
+      margin-top: var(--s4); padding-top: var(--s4);
     }
     .def-h {
       font-size: 0.58rem; letter-spacing: 0.2em;
       text-transform: uppercase; color: var(--amber);
-      margin-bottom: var(--s2);
+      margin-bottom: var(--s3);
     }
 
     /* Pronunciation — WordSpin house style, respelling with a speaker.
@@ -304,7 +376,7 @@
       font-size: 0.95rem; letter-spacing: 0.06em; color: var(--ink);
     }
     .pron-row { display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap; }
-    .pron-row + .pron-row { margin-top: var(--s2); }
+    .pron-row + .pron-row { margin-top: var(--s3); }
     .pron-lang {
       font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase;
       color: var(--amber); min-width: 4.6rem; flex-shrink: 0;
@@ -317,8 +389,22 @@
 
     .def-verse {
       font-family: 'Cormorant Garamond', serif; font-style: italic;
-      font-size: 1.08rem; line-height: 1.65; color: var(--ink);
+      font-size: 1.08rem; line-height: 1.75; color: var(--ink);
     }
+
+    a.ref-link {
+      color: inherit; text-decoration: underline;
+      text-underline-offset: 3px; text-decoration-thickness: 1px;
+      text-decoration-color: rgba(200,137,42,0.45);
+      -webkit-tap-highlight-color: transparent;
+    }
+    a.ref-link:hover { text-decoration-color: var(--amber); opacity: 0.8; }
+    a.ref-link::after {
+      content: '\2197'; font-size: 0.75em; margin-left: 0.22em;
+      opacity: 0.6; text-decoration: none; display: inline-block;
+    }
+    .mention a.ref-link { text-decoration: none; }
+    .mention a.ref-link::after { opacity: 0.5; }
     .def-verse-src {
       font-family: 'DM Mono', monospace;
       font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
@@ -326,16 +412,16 @@
     }
 
     .def-desc {
-      font-size: 0.9rem; line-height: 1.8; color: var(--ink);
+      font-size: 0.88rem; line-height: 1.95; color: var(--ink);
     }
 
     /* Mentions as chips — a list reads as a list, not a run-on line */
-    .def-mentions { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .def-mentions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .mention {
       font-family: 'DM Mono', monospace; font-size: 0.66rem;
       letter-spacing: 0.06em;
       border: 1px solid var(--amber); border-radius: 2px;
-      padding: 0.3rem 0.6rem;
+      padding: 0.38rem 0.7rem;
       background: rgba(200,137,42,0.14);
       color: var(--amber);
     }
@@ -348,8 +434,8 @@
       font-size: 1.15rem; font-weight: 700; color: var(--ink);
     }
     .def-meaning-note {
-      font-size: 0.8rem; line-height: 1.75; color: var(--muted);
-      margin-top: var(--s2);
+      font-size: 0.8rem; line-height: 1.9; color: var(--muted);
+      margin-top: var(--s3);
     }
     .def-same {
       font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
@@ -543,6 +629,11 @@
       border-top: 1px solid var(--border); padding-top: var(--s4);
       width: 100%; display: flex; flex-direction: column; gap: var(--s2);
     }
+    .foot-link {
+      font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--amber); text-decoration: underline; text-underline-offset: 4px;
+    }
+    .foot-link:hover { opacity: 0.7; }
     .foot-mark {
       font-size: 0.66rem; letter-spacing: 0.16em;
       text-transform: uppercase; color: var(--muted);
@@ -590,6 +681,21 @@
   <div class="deck-wrap">
     <div class="deck-area" id="deckArea"></div>
     <p class="spin-count" id="spinCount">Tap the cards to shuffle</p>
+    <button class="pile-aside" id="pileAside" style="display:none"></button>
+
+    <div class="aside-sheet" id="asideSheet">
+      <div class="aside-panel">
+        <div class="aside-head">
+          <span class="aside-title">Set aside</span>
+          <button class="aside-x" id="asideClose" aria-label="Close">✕</button>
+        </div>
+        <div class="aside-list" id="asideList"></div>
+        <div class="aside-foot">
+          <button class="wbtn" id="asideOnly">Play these only</button>
+          <button class="wbtn primary" id="asideReturn">Return to deck</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <section class="chosen" id="chosen" style="display:none">
@@ -654,6 +760,7 @@
   </section>
 
   <footer>
+    <a class="foot-link" href="times-and-seasons.html">Times and Seasons &rarr;</a>
     <div class="foot-mark">WordSpin &mdash; by MK</div>
   </footer>
 
@@ -715,9 +822,75 @@ const BIBLE_NAMES = [{"name":"Adam","pronunciation":"AD-am","pronunciationOrigin
 (function(){
 'use strict';
 
+// ── Draw pile ────────────────────────────────────────────────────────
+// A physical deck doesn't put a card back before the next draw. This
+// mirrors that: every card dealt is SET ASIDE and cannot come up again
+// until the pile is gathered back in. Survives reloads, so finishing a
+// story and reopening the page doesn't hand you the same name again.
+function DrawPile(storeKey){
+  var drawn = {};                       // id -> true
+  try {
+    var raw = window.localStorage.getItem(storeKey);
+    if(raw) drawn = JSON.parse(raw) || {};
+  } catch(e) { drawn = {}; }
+
+  function persist(){
+    try { window.localStorage.setItem(storeKey, JSON.stringify(drawn)); }
+    catch(e) { /* private mode — the pile just won't outlive the session */ }
+  }
+
+  return {
+    // Cards still in the pile, out of the pool currently in play
+    remaining: function(pool, idOf){
+      return pool.filter(function(x){ return !drawn[idOf(x)]; });
+    },
+    setAsideCount: function(){
+      var n=0; for(var k in drawn) if(drawn[k]) n++; return n;
+    },
+    // Deal one, without replacement. Returns null when the pile is spent.
+    deal: function(pool, idOf){
+      var left = pool.filter(function(x){ return !drawn[idOf(x)]; });
+      if(!left.length) return null;
+      var pick = left[Math.floor(Math.random()*left.length)];
+      drawn[idOf(pick)] = true;
+      persist();
+      return pick;
+    },
+    // Gather every set-aside card back into the pile
+    gather: function(){ drawn = {}; persist(); },
+    isSetAside: function(id){ return !!drawn[id]; }
+  };
+}
+
+
 var EXPAND_ICO = "<svg class='xp-ico' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><g><path d='M8 8 L12.4 3.6'/><path d='M9.4 3 H13 V6.6'/></g><g transform='rotate(180 8 8)'><path d='M8 8 L12.4 3.6'/><path d='M9.4 3 H13 V6.6'/></g></svg>";
 var COLLAPSE_ICO = "<svg class='xp-ico' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><g><path d='M13 3 L9.2 6.8'/><path d='M12.6 7 H9 V3.4'/></g><g transform='rotate(180 8 8)'><path d='M13 3 L9.2 6.8'/><path d='M12.6 7 H9 V3.4'/></g></svg>";
 
+
+// ── Scripture links ───────────────────────────────────────────────
+// Canonical references open in the Geneva Bible, because that is the text
+// quoted on the page. The deuterocanonical books are NOT in Bible Gateway's
+// Geneva edition, so those open in NRSVCE, which carries them under the
+// same modern book names used here. 1 Enoch is on neither, so it stays
+// plain text rather than becoming a link that goes nowhere.
+var BG='https://www.biblegateway.com/passage/?search=';
+
+function refUrl(ref, version){
+  var clean = ref.replace(/\s*\([^)]*\)\s*/g,' ').trim();   // drop "(whole book)"
+  return BG + encodeURIComponent(clean) + '&version=' + (version||'GNV');
+}
+function refLink(ref, version){
+  if(!ref) return '';
+  var safe = String(ref).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  return '<a class="ref-link" target="_blank" rel="noopener noreferrer" href="'
+       + refUrl(ref, version) + '">' + safe + '</a>';
+}
+// Pseudepigraphal sources are not hosted anywhere linkable, so they are
+// returned unlinked rather than pointing at a 404.
+function sourceLink(source, status){
+  if(status === 'pseudepigraphal') return String(source);
+  return refLink(source, 'NRSVCE');
+}
 
 // ── Theme ─────────────────────────────────────────────────────
 var root=document.documentElement,
@@ -727,7 +900,9 @@ var root=document.documentElement,
 function isDark(){
   var s=root.getAttribute('data-theme');
   if(s) return s==='dark';
-  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  // Guarded: if matchMedia is missing the whole script would abort here,
+  // taking the deck and the writing box down with it.
+  return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
 }
 function paintToggle(){
   var d=isDark();
@@ -762,20 +937,92 @@ function persist(){
 }
 
 // ── State ─────────────────────────────────────────────────────
-var filter='all', spinning=false, current=null, spins=0;
+var filter='all', spinning=false, current=null;
+
+// Each name is its own card: same name + same title is the same person
+function cardId(n){ return n.name + (n.title ? '|'+n.title : ''); }
+var pile = DrawPile('wordspinBiblePile');
+
+var pileAside=document.getElementById('pileAside'),
+    asideSheet=document.getElementById('asideSheet'),
+    asideList=document.getElementById('asideList');
+
+// When true, the deck deals ONLY from the cards already set aside —
+// a way to revisit what you have drawn without losing your place.
+var onlyMode=false;
+
+// The pool currently in play, honouring the testament filter and only-mode
+function livePool(){
+  var pooled=pool();
+  if(onlyMode) return pooled.filter(function(n){ return pile.isSetAside(cardId(n)); });
+  return pooled;
+}
+
+function refreshPile(){
+  var pooled=pool();
+  var aside=pooled.filter(function(n){ return pile.isSetAside(cardId(n)); });
+  var left=pooled.length - aside.length;
+
+  if(onlyMode){
+    spinCount.textContent = aside.length + ' set aside · replaying';
+    deckArea.classList.remove('spent');
+  } else if(left===0){
+    spinCount.textContent = 'Deck empty';
+    deckArea.classList.add('spent');
+  } else {
+    spinCount.textContent = left + '/' + pooled.length + ' left';
+    deckArea.classList.remove('spent');
+  }
+
+  pileAside.textContent = onlyMode
+    ? 'replaying ' + aside.length + ' — back to deck'
+    : (aside.length===1 ? '1 set aside' : aside.length + ' set aside');
+  pileAside.classList.toggle('only-mode', onlyMode);
+  pileAside.style.display = (aside.length>0 || onlyMode) ? 'block' : 'none';
+}
+
+function openAside(){
+  var pooled=pool();
+  var aside=pooled.filter(function(n){ return pile.isSetAside(cardId(n)); });
+  if(!aside.length){ toast('Nothing set aside yet'); return; }
+  asideList.innerHTML = aside.map(function(n){
+    return '<span class="aside-chip">'+n.name+
+      (n.title?'<small>'+n.title+'</small>':'')+'</span>';
+  }).join('');
+  asideSheet.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeAside(){
+  asideSheet.classList.remove('open');
+  document.body.style.overflow='';
+}
+
+pileAside.addEventListener('click', function(){
+  // While replaying, the same control is the way back out
+  if(onlyMode){ onlyMode=false; refreshPile(); toast('Back to the full deck'); return; }
+  openAside();
+});
+document.getElementById('asideClose').addEventListener('click', closeAside);
+asideSheet.addEventListener('click', function(e){ if(e.target===asideSheet) closeAside(); });
+
+document.getElementById('asideReturn').addEventListener('click', function(){
+  pile.gather();
+  onlyMode=false;
+  closeAside();
+  refreshPile();
+  toast('Shuffled back into the deck');
+});
+
+document.getElementById('asideOnly').addEventListener('click', function(){
+  onlyMode=true;
+  closeAside();
+  refreshPile();
+  toast('Replaying the set-aside cards');
+});
 
 function pool(){
   if(filter==='all') return BIBLE_NAMES;
   return BIBLE_NAMES.filter(function(n){ return n.testament===filter; });
-}
-
-function shuffleArr(a){
-  var r=a.slice();
-  for(var i=r.length-1;i>0;i--){
-    var j=Math.floor(Math.random()*(i+1));
-    var t=r[i]; r[i]=r[j]; r[j]=t;
-  }
-  return r;
 }
 
 // ── Deck build ────────────────────────────────────────────────
@@ -829,7 +1076,20 @@ function spin(){
   openPanel(defPanel, false);
   defToggle.textContent='🔍 Read the breakdown';
 
-  var picked=shuffleArr(pool())[0];
+  var picked;
+  if(onlyMode){
+    // Replay: pick freely from the set-aside cards, without setting more aside
+    var replay=livePool();
+    picked = replay.length ? replay[Math.floor(Math.random()*replay.length)] : null;
+  } else {
+    picked = pile.deal(pool(), cardId);
+  }
+  if(!picked){
+    spinning=false;
+    refreshPile();
+    toast(onlyMode ? 'Nothing set aside here' : 'Deck empty — tap "set aside" to return them');
+    return;
+  }
   var front=deckArea.querySelector('.deck-card.front');
   var backs=deckArea.querySelectorAll('.deck-card.back');
   var wordEl=document.getElementById('cardWordText');
@@ -926,13 +1186,13 @@ function deal(n, front, backs, wordEl){
     defSameAs.style.display = n.sameAs ? 'block' : 'none';
     defMeaningNote.textContent=n.meaningNote;
     defVerse.innerHTML='&ldquo;'+n.gnvQuote+'&rdquo;';
-    defVerseSrc.textContent=n.quoteRef+'  ·  GNV';
+    defVerseSrc.innerHTML=refLink(n.quoteRef)+'  ·  GNV';
     defDesc.textContent=n.description;
 
     var others=(n.mentions||[]).filter(function(m){ return m!==n.quoteRef; });
     if(others.length){
       defMentions.innerHTML=others.map(function(m){
-        return '<span class="mention">'+m+'</span>';
+        return '<span class="mention">'+refLink(m)+'</span>';
       }).join('');
       defMentionsSec.style.display='block';
     } else {
@@ -942,8 +1202,7 @@ function deal(n, front, backs, wordEl){
     chosenSec.style.display='flex';
     writeSec.classList.add('on');
 
-    spins++;
-    spinCount.textContent = spins===1 ? '1 name drawn' : spins+' names drawn';
+    refreshPile();
     spinning=false;
 
     chosenSec.scrollIntoView({behavior:'smooth', block:'start'});
@@ -965,8 +1224,8 @@ document.querySelectorAll('.test-btn').forEach(function(b){
     document.querySelectorAll('.test-btn').forEach(function(x){ x.classList.remove('active'); });
     b.classList.add('active');
     filter=b.dataset.t;
-    var c=pool().length;
-    toast(c+' names in this deck');
+    refreshPile();
+    toast(pile.remaining(pool(), cardId).length+' left');
   });
 });
 
@@ -1151,11 +1410,11 @@ function openStory(id){
   mUncertain.style.display = s.meaningUncertain ? 'inline-block' : 'none';
   mMeaningNote.textContent = s.meaningNote || '';
   mVerse.innerHTML = s.gnvQuote ? '&ldquo;'+s.gnvQuote+'&rdquo;' : '';
-  mVerseSrc.textContent = s.quoteRef ? s.quoteRef+'  ·  GNV' : '';
+  mVerseSrc.innerHTML = s.quoteRef ? refLink(s.quoteRef)+'  ·  GNV' : '';
   mDesc.textContent = s.description || '';
   var ms=(s.mentions||[]).filter(function(x){ return x!==s.quoteRef; });
   if(ms.length){
-    mMentions.innerHTML=ms.map(function(x){ return '<span class="mention">'+x+'</span>'; }).join('');
+    mMentions.innerHTML=ms.map(function(x){ return '<span class="mention">'+refLink(x)+'</span>'; }).join('');
     mMentionsSec.style.display='block';
   } else { mMentionsSec.style.display='none'; }
 
@@ -1187,6 +1446,7 @@ document.getElementById('mDelete').addEventListener('click', function(){
 });
 
 renderSaved();
+refreshPile();
 
 })();
 </script>

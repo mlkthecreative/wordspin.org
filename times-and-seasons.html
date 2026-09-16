@@ -1,0 +1,1882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNSIgZmlsbD0iIzExMSIvPjx0ZXh0IHg9IjE2IiB5PSIyMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXN0eWxlPSJpdGFsaWMiIGZpbGw9IiNjODg5MmEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPldTPC90ZXh0Pjwvc3ZnPg=="/>
+
+  <title>Times and Seasons — Bible Spin — WordSpin</title>
+  <meta name="description" content="Times and Seasons — tell it what you are carrying, and Scripture will show you who else has stood there. Part of Bible Spin on WordSpin."/>
+  <link rel="canonical" href="https://www.wordspin.org/times-and-seasons.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Times and Seasons — Bible Spin"/>
+  <meta property="og:description" content="Scripture for what you are carrying."/>
+  <meta property="og:site_name" content="WordSpin"/>
+  <meta name="theme-color" content="#1a1008"/>
+  <meta name="color-scheme" content="light dark"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=DM+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1008;
+      --paper: #f5efe3;
+      --cream: #ede4d0;
+      --amber: #c8892a;
+      --rust: #b84c1e;
+      --muted: #8a7a62;
+      --card: #faf6ee;
+      --border: #d4c9b0;
+      --input-bg: #faf6ee;
+      --shadow: rgba(26,16,8,0.12);
+
+      --s1: 0.5rem; --s2: 0.8rem; --s3: 1.3rem;
+      --s4: 2.1rem; --s5: 3.4rem; --s6: 5.4rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ink: #f0e6d0; --paper: #000000; --cream: #111111;
+        --amber: #d4993a; --rust: #cc6644; --muted: #9a8a72;
+        --card: #141414; --border: #2a2a2a; --input-bg: #0d0d0d;
+        --shadow: rgba(0,0,0,0.6);
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #f0e6d0; --paper: #000000; --cream: #111111;
+      --amber: #d4993a; --rust: #cc6644; --muted: #9a8a72;
+      --card: #141414; --border: #2a2a2a; --input-bg: #0d0d0d;
+      --shadow: rgba(0,0,0,0.6);
+    }
+    :root[data-theme="light"] {
+      --ink: #1a1008; --paper: #f5efe3; --cream: #ede4d0;
+      --amber: #c8892a; --rust: #b84c1e; --muted: #8a7a62;
+      --card: #faf6ee; --border: #d4c9b0; --input-bg: #faf6ee;
+      --shadow: rgba(26,16,8,0.12);
+    }
+
+    html { background: var(--paper); }
+    body {
+      background: var(--paper); color: var(--ink);
+      font-family: 'DM Mono', monospace;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+    }
+    input, textarea, select { font-size: 16px; }
+
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.6;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: var(--s2) 1.3rem;
+      background: var(--paper); border-bottom: 1px solid var(--border);
+    }
+    .back-link {
+      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--amber); text-decoration: none;
+    }
+    .back-link:hover { opacity: 0.7; }
+    .theme-toggle {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      border: 1px solid var(--border); border-radius: 999px;
+      background: var(--card); color: var(--muted);
+      padding: 0.35rem 0.75rem; font-family: 'DM Mono', monospace;
+      font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    /* ── Page ── */
+    /* gap:0 — each section sets the space it needs from the one before it,
+       so the rhythm reflects how the parts relate rather than one flat value. */
+    .page {
+      max-width: 760px; margin: 0 auto;
+      padding: 2.8rem 1.5rem 4rem;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 0;
+      text-align: center;
+    }
+    .page > * { width: 100%; }
+    header { width: 100%; }
+
+    .testament-row  { margin-top: var(--s4); }   /* matches the space above the rule */
+    .deck-wrap      { margin-top: var(--s5); }
+    .chosen         { margin-top: var(--s5); }
+    .write          { margin-top: var(--s4); }
+    .saved          { margin-top: var(--s6); }   /* the one major break */
+    footer          { margin-top: var(--s5); }
+
+    header { text-align: center; }
+    .eyebrow {
+      font-size: 0.68rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--amber);
+      /* 0.3em of tracking hangs off the last letter; half of it back
+         keeps the word optically centred over the rule beneath. */
+      text-indent: 0.3em;
+    }
+    /* Short rule closing the section label, echoing the longer one that
+       closes the whole header. Narrower, because it marks a smaller thing. */
+    .eyebrow-rule {
+      width: 34px; height: 1px; background: var(--amber);
+      opacity: 0.55; margin: 0.75rem auto 0;
+    }
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 8vw, 4rem);
+      font-weight: 700; letter-spacing: -0.02em; line-height: 1;
+      margin: 1.15rem 0 0;
+    }
+    .page-sub {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: clamp(1.12rem, 3.4vw, 1.45rem);
+      color: var(--muted); max-width: 30rem; line-height: 1.55;
+      margin: var(--s2) auto 0;
+    }
+    /* Equal space above and below — it divides two things, so it should not
+       belong more to the one above it. The page gap after header matches. */
+    header::after {
+      content: ''; display: block; width: 60px; height: 2px;
+      background: var(--amber); margin: var(--s4) auto 0;
+    }
+
+    /* ── Testament filter (matches .diff-btn on the main site) ── */
+    .testament-row {
+      display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;
+    }
+    @media (max-width: 400px) {
+      .test-btn { padding: 0.45rem 0.7rem; letter-spacing: 0.14em; }
+    }
+    .test-btn {
+      font-family: 'DM Mono', monospace;
+      /* 0.6rem matches .diff-btn on the homepage; at 0.68rem the three
+         labels overflowed and wrapped onto a second line. */
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 0.45rem 1rem; white-space: nowrap;
+      border: 1.5px solid var(--border); border-radius: 2px;
+      background: transparent; color: var(--muted); cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .test-btn:hover { border-color: var(--amber); color: var(--amber); }
+    .test-btn.active {
+      background: var(--amber); border-color: var(--amber); color: #1a1008;
+    }
+
+    /* ── Deck ── */
+    .deck-wrap { display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .deck-area {
+      position: relative; width: 240px; height: 300px;
+      transform-style: flat; cursor: pointer;
+    }
+    .deck-card {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      border-radius: 14px; border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      backface-visibility: hidden; transform-origin: center center;
+      user-select: none;
+    }
+    .deck-card.back { background: #1a1008; cursor: default; }
+    :root[data-theme="dark"] .deck-card.back,
+    :root:not([data-theme="light"]) .deck-card.back { background: #faf6ee; }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) .deck-card.back { background: #1a1008; }
+    }
+
+    .deck-card.front {
+      background: #faf6ee; z-index: 10;
+      flex-direction: column; gap: 0; overflow: hidden;
+    }
+    .deck-card.front .card-header {
+      width: 100%; background: #c8892a;
+      padding: 0.5rem 1rem; font-size: 0.55rem;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: rgba(26,16,8,0.65); font-family: 'DM Mono', monospace;
+      text-align: center;
+    }
+    .deck-card.front .card-word-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; font-style: italic; font-weight: 700;
+      color: #1a1008; text-align: center; padding: 0 0.9rem;
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s ease 0.1s;
+      /* Names are single words — break-word would split them mid-name.
+         Long ones are scaled down instead, by the .len- class below. */
+      overflow-wrap: normal; word-break: normal; hyphens: none;
+    }
+    /* Bartholomew, Nebuchadnezzar-length names step down rather than wrap */
+    .card-word-text.len-m { font-size: 1.5rem; }
+    .card-word-text.len-l { font-size: 1.25rem; }
+    .card-word-text.len-xl { font-size: 1.05rem; }
+    .deck-card.front.revealed .card-word-text { opacity: 1; }
+    .card-title-sm {
+      display: block; font-family: 'DM Mono', monospace;
+      font-style: normal; font-size: 0.5rem; font-weight: 400;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(26,16,8,0.5); margin-top: 0.5rem;
+    }
+    .deck-card.front .card-rule {
+      width: calc(100% - 2.4rem); height: 1px;
+      background: linear-gradient(to right, transparent, var(--amber), transparent);
+      margin-bottom: 1.2rem;
+    }
+    .deck-card.front .card-pip-row {
+      position: absolute; width: 100%; display: flex;
+      justify-content: space-between; padding: 0.6rem 0.8rem;
+      font-size: 0.75rem; color: var(--amber); pointer-events: none;
+    }
+    .deck-card.front .card-pip-row.top { top: 2.2rem; }
+    .deck-card.front .card-pip-row.bot { bottom: 0; transform: rotate(180deg); }
+
+    .pile-aside {
+      display: block; margin: var(--s2) auto 0;
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.12em; background: none; border: none;
+      color: var(--amber); cursor: pointer; padding: 0.2rem 0.3rem;
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+    .pile-aside:hover { opacity: 0.7; }
+
+    /* Set-aside sheet */
+    .aside-sheet {
+      position: fixed; inset: 0; z-index: 1100;
+      background: rgba(0,0,0,0.72); display: none;
+      align-items: flex-end; justify-content: center;
+    }
+    .aside-sheet.open { display: flex; }
+    .aside-panel {
+      background: var(--card); border-top: 2px solid var(--amber);
+      border-radius: 8px 8px 0 0; width: 100%; max-width: 520px;
+      max-height: 78vh; display: flex; flex-direction: column;
+      padding: var(--s3) 1.2rem calc(var(--s3) + env(safe-area-inset-bottom, 0px));
+    }
+    @media (min-width: 620px) {
+      .aside-sheet { align-items: center; }
+      .aside-panel { border-radius: 8px; border: 1px solid var(--border); border-top: 2px solid var(--amber); }
+    }
+    .aside-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: var(--s2); border-bottom: 1px solid var(--border);
+    }
+    .aside-title {
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber);
+    }
+    .aside-x {
+      background: none; border: none; color: var(--muted);
+      font-size: 0.85rem; cursor: pointer; padding: 0.2rem 0.4rem;
+    }
+    .aside-x:hover { color: var(--amber); }
+    .aside-list {
+      flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+      padding: var(--s3) 0; display: flex; flex-wrap: wrap;
+      gap: 0.4rem; align-content: flex-start;
+    }
+    .aside-chip {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 0.9rem; color: var(--ink);
+      border: 1px solid var(--border); border-radius: 2px;
+      padding: 0.35rem 0.7rem;
+    }
+    .aside-chip small {
+      font-family: 'DM Mono', monospace; font-style: normal;
+      font-size: 0.55rem; color: var(--muted);
+      letter-spacing: 0.1em; margin-left: 0.4rem;
+    }
+    .aside-foot {
+      display: flex; gap: 0.6rem; padding-top: var(--s3);
+      border-top: 1px solid var(--border);
+    }
+    .aside-foot .wbtn { flex: 1; text-align: center; padding: 0.75rem 0.6rem; }
+    /* Playing the set-aside pile only */
+    .pile-aside.only-mode { color: var(--rust); }
+    /* The deck reads as empty once every card has been dealt */
+    .deck-area.spent { opacity: 0.45; cursor: default; }
+    .deck-area.spent .deck-card.front { border-style: dashed; }
+
+    .spin-count {
+      font-size: 0.72rem; color: var(--muted);
+      letter-spacing: 0.1em; text-align: center; margin-top: var(--s2);
+    }
+
+    /* ── Chosen name ── */
+
+    /* The topbar is sticky, so scrolling an element to the top of the
+       viewport parks it UNDERNEATH the bar. scroll-margin-top reserves
+       the bar's height plus air, so the card's label lands clear of it. */
+    .chosen { scroll-margin-top: 5.5rem; }
+
+    .chosen {
+      display: flex; flex-direction: column; align-items: center;
+      width: 100%; gap: 0;
+    }
+    .chosen-label {
+      font-size: 0.62rem; letter-spacing: 0.24em;
+      text-transform: uppercase; color: var(--amber);
+    }
+    .chosen-name {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(2rem, 7vw, 2.8rem); font-weight: 700;
+      line-height: 1.15; margin-top: var(--s2);
+    }
+    .chosen-title {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.05rem; color: var(--muted); margin-top: 0.2rem;
+    }
+
+    .def-toggle {
+      background: none; border: none; font-family: 'DM Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--amber); cursor: pointer;
+      text-decoration: underline; text-underline-offset: 3px;
+      padding: 0; margin-top: var(--s3);
+    }
+    .def-toggle:hover { opacity: 0.7; }
+
+    .def-panel {
+      max-height: 0; overflow: hidden; width: 100%;
+      transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+      opacity: 0;
+    }
+    /* max-height is set from the content's real height in JS (openPanel).
+       A fixed guess here clipped long breakdowns — which is what happened
+       at 900px once pronunciation, meaning and mentions all had to fit. */
+    .def-panel.open { opacity: 1; margin-top: var(--s3); }
+
+    .def-box {
+      background: var(--cream); border-left: 3px solid var(--amber);
+      padding: var(--s4) 1.5rem; text-align: left;
+      border-radius: 0 3px 3px 0;
+    }
+    /* Each section of the breakdown, divided by a hairline */
+    .def-sec + .def-sec {
+      border-top: 1px solid var(--border);
+      margin-top: var(--s4); padding-top: var(--s4);
+    }
+    .def-h {
+      font-size: 0.58rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--amber);
+      margin-bottom: var(--s3);
+    }
+
+    /* Pronunciation — WordSpin house style, respelling with a speaker.
+       Two rows where the original language sounded different from the English. */
+    .def-pron {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.95rem; letter-spacing: 0.06em; color: var(--ink);
+    }
+    .pron-row { display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap; }
+    .pron-row + .pron-row { margin-top: var(--s2); }
+    .pron-lang {
+      font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--amber); min-width: 4.6rem; flex-shrink: 0;
+    }
+    .pron-val {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.95rem; letter-spacing: 0.06em; color: var(--ink);
+    }
+    .pron-row.old .pron-val { color: var(--muted); }
+
+    .def-verse {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.08rem; line-height: 1.65; color: var(--ink);
+    }
+    .def-verse-src {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--amber); margin-top: var(--s2);
+    }
+
+    .def-desc {
+      font-size: 0.88rem; line-height: 1.95; color: var(--ink);
+    }
+
+    /* Mentions as chips — a list reads as a list, not a run-on line */
+    .def-mentions { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .mention {
+      font-family: 'DM Mono', monospace; font-size: 0.66rem;
+      letter-spacing: 0.06em;
+      border: 1px solid var(--amber); border-radius: 2px;
+      padding: 0.3rem 0.6rem;
+      background: rgba(200,137,42,0.14);
+      color: var(--amber);
+    }
+    :root[data-theme="dark"] .mention,
+    :root:not([data-theme="light"]) .mention { background: rgba(212,153,58,0.16); }
+
+    /* Meaning */
+    .def-meaning {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.15rem; font-weight: 700; color: var(--ink);
+    }
+    .def-meaning-note {
+      font-size: 0.8rem; line-height: 1.75; color: var(--muted);
+      margin-top: var(--s2);
+    }
+    .def-same {
+      font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--amber); margin-top: var(--s2);
+    }
+    /* Marks a disputed derivation. Sits ABOVE the meaning as a label, so it
+       can never be misread as part of what the name means. */
+    .uncertain-tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace; font-size: 0.52rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted);
+      border: 1px dashed var(--muted); border-radius: 2px;
+      padding: 0.2rem 0.5rem; margin-bottom: var(--s2);
+    }
+    .def-meaning.is-uncertain { color: var(--muted); }
+
+    .chosen-prompt {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.1rem; line-height: 1.6; color: var(--muted);
+      max-width: 30rem; margin-top: var(--s4);
+    }
+
+    /* ── Writing area ── */
+    .write { width: 100%; display: none; flex-direction: column; gap: 0; }
+    .write.on { display: flex; }
+    .box-wrap { position: relative; width: 100%; }
+    .expand-btn {
+      position: absolute; top: 0.55rem; right: 0.55rem;
+      width: 30px; height: 30px; line-height: 1;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 3px; color: var(--muted);
+      font-size: 0.85rem; cursor: pointer; opacity: 0.75;
+      transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+      z-index: 2;
+    }
+    .expand-btn:hover { opacity: 1; color: var(--amber); border-color: var(--amber); }
+    /* Drawn, not typed: the ⤢ glyph carries its own sidebearings and sits
+       off-centre in any box. An SVG on a symmetric viewBox does not. */
+    .expand-btn {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0;
+    }
+    .xp-ico { width: 15px; height: 15px; display: block; }
+    .box-wrap.expanded .expand-btn .xp-ico { width: 17px; height: 17px; }
+
+
+    /* Expanded: the box takes the whole screen so long writing has room.
+       position:fixed rather than a modal, so the textarea is never
+       re-created and the caret and undo history survive. */
+    .box-wrap.expanded {
+      position: fixed; inset: 0; z-index: 900;
+      background: var(--paper);
+      padding: 3.2rem 1.1rem 1.1rem;
+      display: flex; flex-direction: column;
+    }
+    .box-wrap.expanded textarea {
+      flex: 1; min-height: 0; height: auto;
+      border: none; border-radius: 0; background: var(--paper);
+      padding: 0.5rem 0.2rem; font-size: 16px; line-height: 1.95;
+    }
+    .box-wrap.expanded textarea:focus { border: none; }
+    .box-wrap.expanded .expand-btn {
+      top: 0.9rem; right: 1.1rem; width: 36px; height: 36px;
+      opacity: 1; font-size: 1rem;
+    }
+    .box-wrap.expanded .expanded-count {
+      display: block; font-size: 0.66rem; color: var(--muted);
+      letter-spacing: 0.1em; text-align: center; padding-top: 0.6rem;
+    }
+    .expanded-count { display: none; }
+    body.box-open { overflow: hidden; }
+
+    .write textarea {
+      width: 100%; min-height: 230px;
+      background: var(--input-bg); border: 1px solid var(--border);
+      border-radius: 3px; padding: 1.1rem 1.2rem;
+      color: var(--ink); font-family: 'DM Mono', monospace;
+      font-size: 16px; line-height: 1.85; resize: vertical;
+    }
+    .write textarea:focus { outline: none; border-color: var(--amber); }
+    .write-actions {
+      display: flex; gap: 0.7rem; margin-top: var(--s3); flex-wrap: wrap;
+      justify-content: center;
+    }
+    .wbtn {
+      font-family: 'DM Mono', monospace; font-size: 0.7rem;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 0.8rem 1.4rem; border-radius: 3px; cursor: pointer;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); transition: all 0.2s;
+    }
+    .wbtn:hover { border-color: var(--amber); color: var(--amber); }
+    .wbtn.primary {
+      background: var(--amber); border-color: var(--amber); color: #1a1008;
+    }
+    .wbtn.primary:hover { opacity: 0.85; color: #1a1008; }
+    .word-count {
+      font-size: 0.66rem; color: var(--muted);
+      letter-spacing: 0.1em; margin-top: var(--s2);
+    }
+
+    /* ── Saved stories ── */
+    .saved { width: 100%; border-top: 1px solid var(--border); padding-top: var(--s5); }
+    .saved-h {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 700; margin-bottom: var(--s4);
+    }
+    .saved-list { display: flex; flex-direction: column; gap: var(--s2); }
+    .saved-row {
+      display: flex; align-items: center; gap: 0.8rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-left: 3px solid var(--amber);
+      border-radius: 0 3px 3px 0; padding: 0.9rem 1rem;
+      cursor: pointer; text-align: left; transition: border-color 0.2s;
+    }
+    .saved-row:hover { border-color: var(--amber); }
+    .saved-name {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-weight: 700; font-size: 1rem; flex: 3; min-width: 0;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .saved-tag {
+      font-size: 0.5rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--amber); border: 1px solid var(--amber);
+      border-radius: 2px; padding: 0.15rem 0.4rem; flex-shrink: 0;
+    }
+    .saved-date {
+      font-size: 0.66rem; color: var(--muted);
+      min-width: 88px; text-align: right; flex-shrink: 0;
+    }
+    .saved-empty {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.05rem; color: var(--muted);
+    }
+
+    /* ── Modal ── */
+    .modal-back {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.72); display: none;
+      align-items: flex-start; justify-content: center;
+      padding: 1.2rem; overflow-y: auto;
+    }
+    .modal-back.open { display: flex; }
+    .modal {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 6px; max-width: 560px; width: 100%; margin: auto;
+      padding: var(--s4) 1.6rem; text-align: left;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .modal-name {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.6rem; font-weight: 700;
+    }
+    .modal-meta {
+      font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--amber); margin-top: var(--s1);
+    }
+    .modal-text {
+      font-size: 0.92rem; line-height: 1.9; white-space: pre-wrap;
+      border-top: 1px solid var(--border);
+      margin-top: var(--s3); padding-top: var(--s3);
+    }
+    .modal-edit {
+      display: none; width: 100%; min-height: 220px;
+      background: var(--input-bg); border: 1px solid var(--amber);
+      border-radius: 3px; padding: 1rem 1.1rem;
+      color: var(--ink); font-family: 'DM Mono', monospace;
+      font-size: 16px; line-height: 1.9; resize: vertical;
+      border-top-width: 1px; margin-top: var(--s3);
+    }
+    .modal-edit:focus { outline: none; }
+    .modal-edit.on { display: block; }
+
+    .modal-foot { display: flex; gap: 0.7rem; margin-top: var(--s4); }
+    .modal-foot .wbtn { flex: 1; text-align: center; }
+    .wbtn.danger { border-color: var(--rust); color: var(--rust); }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; left: 50%; bottom: 2rem;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--card); border: 1px solid var(--amber);
+      border-radius: 3px; padding: 0.8rem 1.3rem;
+      font-size: 0.7rem; letter-spacing: 0.1em; color: var(--ink);
+      opacity: 0; pointer-events: none; transition: all 0.3s; z-index: 2000;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    footer {
+      border-top: 1px solid var(--border); padding-top: var(--s4);
+      width: 100%; display: flex; flex-direction: column; gap: var(--s2);
+    }
+    .foot-link {
+      font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--amber); text-decoration: underline; text-underline-offset: 4px;
+    }
+    .foot-link:hover { opacity: 0.7; }
+    .foot-mark {
+      font-size: 0.66rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    @media (max-width: 480px) {
+      :root { --s2: 0.7rem; --s3: 1.1rem; --s4: 1.8rem; --s5: 2.9rem; --s6: 4.6rem; }
+      .page { padding: 2.2rem 1.1rem 3rem; }
+      /* Deck stays 240x300 exactly as on the homepage — it was shrinking here
+         and reading as a different, smaller component. */
+    }
+    @media (min-width: 900px) {
+      :root { --s3: 1.5rem; --s4: 2.4rem; --s5: 3.9rem; --s6: 6.2rem; }
+      .page { padding: 4rem 3rem 5.5rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  </style>
+<style>
+
+  /* ── The unravelling passage ── */
+  .unravel  { max-width: 34rem; margin: var(--s5) auto 0; width: 100%; }
+  .layer { position: relative; cursor: pointer; -webkit-tap-highlight-color: transparent;
+           border-radius: 3px; transition: background 0.25s; }
+  .layer:hover { background: rgba(200,137,42,0.05); }
+  .v1 { font-family: 'Cormorant Garamond', serif; font-style: italic;
+        font-size: clamp(1.12rem, 3.4vw, 1.45rem); color: var(--muted);
+        line-height: 1.6; padding: var(--s3) 1.9rem var(--s3) 0.7rem; }
+  .dot { position: absolute; right: 0.35rem; top: 50%; width: 8px; height: 8px;
+         margin-top: -4px; border-radius: 50%; background: var(--amber);
+         animation: dotPulse 2.1s ease-out infinite; }
+  .dot.quiet { animation: none; opacity: 0.4; }
+  .layer[data-open="true"] > .dot { display: none; }
+  @keyframes dotPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(200,137,42,0.55); transform: scale(1); }
+    70%  { box-shadow: 0 0 0 11px rgba(200,137,42,0); transform: scale(1.12); }
+    100% { box-shadow: 0 0 0 0 rgba(200,137,42,0); transform: scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) { .dot { animation: none; } }
+  .reveal { max-height: 0; overflow: hidden; opacity: 0;
+            transition: max-height 0.5s ease, opacity 0.35s ease; }
+  .reveal.open { opacity: 1; }
+  .rest-inner { text-align: left; border-left: 3px solid var(--amber);
+                background: var(--cream); border-radius: 0 3px 3px 0;
+                padding: var(--s4) 1.3rem; margin-top: var(--s3); }
+  .verse { font-family: 'Cormorant Garamond', serif; font-style: italic;
+           font-size: 1.06rem; line-height: 1.7; color: var(--ink);
+           text-indent: -1.5rem; padding-left: 1.5rem; }
+  .verse + .verse { margin-top: var(--s3); }
+  .vnum { font-family: 'DM Mono', monospace; font-style: normal; font-size: 0.6rem;
+          color: var(--amber); display: inline-block; width: 1.5rem;
+          vertical-align: 0.15em; letter-spacing: 0; }
+  .v-gnv { display: none; } .v-mod { display: inline; }
+  body.orig-spelling .v-gnv { display: inline; }
+  body.orig-spelling .v-mod { display: none; }
+  .ref-line { font-family: 'DM Mono', monospace; font-size: 0.58rem;
+              letter-spacing: 0.18em; text-transform: uppercase;
+              color: var(--amber); margin-bottom: var(--s3); }
+  .spelling-row { display: flex; justify-content: center; gap: 0.5rem;
+                  margin-top: var(--s4); flex-wrap: wrap; }
+  .spell-btn { font-family: 'DM Mono', monospace; font-size: 0.55rem;
+               letter-spacing: 0.14em; text-transform: uppercase;
+               padding: 0.35rem 0.75rem; cursor: pointer; white-space: nowrap;
+               background: transparent; color: var(--muted);
+               border: 1px solid var(--border); border-radius: 2px; }
+  .spell-btn.active { background: var(--amber); border-color: var(--amber); color: #1a1008; }
+  .mk-inner { text-align: left; margin-top: var(--s4);
+              border-top: 1px solid var(--border); padding-top: var(--s4);
+              padding-bottom: var(--s2); }
+  .mk-h { font-family: 'DM Mono', monospace; font-size: 0.58rem;
+          letter-spacing: 0.22em; text-transform: uppercase;
+          color: var(--amber); margin-bottom: var(--s3); }
+  .mk-inner p { font-family: 'Cormorant Garamond', serif; font-style: italic;
+                font-size: 1.08rem; line-height: 1.78; color: var(--muted); }
+  .mk-inner p + p { margin-top: var(--s3); }
+
+
+  .fgroups { display: flex; flex-direction: column; gap: 0.7rem; }
+  .fgroup-head {
+    width: 100%; display: grid;
+    grid-template-columns: 1fr auto; align-items: center;
+    gap: 0.35rem 1rem; text-align: left; cursor: pointer;
+    background: transparent; border: 1px solid var(--border);
+    border-radius: 3px; padding: 1rem 1.1rem; color: var(--ink);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .fgroup-head:hover { border-color: var(--amber); }
+  .fgroup-head[aria-expanded="true"] { border-color: var(--amber); }
+  .fgroup-label {
+    font-family: 'DM Mono', monospace; font-size: 0.64rem;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber);
+  }
+  .fgroup-sub {
+    grid-column: 1; font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 0.92rem; color: var(--muted);
+  }
+  .fgroup-caret { grid-column: 2; grid-row: 1 / span 2; color: var(--amber);
+                  transition: transform 0.3s ease; }
+  .fgroup-head[aria-expanded="true"] .fgroup-caret { transform: rotate(180deg); }
+  .fgroup-body { max-height: 0; overflow: hidden; opacity: 0;
+                 transition: max-height 0.4s ease, opacity 0.3s ease; }
+  .fgroup-body.open { opacity: 1; padding: var(--s3) 0 var(--s2); }
+  .surprise-row { margin-top: var(--s4); }
+
+
+  .opener {
+    display: flex; align-items: center; justify-content: center; gap: 0.7rem;
+    width: 100%; margin-top: var(--s4); cursor: pointer;
+    background: transparent; border: 1px solid var(--border); border-radius: 3px;
+    padding: 0.8rem 1rem; color: var(--amber);
+    font-family: 'DM Mono', monospace; font-size: 0.64rem;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    position: relative; transition: border-color 0.2s, opacity 0.2s;
+  }
+  .opener:hover { opacity: 0.75; }
+  .opener[aria-expanded="true"] { border-color: var(--amber); }
+  .opener .dot { position: static; margin: 0; }
+  .opener[aria-expanded="true"] .dot { display: none; }
+
+  /* An open block says how to put it away */
+  .layer .ravel-hint {
+    display: block; text-align: right;
+    font-family: 'DM Mono', monospace; font-size: 0.52rem;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); opacity: 0.65; margin-top: var(--s2);
+  }
+
+
+  /* ── Caution ──────────────────────────────────────────────────
+     An emotion is not a sin, but it can be the door to one. Marked
+     distinctly from the rest so it cannot be skimmed past — and
+     written as warning, not verdict. ── */
+  .caution-h { color: var(--rust) !important; }
+  .caution {
+    border-left: 3px solid var(--rust);
+    background: rgba(184,76,30,0.055);
+    border-radius: 0 3px 3px 0;
+    padding: var(--s4) 1.2rem;
+  }
+  :root[data-theme="dark"] .caution,
+  :root:not([data-theme="light"]) .caution { background: rgba(204,102,68,0.07); }
+  .caution-risk {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 1.05rem; line-height: 1.75; color: var(--ink);
+  }
+  .caution-eg {
+    display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap;
+    margin-top: var(--s3); padding-top: var(--s3);
+    border-top: 1px solid var(--border);
+  }
+  .caution-who {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-weight: 700; font-size: 0.95rem; color: var(--ink);
+  }
+  .caution-ref {
+    font-family: 'DM Mono', monospace; font-size: 0.58rem;
+    letter-spacing: 0.1em; color: var(--rust);
+  }
+  .caution-what { font-size: 0.84rem; line-height: 1.95; color: var(--muted); margin-top: var(--s2); }
+
+
+  /* ── Learn more ── */
+  .learn-btn {
+    display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+    width: 100%; margin-top: var(--s4); cursor: pointer;
+    background: transparent; border: 1px solid var(--amber); border-radius: 3px;
+    padding: 0.85rem 1rem; color: var(--amber);
+    font-family: 'DM Mono', monospace; font-size: 0.64rem;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    transition: opacity 0.2s;
+  }
+  .learn-btn:hover { opacity: 0.75; }
+  .learn-caret { transition: transform 0.3s ease; }
+  .learn-btn[aria-expanded="true"] .learn-caret { transform: rotate(180deg); }
+  .learn-panel { max-height: 0; overflow: hidden; opacity: 0;
+                 transition: max-height 0.45s ease, opacity 0.3s ease; }
+  .learn-panel.open { opacity: 1; }
+  .learn-panel.open > .def-sec:first-child {
+    border-top: 1px solid var(--border);
+    margin-top: var(--s4); padding-top: var(--s4);
+  }
+
+  /* ── Scripture links ── */
+  a.ref-link {
+    color: inherit; text-decoration: underline;
+    text-underline-offset: 3px; text-decoration-thickness: 1px;
+    text-decoration-color: rgba(200,137,42,0.45);
+    -webkit-tap-highlight-color: transparent;
+  }
+  a.ref-link:hover { text-decoration-color: var(--amber); opacity: 0.8; }
+  a.ref-link::after {
+    content: '\2197'; font-size: 0.75em; margin-left: 0.22em;
+    opacity: 0.6; text-decoration: none; display: inline-block;
+  }
+
+  /* ── Feeling picker ── */
+  .feelings { width: 100%; max-width: 34rem; margin: var(--s6) auto 0; }
+  .feel-h {
+    font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--amber); margin-bottom: var(--s4);
+  }
+  .feel-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+  .feel-btn {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 1rem; color: var(--ink);
+    background: transparent; border: 1px solid var(--border);
+    border-radius: 999px; padding: 0.5rem 1rem; cursor: pointer;
+    transition: border-color 0.18s, color 0.18s, background 0.18s;
+  }
+  .feel-btn:hover { border-color: var(--amber); color: var(--amber); }
+  .feel-btn.active { background: var(--amber); border-color: var(--amber); color: #1a1008; }
+  .feel-btn.surprise {
+    border-style: dashed; color: var(--muted);
+    font-family: 'DM Mono', monospace; font-style: normal;
+    font-size: 0.66rem; letter-spacing: 0.1em;
+  }
+  .feel-btn.surprise:hover { color: var(--amber); }
+  /* Needs to out-rank .feel-btn.surprise, which is declared after
+     .feel-btn.active and was winning the colour on the filled state. */
+  .feel-btn.surprise.active { color: #1a1008; border-style: solid; }
+
+  /* ── Anchor: the person who stood here ── */
+  .anchor-who {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-weight: 700; font-size: 1.15rem; color: var(--ink);
+  }
+  .anchor-where {
+    font-family: 'DM Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.12em; color: var(--muted); margin-top: 0.35rem;
+    line-height: 1.6;
+  }
+  .anchor-what, .anchor-held {
+    font-size: 0.86rem; line-height: 1.95; color: var(--ink); margin-top: var(--s4);
+  }
+  .anchor-held {
+    border-left: 2px solid var(--amber); padding-left: 1.1rem;
+    color: var(--muted); padding-top: 0.1rem; padding-bottom: 0.1rem;
+  }
+  .held-label {
+    display: block; font-family: 'DM Mono', monospace;
+    font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--amber); margin-bottom: var(--s2);
+  }
+
+  /* ── Others ── */
+  .other { padding: var(--s3) 0; border-top: 1px solid var(--border); }
+  .other:first-child { border-top: none; padding-top: 0; }
+  .other-top { display: flex; align-items: baseline; gap: 0.65rem; flex-wrap: wrap; }
+  .other-who {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-weight: 700; font-size: 0.95rem;
+  }
+  .other-ref {
+    font-family: 'DM Mono', monospace; font-size: 0.58rem;
+    letter-spacing: 0.1em; color: var(--amber);
+  }
+  .other-note { font-size: 0.82rem; line-height: 1.9; color: var(--muted); margin-top: var(--s2); }
+
+  /* ── Outside the Protestant canon ── */
+  .extra { border-top: 1px solid var(--border); padding-top: var(--s4); margin-top: var(--s4); }
+  .extra:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+  .extra-top { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+  .extra-src {
+    font-family: 'DM Mono', monospace; font-size: 0.66rem;
+    letter-spacing: 0.08em; color: var(--ink);
+  }
+  .status-tag {
+    font-family: 'DM Mono', monospace; font-size: 0.5rem;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    border: 1px dashed var(--muted); border-radius: 2px;
+    padding: 0.15rem 0.4rem; color: var(--muted);
+  }
+  .extra-note { font-size: 0.82rem; line-height: 1.9; color: var(--ink); margin-top: var(--s3); }
+  .extra-about { font-size: 0.72rem; line-height: 1.8; color: var(--muted); margin-top: var(--s2); font-style: italic; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="bible.html" class="back-link">← Bible Spin</a>
+  <button class="theme-toggle" id="themeBtn" aria-label="Toggle theme">
+    <span id="themeLabel">Dark</span> <span id="themeIcon">☾</span>
+  </button>
+</div>
+
+<div class="page">
+
+  <header>
+    <div class="eyebrow">Bible Spin</div>
+    <div class="eyebrow-rule"></div>
+    <h1 class="page-title">Times and Seasons</h1>
+  </header>
+
+
+  <section class="unravel">
+    <div class="layer" id="layer1" data-open="false" role="button" tabindex="0" aria-expanded="false">
+      <p class="v1">
+        <span class="v-gnv">To all things there is an appointed time, and a time to euery purpose vnder the heauen.</span><span class="v-mod">To all things there is an appointed time, and a time to every purpose under the heaven.</span>
+      </p>
+      <span class="dot" id="dot1" aria-hidden="true"></span>
+    </div>
+
+    <div class="reveal" id="restWrap">
+      <div class="layer" id="layer2" role="button" tabindex="0" title="Tap to close">
+        <div class="rest-inner">
+          <div class="ref-line">Ecclesiastes 3:1-8 · Geneva Bible</div>
+        <p class="verse"><span class="vnum">2</span><span class="v-gnv">A time to bee borne, and a time to die: a time to plant, and a time to plucke vp that which is planted.</span><span class="v-mod">A time to be born, and a time to die: a time to plant, and a time to pluck up that which is planted.</span></p>
+        <p class="verse"><span class="vnum">3</span><span class="v-gnv">A time to slay, and a time to heale: a time to breake downe, and a time to builde.</span><span class="v-mod">A time to slay, and a time to heal: a time to break down, and a time to build.</span></p>
+        <p class="verse"><span class="vnum">4</span><span class="v-gnv">A time to weepe, and a time to laugh: a time to mourne, and a time to dance.</span><span class="v-mod">A time to weep, and a time to laugh: a time to mourn, and a time to dance.</span></p>
+        <p class="verse"><span class="vnum">5</span><span class="v-gnv">A time to cast away stones, and a time to gather stones: a time to embrace, and a time to be farre from embracing.</span><span class="v-mod">A time to cast away stones, and a time to gather stones: a time to embrace, and a time to be far from embracing.</span></p>
+        <p class="verse"><span class="vnum">6</span><span class="v-gnv">A time to seeke, and a time to lose: a time to keepe, and a time to cast away.</span><span class="v-mod">A time to seek, and a time to lose: a time to keep, and a time to cast away.</span></p>
+        <p class="verse"><span class="vnum">7</span><span class="v-gnv">A time to rent, and a time to sowe: a time to keepe silence, and a time to speake.</span><span class="v-mod">A time to rend, and a time to sew: a time to keep silence, and a time to speak.</span></p>
+        <p class="verse"><span class="vnum">8</span><span class="v-gnv">A time to loue, and a time to hate: a time of warre, and a time of peace.</span><span class="v-mod">A time to love, and a time to hate: a time of war, and a time of peace.</span></p>
+          <span class="ravel-hint">tap to close</span>
+        </div>
+      </div>
+
+      <div class="spelling-row">
+        <button class="spell-btn active" id="btnModern">Modern spelling</button>
+        <button class="spell-btn" id="btnOriginal">Original 1599 spelling</button>
+      </div>
+
+      <button class="opener" id="openMk" aria-expanded="false">
+        <span>A message from MK</span>
+        <span class="dot" id="dot2" aria-hidden="true"></span>
+      </button>
+
+      <div class="reveal" id="mkWrap">
+        <div class="layer" id="layer3" role="button" tabindex="0" title="Tap to close">
+          <div class="mk-inner">
+            <div class="mk-h">A message from MK</div>
+        <p>Ever so often we want things to be one way but that&#x27;s just not how life goes. We have to learn how to embrace seasons and flow with the times. There will be joy but there will also be sadness and grief. There will be hate and war but there will also be peace and togetherness, maybe even reconciliation! Whatever the time, whatever the season, we will be taken through these things and the more we resist, the harder it will become to get through and in line.</p>
+        <p>My hope, prayer and faith is that this section of Bible Spin will help you through these cycles. You are FELT. Even the Bible says so!</p>
+            <span class="ravel-hint">tap to close</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="feelings">
+    <div class="feel-h">Where are you?</div>
+    <div class="fgroups" id="feelGrid">
+      <div class="fgroup" data-group="carrying">
+        <button class="fgroup-head" aria-expanded="false">
+          <span class="fgroup-label">What I am carrying</span>
+          <span class="fgroup-sub">Things that arrived without being chosen</span>
+          <svg class="fgroup-caret" width="12" height="12" viewBox="0 0 12 12" fill="none"
+               stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 L6 8 L9.5 4.5"/></svg>
+        </button>
+        <div class="fgroup-body">
+          <div class="feel-grid">
+          <button class="feel-btn" data-season="chaos">Everything is chaos</button>
+          <button class="feel-btn" data-season="fear">I am afraid</button>
+          <button class="feel-btn" data-season="anger">I am angry</button>
+          <button class="feel-btn" data-season="fear">I am anxious</button>
+          <button class="feel-btn" data-season="confusion">I am confused</button>
+          <button class="feel-btn" data-season="sadness">I am depressed</button>
+          <button class="feel-btn" data-season="sadness">I am disappointed</button>
+          <button class="feel-btn" data-season="doubt">I am doubting</button>
+          <button class="feel-btn" data-season="anger">I am feeling vengeful</button>
+          <button class="feel-btn" data-season="anger">I am furious</button>
+          <button class="feel-btn" data-season="grief">I am grieving</button>
+          <button class="feel-btn" data-season="pain">I am in pain</button>
+          <button class="feel-btn" data-season="grief">I am mourning</button>
+          <button class="feel-btn" data-season="stress">I am overwhelmed</button>
+          <button class="feel-btn" data-season="doubt">I am questioning everything</button>
+          <button class="feel-btn" data-season="sadness">I am sad</button>
+          <button class="feel-btn" data-season="fear">I am scared of what is coming</button>
+          <button class="feel-btn" data-season="stress">I am stressed out</button>
+          <button class="feel-btn" data-season="pain">I am suffering</button>
+          <button class="feel-btn" data-season="stress">I can&#x27;t carry this</button>
+          <button class="feel-btn" data-season="grief">I cannot stop crying</button>
+          <button class="feel-btn" data-season="doubt">I don&#x27;t know if I still believe</button>
+          <button class="feel-btn" data-season="confusion">I don&#x27;t understand what is happening</button>
+          <button class="feel-btn" data-season="chaos">I feel unsettled</button>
+          <button class="feel-btn" data-season="betrayal">I have been betrayed</button>
+          <button class="feel-btn" data-season="loss">I have been robbed</button>
+          <button class="feel-btn" data-season="loss">I have lost someone</button>
+          <button class="feel-btn" data-season="loss">I have lost something</button>
+          <button class="feel-btn" data-season="betrayal">I was let down by someone close</button>
+          <button class="feel-btn" data-season="pain">It hurts</button>
+          <button class="feel-btn" data-season="chaos">Nothing is holding still</button>
+          <button class="feel-btn" data-season="confusion">Nothing makes sense</button>
+          <button class="feel-btn" data-season="betrayal">Someone I trusted hurt me</button>
+          </div>
+        </div>
+      </div>
+      <div class="fgroup" data-group="virtue">
+        <button class="fgroup-head" aria-expanded="false">
+          <span class="fgroup-label">Virtue</span>
+          <span class="fgroup-sub">What you are reaching for</span>
+          <svg class="fgroup-caret" width="12" height="12" viewBox="0 0 12 12" fill="none"
+               stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 L6 8 L9.5 4.5"/></svg>
+        </button>
+        <div class="fgroup-body">
+          <div class="feel-grid">
+          <button class="feel-btn" data-season="gentleness">I am being too hard</button>
+          <button class="feel-btn" data-season="faithfulness">I am holding my ground</button>
+          <button class="feel-btn" data-season="controlled">I am holding myself together</button>
+          <button class="feel-btn" data-season="belief">I am holding on to faith</button>
+          <button class="feel-btn" data-season="joy">I am joyful</button>
+          <button class="feel-btn" data-season="love">I am learning to love</button>
+          <button class="feel-btn" data-season="peace">I am looking for rest</button>
+          <button class="feel-btn" data-season="controlled">I am resisting something</button>
+          <button class="feel-btn" data-season="belief">I am trusting God</button>
+          <button class="feel-btn" data-season="goodness">I am trying to be good</button>
+          <button class="feel-btn" data-season="patience">I am trying to be patient</button>
+          <button class="feel-btn" data-season="patience">I am waiting</button>
+          <button class="feel-btn" data-season="belief">I believe</button>
+          <button class="feel-btn" data-season="goodness">I don&#x27;t know what the right thing is</button>
+          <button class="feel-btn" data-season="love">I love someone</button>
+          <button class="feel-btn" data-season="kindness">I need kindness</button>
+          <button class="feel-btn" data-season="peace">I need peace</button>
+          <button class="feel-btn" data-season="gentleness">I need someone to be gentle with me</button>
+          <button class="feel-btn" data-season="joy">I need to celebrate</button>
+          <button class="feel-btn" data-season="gentleness">I want to be gentle</button>
+          <button class="feel-btn" data-season="kindness">I want to be kind</button>
+          <button class="feel-btn" data-season="goodness">I want to do what is right</button>
+          <button class="feel-btn" data-season="peace">I want to feel settled</button>
+          <button class="feel-btn" data-season="love">I want to love better</button>
+          <button class="feel-btn" data-season="controlled">I want to master this</button>
+          <button class="feel-btn" data-season="faithfulness">I want to stay faithful</button>
+          <button class="feel-btn" data-season="faithfulness">It is costing me to do the right thing</button>
+          <button class="feel-btn" data-season="patience">Nothing is changing</button>
+          <button class="feel-btn" data-season="kindness">Someone was kind to me</button>
+          <button class="feel-btn" data-season="joy">Something good has happened</button>
+          </div>
+        </div>
+      </div>
+      <div class="fgroup" data-group="vice">
+        <button class="fgroup-head" aria-expanded="false">
+          <span class="fgroup-label">Vice</span>
+          <span class="fgroup-sub">What you are fighting in yourself</span>
+          <svg class="fgroup-caret" width="12" height="12" viewBox="0 0 12 12" fill="none"
+               stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 L6 8 L9.5 4.5"/></svg>
+        </button>
+        <div class="fgroup-body">
+          <div class="feel-grid">
+          <button class="feel-btn" data-season="badness">I am ashamed of myself</button>
+          <button class="feel-btn" data-season="violence">I am frightened of my own anger</button>
+          <button class="feel-btn" data-season="unbelief">I am not sure I ever did</button>
+          <button class="feel-btn" data-season="outofcontrol">I am out of control</button>
+          <button class="feel-btn" data-season="impatience">I am tired of waiting</button>
+          <button class="feel-btn" data-season="hate">I can&#x27;t forgive</button>
+          <button class="feel-btn" data-season="impatience">I can&#x27;t wait any longer</button>
+          <button class="feel-btn" data-season="unbelief">I don&#x27;t believe any more</button>
+          <button class="feel-btn" data-season="outofcontrol">I don&#x27;t recognise myself</button>
+          <button class="feel-btn" data-season="hate">I hate someone</button>
+          <button class="feel-btn" data-season="disloyalty">I have been disloyal</button>
+          <button class="feel-btn" data-season="unkindness">I have been unkind</button>
+          <button class="feel-btn" data-season="badness">I have done something wrong</button>
+          <button class="feel-btn" data-season="unbelief">I have stopped believing</button>
+          <button class="feel-btn" data-season="badness">I hurt someone</button>
+          <button class="feel-btn" data-season="outofcontrol">I keep doing what I don&#x27;t want to do</button>
+          <button class="feel-btn" data-season="disloyalty">I let someone down</button>
+          <button class="feel-btn" data-season="impatience">I want it now</button>
+          <button class="feel-btn" data-season="violence">I want to hurt someone</button>
+          <button class="feel-btn" data-season="unkindness">I was cruel</button>
+          <button class="feel-btn" data-season="disloyalty">I was not there for them</button>
+          <button class="feel-btn" data-season="hate">I wish them harm</button>
+          <button class="feel-btn" data-season="unkindness">Someone was unkind to me</button>
+          <button class="feel-btn" data-season="violence">Violence was done to me</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="feel-grid surprise-row">
+      <button class="feel-btn surprise" data-season="*">I don't know — surprise me</button>
+    </div>
+  </section>
+
+  <div class="deck-wrap">
+    <div class="deck-area" id="deckArea"></div>
+    <p class="spin-count" id="spinCount">Choose one above</p>
+    <button class="pile-aside" id="pileAside" style="display:none"></button>
+  </div>
+
+  <section class="chosen" id="chosen" style="display:none">
+    <div class="chosen-label">Your season</div>
+    <div class="chosen-name" id="chosenName"></div>
+    <button class="def-toggle" id="defToggle">🔍 Read the breakdown</button>
+    <div class="def-panel" id="defPanel">
+      <div class="def-box">
+
+        <div class="def-sec">
+          <div class="def-h">Pronunciation</div>
+          <div class="def-pron" id="defPron"></div>
+        </div>
+
+        <div class="def-sec">
+          <div class="def-h">What it is</div>
+          <div class="def-desc" id="defDesc"></div>
+        </div>
+
+        <button class="learn-btn" id="learnBtn" aria-expanded="false">
+          <span>Learn more?</span>
+          <svg class="learn-caret" width="12" height="12" viewBox="0 0 12 12" fill="none"
+               stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 L6 8 L9.5 4.5"/></svg>
+        </button>
+
+        <div class="learn-panel" id="learnPanel">
+
+        <div class="def-sec">
+          <div class="def-h">Someone who stood here</div>
+          <div class="anchor-who" id="anchorWho"></div>
+          <div class="anchor-where" id="anchorWhere"></div>
+          <div class="def-verse" id="anchorQuote" style="margin-top:var(--s3)"></div>
+          <div class="def-verse-src" id="anchorRef"></div>
+          <div class="anchor-what" id="anchorWhat"></div>
+          <div class="anchor-held"><span class="held-label">How they held it</span><span id="anchorHeld"></span></div>
+        </div>
+
+        <div class="def-sec">
+          <div class="def-h caution-h">Where it can lead</div>
+          <div class="caution">
+            <div class="caution-risk" id="cautionRisk"></div>
+            <div class="caution-eg">
+              <span class="caution-who" id="cautionWho"></span>
+              <span class="caution-ref" id="cautionRef"></span>
+            </div>
+            <div class="caution-what" id="cautionWhat"></div>
+          </div>
+        </div>
+
+        <div class="def-sec">
+          <div class="def-h">Others who stood here too</div>
+          <div id="othersList"></div>
+        </div>
+
+        <div class="def-sec" id="extraSec">
+          <div class="def-h">Beyond the Protestant canon</div>
+          <div id="extraList"></div>
+        </div>
+
+        </div><!-- /learn-panel -->
+
+      </div>
+    </div>
+    <p class="chosen-prompt">Write what is going on with you. Nobody has to read it.</p>
+  </section>
+
+  <section class="write" id="writeSec">
+    <div class="box-wrap" id="boxWrap">
+      <textarea id="storyBox" placeholder="Begin here…"></textarea>
+      <button class="expand-btn" id="expandBtn" aria-label="Expand the writing box" title="Expand"><svg class="xp-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><path d="M8 8 L12.4 3.6"/><path d="M9.4 3 H13 V6.6"/></g><g transform="rotate(180 8 8)"><path d="M8 8 L12.4 3.6"/><path d="M9.4 3 H13 V6.6"/></g></svg></button>
+    </div>
+    <div class="word-count" id="wordCount">0 words</div>
+    <div class="expanded-count" id="expandedCount"></div>
+    <div class="write-actions">
+      <button class="wbtn primary" id="saveBtn">Save entry</button>
+      <button class="wbtn" id="clearBtn">Clear</button>
+    </div>
+  </section>
+
+  <section class="saved">
+    <h2 class="saved-h">Your entries</h2>
+    <div class="saved-list" id="savedList"></div>
+  </section>
+
+  <footer>
+    <div class="foot-mark">WordSpin — by MK</div>
+  </footer>
+
+</div>
+
+<div class="aside-sheet" id="asideSheet">
+  <div class="aside-panel">
+    <div class="aside-head">
+      <span class="aside-title">Set aside</span>
+      <button class="aside-x" id="asideClose" aria-label="Close">✕</button>
+    </div>
+    <div class="aside-list" id="asideList"></div>
+    <div class="aside-foot">
+      <button class="wbtn" id="asideOnly">Play these only</button>
+      <button class="wbtn primary" id="asideReturn">Return to deck</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-back" id="modalBack">
+  <div class="modal">
+    <div class="modal-name" id="mName"></div>
+    <div class="modal-meta" id="mMeta"></div>
+    <div class="modal-text" id="mText"></div>
+    <textarea class="modal-edit" id="mEdit"></textarea>
+    <div class="modal-foot" id="mFootRead">
+      <button class="wbtn" id="mClose">Close</button>
+      <button class="wbtn" id="mEditBtn">✎ Edit</button>
+      <button class="wbtn danger" id="mDelete">Delete</button>
+    </div>
+    <div class="modal-foot" id="mFootEdit" style="display:none">
+      <button class="wbtn" id="mCancelEdit">Cancel</button>
+      <button class="wbtn primary" id="mSaveEdit">Save changes</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var SEASONS = [{"id":"confusion","word":"Confusion","pronunciation":"kun-FYOO-zhun","scriptureWord":{"term":"ἀπορέω","translit":"aporeō","pronunciation":"ah-por-EH-oh","language":"Greek","gloss":"to be without a way; at a loss for the road forward","ref":"2 Corinthians 4:8"},"definition":"Not knowing what is happening or why, when the explanation you were given no longer fits what you can see. Confusion is not the absence of faith. It is faith with a question it cannot put down.","feelings":["I am confused","I don't understand what is happening","Nothing makes sense"],"anchor":{"person":"Habakkuk","where":"before the Babylonian invasion","ref":"Habakkuk 1:3","quote":"Why dost thou show me iniquity, and cause me to behold sorrow? for spoiling and violence are before me.","what":"Habakkuk watched violence go unanswered and asked God directly why He was silent. The answer he received was worse than the silence: God was raising up Babylon, a crueller nation still, to do the judging. He said so plainly — how can you, who are of purer eyes than to behold evil, look on those who deal treacherously?","held":"He never gets the explanation. God tells him to write the vision down and wait for it, because it will come. Habakkuk ends the book saying that though the fig tree does not blossom and there is no herd in the stall, yet he will rejoice. Not because it resolved. Because he decided what he would do while it did not."},"others":[{"person":"Job","ref":"Job 23:8-9","note":"Goes forward, backward, left and right looking for God, and cannot perceive him in any direction."},{"person":"Asaph","ref":"Psalm 73:2-3, 16-17","note":"Nearly loses his footing over how well the wicked are doing, and says it was too painful for him until he went into the sanctuary."},{"person":"Gideon","ref":"Judges 6:13","note":"Asks the angel: if the LORD is with us, why then has all this befallen us?"},{"person":"The disciples","ref":"Luke 24:17-21","note":"Walking to Emmaus, telling a stranger they had trusted it was he who should have redeemed Israel."}],"alsoIn":[{"source":"Wisdom of Solomon 3:1-3","status":"deuterocanonical","note":"Written to people who watched the righteous die and concluded it was destruction. It says their going looked like disaster, but they are in peace.","about":"Included in the Geneva Bible of 1599 and canon for Catholic and Orthodox readers."},{"source":"1 Enoch 102:4-5","status":"pseudepigraphal","note":"Speaks directly to souls of the righteous who died in sorrow, telling them not to fear.","about":"Never canon in most traditions, but canon in the Ethiopian Orthodox Church, and quoted in Jude 14-15."}],"group":"carrying","caution":{"risk":"Confusion reaches for anything solid. When the answer does not come, people will build one.","person":"Israel at Sinai","ref":"Exodus 32:1","what":"Moses was late coming down and nobody knew what had happened to him. They did not turn to another god out of rebellion — they made something they could see because the waiting had no shape. Aaron, who knew better, built it for them."}},{"id":"doubt","word":"Doubt","pronunciation":"DOWT","scriptureWord":{"term":"διστάζω","translit":"distazō","pronunciation":"dis-TAD-zoh","language":"Greek","gloss":"to stand in two ways at once","ref":"Matthew 14:31"},"definition":"Holding a belief and an objection to it at the same time. Doubt is not the opposite of faith; indifference is. Doubt is what faith does when it is still paying attention.","feelings":["I am doubting","I don't know if I still believe","I am questioning everything"],"anchor":{"person":"Thomas","where":"among the disciples after the resurrection","ref":"John 20:25","quote":"Except I see in his hands the print of the nails, and put my finger into the print of the nails, and put mine hand into his side, I will not believe it.","what":"Ten men he had walked with for years told him they had seen the Lord. He did not take their word for it. He named exactly what it would take, and it was a demand no one could have met.","held":"Eight days later Jesus came back and offered him precisely what he had asked for — reach hither thy finger, and behold my hands. He was not shut out for asking. He was answered on his own terms, and he is the one who then says: my Lord and my God."},"others":[{"person":"John the Baptist","ref":"Matthew 11:2-3","note":"From prison, the man who announced him sends to ask: art thou he that should come, or do we look for another?"},{"person":"The father of the boy","ref":"Mark 9:24","note":"Lord, I believe; help thou mine unbelief. Both sentences at once, and it was enough."},{"person":"Gideon","ref":"Judges 6:36-40","note":"Asks for the fleece twice, wet then dry, and is not refused either time."},{"person":"Sarah","ref":"Genesis 18:12","note":"Laughs at the promise from behind the tent door."},{"person":"Zechariah","ref":"Luke 1:18-20","note":"Asks how he can know this, and is silenced until it happens."}],"alsoIn":[],"group":"carrying","caution":{"risk":"Doubt that stops asking starts arranging. The danger is not the question but the shortcut taken while it is unanswered.","person":"Abraham and Sarah","ref":"Genesis 16:1-4","what":"Ten years into the promise they arranged it themselves through Hagar. It worked, in that a son was born, and the consequences outlived all three of them."}},{"id":"anger","word":"Anger","pronunciation":"ANG-ger","scriptureWord":{"term":"אַף","translit":"aph","pronunciation":"AHF","language":"Hebrew","gloss":"the nose — anger named for the flare of the nostril","ref":"Exodus 32:19"},"definition":"The response to something you judge to be wrong. Scripture does not treat anger as sin in itself; it treats it as a thing with a short safe life. Be angry, it says, and sin not — and do not let the sun go down on it.","feelings":["I am angry","I am furious","I am feeling vengeful"],"anchor":{"person":"Jonah","where":"outside Nineveh","ref":"Jonah 4:4","quote":"Then said the LORD, Doest thou well to be angry?","what":"God spared a city of a hundred and twenty thousand people, and Jonah was furious about it. Not disappointed — furious enough to say it was better for him to die than to live. His anger was at mercy itself, extended to people he thought should not have it.","held":"God does not strike him and does not talk him out of it. He asks him a question, twice, and then grows a gourd over his head and takes it away again to show him what he is really angry about. The book ends on God's question, unanswered. Jonah is never shown agreeing."},"others":[{"person":"Moses","ref":"Exodus 32:19","note":"Comes down the mountain, sees the calf, and throws the tablets of God out of his own hands."},{"person":"Cain","ref":"Genesis 4:5-7","note":"Warned that sin lies at the door — anger given a chance to be mastered before it was acted on."},{"person":"Jesus","ref":"John 2:15-16","note":"Makes a scourge of cords and drives out the money changers. Anger with an object and a limit."},{"person":"David","ref":"1 Samuel 25:32-33","note":"Riding out to kill Nabal's household, stopped by Abigail, and thanks her for stopping him."}],"alsoIn":[{"source":"Sirach 28:3-5","status":"deuterocanonical","note":"Asks how a man can hold fury against another and then seek healing from the Lord for himself.","about":"Included in the Geneva Bible of 1599 and canon for Catholic and Orthodox readers."}],"group":"carrying","caution":{"risk":"Anger is not sin — Scripture says be angry and sin not — but it has a short safe life and it argues well for itself.","person":"Moses","ref":"Numbers 20:10-11","what":"Told to speak to the rock, he called the people rebels and struck it twice. The water still came. He lost the land he had spent forty years walking toward, over a few seconds of temper he could have defended as justified."}},{"id":"stress","word":"Stress","pronunciation":"STRES","scriptureWord":{"term":"ἀγωνία","translit":"agōnia","pronunciation":"ag-oh-NEE-ah","language":"Greek","gloss":"the anguish of a contest at its height — the root of 'agony'","ref":"Luke 22:44"},"definition":"The strain of carrying more than you were built to carry, for longer than you were meant to carry it. Scripture never treats this as weakness of faith. It shows the strain in the body, plainly, and does not look away from it.","feelings":["I am stressed out","I am overwhelmed","I can't carry this"],"anchor":{"person":"Jesus","where":"Gethsemane, the night before the cross","ref":"Luke 22:42, 44","quote":"Father, if thou wilt, take away this cup from me: nevertheless not my will, but thine be done.","what":"He asked for it to be taken away. He said it plainly and he said it first — if thou wilt. Luke records that being in an agony he prayed more earnestly, and his sweat was like drops of blood falling to the ground. The strain was in his body, not only his mind.","held":"He did not pretend to want it. He named exactly what he wanted, which was out, and then put it under God's will rather than his own. Both halves are in the same sentence. Wanting the cup gone and submitting anyway were not in conflict — they happened together, and an angel came and strengthened him while he was still in it."},"others":[{"person":"Elijah","ref":"1 Kings 19:4-8","note":"Asks to die under a juniper tree, and God's first answer is food and sleep, twice, before any conversation."},{"person":"Moses","ref":"Numbers 11:14","note":"I am not able to bear all this people alone, because it is too heavy for me."},{"person":"Paul","ref":"2 Corinthians 1:8","note":"Pressed out of measure, above strength, so that he despaired even of life."},{"person":"Martha","ref":"Luke 10:40","note":"Cumbered about with much serving, and says out loud that no one is helping her."},{"person":"Hannah","ref":"1 Samuel 1:10","note":"Prays in bitterness of soul and weeps sore."}],"alsoIn":[{"source":"Sirach 40:1-2","status":"deuterocanonical","note":"Names the heavy yoke on every person from the day they leave the womb, and calls the anxious thinking of it by its name.","about":"Included in the Geneva Bible of 1599 and canon for Catholic and Orthodox readers."}],"group":"carrying","caution":{"risk":"Strain makes good people take shortcuts they would refuse when rested. Almost every rushed decision in Scripture was made by someone at the end of themselves.","person":"Saul","ref":"1 Samuel 13:8-12","what":"Seven days of waiting, an army deserting and an enemy massing. He offered the sacrifice himself in the last hour, and gave Samuel a completely reasonable explanation for it."}},{"id":"betrayal","word":"Betrayal","pronunciation":"bih-TRAY-ul","scriptureWord":{"term":"παραδίδωμι","translit":"paradidōmi","pronunciation":"pa-ra-DID-oh-mee","language":"Greek","gloss":"to hand over — the same verb used of delivering up a prisoner","ref":"Luke 22:48"},"definition":"Harm that arrives through someone who had been given access to you. What makes it its own kind of wound is not the damage but the door it came through — it could only be done by someone trusted.","feelings":["I have been betrayed","Someone I trusted hurt me","I was let down by someone close"],"anchor":{"person":"Jesus","where":"the garden, at the arrest","ref":"Luke 22:48","quote":"Judas, betrayest thou the Son of man with a kiss?","what":"The sign agreed with the soldiers was an act of affection. Not a pointed finger — a kiss. Judas had kept the bag, sat at the table, washed with the rest of them hours earlier.","held":"Jesus names it out loud, to his face, in the moment it happens. He does not pretend not to notice and does not let it pass unspoken. He also does not retaliate — he heals the ear of the man who came to take him. Naming it and refusing to return it were the same act."},"others":[{"person":"Joseph","ref":"Genesis 37:28","note":"Sold by his own brothers to passing traders for twenty pieces of silver."},{"person":"David","ref":"Psalm 55:12-14","note":"It was not an enemy — it was thou, a man mine equal, my guide and mine acquaintance."},{"person":"Samson","ref":"Judges 16:15-17","note":"Worn down daily by Delilah until he told her the thing that undid him."},{"person":"Peter","ref":"Luke 22:61-62","note":"On the other side of it — he denies Jesus, meets his eye, and goes out and weeps bitterly."},{"person":"David","ref":"2 Samuel 15:12","note":"Ahithophel, his own counsellor, joins Absalom's conspiracy."}],"alsoIn":[],"group":"carrying","caution":{"risk":"Betrayal invites you to settle it. The wound is real and so is the case for revenge, which is what makes it dangerous.","person":"David","ref":"1 Samuel 25:21-22, 32-33","what":"Insulted by Nabal after protecting his men all season, David armed four hundred men to kill every male in the household. Abigail met him on the road. He thanked her afterwards for stopping him — which means he knew what he had been about to do."}},{"id":"pain","word":"Pain","pronunciation":"PAYN","scriptureWord":{"term":"מַכְאוֹב","translit":"mak'ov","pronunciation":"mak-OVE","language":"Hebrew","gloss":"pain of body or of soul — the word does not separate them","ref":"Isaiah 53:3"},"definition":"Hurt that is present now, in the body or beneath it. Scripture's word for it does not distinguish physical from inward pain, which may be the older and truer reading of it.","feelings":["I am in pain","It hurts","I am suffering"],"anchor":{"person":"Job","where":"on the ash heap","ref":"Job 3:3, 30:17","quote":"My bones are pierced in me in the night season, and my sinews take no rest.","what":"Boils from the sole of his foot to his crown, sitting in ashes scraping himself with a shard of pottery. His wife tells him to curse God and die. Three friends sit with him seven days saying nothing, and the moment they open their mouths they make it worse by explaining it.","held":"He never stops speaking to God, only about him — and what he says is not pious. He curses the day he was born. God's final answer explains nothing about the suffering, but God says plainly that Job spoke of him what was right, and the friends who defended him did not."},"others":[{"person":"Paul","ref":"2 Corinthians 12:7-9","note":"Asks three times for the thorn to be removed, and is told no — with a reason, but still no."},{"person":"Jeremiah","ref":"Jeremiah 15:18","note":"Why is my pain perpetual, and my wound incurable, which refuseth to be healed?"},{"person":"The woman with the issue of blood","ref":"Mark 5:25-26","note":"Twelve years, all her money spent on physicians, and nothing bettered but rather worse."},{"person":"Hannah","ref":"1 Samuel 1:6-7","note":"Provoked year after year over a thing she could not change, until she would not eat."}],"alsoIn":[{"source":"2 Maccabees 7","status":"deuterocanonical","note":"A mother watches seven sons tortured and killed in one day, and speaks to each of them.","about":"Included in the Geneva Bible of 1599 and canon for Catholic and Orthodox readers."}],"group":"carrying","caution":{"risk":"Pain narrows the world to itself. It can make a person say what cannot be unsaid, or accept counsel that should be refused.","person":"Job's wife","ref":"Job 2:9","what":"She had lost the same ten children. Out of that she told him to curse God and die — and Scripture records it without calling her wicked, because it knows where the sentence came from."}},{"id":"loss","word":"Loss","pronunciation":"LOSS","scriptureWord":{"term":"שָׁכֹל","translit":"shakol","pronunciation":"shah-KOLE","language":"Hebrew","gloss":"to be bereaved — used of a parent losing a child","ref":"Genesis 43:14"},"definition":"What is gone and is not coming back. Loss is the event; grief is what you do with it afterwards. Scripture lets people say the size of it out loud without correcting them.","feelings":["I have lost something","I have lost someone","I have been robbed"],"anchor":{"person":"Naomi","where":"returning to Bethlehem","ref":"Ruth 1:20-21","quote":"Call me not Naomi, but call me Mara: for the Almighty hath given me much bitterness. I went out full, and the LORD hath caused me to return empty.","what":"Her husband and both her sons died in a foreign country. She came home to the town she had left, and the women recognised her, and the first thing she did was reject her own name. Naomi means pleasantness. She asked to be called Mara, bitter.","held":"Nobody argues with her. The book does not tell her to be grateful that Ruth came with her. It simply records what she said and keeps going — and the same book ends with the women telling her that her daughter-in-law is better to her than seven sons. It does not undo what she lost. It arrives anyway."},"others":[{"person":"Job","ref":"Job 1:18-20","note":"Loses his children, his livestock and his servants inside a single day, in four messages that arrive on top of each other."},{"person":"Jacob","ref":"Genesis 37:35","note":"Refuses to be comforted, and says he will go down into the grave to his son mourning."},{"person":"David","ref":"2 Samuel 12:22-23","note":"Fasts and weeps while the child lives, and gets up and eats when he dies — and explains why."},{"person":"Mary and Martha","ref":"John 11:21, 32","note":"Both say the same sentence to him separately: if thou hadst been here, my brother had not died."}],"alsoIn":[{"source":"Tobit 2:10","status":"deuterocanonical","note":"Loses his sight and with it his livelihood, and the household turns on him.","about":"Included in the Geneva Bible of 1599 and canon for Catholic and Orthodox readers."}],"group":"carrying","caution":{"risk":"Loss can harden into a settled refusal of any future good. Grief that is never set down becomes an identity.","person":"Jacob","ref":"Genesis 37:35","what":"He refused to be comforted, and said he would go down to the grave mourning. He was wrong about the facts — Joseph was alive — and he carried the mourning for over twenty years anyway."}},{"id":"grief","word":"Grief","pronunciation":"GREEF","scriptureWord":{"term":"אָבַל","translit":"abal","pronunciation":"ah-VAHL","language":"Hebrew","gloss":"to mourn — the public, visible form of sorrow","ref":"Genesis 37:34"},"definition":"The long carrying of a loss. Grief in Scripture is loud, physical and given time — torn clothes, ashes, appointed days of weeping. It is treated as work to be done, not a mood to be managed.","feelings":["I am grieving","I am mourning","I cannot stop crying"],"anchor":{"person":"David","where":"the gate at Mahanaim","ref":"2 Samuel 18:33","quote":"O my son Absalom, my son, my son Absalom: would God I had died for thee, O Absalom, my son, my son.","what":"Absalom had taken his throne, taken his city and tried to kill him. He was a traitor and the war was justified. When the news came that he was dead, David went up to the chamber over the gate and said his name eight times in one sentence.","held":"He does not make it consistent. The man was his enemy and his son, and grief did not make him choose. Joab rebukes him for it, and the rebuke is fair, and David gets up and does his duty — and none of that makes the sentence at the gate less true."},"others":[{"person":"Jesus","ref":"John 11:35","note":"Wept at the tomb, knowing what he was about to do about it. The grief was not cancelled by the outcome."},{"person":"Jeremiah","ref":"Lamentations 3:19-20","note":"Remembers the wormwood and the gall, and says his soul is humbled within him."},{"person":"Rachel","ref":"Jeremiah 31:15","note":"Weeping for her children, refusing to be comforted because they are not."},{"person":"Mary Magdalene","ref":"John 20:11-15","note":"Standing outside the tomb weeping, and does not recognise him until he says her name."}],"alsoIn":[{"source":"Sirach 38:16-17","status":"deuterocanonical","note":"Instructs the reader to let tears fall for the dead and make bitter weeping as the dead deserve — and then, in the same passage, to take comfort for heaviness.","about":"Included in the Geneva Bible of 1599 and canon for Catholic and Orthodox readers."}],"group":"carrying","caution":{"risk":"Grief owes nobody a timetable, but it can crowd out the living. David's mourning nearly cost him the men who had just saved him.","person":"David","ref":"2 Samuel 19:5-6","what":"Weeping for Absalom at the gate while his army crept back into the city like men ashamed of a defeat. Joab told him bluntly that he had shamed the people who had risked their lives for him, and he was right."}},{"id":"sadness","word":"Sadness","pronunciation":"SAD-nis","scriptureWord":{"term":"יָגוֹן","translit":"yagon","pronunciation":"yah-GONE","language":"Hebrew","gloss":"sorrow that settles and stays","ref":"Psalm 13:2"},"definition":"A heaviness that does not always have a cause you can point at. Scripture records people being sad without explaining it away, and records others misreading them while they are in it.","feelings":["I am sad","I am depressed","I am disappointed"],"anchor":{"person":"Hannah","where":"at the temple in Shiloh","ref":"1 Samuel 1:15","quote":"I am a woman troubled in spirit: I have drunk neither wine nor strong drink, but have poured out my soul before the LORD.","what":"She was praying so hard that only her lips moved, and Eli the priest — the one person there whose job was to know what this was — decided she was drunk and told her to put away her wine.","held":"She corrected him. She did not apologise for how her sorrow looked, and she did not accept his reading of it. Eli, to his credit, changed his answer immediately and blessed her. The text says she went her way, and her countenance was no more sad — before anything had changed about her circumstances."},"others":[{"person":"Elijah","ref":"1 Kings 19:4","note":"It is enough; now, O LORD, take my soul — said the day after the greatest victory of his life."},{"person":"The sons of Korah","ref":"Psalm 42:5","note":"Why art thou cast down, my soul, and unquiet within me? — a man asking his own sadness a question."},{"person":"Nehemiah","ref":"Nehemiah 2:2","note":"Could not hide it from his face at work, and was afraid of what it would cost him."},{"person":"Jesus","ref":"Matthew 26:38","note":"My soul is very heavy, even unto the death — said to his friends, asking them to stay."}],"alsoIn":[],"group":"carrying","caution":{"risk":"Sadness can talk you into believing you are the only one left, which is almost never true and always convincing.","person":"Elijah","ref":"1 Kings 19:10, 18","what":"I, even I only, am left. God's answer includes the fact that there were seven thousand others he had not counted. He was not lying — he believed it."}},{"id":"joy","word":"Joy","pronunciation":"JOY","scriptureWord":{"term":"שִׂמְחָה","translit":"simchah","pronunciation":"sim-KHAH","language":"Hebrew","gloss":"gladness that shows — feasting, dancing, noise","ref":"2 Samuel 6:12"},"definition":"Gladness that cannot be kept still. Biblical joy is rarely private and rarely dignified; it is usually loud, and it frequently costs the person something in the eyes of people watching.","feelings":["I am joyful","Something good has happened","I need to celebrate"],"anchor":{"person":"David","where":"bringing the ark into the city","ref":"2 Samuel 6:14","quote":"And David danced before the LORD with all his might, and David was girded with a linen ephod.","what":"The king danced in the street in a plain linen garment, in front of everybody. His wife Michal watched from a window and despised him for it, and told him so afterwards — how glorious was the king of Israel today, uncovering himself before the handmaids of his servants.","held":"He does not apologise and does not tone it down. He tells her it was before the LORD, and that he will be yet more vile than this. The joy was not for the crowd's approval, so the crowd's disapproval could not reach it."},"others":[{"person":"Miriam","ref":"Exodus 15:20","note":"Takes a timbrel and leads the women out with timbrels and dances, on the far side of the sea."},{"person":"Mary","ref":"Luke 1:46-47","note":"My soul magnifieth the Lord — sung by a young woman whose situation had not yet become safe."},{"person":"Paul and Silas","ref":"Acts 16:25","note":"Singing at midnight, backs beaten, feet in the stocks, and the other prisoners listening."},{"person":"Zacchaeus","ref":"Luke 19:6","note":"Came down hastily and received him joyfully, while the whole crowd murmured about it."},{"person":"The father","ref":"Luke 15:22-24","note":"Runs, and calls for the robe and the ring and the fatted calf, before the son finishes his prepared speech."}],"alsoIn":[{"source":"Judith 16:1-2","status":"deuterocanonical","note":"Leads the people in a song of praise with timbrels after the danger has passed.","about":"Included in the Geneva Bible of 1599 and canon for Catholic and Orthodox readers."}],"group":"virtue","caution":{"risk":"Joy lowers the guard. Scripture's clearest warnings about carelessness come straight after victories.","person":"Hezekiah","ref":"2 Kings 20:12-17","what":"Healed and glad, he showed the envoys from Babylon every room of his treasury. Isaiah asked what they had seen. Nothing was left that he had not shown them, and it was all carried to Babylon in the end."}},{"id":"love","word":"Love","pronunciation":"LUV","scriptureWord":{"term":"חֶסֶד","translit":"chesed","pronunciation":"KHEH-sed","language":"Hebrew","gloss":"loyal love — the kind that holds when it no longer has to","ref":"Ruth 1:16"},"definition":"Choosing someone's good and staying chosen to it. Scripture's strongest word for love is not about feeling but about staying — a loyalty that continues after the obligation has ended.","feelings":["I love someone","I want to love better","I am learning to love"],"anchor":{"person":"Ruth","where":"on the road out of Moab","ref":"Ruth 1:16","quote":"Whither thou goest, I will go, and where thou dwellest, I will dwell: thy people shall be my people, and thy God my God.","what":"Naomi released both daughters-in-law. There was no duty left — no husband, no children, no reason. Orpah went home, and nobody in the book says she was wrong to. Ruth would not go.","held":"She made it a vow with a curse attached if she broke it, and then she went and gleaned in a stranger's field for a bitter woman who had told the whole town she came back empty. The love was not announced again. It was just done, every day, in a field."},"others":[{"person":"Jonathan","ref":"1 Samuel 18:1-4","note":"Gives David his robe, sword, bow and belt — the kingdom's heir dressing his own replacement."},{"person":"Hosea","ref":"Hosea 3:1-2","note":"Told to love a wife who had left him, and has to buy her back."},{"person":"The father","ref":"Luke 15:20","note":"Sees him a great way off, and runs — an old man running, which was undignified."},{"person":"The Samaritan","ref":"Luke 10:33-34","note":"Love for someone whose people despised his, costing money and time he did not have to give."}],"alsoIn":[],"group":"virtue","caution":{"risk":"Love will excuse what it should confront, and follow where it should not.","person":"Solomon","ref":"1 Kings 11:4","what":"The wisest man in Scripture. His wives turned his heart after other gods when he was old, and the text says plainly that his heart was not perfect as his father's had been."}},{"id":"hate","word":"Hate","pronunciation":"HAYT","scriptureWord":{"term":"שָׂנֵא","translit":"sane","pronunciation":"sah-NAY","language":"Hebrew","gloss":"to hate — and also, in older usage, simply to set second","ref":"Genesis 27:41"},"definition":"Settled ill will toward a person. Scripture takes it seriously enough to call it kin to murder, and honest enough to show it growing from real injuries rather than out of nothing.","feelings":["I hate someone","I can't forgive","I wish them harm"],"anchor":{"person":"Esau","where":"after the stolen blessing","ref":"Genesis 27:41","quote":"Therefore Esau hated Jacob, because of the blessing wherewith his father blessed him.","what":"He had a case. His brother took the birthright at his weakest and then took the blessing by lying to their blind father. The hate was not irrational and the text does not pretend it was.","held":"Twenty years later Jacob comes back terrified, having sent gifts ahead in waves. Esau runs to meet him, falls on his neck and weeps. Scripture never explains how he got there, and never says he was wrong to have felt it. It only shows that he did not stay."},"others":[{"person":"Joseph's brothers","ref":"Genesis 37:4","note":"Could not speak peaceably to him — hatred that began as a father's favouritism, which was not Joseph's doing."},{"person":"Amnon","ref":"2 Samuel 13:15","note":"Hated her afterward more than he had loved her before — lust curdling into contempt."},{"person":"John","ref":"1 John 3:15","note":"Whosoever hateth his brother is a manslayer. The comparison is deliberate and blunt."}],"alsoIn":[],"group":"vice","caution":{"risk":"Hate does not stay a feeling. Scripture puts it in the same category as murder because it is where murder starts.","person":"Joseph's brothers","ref":"Genesis 37:18-20","what":"It began with not being able to speak peaceably to him. It ended with a pit, a sale, and twenty-two years of lying to their father about it."}},{"id":"peace","word":"Peace","pronunciation":"PEES","scriptureWord":{"term":"שָׁלוֹם","translit":"shalom","pronunciation":"shah-LOME","language":"Hebrew","gloss":"wholeness — not merely the absence of conflict but everything in its place","ref":"Judges 6:24"},"definition":"Not quiet, but wholeness. The biblical word means nothing broken and nothing missing, which is why it can be present in the middle of a storm and absent in the middle of a calm.","feelings":["I need peace","I want to feel settled","I am looking for rest"],"anchor":{"person":"Jesus","where":"the boat on the Sea of Galilee","ref":"Mark 4:38-39","quote":"Master, carest thou not that we perish? And he rose up, and rebuked the wind, and said unto the sea, Peace, and be still.","what":"The boat was filling with water and he was asleep on a pillow in the stern. Experienced fishermen were frightened, which means it was a genuinely dangerous storm, and their question was an accusation.","held":"He was at peace before he stilled anything. The calm outside came second. When he asks why they were fearful he is not scolding them for being afraid of drowning — he is pointing at the gap between what they knew of him and how they acted."},"others":[{"person":"Gideon","ref":"Judges 6:24","note":"Builds an altar and calls it Jehovah-shalom while the Midianites are still camped in the valley."},{"person":"David","ref":"Psalm 4:8","note":"I will lay me down, and also sleep in peace — written while hunted."},{"person":"Abigail","ref":"1 Samuel 25:18-35","note":"Rides out with food and stops a massacre with a speech."},{"person":"Paul","ref":"Philippians 4:7","note":"Peace which passeth all understanding — written from prison, to people who were anxious."}],"alsoIn":[],"group":"virtue","caution":{"risk":"Peace can be the real thing or an absence of vigilance. Scripture warns about those who say peace, peace, when there is no peace.","person":"David","ref":"2 Samuel 11:1-2","what":"At the time when kings go out to battle, David stayed in Jerusalem. The whole of what followed begins with a man at rest who should have been at work."}},{"id":"chaos","word":"Chaos","pronunciation":"KAY-oss","scriptureWord":{"term":"תֹהוּ וָבֹהוּ","translit":"tohu va-vohu","pronunciation":"TOH-hoo vah-VOH-hoo","language":"Hebrew","gloss":"formless and empty — the state of things before order","ref":"Genesis 1:2"},"definition":"When nothing has a shape yet and none of it holds still. Scripture's first sentence about the world describes exactly this, which means chaos is where God is shown starting, not what He is shown avoiding.","feelings":["Everything is chaos","I feel unsettled","Nothing is holding still"],"anchor":{"person":"The Spirit of God","where":"before anything had form","ref":"Genesis 1:2","quote":"And the earth was without form and void, and darkness was upon the deep, and the Spirit of God moved upon the waters.","what":"The account does not begin with order and lose it. It begins here, formless and empty and dark, with the Spirit already present over it — not arriving later once it improved.","held":"The moving came before the making. Nothing was fixed in that verse and nothing needed to be for God to be there. What followed was not a rescue from the deep but a shaping of it, one separation at a time, over days rather than at once."},"others":[{"person":"Noah","ref":"Genesis 7:17-24","note":"Everything under heaven covered, and one box floating on it with no rudder and no destination given."},{"person":"Nehemiah","ref":"Nehemiah 4:10","note":"The rubbish is so great that we are not able to build — said in the middle of building anyway."},{"person":"Paul","ref":"Acts 27:20","note":"Neither sun nor stars appeared for many days, and all hope was taken away — and he tells them to eat."},{"person":"The disciples","ref":"Matthew 14:24-30","note":"Tossed in the night, and the thing walking toward them on the water frightens them more than the storm."}],"alsoIn":[],"group":"carrying","caution":{"risk":"When nothing holds still, people grab. The reach for control in a formless moment is where a great deal of harm begins.","person":"Uzzah","ref":"2 Samuel 6:6-7","what":"The oxen stumbled and he put out his hand to steady the ark. The instinct was to help. The account is hard, and it is about what happens when we handle holy things on our own terms in a panic."}},{"id":"belief","word":"Belief","pronunciation":"bih-LEEF","scriptureWord":{"term":"אָמַן","translit":"aman","pronunciation":"ah-MAHN","language":"Hebrew","gloss":"to lean one's weight on something — the root of 'amen'","ref":"Genesis 15:6"},"definition":"Putting weight on something you cannot verify. The Hebrew root is physical: to lean, to be supported. Belief in Scripture is less a conclusion reached than a load transferred.","feelings":["I believe","I am holding on to faith","I am trusting God"],"anchor":{"person":"Abraham","where":"outside his tent, under the stars","ref":"Genesis 15:6","quote":"And Abram believed the LORD, and he counted that to him for righteousness.","what":"He was old, childless, and had been promised descendants beyond counting. God took him outside and told him to number the stars. He believed it, and it was credited to him — before a single thing had happened.","held":"He believed and he still laughed later, and Sarah still laughed, and they still tried to arrange it themselves through Hagar. Scripture counts the belief anyway. It was not required to be uninterrupted to be counted."},"others":[{"person":"The centurion","ref":"Matthew 8:8-10","note":"Speak the word only — and Jesus says he has not found so great faith, not in Israel."},{"person":"Rahab","ref":"Joshua 2:9-11","note":"Believed on the strength of rumour alone, and acted on it before any of it reached her city."},{"person":"Noah","ref":"Hebrews 11:7","note":"Built for a flood in a world that had never seen rain like it."},{"person":"The woman with the issue of blood","ref":"Mark 5:28","note":"If I may but touch his clothes — a belief she never said out loud to anyone."}],"alsoIn":[],"group":"virtue","caution":{"risk":"Belief can curdle into presumption — treating God as a guarantee rather than a person.","person":"Israel at Aphek","ref":"1 Samuel 4:3-11","what":"Losing the battle, they fetched the ark from Shiloh to carry into the fight, and shouted when it arrived. They lost worse, and the ark was captured. The object was real; the assumption was not."}},{"id":"unbelief","word":"Unbelief","pronunciation":"un-bih-LEEF","scriptureWord":{"term":"ἀπιστία","translit":"apistia","pronunciation":"ah-pis-TEE-ah","language":"Greek","gloss":"without trust — a settled position, unlike doubt's wavering","ref":"Matthew 13:58"},"definition":"Not the same as doubt. Doubt is still asking; unbelief has stopped. Scripture treats it gently in the honest and seriously in the settled, and shows its cost without shouting about it.","feelings":["I don't believe any more","I have stopped believing","I am not sure I ever did"],"anchor":{"person":"The people of Nazareth","where":"his own town, in the synagogue","ref":"Matthew 13:57-58","quote":"And he did not many great works there, for their unbelief's sake.","what":"They knew his mother, his brothers by name, the trade he grew up in. Knowing all of it was exactly what stopped them. Is not this the carpenter's son — the question is not hostile, it is familiar.","held":"He does not argue with them and does not perform to convince them. He notes it, says a prophet is not without honour except in his own country, and leaves. The text says he marvelled at their unbelief — it surprised him."},"others":[{"person":"Israel at Kadesh","ref":"Numbers 14:1-4","note":"Stood at the edge of the land, heard the report, and turned round. The cost was forty years."},{"person":"The king's officer","ref":"2 Kings 7:2, 19-20","note":"Said it could not happen, and lived just long enough to see it and not eat of it."},{"person":"Zechariah","ref":"Luke 1:18-20","note":"Asked for proof as a priest standing inside the temple, and was silenced until the child came."}],"alsoIn":[],"group":"vice","caution":{"risk":"Unbelief is quiet and it compounds. It rarely announces itself as a decision — it arrives as a habit of not expecting anything.","person":"Israel at Kadesh","ref":"Numbers 14:22-23","what":"They had seen the sea open. They stood at the border, heard the report, and turned round. The cost was forty years and a generation that never crossed."}},{"id":"patience","word":"Patience","pronunciation":"PAY-shuns","scriptureWord":{"term":"μακροθυμία","translit":"makrothumia","pronunciation":"mak-roh-thoo-MEE-ah","language":"Greek","gloss":"long-tempered — a fuse that takes a long time to reach the end","ref":"James 5:7"},"definition":"Staying put while nothing visibly changes. Biblical patience is not calmness; it is endurance with the outcome still unknown, and it is nearly always measured in years rather than moments.","feelings":["I am waiting","I am trying to be patient","Nothing is changing"],"anchor":{"person":"Joseph","where":"the prison in Egypt","ref":"Genesis 40:23 - 41:1","quote":"Yet the chief butler did not remember Joseph, but forgot him. And two years after, Pharaoh dreamed.","what":"He interpreted the butler's dream, asked one thing in return — remember me — and was forgotten. Scripture puts the forgetting and the two years in adjoining sentences, so you feel the length of the gap between them.","held":"Thirteen years from the dream to the palace, with slavery and prison in between. Nothing in the account shows him campaigning for release after that one request. When it came, it came in a single morning, and not because he had arranged it."},"others":[{"person":"Abraham and Sarah","ref":"Genesis 21:5","note":"Twenty-five years between the promise and Isaac."},{"person":"Simeon","ref":"Luke 2:25-26","note":"Told he would not die before he saw the Christ, and then simply lived until he did."},{"person":"Hannah","ref":"1 Samuel 1:7","note":"Year after year, the same provocation, the same journey, the same empty answer."},{"person":"The husbandman","ref":"James 5:7","note":"Waits for the precious fruit, and has long patience for it, until the rain."}],"alsoIn":[{"source":"Sirach 2:1-4","status":"deuterocanonical","note":"Tells the reader that if they come to serve the Lord, they should prepare their soul for trial, and take whatever comes patiently.","about":"Included in the Geneva Bible of 1599 and canon for Catholic and Orthodox readers."}],"group":"virtue","caution":{"risk":"Patience with a person is not the same as tolerating what they do. Waiting can become a way of avoiding a confrontation you owe someone.","person":"Eli","ref":"1 Samuel 3:13","what":"His sons were stealing from the offerings and abusing women at the door of the tabernacle. He spoke to them mildly and did not restrain them, and the whole house fell with them."}},{"id":"impatience","word":"Impatience","pronunciation":"im-PAY-shuns","scriptureWord":{"term":"קָצַר","translit":"qatsar","pronunciation":"kah-TSAHR","language":"Hebrew","gloss":"to be short — of soul, of spirit, of patience","ref":"Numbers 21:4"},"definition":"Reaching for the thing before it is given. Scripture's accounts of impatience are rarely about weak character; they are about people who waited a long time and then stopped just before the end.","feelings":["I can't wait any longer","I am tired of waiting","I want it now"],"anchor":{"person":"Saul","where":"Gilgal, before the battle","ref":"1 Samuel 13:11-12","quote":"Because I saw that the people were scattered from me, and that thou camest not within the days appointed, I was compelled and offered a burnt offering.","what":"He waited the seven days he was told to wait. Samuel did not come on time, the army was deserting, and the Philistines were massing. On the seventh day he offered the sacrifice himself — and Samuel arrived as he finished.","held":"He almost made it. That is the part worth sitting with: the failure was not refusing to wait, it was the last hour of waiting. And when confronted he explains himself reasonably, which is why it stings — the reasons were good ones."},"others":[{"person":"Abraham and Sarah","ref":"Genesis 16:1-2","note":"Ten years in, arrange the promise themselves through Hagar, and the consequences outlive all three of them."},{"person":"Israel","ref":"Exodus 32:1","note":"Moses delayed on the mountain, so they made something they could see."},{"person":"Esau","ref":"Genesis 25:32","note":"Sold the birthright for soup because he was hungry now and the birthright was later."},{"person":"Moses","ref":"Numbers 20:10-11","note":"Told to speak to the rock, struck it twice instead, and lost the land over it."}],"alsoIn":[],"group":"vice","caution":{"risk":"Impatience almost never arrives at the start of a wait. It arrives near the end, when the waiting has already cost you most of what it was going to.","person":"Esau","ref":"Genesis 25:32-34","what":"I am at the point to die, and what profit shall this birthright do to me? He was hungry, not dying. He ate, rose up, and went his way, and the text says he despised his birthright."}},{"id":"kindness","word":"Kindness","pronunciation":"KYND-nis","scriptureWord":{"term":"חֶסֶד","translit":"chesed","pronunciation":"KHEH-sed","language":"Hebrew","gloss":"kindness owed to nobody — the same word Scripture uses of God's own","ref":"Ruth 2:20"},"definition":"Good done to someone who cannot require it of you. Biblical kindness is usually specific and slightly costly, and it is very often arranged so the receiver does not have to feel like a beggar.","feelings":["I want to be kind","Someone was kind to me","I need kindness"],"anchor":{"person":"Boaz","where":"his field at harvest","ref":"Ruth 2:15-16","quote":"Let her gather among the sheaves, and rebuke her not. Also let fall some of the handfuls of purpose for her, and let her gather them up, and rebuke her not.","what":"He told the young men to drop grain deliberately where she would find it, and not to embarrass her about it. She was a foreign widow with no standing, gleaning at the edges of a stranger's field.","held":"He made it look like her own gleaning. She went home thinking she had had a good day. That is the shape of it — kindness arranged so the person receiving it keeps their dignity and never has to say thank you for charity."},"others":[{"person":"David","ref":"2 Samuel 9:1, 7","note":"Looks for anyone left of Saul's house to show kindness to, and finds Mephibosheth, and seats him at the king's table."},{"person":"Pharaoh's daughter","ref":"Exodus 2:6","note":"Knows exactly whose child it is, and takes him anyway."},{"person":"The islanders at Malta","ref":"Acts 28:2","note":"Kindled a fire for shipwrecked strangers in the rain, including a prisoner in chains."},{"person":"The Shunammite","ref":"2 Kings 4:9-10","note":"Builds a small room on the wall so a travelling prophet has somewhere to sleep."}],"alsoIn":[],"group":"virtue","caution":{"risk":"Kindness that cannot say no becomes complicity. Sparing someone a hard word is not always mercy.","person":"Ahab","ref":"1 Kings 20:42","what":"He spared Ben-Hadad and called him brother, and was told that because he had let go the man appointed to destruction, his own life would go for his life."}},{"id":"unkindness","word":"Unkindness","pronunciation":"un-KYND-nis","scriptureWord":{"term":"נָבָל","translit":"naval","pronunciation":"nah-VAHL","language":"Hebrew","gloss":"churlish, senseless — a man's name and his character in one word","ref":"1 Samuel 25:25"},"definition":"Withholding good you could easily have given. Scripture's clearest examples are not cruelty but meanness — refusals that cost the refuser nothing to reverse.","feelings":["I have been unkind","Someone was unkind to me","I was cruel"],"anchor":{"person":"Nabal","where":"at shearing time, in Carmel","ref":"1 Samuel 25:10-11","quote":"Who is David? and who is the son of Ishai? Shall I then take my bread, and my water, and my flesh that I have killed for my shearers, and give it unto men whom I know not?","what":"David's men had protected Nabal's shepherds all season and taken nothing. At the feast David sent ten men to ask politely for whatever could be spared. Nabal had plenty, and was insulting about it in front of witnesses.","held":"His own servants went straight to his wife, because they knew him. His name means fool, and Abigail says so plainly to David — folly is with him. What saves the household is somebody else moving fast, not Nabal changing."},"others":[{"person":"The rich man","ref":"Luke 16:20-21","note":"Lazarus at his gate daily, full of sores. The parable never says he drove him off — only that he did nothing."},{"person":"The priest and the Levite","ref":"Luke 10:31-32","note":"Both saw him, and both crossed to the other side. Seeing was not the problem."},{"person":"Peninnah","ref":"1 Samuel 1:6","note":"Provoked her rival year after year over the one thing she could not change."},{"person":"The unforgiving servant","ref":"Matthew 18:28-30","note":"Forgiven ten thousand talents, and takes his fellow by the throat over a hundred pence."}],"alsoIn":[],"group":"vice","caution":{"risk":"Unkindness is cheap and it is remembered. Nabal's own servants would not speak to him about it; they went round him to his wife.","person":"Nabal","ref":"1 Samuel 25:17, 37-38","what":"His household said plainly that he was such a son of Belial that a man could not speak to him. Ten days after Abigail told him what she had done, he died."}},{"id":"goodness","word":"Goodness","pronunciation":"GOOD-nis","scriptureWord":{"term":"טוֹב","translit":"tov","pronunciation":"TOVE","language":"Hebrew","gloss":"good — the word God uses of each day of creation","ref":"Genesis 50:20"},"definition":"Doing right when wrong would be easier and nobody would blame you. Scripture's strongest examples come from people who had the power to do harm and the grievance to justify it.","feelings":["I want to do what is right","I am trying to be good","I don't know what the right thing is"],"anchor":{"person":"Joseph","where":"Egypt, after their father's death","ref":"Genesis 50:20","quote":"When ye thought evil against me, God disposed it to good, that he might bring to pass, as it is this day, and save much people alive.","what":"His brothers, now terrified he had only been waiting for Jacob to die, invented a deathbed message begging forgiveness. He wept when he heard it — that they still thought that of him.","held":"He does not soften what they did. He says plainly that they meant evil. Goodness here is not pretending the harm was fine; it is naming the harm accurately and then feeding them and their children anyway."},"others":[{"person":"David","ref":"1 Samuel 24:10","note":"Had Saul at knifepoint in the cave and cut only his robe, and his conscience troubled him even for that."},{"person":"Barnabas","ref":"Acts 4:36-37","note":"Sold his land and laid the money down, and later vouched for Saul when nobody else would."},{"person":"Dorcas","ref":"Acts 9:39","note":"The widows stood weeping and showed the coats she had made. Her goodness was countable, in garments."},{"person":"Obadiah","ref":"1 Kings 18:4","note":"Hid a hundred prophets in caves and fed them, while working inside Ahab's house."}],"alsoIn":[{"source":"Tobit 4:7-8","status":"deuterocanonical","note":"Tells his son to give alms from what he has, much or little, and not to turn his face from any poor man.","about":"Included in the Geneva Bible of 1599 and canon for Catholic and Orthodox readers."}],"group":"virtue","caution":{"risk":"Goodness watched closely by its owner turns into self-regard. The moment it becomes a comparison it has changed into something else.","person":"The Pharisee","ref":"Luke 18:11-12","what":"Everything he said about himself was true. He fasted twice a week and gave tithes of all he had. He went home unjustified, and the man he had compared himself to did not."}},{"id":"badness","word":"Badness","pronunciation":"BAD-nis","scriptureWord":{"term":"רַע","translit":"ra","pronunciation":"RAH","language":"Hebrew","gloss":"evil, harm — the same word for the thing done and the damage it causes","ref":"2 Samuel 12:9"},"definition":"Harm you chose. Scripture's account of it is unusual in that its worst examples are mostly good people, described without excuse and without abandoning them.","feelings":["I have done something wrong","I am ashamed of myself","I hurt someone"],"anchor":{"person":"David","where":"Jerusalem, confronted by Nathan","ref":"2 Samuel 12:7, 13","quote":"Then Nathan said to David, Thou art the man... And David said unto Nathan, I have sinned against the LORD.","what":"He took another man's wife, and when the pregnancy could not be hidden he tried to trick Uriah into going home, and when that failed he had him placed where he would be killed and wrote the order himself.","held":"Nathan tells him a story about a lamb and lets him pass judgement on himself before turning it round. David's answer is four words long. No explanation, no managing it. The child still dies and the sword still stays in his house, and he is still called a man after God's own heart. Both are in the same book."},"others":[{"person":"Cain","ref":"Genesis 4:9","note":"Am I my brother's keeper — the first recorded attempt to make a question do the work of an answer."},{"person":"Achan","ref":"Joshua 7:20-21","note":"I saw, I coveted, I took, I hid. Four verbs, in order, and he lists them himself."},{"person":"Gehazi","ref":"2 Kings 5:22-25","note":"Runs after Naaman for the gift his master refused, hides it, and tells Elisha he went nowhere."},{"person":"Peter","ref":"Galatians 2:11-12","note":"Withdrew from eating with Gentiles out of fear, and Paul says he withstood him to the face."}],"alsoIn":[],"group":"vice","caution":{"risk":"Wrongdoing's second act is nearly always the covering, and the covering usually does more damage than the thing itself.","person":"David","ref":"2 Samuel 11:6-17","what":"The adultery took a night. Concealing it took the recall of Uriah, an attempt to get him drunk, a letter carried by the victim himself, and the deaths of other men in the same charge to make it look ordinary."}},{"id":"faithfulness","word":"Faithfulness","pronunciation":"FAYTH-ful-nis","scriptureWord":{"term":"אֱמוּנָה","translit":"emunah","pronunciation":"eh-moo-NAH","language":"Hebrew","gloss":"steadiness — from the same root as amen, and as a hand held firm","ref":"Daniel 6:10"},"definition":"Continuing to do the thing when it has become expensive. Faithfulness in Scripture is rarely dramatic at the moment it is tested; it usually looks like carrying on with an ordinary habit.","feelings":["I want to stay faithful","It is costing me to do the right thing","I am holding my ground"],"anchor":{"person":"Daniel","where":"his house in Babylon, after the decree","ref":"Daniel 6:10","quote":"Now when Daniel understood that he had sealed the writing, he went into his house, and his window being open in his chamber toward Jerusalem, he kneeled upon his knees three times a day, and prayed.","what":"The decree was designed around him. Thirty days, no petition to any god or man but the king, and the penalty was lions. He was an old man near the top of the empire with everything to lose.","held":"He changed nothing. Not the room, not the hour, not the open window. Faithfulness here was not a bold new act — it was the refusal to make one small adjustment, three times a day, as he always had."},"others":[{"person":"Shadrach, Meshach and Abednego","ref":"Daniel 3:17-18","note":"Our God is able to deliver us — but if not, we will not serve thy gods. The second half is the faithful part."},{"person":"Joseph","ref":"Genesis 39:9","note":"How can I do this great wickedness — said to a woman who could have him imprisoned for refusing, and did."},{"person":"Jeremiah","ref":"Jeremiah 20:9","note":"Decides to stop speaking, and finds it is like a fire shut up in his bones. Forty years, almost nobody listening."},{"person":"Epaphroditus","ref":"Philippians 2:30","note":"Came near death for the work, not regarding his own life, to supply what was lacking."}],"alsoIn":[{"source":"1 Maccabees 2:19-22","status":"deuterocanonical","note":"Mattathias refuses the king's order in front of everyone, even when told all the nations have already obeyed it.","about":"Included in the Geneva Bible of 1599 and canon for Catholic and Orthodox readers."}],"group":"virtue","caution":{"risk":"Faithfulness to what you sincerely believe is not the same as being right. Zeal without knowledge has done enormous harm in Scripture.","person":"Paul","ref":"Acts 26:9-11","what":"I verily thought with myself that I ought to do many things contrary to the name of Jesus. He held the coats at Stephen's stoning and hunted believers to strange cities, sincerely, as a matter of faithfulness."}},{"id":"disloyalty","word":"Disloyalty","pronunciation":"dis-LOY-ul-tee","scriptureWord":{"term":"ἀρνέομαι","translit":"arneomai","pronunciation":"ar-NEH-oh-my","language":"Greek","gloss":"to deny, to disown — to say you are not who you are","ref":"Luke 22:57"},"definition":"Being the one who failed someone, rather than the one failed. Where betrayal is a wound received, this is the other side of it — and Scripture handles that side with more mercy than most readers expect.","feelings":["I let someone down","I was not there for them","I have been disloyal"],"anchor":{"person":"Peter","where":"the courtyard of the high priest","ref":"Luke 22:60-62","quote":"And immediately while he yet spake, the cock crew. Then the Lord turned back and looked upon Peter... and Peter went out and wept bitterly.","what":"Hours earlier he had said he would go to prison and to death. In the courtyard he denied knowing him three times, the last with cursing, to a servant girl and some men round a fire. Then Jesus looked at him across the yard.","held":"He does not stay there. On a beach afterwards Jesus asks him three times whether he loves him — once for each denial, and Peter is grieved by the third asking. He is not lectured and not dismissed. He is given the same job back, in front of the others."},"others":[{"person":"The disciples","ref":"Matthew 26:56","note":"Then all the disciples forsook him and fled. All of them, in one short sentence."},{"person":"Demas","ref":"2 Timothy 4:10","note":"Hath forsaken me, having loved this present world — no scandal named, just a slow drift toward something easier."},{"person":"Ahithophel","ref":"2 Samuel 15:12","note":"David's own counsellor, whose advice was treated like an oracle, joining the rebellion."},{"person":"John Mark","ref":"Acts 15:37-39","note":"Left the work partway, and was refused a second chance by Paul — who later asks for him by name as profitable."}],"alsoIn":[],"group":"vice","caution":{"risk":"The drift matters more than the moment. Peter's denial began hours earlier when he followed afar off.","person":"Peter","ref":"Luke 22:54","what":"Peter followed afar off. He did not leave and he did not stand with him. By the time the servant girl asked, the distance had already been chosen — the courtyard only made it audible."}},{"id":"gentleness","word":"Gentleness","pronunciation":"JENT-ul-nis","scriptureWord":{"term":"πραΰτης","translit":"prautēs","pronunciation":"prah-OO-tace","language":"Greek","gloss":"meekness — the word used of a strong horse under a light rein","ref":"Matthew 11:29"},"definition":"Strength held deliberately low. The Greek is not weakness; it was used of power under control, which is why Scripture can call the same people both gentle and formidable.","feelings":["I want to be gentle","I need someone to be gentle with me","I am being too hard"],"anchor":{"person":"The LORD","where":"Horeb, at the mouth of the cave","ref":"1 Kings 19:11-12","quote":"But the LORD was not in the wind: and after the wind came an earthquake, but the LORD was not in the earthquake. And after the earthquake came fire, but the LORD was not in the fire: and after the fire came a still and soft voice.","what":"Elijah had just called down fire on Carmel and was now hiding in a cave wanting to die. Three enormous displays of power pass by, exactly the kind he had just been part of, and God is in none of them.","held":"The answer to a man at the end of himself was not more power. It was food, sleep, a question, and a voice small enough to have to lean in for. Nothing about his situation had changed when it came."},"others":[{"person":"Jesus","ref":"John 8:7-11","note":"Writes on the ground, says one sentence to the crowd, and then asks her a question instead of making a statement."},{"person":"Isaiah","ref":"Isaiah 42:3","note":"A bruised reed shall he not break, and the smoking flax shall he not quench."},{"person":"Moses","ref":"Numbers 12:3","note":"Called the meekest man on earth — the same man who faced down Pharaoh."},{"person":"Paul","ref":"1 Thessalonians 2:7","note":"We were gentle among you, even as a nurse cherisheth her own children."}],"alsoIn":[],"group":"virtue","caution":{"risk":"Gentleness can become an excuse for never saying the hard thing. Not every silence is meekness.","person":"Eli","ref":"1 Samuel 2:23-25","what":"Why do ye such things? — a question, softly asked, to sons who were plundering the sacrifices. He never removed them from office. Gentleness without action was read by everyone as permission."}},{"id":"violence","word":"Violence","pronunciation":"VY-uh-luns","scriptureWord":{"term":"חָמָס","translit":"chamas","pronunciation":"khah-MAHS","language":"Hebrew","gloss":"violence, wrong — the reason given for the flood","ref":"Genesis 6:11"},"definition":"Force used to take or destroy. Scripture neither hides it nor admires it: it records the violence of its own heroes and condemns it in the same breath.","feelings":["I want to hurt someone","Violence was done to me","I am frightened of my own anger"],"anchor":{"person":"Cain","where":"the field","ref":"Genesis 4:8, 10","quote":"And the voice of thy brother's blood crieth unto me from the ground.","what":"He talked with his brother first — the text says he spoke with him, and then in the field rose up. It was not a sudden loss of control. God had already warned him at the door that sin was crouching and he should rule over it.","held":"There is no undoing in this account. What there is: God asks where Abel is and gives him the chance to say it, and when Cain fears being killed himself, God marks him so that nobody will. Judgement and protection arrive together."},"others":[{"person":"Lamech","ref":"Genesis 4:23-24","note":"Boasts to his wives about killing a man for wounding him. Violence learning to be proud of itself."},{"person":"Simeon and Levi","ref":"Genesis 34:25-27, 49:5-7","note":"Avenge their sister with a massacre, and their father curses their anger on his deathbed."},{"person":"Peter","ref":"John 18:10-11","note":"Draws a sword in the garden for the right cause, and is told to put it up."},{"person":"The earth","ref":"Genesis 6:11","note":"Filled with violence — named as the specific reason the flood came."}],"alsoIn":[],"group":"vice","caution":{"risk":"Violence recruits good reasons. Peter drew his sword for the best cause in history and was told to put it away.","person":"Simeon and Levi","ref":"Genesis 34:25-27; 49:5-7","what":"Their sister had been violated and their anger was just. They killed every male in the city and looted it. On his deathbed Jacob cursed their anger, and it was still remembered generations later."}},{"id":"controlled","word":"Controlled","pronunciation":"kun-TROLD","scriptureWord":{"term":"ἐγκράτεια","translit":"enkrateia","pronunciation":"eng-KRAH-tay-ah","language":"Greek","gloss":"holding oneself in — mastery from the inside","ref":"1 Corinthians 9:25"},"definition":"Keeping hold of yourself when you have every reason and opportunity not to. Scripture's examples are rarely about resisting in place; several are simply about leaving the room.","feelings":["I am holding myself together","I want to master this","I am resisting something"],"anchor":{"person":"Joseph","where":"Potiphar's house","ref":"Genesis 39:12","quote":"Then she caught him by his garment, saying, Sleep with me: but he left his garment in her hand and fled, and got him out.","what":"It was not one moment. The text says she spoke to him day by day, and he was a young slave in a foreign house with no protection and everything to lose by refusing a woman who could accuse him — and she did.","held":"He did not reason with her and did not test himself by staying. He left his coat in her hand and went out of the house, and it cost him years in prison. Self-control here looks like losing something and running, not like standing firm."},"others":[{"person":"David","ref":"1 Samuel 26:9","note":"Twice had Saul defenceless, twice stopped his own men, and took the spear and water jug instead."},{"person":"Jesus","ref":"Matthew 4:3-4","note":"Forty days without food, offered bread first, and answers with a sentence rather than a miracle."},{"person":"Solomon","ref":"Proverbs 25:28","note":"He that hath no rule over his own spirit is like a city broken down without walls."},{"person":"Paul","ref":"1 Corinthians 9:27","note":"I beat down my body, and bring it into subjection — spoken as training, not punishment."}],"alsoIn":[{"source":"Sirach 18:30-31","status":"deuterocanonical","note":"Go not after thy lusts, but refrain thyself from thine appetites — with a plain warning about what following them makes of a person.","about":"Included in the Geneva Bible of 1599 and canon for Catholic and Orthodox readers."}],"group":"virtue","caution":{"risk":"Control of yourself can slide into the belief that you need no one. The strongest form of this looks like competence.","person":"Uzziah","ref":"2 Chronicles 26:15-16","what":"He was marvellously helped till he was strong. But when he was strong his heart was lifted up to his destruction, and he went into the temple to burn incense himself."}},{"id":"outofcontrol","word":"Out of control","pronunciation":"owt uv kun-TROL","scriptureWord":{"term":"בָּעַת","translit":"ba'ath","pronunciation":"bah-AHT","language":"Hebrew","gloss":"to terrify, to overwhelm — used of what came upon Saul","ref":"1 Samuel 16:14"},"definition":"When what you do stops matching what you intend. Scripture describes this with unusual patience, tracking it over years rather than treating it as a single failure.","feelings":["I am out of control","I don't recognise myself","I keep doing what I don't want to do"],"anchor":{"person":"Saul","where":"from the palace to Endor","ref":"1 Samuel 18:10-11","quote":"And Saul took a spear in his hand, and said, I will smite David through to the wall: but David avoided twice out of his presence.","what":"It did not arrive all at once. It began with an impatient sacrifice, then a spared enemy king, then jealousy at a song the women sang in the street. By the end he is throwing a spear at the man playing music to calm him, and has murdered a town of priests.","held":"Scripture does not write him off. It calls him the LORD's anointed to the last, David refuses twice to lift a hand against him, and when he dies David composes a lament and orders it taught to the people. The account is unsparing and it is not contemptuous."},"others":[{"person":"Samson","ref":"Judges 16:20","note":"Wist not that the LORD was departed from him — the most frightening sentence about him is that he did not notice."},{"person":"Nebuchadnezzar","ref":"Daniel 4:33","note":"Driven from men, and his understanding returned to him at the end of the days."},{"person":"The man among the tombs","ref":"Mark 5:3-5","note":"No man could bind him, and night and day he cut himself with stones. He is found afterwards clothed, and in his right mind."},{"person":"Herod","ref":"Mark 6:26","note":"Exceeding sorry, and did it anyway because of his oath and the men at his table."}],"alsoIn":[],"group":"vice","caution":{"risk":"It is gradual, and the frightening part is how normal each step feels from inside it.","person":"Saul","ref":"1 Samuel 22:17-19","what":"From a rushed sacrifice, to a spear thrown in a music room, to ordering the slaughter of eighty-five priests and their town. His own guards refused the order. He found a foreigner who would not."}},{"id":"fear","word":"Fear","pronunciation":"FEER","group":"carrying","scriptureWord":{"term":"יָרֵא","translit":"yare","pronunciation":"yah-RAY","language":"Hebrew","gloss":"to fear — the same verb used of dread and of reverence","ref":"1 Kings 19:3"},"definition":"The body's response to a threat, real or expected. Scripture says fear not more often than almost anything else, which tells you how ordinary it assumed fear would be.","feelings":["I am afraid","I am scared of what is coming","I am anxious"],"anchor":{"person":"Elijah","where":"running from Jezebel, a day after Carmel","ref":"1 Kings 19:3-5","quote":"When he saw that, he arose and went for his life... and requested for himself that he might die, and said, It is now enough: O LORD, take my soul.","what":"He had called down fire in front of the whole nation the day before. One message from one woman and he ran the length of the country, left his servant behind, and sat down under a tree asking to die.","held":"He did not master it. He ran, and God's first response was not a rebuke or an argument — it was an angel, food, and sleep, and then food and sleep again, because the journey was too great for him. The conversation came after his body had been cared for."},"others":[{"person":"Gideon","ref":"Judges 6:27","note":"Pulled down his father's altar at night rather than by day, because he feared his household. He still did it."},{"person":"The disciples","ref":"Mark 4:38","note":"Experienced fishermen, frightened enough by the storm to accuse him of not caring whether they died."},{"person":"Esther","ref":"Esther 4:11, 16","note":"Names the exact risk — anyone who enters unbidden is put to death — and goes anyway. If I perish, I perish."},{"person":"David","ref":"Psalm 56:3","note":"What time I am afraid, I will trust in thee. Both halves of the sentence are allowed to stand."}],"alsoIn":[{"source":"Sirach 2:1-6","status":"deuterocanonical","note":"Speaks to someone bracing for trial, telling them to set their heart straight and be constant, and not to be hasty in the time of trouble.","about":"Included in the Geneva Bible of 1599 and canon for Catholic and Orthodox readers."}],"caution":{"risk":"Fear will bargain with someone else's safety to buy your own. It rarely feels like cowardice at the time; it feels like being sensible.","person":"Abraham","ref":"Genesis 12:11-13; 20:2","what":"Twice he told Sarah to say she was his sister, because he was afraid he would be killed for her. Both times she was taken into another man's house to protect him. He was the father of the faithful and he did it twice."}}];
+</script>
+
+<script>
+(function(){
+'use strict';
+
+var EXPAND_ICO = "<svg class='xp-ico' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><g><path d='M8 8 L12.4 3.6'/><path d='M9.4 3 H13 V6.6'/></g><g transform='rotate(180 8 8)'><path d='M8 8 L12.4 3.6'/><path d='M9.4 3 H13 V6.6'/></g></svg>";
+var COLLAPSE_ICO = "<svg class='xp-ico' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><g><path d='M13 3 L9.2 6.8'/><path d='M12.6 7 H9 V3.4'/></g><g transform='rotate(180 8 8)'><path d='M13 3 L9.2 6.8'/><path d='M12.6 7 H9 V3.4'/></g></svg>";
+// ── Draw pile ────────────────────────────────────────────────────────
+// A physical deck doesn't put a card back before the next draw. This
+// mirrors that: every card dealt is SET ASIDE and cannot come up again
+// until the pile is gathered back in. Survives reloads, so finishing a
+// story and reopening the page doesn't hand you the same name again.
+function DrawPile(storeKey){
+  var drawn = {};                       // id -> true
+  try {
+    var raw = window.localStorage.getItem(storeKey);
+    if(raw) drawn = JSON.parse(raw) || {};
+  } catch(e) { drawn = {}; }
+
+  function persist(){
+    try { window.localStorage.setItem(storeKey, JSON.stringify(drawn)); }
+    catch(e) { /* private mode — the pile just won't outlive the session */ }
+  }
+
+  return {
+    // Cards still in the pile, out of the pool currently in play
+    remaining: function(pool, idOf){
+      return pool.filter(function(x){ return !drawn[idOf(x)]; });
+    },
+    setAsideCount: function(){
+      var n=0; for(var k in drawn) if(drawn[k]) n++; return n;
+    },
+    // Deal one, without replacement. Returns null when the pile is spent.
+    deal: function(pool, idOf){
+      var left = pool.filter(function(x){ return !drawn[idOf(x)]; });
+      if(!left.length) return null;
+      var pick = left[Math.floor(Math.random()*left.length)];
+      drawn[idOf(pick)] = true;
+      persist();
+      return pick;
+    },
+    // Gather every set-aside card back into the pile
+    gather: function(){ drawn = {}; persist(); },
+    isSetAside: function(id){ return !!drawn[id]; }
+  };
+}
+
+
+// ── Scripture links ───────────────────────────────────────────────
+// Canonical references open in the Geneva Bible, because that is the text
+// quoted on the page. The deuterocanonical books are NOT in Bible Gateway's
+// Geneva edition, so those open in NRSVCE, which carries them under the
+// same modern book names used here. 1 Enoch is on neither, so it stays
+// plain text rather than becoming a link that goes nowhere.
+var BG='https://www.biblegateway.com/passage/?search=';
+
+function refUrl(ref, version){
+  var clean = ref.replace(/\s*\([^)]*\)\s*/g,' ').trim();   // drop "(whole book)"
+  return BG + encodeURIComponent(clean) + '&version=' + (version||'GNV');
+}
+function refLink(ref, version){
+  if(!ref) return '';
+  var safe = String(ref).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  return '<a class="ref-link" target="_blank" rel="noopener noreferrer" href="'
+       + refUrl(ref, version) + '">' + safe + '</a>';
+}
+// Pseudepigraphal sources are not hosted anywhere linkable, so they are
+// returned unlinked rather than pointing at a 404.
+function sourceLink(source, status){
+  if(status === 'pseudepigraphal') return String(source);
+  return refLink(source, 'NRSVCE');
+}
+
+// ── Theme ──
+var root=document.documentElement,
+    tBtn=document.getElementById('themeBtn'),
+    tLbl=document.getElementById('themeLabel'),
+    tIco=document.getElementById('themeIcon');
+function isDark(){
+  var s=root.getAttribute('data-theme');
+  if(s) return s==='dark';
+  return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+}
+function paintToggle(){ var d=isDark(); tLbl.textContent=d?'Light':'Dark'; tIco.textContent=d?'☀':'☾'; }
+tBtn.addEventListener('click', function(){ root.setAttribute('data-theme', isDark()?'light':'dark'); paintToggle(); });
+paintToggle();
+
+var toastEl=document.getElementById('toast'), toastT;
+function toast(msg){
+  toastEl.textContent=msg; toastEl.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(function(){ toastEl.classList.remove('show'); },2200);
+}
+
+// ── Storage ──
+var STORE_KEY='wordspinSeasonEntries';
+var entries=[];
+try { var raw=window.localStorage.getItem(STORE_KEY); if(raw) entries=JSON.parse(raw)||[]; } catch(e){ entries=[]; }
+function persist(){ try{ window.localStorage.setItem(STORE_KEY, JSON.stringify(entries)); }catch(e){} }
+
+// ── State ──
+var chosenFeeling=null, chosenSeasonId=null, spinning=false, current=null, onlyMode=false;
+function seasonId(s){ return s.id; }
+var pile=DrawPile('wordspinSeasonPile');
+
+// The pool: one feeling narrows to one season; "surprise me" opens it up
+function pool(){
+  if(!chosenSeasonId || chosenSeasonId==='*') return SEASONS;
+  return SEASONS.filter(function(s){ return s.id===chosenSeasonId; });
+}
+function asidePool(){
+  return pool().filter(function(s){ return pile.isSetAside(seasonId(s)); });
+}
+
+var deckArea=document.getElementById('deckArea'),
+    spinCount=document.getElementById('spinCount'),
+    pileAside=document.getElementById('pileAside'),
+    asideSheet=document.getElementById('asideSheet'),
+    asideList=document.getElementById('asideList');
+
+// Only the surprise-me flow is a deck; a named feeling is one card
+function isDeck(){ return chosenSeasonId==='*'; }
+
+function refreshPile(){
+  if(!chosenFeeling){
+    spinCount.textContent='Choose one above';
+    pileAside.style.display='none';
+    deckArea.classList.remove('spent');
+    return;
+  }
+  if(!isDeck()){
+    spinCount.textContent='Tap the cards for another';
+    pileAside.style.display='none';
+    deckArea.classList.remove('spent');
+    return;
+  }
+
+  var pooled=pool();
+  var aside=asidePool();
+  var left=pooled.length-aside.length;
+
+  if(onlyMode){ spinCount.textContent=aside.length+' set aside · replaying'; deckArea.classList.remove('spent'); }
+  else if(left===0){ spinCount.textContent='Deck empty'; deckArea.classList.add('spent'); }
+  else { spinCount.textContent=left+'/'+pooled.length+' left'; deckArea.classList.remove('spent'); }
+
+  pileAside.textContent = onlyMode
+    ? 'replaying '+aside.length+' — back to deck'
+    : (aside.length===1 ? '1 set aside' : aside.length+' set aside');
+  pileAside.classList.toggle('only-mode', onlyMode);
+  pileAside.style.display=(aside.length>0||onlyMode)?'block':'none';
+}
+
+function openAside(){
+  var aside=asidePool();
+  if(!aside.length){ toast('Nothing set aside yet'); return; }
+  asideList.innerHTML=aside.map(function(s){ return '<span class="aside-chip">'+s.word+'</span>'; }).join('');
+  asideSheet.classList.add('open'); document.body.style.overflow='hidden';
+}
+function closeAside(){ asideSheet.classList.remove('open'); document.body.style.overflow=''; }
+
+pileAside.addEventListener('click', function(){
+  if(onlyMode){ onlyMode=false; refreshPile(); toast('Back to the full deck'); return; }
+  openAside();
+});
+document.getElementById('asideClose').addEventListener('click', closeAside);
+asideSheet.addEventListener('click', function(e){ if(e.target===asideSheet) closeAside(); });
+document.getElementById('asideReturn').addEventListener('click', function(){
+  pile.gather(); onlyMode=false; closeAside(); refreshPile(); toast('Shuffled back into the deck');
+});
+document.getElementById('asideOnly').addEventListener('click', function(){
+  onlyMode=true; closeAside(); refreshPile(); toast('Replaying the set-aside cards');
+});
+
+// ── Deck ──
+function buildDeck(){
+  deckArea.innerHTML='';
+  for(var i=3;i>=1;i--){
+    var b=document.createElement('div');
+    b.className='deck-card back'; b.style.zIndex=i;
+    b.style.transform='translateY('+(i*3)+'px) translateX('+(i*2)+'px)';
+    deckArea.appendChild(b);
+  }
+  var f=document.createElement('div');
+  f.className='deck-card front'; f.style.zIndex=10;
+  f.style.boxShadow='3px 3px 14px rgba(26,16,8,0.18)';
+  f.innerHTML='<div class="card-header">WordSpin</div>'+
+    '<div class="card-pip-row top"><span>✦</span><span>✦</span></div>'+
+    '<div class="card-word-text" id="cardWordText">?</div>'+
+    '<div class="card-rule"></div>'+
+    '<div class="card-pip-row bot"><span>✦</span><span>✦</span></div>';
+  deckArea.appendChild(f);
+}
+buildDeck();
+
+function sizeClass(w){
+  var L=w.length;
+  if(L>=12) return 'len-xl';
+  if(L>=10) return 'len-l';
+  if(L>=8)  return 'len-m';
+  return '';
+}
+
+// ── Feeling picker ──
+document.querySelectorAll('.feel-btn').forEach(function(b){
+  b.addEventListener('click', function(){
+    document.querySelectorAll('.feel-btn').forEach(function(x){ x.classList.remove('active'); });
+    b.classList.add('active');
+    chosenFeeling=b.textContent;
+    chosenSeasonId=b.dataset.season;
+    onlyMode=false;
+    refreshPile();
+    spin();
+  });
+});
+
+// ── Elements ──
+var chosenSec=document.getElementById('chosen'),
+    chosenName=document.getElementById('chosenName'),
+    defPanel=document.getElementById('defPanel'),
+    defToggle=document.getElementById('defToggle'),
+    defPron=document.getElementById('defPron'),
+    defDesc=document.getElementById('defDesc'),
+    anchorWho=document.getElementById('anchorWho'),
+    anchorWhere=document.getElementById('anchorWhere'),
+    anchorQuote=document.getElementById('anchorQuote'),
+    anchorRef=document.getElementById('anchorRef'),
+    anchorWhat=document.getElementById('anchorWhat'),
+    anchorHeld=document.getElementById('anchorHeld'),
+    othersList=document.getElementById('othersList'),
+    extraSec=document.getElementById('extraSec'),
+    extraList=document.getElementById('extraList'),
+    writeSec=document.getElementById('writeSec');
+
+function openPanel(panel, open){
+  if(open){
+    panel.classList.add('open');
+    panel.style.maxHeight=panel.scrollHeight+'px';
+    setTimeout(function(){ if(panel.classList.contains('open')) panel.style.maxHeight='none'; },420);
+  } else {
+    panel.style.maxHeight=panel.scrollHeight+'px';
+    void panel.offsetHeight;
+    panel.classList.remove('open');
+    panel.style.maxHeight='0px';
+  }
+}
+
+function pronHTML(s){
+  var spk='\uD83D\uDDE3\uFE0F', w=s.scriptureWord;
+  var h='<div class="pron-row"><span class="pron-lang">English</span>'+
+        '<span class="pron-val">'+spk+'&nbsp;&nbsp;'+s.pronunciation+'</span></div>';
+  if(w){
+    h+='<div class="pron-row old"><span class="pron-lang">'+w.language+'</span>'+
+       '<span class="pron-val">'+spk+'&nbsp;&nbsp;'+w.pronunciation+'</span></div>'+
+       '<div class="def-meaning-note">'+w.term+' ('+w.translit+') — '+w.gloss+
+       '. <span style="color:var(--amber)">'+refLink(w.ref)+'</span></div>';
+  }
+  return h;
+}
+
+function spin(){
+  if(spinning) return;
+  spinning=true;
+  openPanel(defPanel,false);
+  defToggle.textContent='🔍 Read the breakdown';
+
+  var picked;
+  if(!isDeck()){
+    // A named feeling always returns its own card
+    picked=pool()[0] || null;
+  } else if(onlyMode){
+    var r=asidePool();
+    picked=r.length? r[Math.floor(Math.random()*r.length)] : null;
+  } else {
+    picked=pile.deal(pool(), seasonId);
+  }
+  if(!picked){
+    spinning=false; refreshPile();
+    toast(onlyMode?'Nothing set aside here':'Deck empty — tap "set aside" to return them');
+    return;
+  }
+
+  var front=deckArea.querySelector('.deck-card.front');
+  var backs=deckArea.querySelectorAll('.deck-card.back');
+  var wordEl=document.getElementById('cardWordText');
+  front.classList.remove('revealed');
+  wordEl.textContent='?';
+
+  var STEPS=6, STEP_MS=95, step=0, last=0;
+  var easing='cubic-bezier(0.25,0.46,0.45,0.94)';
+  backs.forEach(function(c){ c.style.transition='transform '+STEP_MS+'ms '+easing; });
+  front.style.transition='transform '+STEP_MS+'ms '+easing;
+
+  function stepFn(ts){
+    if(step>=STEPS){ deal(picked, front, backs, wordEl); return; }
+    if(ts-last<STEP_MS && last!==0){ requestAnimationFrame(stepFn); return; }
+    last=ts;
+    var dir=(step%2===0)?1:-1;
+    backs.forEach(function(c,i){
+      var spread=(i+1)*10*dir, lift=-Math.abs(spread)*0.3;
+      c.style.transform='translateY('+(lift-i*2)+'px) translateX('+(spread+i)+'px) rotate('+(spread*0.35)+'deg)';
+    });
+    front.style.transform='translateY(-4px) rotate('+((step%2===0)?-4:4)+'deg)';
+    step++;
+    requestAnimationFrame(stepFn);
+  }
+  requestAnimationFrame(stepFn);
+}
+
+function deal(s, front, backs, wordEl){
+  backs.forEach(function(c,i){ c.style.transform='translateY('+((3-i)*3)+'px) translateX('+((3-i)*2)+'px)'; });
+  front.style.transform='translateY(0) rotate(0deg)';
+
+  setTimeout(function(){
+    wordEl.className='card-word-text '+sizeClass(s.word);
+    wordEl.textContent=s.word;
+    front.classList.add('revealed');
+
+    current=s;
+    chosenName.textContent=s.word;
+    defPron.innerHTML=pronHTML(s);
+    defDesc.textContent=s.definition;
+
+    var a=s.anchor;
+    anchorWho.textContent=a.person;
+    anchorWhere.textContent=a.where;
+    anchorQuote.innerHTML='&ldquo;'+a.quote+'&rdquo;';
+    anchorRef.innerHTML=refLink(a.ref)+'  ·  GNV';
+    anchorWhat.textContent=a.what;
+    anchorHeld.textContent=a.held;
+
+    var cau=s.caution||{};
+    document.getElementById('cautionRisk').textContent=cau.risk||'';
+    document.getElementById('cautionWho').textContent=cau.person||'';
+    document.getElementById('cautionRef').innerHTML=cau.ref?refLink(cau.ref):'';
+    document.getElementById('cautionWhat').textContent=cau.what||'';
+
+    othersList.innerHTML=(s.others||[]).map(function(o){
+      return '<div class="other"><div class="other-top">'+
+        '<span class="other-who">'+o.person+'</span>'+
+        '<span class="other-ref">'+refLink(o.ref)+'</span></div>'+
+        '<div class="other-note">'+o.note+'</div></div>';
+    }).join('');
+
+    var ex=s.alsoIn||[];
+    if(ex.length){
+      extraList.innerHTML=ex.map(function(e){
+        return '<div class="extra"><div class="extra-top">'+
+          '<span class="extra-src">'+sourceLink(e.source, e.status)+'</span>'+
+          '<span class="status-tag">'+e.status+'</span></div>'+
+          '<div class="extra-note">'+e.note+'</div>'+
+          '<div class="extra-about">'+e.about+'</div></div>';
+      }).join('');
+      extraSec.style.display='block';
+    } else { extraSec.style.display='none'; }
+
+    setLearn(false);
+    chosenSec.style.display='flex';
+    writeSec.classList.add('on');
+    refreshPile();
+    spinning=false;
+    chosenSec.scrollIntoView({behavior:'smooth', block:'start'});
+  },180);
+}
+
+deckArea.addEventListener('click', function(){
+  if(!chosenFeeling){ toast('Choose where you are first'); return; }
+  // From a named feeling, tapping the deck moves you to the wider shuffle
+  // rather than dealing the same card again
+  if(!isDeck() && current){
+    chosenSeasonId='*';
+    document.querySelectorAll('.feel-btn').forEach(function(x){ x.classList.remove('active'); });
+    var sb=document.querySelector('.feel-btn.surprise');
+    if(sb) sb.classList.add('active');
+    chosenFeeling="I don't know — surprise me";
+    refreshPile();
+  }
+  spin();
+});
+
+var learnBtn=document.getElementById('learnBtn'),
+    learnPanel=document.getElementById('learnPanel');
+
+function setLearn(open){
+  learnBtn.setAttribute('aria-expanded', open?'true':'false');
+  learnBtn.querySelector('span').textContent = open ? 'Show less' : 'Learn more?';
+  if(open){
+    learnPanel.classList.add('open');
+    learnPanel.style.maxHeight=learnPanel.scrollHeight+'px';
+    setTimeout(function(){
+      if(learnPanel.classList.contains('open')) learnPanel.style.maxHeight='none';
+      // the breakdown around it just grew, so let it re-measure too
+      if(defPanel.classList.contains('open')) defPanel.style.maxHeight='none';
+    },460);
+  } else {
+    learnPanel.style.maxHeight=learnPanel.scrollHeight+'px';
+    void learnPanel.offsetHeight;
+    learnPanel.classList.remove('open');
+    learnPanel.style.maxHeight='0px';
+  }
+}
+learnBtn.addEventListener('click', function(){
+  setLearn(learnBtn.getAttribute('aria-expanded')!=='true');
+});
+
+defToggle.addEventListener('click', function(){
+  var open=!defPanel.classList.contains('open');
+  openPanel(defPanel, open);
+  defToggle.textContent = open ? '🔍 Hide the breakdown' : '🔍 Read the breakdown';
+});
+
+// ── Writing ──
+var box=document.getElementById('storyBox'),
+    wc=document.getElementById('wordCount'),
+    boxWrap=document.getElementById('boxWrap'),
+    expandBtn=document.getElementById('expandBtn'),
+    expandedCount=document.getElementById('expandedCount');
+expandBtn.innerHTML=EXPAND_ICO;
+
+function countWords(s){ var t=s.trim(); return t? t.split(/\s+/).length : 0; }
+function syncCount(){
+  var n=countWords(box.value), t=(n===1?'1 word':n+' words');
+  wc.textContent=t; expandedCount.textContent=t;
+}
+box.addEventListener('input', syncCount);
+
+function setExpanded(on){
+  boxWrap.classList.toggle('expanded', on);
+  document.body.classList.toggle('box-open', on);
+  expandBtn.innerHTML = on ? COLLAPSE_ICO : EXPAND_ICO;
+  expandBtn.setAttribute('aria-label', on?'Collapse the writing box':'Expand the writing box');
+  if(on){ boxWrap.appendChild(expandedCount); syncCount(); box.focus(); }
+  else { writeSec.insertBefore(expandedCount, wc.nextSibling); }
+}
+expandBtn.addEventListener('click', function(){ setExpanded(!boxWrap.classList.contains('expanded')); });
+
+document.getElementById('saveBtn').addEventListener('click', function(){
+  var text=box.value.trim();
+  if(!text){ toast('Nothing to save yet'); box.focus(); return; }
+  if(!current){ toast('Choose where you are first'); return; }
+  entries.unshift({
+    id:'se_'+Date.now().toString(36)+Math.random().toString(36).slice(2,7),
+    word:current.word, seasonId:current.id, feeling:chosenFeeling,
+    anchorPerson:current.anchor.person, anchorRef:current.anchor.ref,
+    level:'seasons', text:text, date:Date.now()
+  });
+  persist(); renderSaved();
+  box.value=''; syncCount();
+  if(boxWrap.classList.contains('expanded')) setExpanded(false);
+  toast('Saved');
+});
+document.getElementById('clearBtn').addEventListener('click', function(){
+  if(!box.value.trim()) return;
+  box.value=''; syncCount(); toast('Cleared');
+});
+
+// ── Saved entries ──
+var savedList=document.getElementById('savedList');
+function fmtDate(ts){
+  var d=new Date(ts), m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return d.getDate()+' '+m[d.getMonth()]+' '+d.getFullYear();
+}
+function renderSaved(){
+  if(!entries.length){
+    savedList.innerHTML='<p class="saved-empty">Nothing written yet. Say where you are and begin.</p>';
+    return;
+  }
+  savedList.innerHTML='';
+  entries.forEach(function(e){
+    var row=document.createElement('div');
+    row.className='saved-row';
+    row.innerHTML='<span class="saved-name">'+e.word+'</span>'+
+      '<span class="saved-tag">Season</span>'+
+      '<span class="saved-date">'+fmtDate(e.date)+'</span>';
+    row.addEventListener('click', function(){ openEntry(e.id); });
+    savedList.appendChild(row);
+  });
+}
+
+// ── Modal ──
+var mBack=document.getElementById('modalBack'),
+    mName=document.getElementById('mName'),
+    mMeta=document.getElementById('mMeta'),
+    mText=document.getElementById('mText'),
+    mEdit=document.getElementById('mEdit'),
+    mFootRead=document.getElementById('mFootRead'),
+    mFootEdit=document.getElementById('mFootEdit'),
+    openId=null;
+
+function setEditing(on){
+  mEdit.classList.toggle('on', on);
+  mText.style.display=on?'none':'block';
+  mFootRead.style.display=on?'none':'flex';
+  mFootEdit.style.display=on?'flex':'none';
+}
+function openEntry(id){
+  var e=entries.filter(function(x){ return x.id===id; })[0];
+  if(!e) return;
+  openId=id;
+  mName.textContent=e.word;
+  mMeta.textContent=(e.feeling?e.feeling+'  ·  ':'')+
+    (e.anchorPerson?e.anchorPerson+' · '+e.anchorRef+'  ·  ':'')+fmtDate(e.date)+
+    (e.edited?'  ·  edited '+fmtDate(e.edited):'');
+  mText.textContent=e.text;
+  setEditing(false);
+  mBack.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeEntry(){ mBack.classList.remove('open'); document.body.style.overflow=''; openId=null; }
+document.getElementById('mClose').addEventListener('click', closeEntry);
+mBack.addEventListener('click', function(e){ if(e.target===mBack) closeEntry(); });
+document.addEventListener('keydown', function(e){
+  if(e.key!=='Escape') return;
+  if(mBack.classList.contains('open')) { closeEntry(); return; }
+  if(asideSheet.classList.contains('open')) { closeAside(); return; }
+  if(boxWrap.classList.contains('expanded')) setExpanded(false);
+});
+document.getElementById('mEditBtn').addEventListener('click', function(){
+  mEdit.value=mText.textContent; setEditing(true); mEdit.focus();
+  mEdit.setSelectionRange(mEdit.value.length, mEdit.value.length);
+});
+document.getElementById('mCancelEdit').addEventListener('click', function(){ setEditing(false); });
+document.getElementById('mSaveEdit').addEventListener('click', function(){
+  var t=mEdit.value.trim();
+  if(!t){ toast('An entry cannot be empty'); mEdit.focus(); return; }
+  var e=entries.filter(function(x){ return x.id===openId; })[0];
+  if(!e) return;
+  e.text=t; e.edited=Date.now(); persist();
+  mText.textContent=t; setEditing(false); renderSaved(); toast('Saved');
+});
+document.getElementById('mDelete').addEventListener('click', function(){
+  if(!openId) return;
+  entries=entries.filter(function(x){ return x.id!==openId; });
+  persist(); renderSaved(); closeEntry(); toast('Deleted');
+});
+
+// ── The unravelling intro ─────────────────────────────────────────
+// One rule, so a tap never means two things: an OPENER opens the next
+// layer, and tapping an opened block ravels that block back up.
+var SEEN_KEY='wordspinTsSeen';
+function tsSeen(){ try{ return !!window.localStorage.getItem(SEEN_KEY); }catch(e){ return false; } }
+function markTsSeen(){ try{ window.localStorage.setItem(SEEN_KEY,'1'); }catch(e){} }
+
+var layer1=document.getElementById('layer1'),
+    layer2=document.getElementById('layer2'),
+    layer3=document.getElementById('layer3'),
+    restWrap=document.getElementById('restWrap'),
+    mkWrap=document.getElementById('mkWrap'),
+    openMk=document.getElementById('openMk'),
+    dot1=document.getElementById('dot1'),
+    dot2=document.getElementById('dot2');
+
+if(tsSeen()){
+  if(dot1) dot1.classList.add('quiet');
+  if(dot2) dot2.classList.add('quiet');
+}
+
+function setReveal(panel, open){
+  if(!panel) return;
+  if(open){
+    panel.classList.add('open');
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+    setTimeout(function(){
+      if(panel.classList.contains('open')) panel.style.maxHeight = 'none';
+    }, 520);
+  } else {
+    // From 'none' back to a real number, then to zero, or it jumps shut
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+    void panel.offsetHeight;
+    panel.classList.remove('open');
+    panel.style.maxHeight = '0px';
+  }
+}
+
+function openVerses(){
+  layer1.setAttribute('data-open','true');
+  layer1.setAttribute('aria-expanded','true');
+  setReveal(restWrap, true);
+  markTsSeen();
+}
+function closeVerses(){
+  layer1.setAttribute('data-open','false');
+  layer1.setAttribute('aria-expanded','false');
+  closeMk();                       // never leave an inner layer open behind a shut door
+  setReveal(restWrap, false);
+}
+function openMkPanel(){
+  openMk.setAttribute('aria-expanded','true');
+  setReveal(mkWrap, true);
+  markTsSeen();
+  // the outer panel is now taller than it was measured at
+  if(restWrap.classList.contains('open')) restWrap.style.maxHeight='none';
+}
+function closeMk(){
+  openMk.setAttribute('aria-expanded','false');
+  setReveal(mkWrap, false);
+}
+
+// Verse 1 is the only opener for the verses, and toggles them
+layer1.addEventListener('click', function(){
+  if(layer1.getAttribute('data-open')==='true') closeVerses(); else openVerses();
+});
+layer1.addEventListener('keydown', function(e){
+  if(e.key==='Enter'||e.key===' '){ e.preventDefault(); layer1.click(); }
+});
+
+// The message has its own opener
+openMk.addEventListener('click', function(e){
+  e.stopPropagation();
+  if(openMk.getAttribute('aria-expanded')==='true') closeMk(); else openMkPanel();
+});
+
+// Tapping an opened block ravels THAT block. Nothing else.
+if(layer2) layer2.addEventListener('click', function(e){ e.stopPropagation(); closeVerses(); });
+if(layer3) layer3.addEventListener('click', function(e){ e.stopPropagation(); closeMk(); });
+
+// ── Spelling ──
+var bMod=document.getElementById('btnModern'), bOrig=document.getElementById('btnOriginal');
+function setSpelling(original){
+  document.body.classList.toggle('orig-spelling', original);
+  bOrig.classList.toggle('active', original);
+  bMod.classList.toggle('active', !original);
+  if(restWrap.classList.contains('open')) restWrap.style.maxHeight='none';
+}
+bMod.addEventListener('click', function(e){ e.stopPropagation(); setSpelling(false); });
+bOrig.addEventListener('click', function(e){ e.stopPropagation(); setSpelling(true); });
+
+// ── Grouped feeling picker ──
+document.querySelectorAll('.fgroup-head').forEach(function(head){
+  var body=head.nextElementSibling;
+  head.addEventListener('click', function(){
+    var open=head.getAttribute('aria-expanded')!=='true';
+    head.setAttribute('aria-expanded', open?'true':'false');
+    if(open){
+      body.classList.add('open');
+      body.style.maxHeight=body.scrollHeight+'px';
+      setTimeout(function(){ if(body.classList.contains('open')) body.style.maxHeight='none'; },420);
+    } else {
+      body.style.maxHeight=body.scrollHeight+'px';
+      void body.offsetHeight;
+      body.classList.remove('open');
+      body.style.maxHeight='0px';
+    }
+  });
+});
+
+renderSaved();
+refreshPile();
+
+})();
+</script>
+
+</body>
+</html>
