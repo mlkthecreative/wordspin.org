@@ -1126,6 +1126,65 @@
     }
 
     /* Edit mode textarea — fixed height, scrolls internally */
+
+    /* Expandable edit box inside a story modal. Same idea as the main
+       writing box: position:fixed on the existing textarea, so the caret,
+       scroll position and undo history all survive the expand. */
+    .medit-wrap { position: relative; width: 100%; }
+    .medit-wrap.expanded {
+      position: fixed; inset: 0; z-index: 1300;
+      background: var(--paper); padding: 3.4rem 1.1rem 1.1rem;
+      display: flex; flex-direction: column;
+    }
+    .medit-wrap.expanded textarea {
+      flex: 1; min-height: 0; height: auto; display: block;
+      border: none; border-radius: 0; background: var(--paper);
+      padding: 0.5rem 0.2rem; line-height: 1.95; resize: none;
+    }
+    .medit-wrap.expanded textarea:focus { border: none; box-shadow: none; }
+    .medit-x {
+      position: absolute; top: 0.55rem; right: 0.55rem;
+      width: 30px; height: 30px; padding: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 3px; color: var(--muted); cursor: pointer;
+      opacity: 0.8; transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .medit-x:hover { opacity: 1; color: var(--amber); border-color: var(--amber); }
+    .medit-wrap.expanded .medit-x { top: 0.9rem; right: 1.1rem; width: 36px; height: 36px; }
+    .medit-x .xp-ico { width: 15px; height: 15px; display: block; }
+    .medit-wrap.expanded .medit-x .xp-ico { width: 17px; height: 17px; }
+
+
+    /* Breakdown inside a saved story, so the word's meaning is at hand
+       while reading back what you wrote — same idea as the other pages. */
+    .modal-break-btn {
+      background: none; border: none; cursor: pointer; padding: 0;
+      font-family: 'DM Mono', monospace; font-size: 0.68rem;
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber);
+      text-decoration: underline; text-underline-offset: 3px;
+      margin-top: 0.6rem;
+    }
+    .modal-break-btn:hover { opacity: 0.7; }
+    .modal-break-panel {
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
+    }
+    .modal-break-panel.open { opacity: 1; margin-top: 1.3rem; }
+    .modal-break-box {
+      background: var(--cream); border-left: 3px solid var(--amber);
+      border-radius: 0 3px 3px 0; padding: 1.4rem 1.5rem; text-align: left;
+    }
+    .mb-h {
+      font-family: 'DM Mono', monospace; font-size: 0.58rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--amber); margin-bottom: 0.9rem;
+    }
+    .mb-pron { font-family: 'DM Mono', monospace; font-size: 0.95rem;
+               letter-spacing: 0.06em; color: var(--ink); }
+    .mb-def { font-size: 0.88rem; line-height: 1.95; color: var(--ink);
+              font-family: 'DM Mono', monospace; }
+
     .modal-edit-area {
       display: none;
       width: 100%;
@@ -2058,6 +2117,15 @@
   <div class="modal-handle"></div>
   <div class="modal-word" id="modalWord"></div>
   <div class="modal-date" id="modalDate"></div>
+  <button class="modal-break-btn" id="modalBreakBtn">🔍 Show the breakdown</button>
+  <div class="modal-break-panel" id="modalBreakPanel">
+    <div class="modal-break-box">
+      <div class="mb-h">Pronunciation</div>
+      <div class="mb-pron" id="modalBreakPron"></div>
+      <div class="mb-h" style="margin-top:1.3rem">Definition</div>
+      <div class="mb-def" id="modalBreakDef"></div>
+    </div>
+  </div>
   <div class="modal-divider"></div>
   <div class="modal-text" id="modalText"></div>
   <textarea class="modal-edit-area" id="modalEditArea"></textarea>
@@ -3899,9 +3967,42 @@ function DrawPile(storeKey){
   let modalStoryIndex = -1;
   let isEditing = false;
 
+  var modalBreakBtn   = document.getElementById('modalBreakBtn');
+  var modalBreakPanel = document.getElementById('modalBreakPanel');
+
+  function setModalBreak(open){
+    modalBreakBtn.textContent = open ? '🔍 Hide the breakdown' : '🔍 Show the breakdown';
+    if(open){
+      modalBreakPanel.classList.add('open');
+      modalBreakPanel.style.maxHeight = modalBreakPanel.scrollHeight + 'px';
+      setTimeout(function(){
+        if(modalBreakPanel.classList.contains('open')) modalBreakPanel.style.maxHeight='none';
+      },420);
+    } else {
+      modalBreakPanel.style.maxHeight = modalBreakPanel.scrollHeight + 'px';
+      void modalBreakPanel.offsetHeight;
+      modalBreakPanel.classList.remove('open');
+      modalBreakPanel.style.maxHeight = '0px';
+    }
+  }
+  modalBreakBtn.addEventListener('click', function(){
+    setModalBreak(!modalBreakPanel.classList.contains('open'));
+  });
+
   function openModal(story, index, editMode) {
     modalStoryIndex = index;
     modalWord.textContent = story.word;
+
+    // The word's own breakdown, folded away until asked for
+    var wd = getWordData(story.word);
+    if(wd){
+      document.getElementById('modalBreakPron').textContent = wd.pron ? '🗣️  ' + wd.pron : '—';
+      document.getElementById('modalBreakDef').textContent  = wd.def || '';
+      modalBreakBtn.style.display = 'inline-block';
+    } else {
+      modalBreakBtn.style.display = 'none';
+    }
+    setModalBreak(false);
     modalDate.textContent = story.date;
     modalText.textContent = story.text;
     modalEditArea.value = story.text;
@@ -3913,6 +4014,8 @@ function DrawPile(storeKey){
   }
 
   function closeModal() {
+    var ta=document.getElementById('modalEditArea');
+    if(ta && ta._collapse) ta._collapse();
     modalBackdrop.classList.remove('open');
     storyModal.classList.remove('open');
     document.body.style.overflow = '';
@@ -4076,6 +4179,37 @@ function DrawPile(storeKey){
     });
     refreshPile();
   })();
+
+  var EXPAND_ICO2 = "<svg class='xp-ico' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><g><path d='M8 8 L12.4 3.6'/><path d='M9.4 3 H13 V6.6'/></g><g transform='rotate(180 8 8)'><path d='M8 8 L12.4 3.6'/><path d='M9.4 3 H13 V6.6'/></g></svg>";
+  var COLLAPSE_ICO2 = "<svg class='xp-ico' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><g><path d='M13 3 L9.2 6.8'/><path d='M12.6 7 H9 V3.4'/></g><g transform='rotate(180 8 8)'><path d='M13 3 L9.2 6.8'/><path d='M12.6 7 H9 V3.4'/></g></svg>";
+  
+  // Makes a modal's edit textarea expand to full screen, like the main box
+  function makeExpandable(textarea, expandIco, collapseIco){
+    if(!textarea || textarea.dataset.expandable) return;
+    textarea.dataset.expandable='1';
+    var wrap=document.createElement('div');
+    wrap.className='medit-wrap';
+    textarea.parentNode.insertBefore(wrap, textarea);
+    wrap.appendChild(textarea);
+    var btn=document.createElement('button');
+    btn.type='button'; btn.className='medit-x';
+    btn.setAttribute('aria-label','Expand the editor');
+    btn.innerHTML=expandIco;
+    wrap.appendChild(btn);
+  
+    function setOpen(on){
+      wrap.classList.toggle('expanded', on);
+      document.body.classList.toggle('box-open', on);
+      btn.innerHTML = on ? collapseIco : expandIco;
+      btn.setAttribute('aria-label', on?'Collapse the editor':'Expand the editor');
+      if(on) textarea.focus();
+    }
+    btn.addEventListener('click', function(e){ e.stopPropagation(); setOpen(!wrap.classList.contains('expanded')); });
+    textarea._collapse = function(){ if(wrap.classList.contains('expanded')) setOpen(false); };
+    return wrap;
+  }
+  
+  makeExpandable(document.getElementById('modalEditArea'), EXPAND_ICO2, COLLAPSE_ICO2);
 
   function showToast(msg) {
     toast.textContent = msg;

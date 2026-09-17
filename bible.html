@@ -8,11 +8,11 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNSIgZmlsbD0iIzExMSIvPjx0ZXh0IHg9IjE2IiB5PSIyMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXN0eWxlPSJpdGFsaWMiIGZpbGw9IiNjODg5MmEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPldTPC90ZXh0Pjwvc3ZnPg=="/>
 
   <title>Bible Spin — WordSpin</title>
-  <meta name="description" content="Shuffle a name from Scripture and write from it. 80 names from the Old and New Testaments, each with its pronunciation, meaning, a verse and a short breakdown."/>
+  <meta name="description" content="Bible Spin — Scripture as a writing prompt. Names, and Times and Seasons. Part of WordSpin."/>
   <link rel="canonical" href="https://www.wordspin.org/bible.html"/>
   <meta property="og:type" content="website"/>
   <meta property="og:title" content="Bible Spin — WordSpin"/>
-  <meta property="og:description" content="Shuffle a name from Scripture and write from it."/>
+  <meta property="og:description" content="Scripture as a writing prompt."/>
   <meta property="og:site_name" content="WordSpin"/>
   <meta name="theme-color" content="#1a1008"/>
   <meta name="color-scheme" content="light dark"/>
@@ -653,6 +653,49 @@
       * { transition: none !important; animation: none !important; }
     }
   </style>
+<style>
+  .cats { display: flex; flex-direction: column; gap: var(--s3);
+          max-width: 34rem; margin: var(--s5) auto 0; width: 100%; }
+  .cat {
+    display: block; text-align: left; text-decoration: none;
+    border: 1px solid var(--border); border-radius: 4px;
+    padding: var(--s4) 1.4rem; color: var(--ink);
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+  }
+  .cat:hover { border-color: var(--amber); transform: translateY(-2px); }
+  .cat-label {
+    font-family: 'DM Mono', monospace; font-size: 0.56rem;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--amber);
+  }
+  .cat-name {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-weight: 700; font-size: clamp(1.7rem, 6vw, 2.2rem);
+    line-height: 1.1; margin-top: var(--s2); color: var(--ink);
+  }
+  .cat-desc {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 1.05rem; line-height: 1.6; color: var(--muted);
+    margin-top: var(--s3);
+  }
+  .cat-go {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: 'DM Mono', monospace; font-size: 0.62rem;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--amber); margin-top: var(--s3);
+  }
+  .cat-count {
+    position: absolute; top: var(--s4); right: 1.4rem;
+    font-family: 'DM Mono', monospace; font-size: 0.58rem;
+    letter-spacing: 0.1em; color: var(--muted);
+  }
+  .hub-note {
+    max-width: 34rem; margin: var(--s5) auto 0; width: 100%;
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 1.02rem; line-height: 1.7; color: var(--muted);
+    border-top: 1px solid var(--border); padding-top: var(--s4);
+  }
+</style>
 </head>
 <body>
 
@@ -666,233 +709,41 @@
 <div class="page">
 
   <header>
-    <div class="eyebrow">Bible Spin</div>
+    <div class="eyebrow">WordSpin</div>
     <div class="eyebrow-rule"></div>
-    <h1 class="page-title">Names</h1>
-    <p class="page-sub">Eighty names from Scripture. Shuffle one and write from it.</p>
+    <h1 class="page-title">Bible Spin</h1>
+    <p class="page-sub">Scripture as the spark. Choose where to begin.</p>
   </header>
 
-  <div class="testament-row">
-    <button class="test-btn active" data-t="all">All</button>
-    <button class="test-btn" data-t="Old Testament">Old Testament</button>
-    <button class="test-btn" data-t="New Testament">New Testament</button>
-  </div>
+  <nav class="cats">
+    <a class="cat" href="names.html">
+      <span class="cat-count">80 cards</span>
+      <div class="cat-label">Category One</div>
+      <div class="cat-name">Names</div>
+      <div class="cat-desc">Shuffle a name from Scripture and write from it. Each one carries its pronunciation in English and in the language it was given, what the name means, a verse, and who the person was.</div>
+      <div class="cat-go">Open <span aria-hidden="true">→</span></div>
+    </a>
 
-  <div class="deck-wrap">
-    <div class="deck-area" id="deckArea"></div>
-    <p class="spin-count" id="spinCount">Tap the cards to shuffle</p>
-    <button class="pile-aside" id="pileAside" style="display:none"></button>
+    <a class="cat" href="times-and-seasons.html">
+      <span class="cat-count">29 cards</span>
+      <div class="cat-label">Category Two</div>
+      <div class="cat-name">Times and Seasons</div>
+      <div class="cat-desc">Say what you are carrying — grief, anger, fear, joy, doubt — and Scripture will meet you there. Not to dismiss it, but to show you who else has stood exactly where you are standing.</div>
+      <div class="cat-go">Open <span aria-hidden="true">→</span></div>
+    </a>
+  </nav>
 
-    <div class="aside-sheet" id="asideSheet">
-      <div class="aside-panel">
-        <div class="aside-head">
-          <span class="aside-title">Set aside</span>
-          <button class="aside-x" id="asideClose" aria-label="Close">✕</button>
-        </div>
-        <div class="aside-list" id="asideList"></div>
-        <div class="aside-foot">
-          <button class="wbtn" id="asideOnly">Play these only</button>
-          <button class="wbtn primary" id="asideReturn">Return to deck</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <section class="chosen" id="chosen" style="display:none">
-    <div class="chosen-label">Your name</div>
-    <div class="chosen-name" id="chosenName"></div>
-    <div class="chosen-title" id="chosenTitle"></div>
-    <button class="def-toggle" id="defToggle">🔍 Read the breakdown</button>
-    <div class="def-panel" id="defPanel">
-      <div class="def-box">
-
-        <div class="def-sec">
-          <div class="def-h">Pronunciation</div>
-          <div class="def-pron" id="defPron"></div>
-        </div>
-
-        <div class="def-sec">
-          <div class="def-h">Meaning</div>
-          <div class="uncertain-tag" id="defUncertain" style="display:none">Derivation disputed</div>
-          <div class="def-meaning" id="defMeaning"></div>
-          <div class="def-same" id="defSameAs" style="display:none"></div>
-          <div class="def-meaning-note" id="defMeaningNote"></div>
-        </div>
-
-        <div class="def-sec">
-          <div class="def-h">Scripture</div>
-          <div class="def-verse" id="defVerse"></div>
-          <div class="def-verse-src" id="defVerseSrc"></div>
-        </div>
-
-        <div class="def-sec">
-          <div class="def-h">Who they were</div>
-          <div class="def-desc" id="defDesc"></div>
-        </div>
-
-        <div class="def-sec" id="defMentionsSec">
-          <div class="def-h">Also found in</div>
-          <div class="def-mentions" id="defMentions"></div>
-        </div>
-
-      </div>
-    </div>
-    <p class="chosen-prompt">Let this name be your spark. Write whatever it stirs &mdash; a scene, a prayer, an argument, a confession.</p>
-  </section>
-
-  <section class="write" id="writeSec">
-    <div class="box-wrap" id="boxWrap">
-      <textarea id="storyBox" placeholder="Begin here…"></textarea>
-      <button class="expand-btn" id="expandBtn" aria-label="Expand the writing box"
-              title="Expand"><svg class="xp-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><path d="M8 8 L12.4 3.6"/><path d="M9.4 3 H13 V6.6"/></g><g transform="rotate(180 8 8)"><path d="M8 8 L12.4 3.6"/><path d="M9.4 3 H13 V6.6"/></g></svg></button>
-    </div>
-    <div class="word-count" id="wordCount">0 words</div>
-    <div class="expanded-count" id="expandedCount"></div>
-    <div class="write-actions">
-      <button class="wbtn primary" id="saveBtn">Save story</button>
-      <button class="wbtn" id="clearBtn">Clear</button>
-    </div>
-  </section>
-
-  <section class="saved">
-    <h2 class="saved-h">Your Bible stories</h2>
-    <div class="saved-list" id="savedList"></div>
-  </section>
+  <p class="hub-note">More categories will be added here as they are written.</p>
 
   <footer>
-    <a class="foot-link" href="times-and-seasons.html">Times and Seasons &rarr;</a>
-    <div class="foot-mark">WordSpin &mdash; by MK</div>
+    <div class="foot-mark">WordSpin — by MK</div>
   </footer>
 
 </div>
 
-<div class="modal-back" id="modalBack">
-  <div class="modal">
-    <div class="modal-name" id="mName"></div>
-    <div class="modal-meta" id="mMeta"></div>
-    <button class="def-toggle" id="mBreakBtn" style="margin-top:var(--s2)">🔍 Show the breakdown</button>
-    <div class="def-panel" id="mBreakPanel">
-      <div class="def-box" style="margin-top:var(--s3)">
-        <div class="def-sec">
-          <div class="def-h">Pronunciation</div>
-          <div class="def-pron" id="mPron"></div>
-        </div>
-        <div class="def-sec">
-          <div class="def-h">Meaning</div>
-          <div class="uncertain-tag" id="mUncertain" style="display:none">Derivation disputed</div>
-          <div class="def-meaning" id="mMeaning"></div>
-          <div class="def-meaning-note" id="mMeaningNote"></div>
-        </div>
-        <div class="def-sec">
-          <div class="def-h">Scripture</div>
-          <div class="def-verse" id="mVerse"></div>
-          <div class="def-verse-src" id="mVerseSrc"></div>
-        </div>
-        <div class="def-sec">
-          <div class="def-h">Who they were</div>
-          <div class="def-desc" id="mDesc"></div>
-        </div>
-        <div class="def-sec" id="mMentionsSec">
-          <div class="def-h">Also found in</div>
-          <div class="def-mentions" id="mMentions"></div>
-        </div>
-      </div>
-    </div>
-    <div class="modal-text" id="mText"></div>
-    <textarea class="modal-edit" id="mEdit"></textarea>
-    <div class="modal-foot" id="mFootRead">
-      <button class="wbtn" id="mClose">Close</button>
-      <button class="wbtn" id="mEditBtn">✎ Edit</button>
-      <button class="wbtn danger" id="mDelete">Delete</button>
-    </div>
-    <div class="modal-foot" id="mFootEdit" style="display:none">
-      <button class="wbtn" id="mCancelEdit">Cancel</button>
-      <button class="wbtn primary" id="mSaveEdit">Save changes</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-const BIBLE_NAMES = [{"name":"Adam","pronunciation":"AD-am","pronunciationOriginal":"ah-DAHM","originalLanguage":"Hebrew","meaning":"Man; humankind","meaningNote":"Hebrew אָדָם (adam), from adamah, 'ground' or 'red earth' — the name and the substance he was formed from share a root.","testament":"Old Testament","book":"Genesis","quoteRef":"Genesis 3:20","gnvQuote":"And Adam called his wife's name Eve; for she was the mother of all living.","kjvQuote":"And Adam called his wife's name Eve; for she was the mother of all living.","description":"First man created in God's image; father of humanity; ate the forbidden fruit in the Garden of Eden.","mentions":["Genesis 2-3"]},{"name":"Eve","pronunciation":"EEV","pronunciationOriginal":"khav-VAH","originalLanguage":"Hebrew","meaning":"Life; living one","meaningNote":"Hebrew חַוָּה (Chavvah), from chayah, 'to live' — so the name itself means 'life' or 'living one'. 'Mother of all living' is Adam's explanation for choosing it, not a translation of it: Genesis 3:20 gives the name first and the reason after. Greek Eua, Latin Eva, English Eve.","testament":"Old Testament","book":"Genesis","quoteRef":"Genesis 3:13","gnvQuote":"And the woman said, The serpent beguiled me, and I did eat.","kjvQuote":"And the woman said, The serpent beguiled me, and I did eat.","description":"First woman; mother of humanity; tempted by the serpent to eat from the tree of knowledge.","mentions":["Genesis 2-3"]},{"name":"Noah","pronunciation":"NOH-ah","pronunciationOriginal":"NOH-akh","originalLanguage":"Hebrew","meaning":"Rest; comfort","meaningNote":"Hebrew נֹחַ (Noach), from nuach, 'to rest'. Lamech names him hoping for relief from the cursed ground.","testament":"Old Testament","book":"Genesis","quoteRef":"Genesis 6:8","gnvQuote":"But Noah found grace in the sight of the LORD.","kjvQuote":"But Noah found grace in the sight of the LORD.","description":"Righteous man who built the Ark; saved his family and animal kinds from the flood.","mentions":["Genesis 6-9"]},{"name":"Abraham","pronunciation":"AY-bra-ham","pronunciationOriginal":"av-rah-HAHM","originalLanguage":"Hebrew","meaning":"Father of a multitude","meaningNote":"Hebrew אַבְרָהָם. He begins as Abram, 'exalted father'; God adds a syllable at the covenant, widening one household into nations.","testament":"Old Testament","book":"Genesis","quoteRef":"Genesis 15:6","gnvQuote":"And he believed in the LORD; and he counted it to him for righteousness.","kjvQuote":"And he believed in the LORD; and he counted it to him for righteousness.","description":"Father of many nations; left his homeland in faith; tested by God to offer his son Isaac.","mentions":["Genesis 12-25"]},{"name":"Sarah","pronunciation":"SAIR-ah","pronunciationOriginal":"sah-RAH","originalLanguage":"Hebrew","meaning":"Princess; noblewoman","meaningNote":"Hebrew שָׂרָה. Renamed from Sarai at the same moment as Abraham — a private title made public.","testament":"Old Testament","book":"Genesis","quoteRef":"Genesis 21:2","gnvQuote":"And Sarah conceived, and bare Abraham a son in his old age...","kjvQuote":"And Sarah conceived, and bare Abraham a son in his old age...","description":"Abraham's wife; mother of Isaac; laughed when told she would bear a child in her old age.","mentions":["Genesis 11-23"]},{"name":"Isaac","pronunciation":"EYE-zak","pronunciationOriginal":"yits-KHAHK","originalLanguage":"Hebrew","meaning":"He laughs","meaningNote":"Hebrew יִצְחָק (Yitzchaq), from tsachaq, 'to laugh'. Both parents laugh at the promise before he is born; the name keeps the joke.","testament":"Old Testament","book":"Genesis","quoteRef":"Genesis 21:7","gnvQuote":"And she said, Who would have said unto Abraham, that Sarah should have given children suck? for I have born him a son in his old age.","kjvQuote":"And she said, Who would have said unto Abraham, that Sarah should have given children suck? for I have born him a son in his old age.","description":"Son of Abraham and Sarah; offered as sacrifice on Mount Moriah; father of Jacob and Esau.","mentions":["Genesis 21-35"]},{"name":"Jacob","pronunciation":"JAY-kub","pronunciationOriginal":"yah-ah-KOV","originalLanguage":"Hebrew","meaning":"Heel-grasper; supplanter","meaningNote":"Hebrew יַעֲקֹב (Ya'aqov), from aqev, 'heel' — he is born gripping one. Renamed Israel, 'he strives with God', after the night of wrestling.","testament":"Old Testament","book":"Genesis","quoteRef":"Genesis 32:28","gnvQuote":"And he said, Thy name shall be called no more Jacob, but Israel: for as a prince hast thou power with God and with men, and hast prevailed.","kjvQuote":"And he said, Thy name shall be called no more Jacob, but Israel: for as a prince hast thou power with God and with men, and hast prevailed.","description":"Son of Isaac; patriarch of Israel; wrestled with God; father of the twelve tribes of Israel.","mentions":["Genesis 25-50"]},{"name":"Rachel","pronunciation":"RAY-chel","pronunciationOriginal":"rah-KHEL","originalLanguage":"Hebrew","meaning":"Ewe; female sheep","meaningNote":"Hebrew רָחֵל. A shepherd's name for a shepherd's daughter.","testament":"Old Testament","book":"Genesis","quoteRef":"Genesis 29:18","gnvQuote":"And he loved Rachel; and said, I will serve thee seven years for Rachel thy younger daughter.","kjvQuote":"And he loved Rachel; and said, I will serve thee seven years for Rachel thy younger daughter.","description":"Wife of Jacob; mother of Joseph and Benjamin; known for her beauty and longing for children.","mentions":["Genesis 29-35"]},{"name":"Joseph","title":"son of Jacob","pronunciation":"JOH-zef","pronunciationOriginal":"yoh-SEF","originalLanguage":"Hebrew","meaning":"May he add","meaningNote":"Hebrew יוֹסֵף (Yosef), from yasaf, 'to add'. Rachel names him asking God for another son.","testament":"Old Testament","book":"Genesis","quoteRef":"Genesis 39:3","gnvQuote":"And his master saw that the LORD was with him, and that the LORD made all that he did to prosper in his hand.","kjvQuote":"And his master saw that the LORD was with him, and that the LORD made all that he did to prosper in his hand.","description":"Son of Jacob; sold into slavery; became Pharaoh's trusted advisor; saved Egypt and his family during famine.","mentions":["Genesis 37-50"]},{"name":"Moses","pronunciation":"MOH-zez","pronunciationOriginal":"moh-SHEH","originalLanguage":"Hebrew","meaning":"Drawn out","meaningNote":"Hebrew מֹשֶׁה (Mosheh), explained in Exodus as 'drawn out of the water'. Likely also Egyptian mes, 'born of' — the ending in Thutmose and Rameses.","testament":"Old Testament","book":"Exodus","quoteRef":"Exodus 33:11","gnvQuote":"And the LORD spake unto Moses face to face, as a man speaketh unto his friend.","kjvQuote":"And the LORD spake unto Moses face to face, as a man speaketh unto his friend.","description":"Deliverer of Israel from Egypt; received the Ten Commandments on Mount Sinai; led Israel in the wilderness.","mentions":["Exodus 1-40"]},{"name":"Aaron","pronunciation":"AIR-un","pronunciationOriginal":"a-ha-RONE","originalLanguage":"Hebrew","meaning":"'Exalted' or 'mountain of strength'","meaningUncertain":true,"meaningNote":"Hebrew אַהֲרֹן. One of the few major names with no secure etymology; possibly Egyptian in origin, like his brother's. God appoints him as Moses' mouth in Exodus 4:16 — the name we cannot translate belongs to the man who did the speaking.","testament":"Old Testament","book":"Exodus","quoteRef":"Exodus 4:16","gnvQuote":"And he shall be thy spokesman unto the people: and he shall be, even he shall be to thee instead of a mouth, and thou shalt be to him instead of God.","kjvQuote":"And he shall be thy spokesman unto the people: and he shall be, even he shall be to thee instead of a mouth, and thou shalt be to him instead of God.","description":"Brother of Moses and first high priest of Israel; spoke for Moses before Pharaoh when Moses pleaded that he was slow of speech; led worship and the priesthood; made the golden calf in Moses' absence.","mentions":["Exodus 4-40"]},{"name":"Miriam","pronunciation":"MEER-ee-am","pronunciationOriginal":"meer-YAHM","originalLanguage":"Hebrew","meaning":"'Bitterness', 'rebellion' or 'beloved'","meaningUncertain":true,"meaningNote":"Hebrew מִרְיָם. Possibly Egyptian mry, 'beloved'. Becomes Mariam in Greek and eventually Mary.","testament":"Old Testament","book":"Exodus","quoteRef":"Exodus 15:20","gnvQuote":"And Miriam the prophetess, the sister of Aaron, took a timbrel in her hand; and all the women went out after her with timbrels and with dances.","kjvQuote":"And Miriam the prophetess, the sister of Aaron, took a timbrel in her hand; and all the women went out after her with timbrels and with dances.","description":"Sister of Moses and Aaron; prophetess; watched over baby Moses in the Nile; led women in celebration after Red Sea crossing.","mentions":["Exodus 2, 15"]},{"name":"Joshua","pronunciation":"JOSH-oo-ah","pronunciationOriginal":"yeh-hoh-SHOO-ah","originalLanguage":"Hebrew","meaning":"YHWH is salvation","meaningNote":"Hebrew יְהוֹשֻׁעַ (Yehoshua). Shortened to Yeshua after the exile; rendered Iesous in Greek — which is how it reaches us as Jesus.","testament":"Old Testament","book":"Joshua","quoteRef":"Joshua 1:7","gnvQuote":"Only be thou strong and very courageous, that thou mayest observe to do according to all the law, which Moses my servant commanded thee: turn not from it to the right hand nor to the left, that thou mayest prosper whithersoever thou goest.","kjvQuote":"Only be thou strong and very courageous, that thou mayest observe to do according to all the law, which Moses my servant commanded thee: turn not from it to the right hand nor to the left, that thou mayest prosper whithersoever thou goest.","description":"Successor of Moses; led Israel into the Promised Land; conquered Canaan; faithful military commander.","mentions":["Joshua 1-24"]},{"name":"Deborah","title":"prophetess and judge","pronunciation":"DEB-or-ah","pronunciationOriginal":"deh-voh-RAH","originalLanguage":"Hebrew","meaning":"Bee","meaningNote":"Hebrew דְּבוֹרָה. A small thing that organises, works and stings — fitting for a judge who summoned an army.","testament":"Old Testament","book":"Judges","quoteRef":"Judges 4:4","gnvQuote":"And Deborah, a prophetess, the wife of Lapidoth, she judged Israel at that time.","kjvQuote":"And Deborah, a prophetess, the wife of Lapidoth, she judged Israel at that time.","description":"Judge and prophetess of Israel; led Barak to victory against Sisera; wise military strategist.","mentions":["Judges 4-5"]},{"name":"Samson","pronunciation":"SAM-sun","pronunciationOriginal":"shim-SHOHN","originalLanguage":"Hebrew","meaning":"Of the sun; little sun","meaningNote":"Hebrew שִׁמְשׁוֹן (Shimshon), from shemesh, 'sun'. He is from Beth-Shemesh country, where sun worship was old.","testament":"Old Testament","book":"Judges","quoteRef":"Judges 16:20","gnvQuote":"And she said, The Philistines be upon thee, Samson. And he awoke out of his sleep, and said, I will go out as at other times before, and shake myself. And he wist not that the LORD was departed from him.","kjvQuote":"And she said, The Philistines be upon thee, Samson. And he awoke out of his sleep, and said, I will go out as at other times before, and shake myself. And he wist not that the LORD was departed from him.","description":"Judge of Israel; possessed supernatural strength; betrayed by Delilah; brought down the temple of Dagon.","mentions":["Judges 13-16"]},{"name":"Ruth","pronunciation":"ROOTH","pronunciationOriginal":"ROOT","originalLanguage":"Hebrew","meaning":"Friend; companion","meaningNote":"Hebrew רוּת, most likely from re'ut, 'friendship'. The meaning and the story agree exactly.","testament":"Old Testament","book":"Ruth","quoteRef":"Ruth 1:16","gnvQuote":"And Ruth said, Intreat me not to leave thee, or to return from following after thee: for whither thou goest, I will go; and where thou lodgest, I will lodge: thy people shall be my people, and thy God my God:","kjvQuote":"And Ruth said, Intreat me not to leave thee, or to return from following after thee: for whither thou goest, I will go; and where thou lodgest, I will lodge: thy people shall be my people, and thy God my God:","description":"Moabite widow; showed loyalty to her mother-in-law Naomi; married Boaz; ancestor of King David.","mentions":["Ruth 1-4"]},{"name":"Naomi","pronunciation":"nay-OH-mee","pronunciationOriginal":"nah-oh-MEE","originalLanguage":"Hebrew","meaning":"Pleasantness; my delight","meaningNote":"Hebrew נָעֳמִי, from na'em. She asks to be called Mara, 'bitter', instead — the one person in Scripture who renames herself in grief.","testament":"Old Testament","book":"Ruth","quoteRef":"Ruth 1:22","gnvQuote":"So Naomi returned, and Ruth the Moabitess, her daughter in law, with her, returning out of the country of Moab: and they came to Bethlehem in the beginning of barley harvest.","kjvQuote":"So Naomi returned, and Ruth the Moabitess, her daughter in law, with her, returning out of the country of Moab: and they came to Bethlehem in the beginning of barley harvest.","description":"Mother-in-law of Ruth; returned from Moab to Bethlehem; wise counsellor; experienced God's redemption.","mentions":["Ruth 1-4"]},{"name":"David","pronunciation":"DAY-vid","pronunciationOriginal":"dah-VEED","originalLanguage":"Hebrew","meaning":"Beloved","meaningNote":"Hebrew דָּוִד. Possibly also an old title meaning 'chieftain'.","testament":"Old Testament","book":"1 Samuel","quoteRef":"1 Samuel 18:14","gnvQuote":"And David behaved himself wisely in all his ways; and the LORD was with him.","kjvQuote":"And David behaved himself wisely in all his ways; and the LORD was with him.","description":"King of Israel; shepherd boy who defeated Goliath; psalmist; chosen king after Saul; ancestor of Jesus.","mentions":["1 Samuel 16-31","2 Samuel"]},{"name":"Solomon","pronunciation":"SOL-oh-mun","pronunciationOriginal":"sheh-loh-MOH","originalLanguage":"Hebrew","meaning":"Peaceful","meaningNote":"Hebrew שְׁלֹמֹה (Shelomoh), from shalom. He also carries a second name, Jedidiah, 'beloved of YHWH'.","testament":"Old Testament","book":"1 Kings","quoteRef":"1 Kings 3:11","gnvQuote":"And God said unto him, Because thou hast asked this thing, and hast not asked for thyself long life; neither hast asked riches for thyself, nor hast asked the life of thine enemies; but hast asked for thyself understanding to discern judgment; Behold, I have done according to thy word: lo, I have given thee a wise and an understanding heart; so that there was none like thee before thee, neither after thee shall any arise like unto thee.","kjvQuote":"And God said unto him, Because thou hast asked this thing, and hast not asked for thyself long life; neither hast asked riches for thyself, nor hast asked the life of thine enemies; but hast asked for thyself understanding to discern judgment; Behold, I have done according to thy word: lo, I have given thee a wise and an understanding heart; so that there was none like thee before thee, neither after thee shall any arise like unto thee.","description":"Son of David; wisest of all kings; built the Temple in Jerusalem; known for his proverbs and judgments.","mentions":["1 Kings 1-11"]},{"name":"Elijah","pronunciation":"ee-LYE-jah","pronunciationOriginal":"ay-lee-YAH-hoo","originalLanguage":"Hebrew","meaning":"My God is YHWH","meaningNote":"Hebrew אֵלִיָּהוּ (Eliyahu). The name is the argument he spent his life making on Carmel.","testament":"Old Testament","book":"1 Kings","quoteRef":"2 Kings 2:11","gnvQuote":"And Elijah went up by a whirlwind into heaven.","kjvQuote":"And Elijah went up by a whirlwind into heaven.","description":"Prophet of Israel; challenged Baal worship; performed miracles; taken to heaven in a chariot of fire.","mentions":["1 Kings 17-21","2 Kings 1-2"]},{"name":"Elisha","pronunciation":"ee-LYE-shah","pronunciationOriginal":"eh-lee-SHAH","originalLanguage":"Hebrew","meaning":"My God is salvation","meaningNote":"Hebrew אֱלִישָׁע. One letter apart from his master's name, and a different claim.","testament":"Old Testament","book":"2 Kings","quoteRef":"2 Kings 2:12","gnvQuote":"And Elisha saw it, and he cried, My father, my father, the chariot of Israel, and the horsemen thereof. And he saw him no more: and he took hold of his own clothes, and rent them in two pieces.","kjvQuote":"And Elisha saw it, and he cried, My father, my father, the chariot of Israel, and the horsemen thereof. And he saw him no more: and he took hold of his own clothes, and rent them in two pieces.","description":"Successor to Elijah; performed many miracles; healed Naaman of leprosy; prophet during Israel's decline.","mentions":["2 Kings 2-13"]},{"name":"Jonah","pronunciation":"JOH-nah","pronunciationOriginal":"yoh-NAH","originalLanguage":"Hebrew","meaning":"Dove","meaningNote":"Hebrew יוֹנָה. A bird sent out over water that does not want to come back — the same image as Noah's.","testament":"Old Testament","book":"Jonah","quoteRef":"Jonah 4:10","gnvQuote":"But the LORD said, Thou hast had pity on the gourd, for the which thou hast not laboured, neither madest it grow; which came up in a night, and perished in a night: And should not I spare Nineveh, that great city, wherein are more than sixscore thousand persons that cannot discern between their right hand and their left hand; and also much cattle?","kjvQuote":"But the LORD said, Thou hast had pity on the gourd, for the which thou hast not laboured, neither madest it grow; which came up in a night, and perished in a night: And should not I spare Nineveh, that great city, wherein are more than sixscore thousand persons that cannot discern between their right hand and their left hand; and also much cattle?","description":"Prophet who fled God's call; swallowed by a great fish; preached repentance to Nineveh; wrestled with God's mercy.","mentions":["Jonah 1-4"]},{"name":"Job","pronunciation":"JOHB","pronunciationOriginal":"ee-YOVE","originalLanguage":"Hebrew","meaning":"'Persecuted' or 'penitent'","meaningUncertain":true,"meaningNote":"Hebrew אִיּוֹב (Iyyov). Possibly from a root meaning 'to be hostile', read either as one who is hated or one who contends.","testament":"Old Testament","book":"Job","quoteRef":"Job 13:15","gnvQuote":"Though he slay me, yet will I trust in him: but I will maintain mine own ways before him.","kjvQuote":"Though he slay me, yet will I trust in him: but I will maintain mine own ways before him.","description":"Righteous man tested by suffering; lost family, wealth, and health; questioned God; ultimately vindicated and restored.","mentions":["Job 1-42"]},{"name":"Esther","pronunciation":"ES-ter","pronunciationOriginal":"es-TEHR","originalLanguage":"Hebrew","meaning":"Star","meaningNote":"Persian, likely from setareh, 'star'; possibly from the goddess Ishtar. Her Hebrew name is Hadassah, 'myrtle' — one name for the palace, one for home.","testament":"Old Testament","book":"Esther","quoteRef":"Esther 4:14","gnvQuote":"For if thou altogether holdest thy peace at this time, then shall there enlargement and deliverance arise to the Jews from another place; but thou and thy father's house shall be destroyed: and who knoweth whether thou art come to the kingdom for such a time as this?","kjvQuote":"For if thou altogether holdest thy peace at this time, then shall there enlargement and deliverance arise to the Jews from another place; but thou and thy father's house shall be destroyed: and who knoweth whether thou art come to the kingdom for such a time as this?","description":"Jewish queen of Persia; risked her life to save her people from genocide; God's providence hidden but active.","mentions":["Esther 1-10"]},{"name":"Mordecai","pronunciation":"MOR-de-kye","pronunciationOriginal":"mor-deh-KHYE","originalLanguage":"Hebrew","meaning":"Servant of Marduk","meaningNote":"Babylonian, from the god Marduk. A Jewish exile carrying a Babylonian god in his name is the book's quiet joke.","testament":"Old Testament","book":"Esther","quoteRef":"Esther 8:15","gnvQuote":"And Mordecai went out from the presence of the king in royal apparel of blue and white, and with a great crown of gold, and with a garment of fine linen and purple: and the city of Shushan rejoiced and was glad.","kjvQuote":"And Mordecai went out from the presence of the king in royal apparel of blue and white, and with a great crown of gold, and with a garment of fine linen and purple: and the city of Shushan rejoiced and was glad.","description":"Uncle of Esther; Jewish official in Persia; discovered a plot to assassinate the king; saved the Jews from destruction.","mentions":["Esther 1-10"]},{"name":"Nehemiah","pronunciation":"nee-eh-MY-ah","pronunciationOriginal":"neh-khem-YAH","originalLanguage":"Hebrew","meaning":"YHWH comforts","meaningNote":"Hebrew נְחֶמְיָה, from nacham, 'to comfort' — the same root as Noah's rest.","testament":"Old Testament","book":"Nehemiah","quoteRef":"Nehemiah 2:20","gnvQuote":"And I said unto them, The God of heaven, he will prosper us; therefore we his servants will arise and build: but ye have no portion, nor right, nor memorial, in Jerusalem.","kjvQuote":"And I said unto them, The God of heaven, he will prosper us; therefore we his servants will arise and build: but ye have no portion, nor right, nor memorial, in Jerusalem.","description":"Governor of Judah; rebuilt Jerusalem's walls despite opposition; spiritual leader; reformed Jewish practice.","mentions":["Nehemiah 1-13"]},{"name":"Jeremiah","pronunciation":"jair-eh-MY-ah","pronunciationOriginal":"yir-meh-YAH-hoo","originalLanguage":"Hebrew","meaning":"YHWH exalts; YHWH establishes","meaningNote":"Hebrew יִרְמְיָהוּ. Appointed before birth, as his own opening chapter says.","testament":"Old Testament","book":"Jeremiah","quoteRef":"Jeremiah 1:5","gnvQuote":"Before I formed thee in the belly I knew thee; and before thou camest forth out of the womb I sanctified thee, and I ordained thee a prophet unto the nations.","kjvQuote":"Before I formed thee in the belly I knew thee; and before thou camest forth out of the womb I ordained thee a prophet unto the nations.","description":"Weeping prophet; warned Judah of coming destruction; suffered persecution; wrote prophecies of restoration and the new covenant.","mentions":["Jeremiah 1-52"]},{"name":"Isaiah","pronunciation":"eye-ZAY-ah","pronunciationOriginal":"yesh-ah-YAH-hoo","originalLanguage":"Hebrew","meaning":"YHWH is salvation","meaningNote":"Hebrew יְשַׁעְיָהוּ. The same meaning as Joshua and Jesus, built the other way round.","testament":"Old Testament","book":"Isaiah","quoteRef":"Isaiah 9:6","gnvQuote":"For unto us a child is born, unto us a son is given: and the government shall be upon his shoulder: and his name shall be called Wonderful, Counseller, The mighty God, The everlasting Father, The Prince of Peace.","kjvQuote":"For unto us a child is born, unto us a son is given: and the government shall be upon his shoulder: and his name shall be called Wonderful, Counseller, The mighty God, The everlasting Father, The Prince of Peace.","description":"Major prophet; foretold Messiah's coming; wrote beautiful poetry; called the 'evangelist of the Old Testament.'","mentions":["Isaiah 1-66"]},{"name":"Daniel","pronunciation":"DAN-yel","pronunciationOriginal":"dah-nee-YALE","originalLanguage":"Hebrew","meaning":"God is my judge","meaningNote":"Hebrew דָּנִיֵּאל. Renamed Belteshazzar in Babylon; the book keeps calling him Daniel.","testament":"Old Testament","book":"Daniel","quoteRef":"Daniel 10:19","gnvQuote":"And he said, O man greatly beloved, fear not: peace be unto thee, be strong, yea, be strong: and when he had spoken unto me, I was strengthened...","kjvQuote":"And he said, O man greatly beloved, fear not: peace be unto thee, be strong, yea, be strong: and when he had spoken unto me, I was strengthened...","description":"Prophet in Babylonian captivity; interpreted dreams; survived the lion's den; received visions of future kingdoms and the Messiah.","mentions":["Daniel 1-12"]},{"name":"Ezra","pronunciation":"EZ-rah","pronunciationOriginal":"ez-RAH","originalLanguage":"Hebrew","meaning":"Help; helper","meaningNote":"Hebrew עֶזְרָא, from ezer, 'help' — the same word used of the help God gives, and of Eve.","testament":"Old Testament","book":"Ezra","quoteRef":"Ezra 7:10","gnvQuote":"For Ezra had prepared his heart to seek the law of the LORD, and to do it, and to teach in Israel statutes and judgments.","kjvQuote":"For Ezra had prepared his heart to seek the law of the LORD, and to do it, and to teach in Israel statutes and judgments.","description":"Scribe and priest; led return from Babylonian exile; restored Jewish law and practice; read Torah to the people.","mentions":["Ezra 1-10"]},{"name":"Hezekiah","pronunciation":"hez-eh-KYE-ah","pronunciationOriginal":"khiz-kee-YAH-hoo","originalLanguage":"Hebrew","meaning":"YHWH strengthens","meaningNote":"Hebrew חִזְקִיָּהוּ, from chazaq, 'to be strong'.","testament":"Old Testament","book":"2 Kings","quoteRef":"2 Kings 20:11","gnvQuote":"And Isaiah the prophet cried unto the LORD: and he brought the shadow ten degrees backward, by which it had gone down in the dial of Ahaz.","kjvQuote":"And Isaiah the prophet cried unto the LORD: and he brought the shadow ten degrees backward, by which it had gone down in the dial of Ahaz.","description":"King of Judah; reformed religion and destroyed idols; delivered from Assyrian invasion; healed from illness by God's miracle.","mentions":["2 Kings 18-20"]},{"name":"Josiah","pronunciation":"joh-SYE-ah","pronunciationOriginal":"yoh-shee-YAH-hoo","originalLanguage":"Hebrew","meaning":"YHWH supports; YHWH heals","meaningNote":"Hebrew יֹאשִׁיָּהוּ. Named before birth in a prophecy given generations earlier.","testament":"Old Testament","book":"2 Kings","quoteRef":"2 Kings 23:25","gnvQuote":"And like unto him was there no king before him, that turned to the LORD with all his heart, and with all his soul, and with all his might, according to all the law of Moses; neither after him arose there any like him.","kjvQuote":"And like unto him was there no king before him, that turned to the LORD with all his heart, and with all his soul, and with all his might, according to all the law of Moses; neither after him arose there any like him.","description":"Young king of Judah; discovered the Book of the Law; reformed religion; killed in battle at Megiddo.","mentions":["2 Kings 22-23"]},{"name":"Hannah","pronunciation":"HAN-ah","pronunciationOriginal":"khah-NAH","originalLanguage":"Hebrew","meaning":"Grace; favour","meaningNote":"Hebrew חַנָּה, from chen. Becomes Anna in Greek, then Anne and Ann.","testament":"Old Testament","book":"1 Samuel","quoteRef":"1 Samuel 1:11","gnvQuote":"And she vowed a vow, and said, O LORD of hosts, if thou wilt indeed look on the affliction of thine handmaid, and remember me, and not forget thine handmaid, but shalt give unto thine handmaid a man child; then I will give him unto the LORD all the days of his life...","kjvQuote":"And she vowed a vow, and said, O LORD of hosts, if thou wilt indeed look on the affliction of thine handmaid, and remember me, and not forget thine handmaid, but shalt give unto thine handmaid a man child; then I will give him unto the LORD all the days of his life...","description":"Mother of the prophet Samuel; barren but gave birth in answer to prayer; dedicated her son to God's service.","mentions":["1 Samuel 1-2"]},{"name":"Samuel","pronunciation":"SAM-yoo-el","pronunciationOriginal":"sheh-moo-ALE","originalLanguage":"Hebrew","meaning":"God has heard","meaningNote":"Hebrew שְׁמוּאֵל. Hannah names him for the prayer that was answered; it can also be read 'name of God'.","testament":"Old Testament","book":"1 Samuel","quoteRef":"1 Samuel 3:19","gnvQuote":"And Samuel grew, and the LORD was with him, and did let none of his words fall to the ground.","kjvQuote":"And Samuel grew, and the LORD was with him, and did let none of his words fall to the ground.","description":"Prophet and judge of Israel; anointed David as king; last judge of Israel before the monarchy; heard God's voice as a child.","mentions":["1 Samuel 1-25"]},{"name":"Saul","title":"first king of Israel","pronunciation":"SAWL","pronunciationOriginal":"shah-OOL","originalLanguage":"Hebrew","meaning":"Asked for; prayed for","meaningNote":"Hebrew שָׁאוּל. Israel asked for a king and got one whose name means 'asked for'.","testament":"Old Testament","book":"1 Samuel","quoteRef":"1 Samuel 19:24","gnvQuote":"And Saul stripped off his clothes, and he too prophesied before Samuel in like manner, and lay down naked all that day and all that night. Wherefore they say, Is Saul also among the prophets?","kjvQuote":"And Saul stripped off his clothes, and he too prophesied before Samuel in like manner, and lay down naked all that day and all that night. Wherefore they say, Is Saul also among the prophets?","description":"First king of Israel; initially obedient but became disobedient and rebellious; lost God's favour; died in battle.","mentions":["1 Samuel 9-31"]},{"name":"Bathsheba","pronunciation":"bath-SHEE-bah","pronunciationOriginal":"baht-SHEH-vah","originalLanguage":"Hebrew","meaning":"Daughter of the oath","meaningNote":"Hebrew בַּת־שֶׁבַע. Sheba can mean both 'oath' and 'seven', so also read 'daughter of seven'.","testament":"Old Testament","book":"2 Samuel","quoteRef":"2 Samuel 11:3","gnvQuote":"And David sent and enquired after the woman. And one said, Is not this Bathsheba, the daughter of Eliam, the wife of Uriah the Hittite?","kjvQuote":"And David sent and enquired after the woman. And one said, Is not this Bathsheba, the daughter of Eliam, the wife of Uriah the Hittite?","description":"Wife of David; mother of Solomon; involved in David's sin and repentance; became queen mother of Israel.","mentions":["2 Samuel 11-12"]},{"name":"Hosea","pronunciation":"hoh-ZAY-ah","pronunciationOriginal":"hoh-SHAY-ah","originalLanguage":"Hebrew","meaning":"Salvation; he saves","meaningNote":"Hebrew הוֹשֵׁעַ. The root beneath Joshua, Isaiah and Jesus, standing alone.","testament":"Old Testament","book":"Hosea","quoteRef":"Hosea 1:2","gnvQuote":"Go, take unto thee a wife of whoredoms and children of whoredoms: for the land hath committed great whoredom, departing from the LORD.","kjvQuote":"Go, take unto thee a wife of whoredoms and children of whoredoms: for the land hath committed great whoredom, departing from the LORD.","description":"Prophet to Israel; married an unfaithful woman to symbolise Israel's infidelity; proclaimed God's enduring love and restoration.","mentions":["Hosea 1-14"]},{"name":"Amos","pronunciation":"AY-mus","pronunciationOriginal":"ah-MOHS","originalLanguage":"Hebrew","meaning":"Borne; carried","meaningNote":"Hebrew עָמוֹס, from amas, 'to carry a load'. A herdsman carrying a message he did not ask for.","testament":"Old Testament","book":"Amos","quoteRef":"Amos 3:8","gnvQuote":"The lion hath roared, who will not fear? the Lord GOD hath spoken, who can but prophesy?","kjvQuote":"The lion hath roared, who will not fear? the Lord GOD hath spoken, who can but prophesy?","description":"Shepherd-prophet; called out social injustice in Israel; warned of coming judgment; proclaimed God's sovereignty.","mentions":["Amos 1-9"]},{"name":"Micah","title":"the prophet","pronunciation":"MY-kah","pronunciationOriginal":"mee-KHAH","originalLanguage":"Hebrew","meaning":"Who is like YHWH?","meaningNote":"Hebrew מִיכָה, a question rather than a statement — shortened from Micaiah. Michael asks the same thing of the angels.","testament":"Old Testament","book":"Micah","quoteRef":"Micah 7:7","gnvQuote":"But as for me, I will look unto the LORD; I will wait for the God of my salvation: my God will hear me.","kjvQuote":"But as for me, I will look unto the LORD; I will wait for the God of my salvation: my God will hear me.","description":"Minor prophet; predicted Messiah's birth in Bethlehem; proclaimed God's justice and mercy; championed the poor.","mentions":["Micah 1-7"]},{"name":"Malachi","pronunciation":"MAL-ah-kye","pronunciationOriginal":"mal-ah-KHEE","originalLanguage":"Hebrew","meaning":"My messenger","meaningNote":"Hebrew מַלְאָכִי, from mal'ak, 'messenger' or 'angel'. It may be a title rather than a birth name.","testament":"Old Testament","book":"Malachi","quoteRef":"Malachi 3:1","gnvQuote":"Behold, I will send my messenger, and he shall prepare the way before me: and the Lord, whom ye seek, shall suddenly come to his temple, even the messenger of the covenant, whom ye delight in: behold, he shall come, saith the LORD of hosts.","kjvQuote":"Behold, I will send my messenger, and he shall prepare the way before me: and the Lord, whom ye seek, shall suddenly come to his temple, even the messenger of the covenant, whom ye delight in: behold, he shall come, saith the LORD of hosts.","description":"Last Old Testament prophet; rebuked Israel for corrupt practices; foretold John the Baptist and Elijah's return.","mentions":["Malachi 1-4"]},{"name":"Obadiah","title":"the prophet","pronunciation":"oh-bah-DYE-ah","pronunciationOriginal":"oh-vad-YAH","originalLanguage":"Hebrew","meaning":"Servant of YHWH","meaningNote":"Hebrew עֹבַדְיָה, from abad, 'to serve'.","testament":"Old Testament","book":"Obadiah","quoteRef":"Obadiah 1:1","gnvQuote":"The vision of Obadiah. Thus saith the Lord GOD concerning Edom; We have heard a rumour from the LORD, and an ambassador is sent among the heathen, Arise ye, and let us rise up against her in battle.","kjvQuote":"The vision of Obadiah. Thus saith the Lord GOD concerning Edom; We have heard a rumour from the LORD, and an ambassador is sent among the heathen, Arise ye, and let us rise up against her in battle.","description":"Minor prophet; condemned Edom for pride; proclaimed judgment and Judah's restoration; shortest Old Testament book.","mentions":["Obadiah 1:1-21 (whole book)"]},{"name":"Gideon","pronunciation":"GID-ee-un","pronunciationOriginal":"gid-OHN","originalLanguage":"Hebrew","meaning":"Hewer; one who cuts down","meaningNote":"Hebrew גִּדְעוֹן, from gada, 'to hew'. He earns a second name, Jerubbaal, for cutting down his father's altar.","testament":"Old Testament","book":"Judges","quoteRef":"Judges 6:23","gnvQuote":"And the LORD said unto him, Peace be unto thee; fear not: thou shalt not die.","kjvQuote":"And the LORD said unto him, Peace be unto thee; fear not: thou shalt not die.","description":"Judge of Israel; called 'mighty man of valour' despite self-doubt; defeated Midianites with small army; tested God's guidance.","mentions":["Judges 6-8"]},{"name":"Jesus","pronunciation":"JEE-zus","pronunciationOriginal":"yeh-SHOO-ah","originalLanguage":"Aramaic","meaning":"YHWH is salvation","meaningNote":"Greek Ἰησοῦς (Iesous), from Hebrew Yeshua, a late short form of Yehoshua. Latin Iesus, and English Jesus only from the 16th century — earlier English wrote Iesu.","testament":"New Testament","book":"Matthew","quoteRef":"John 11:25","gnvQuote":"Jesus said unto her, I am the resurrection, and the life: he that believeth in me, though he were dead, yet shall he live:","kjvQuote":"Jesus said unto her, I am the resurrection, and the life: he that believeth in me, though he were dead, yet shall he live:","description":"Son of God; Messiah; central figure of Christianity; died for humanity's sins; rose from the dead on the third day.","mentions":["Matthew 1-28","Mark 1-16","Luke 1-24","John 1-21"]},{"name":"Mary","title":"mother of Jesus","pronunciation":"MAIR-ee","pronunciationOriginal":"meer-YAHM","originalLanguage":"Hebrew","meaning":"'Bitterness', 'rebellion' or 'beloved'","meaningUncertain":true,"meaningNote":"Greek Μαρία (Maria), from Hebrew Miriam, and it inherits that name's uncertainty — no derivation is settled. The most common woman's name in first-century Judea, which is why the Gospels keep having to say which Mary.","testament":"New Testament","book":"Matthew","quoteRef":"Luke 1:30","gnvQuote":"And the angel said unto her, Fear not, Mary: for thou hast found favour with God.","kjvQuote":"And the angel said unto her, Fear not, Mary: for thou hast found favour with God.","description":"Mother of Jesus; virgin; pondered God's mysteries in her heart; present at Jesus' crucifixion and resurrection.","mentions":["Matthew 1-2, 12-13","Mark 3, 6","Luke 1-2, 8","John 2, 19","Acts 1"]},{"name":"Joseph","title":"husband of Mary","pronunciation":"JOH-zef","pronunciationOriginal":"yoh-SEF","originalLanguage":"Hebrew","meaning":"May he add","meaningNote":"Hebrew יוֹסֵף (Yosef), from yasaf, 'to add'. Rachel names him asking God for another son.","testament":"New Testament","book":"Matthew","quoteRef":"Matthew 1:18","gnvQuote":"Now the birth of Jesus Christ was on this wise: When as his mother Mary was espoused to Joseph, before they came together, she was found with child of the Holy Ghost.","kjvQuote":"Now the birth of Jesus Christ was on this wise: When as his mother Mary was espoused to Joseph, before they came together, she was found with child of the Holy Ghost.","description":"Earthly father of Jesus; carpenter; protector of Jesus and Mary; righteous man of faith and obedience.","mentions":["Matthew 1-2","Luke 1-2"]},{"name":"John","title":"the Baptist","pronunciation":"JON","pronunciationOriginal":"yoh-khah-NAHN","originalLanguage":"Hebrew","meaning":"YHWH is gracious","meaningNote":"Hebrew יוֹחָנָן (Yochanan), from chanan, 'to show favour' — the same root as Hannah. Greek Ioannes, Latin Iohannes, then John.","testament":"New Testament","book":"Matthew","quoteRef":"Luke 3:16","gnvQuote":"I indeed baptize you with water; but one mightier than I cometh, the latchet of whose shoes I am not worthy to unloose: he shall baptize you with the Holy Ghost and with fire:","kjvQuote":"I indeed baptize you with water; but one mightier than I cometh, the latchet of whose shoes I am not worthy to unloose: he shall baptize you with the Holy Ghost and with fire:","description":"Forerunner to Jesus; 'voice crying in the wilderness'; baptized Jesus; executed by Herod Antipas.","mentions":["Matthew 3","Mark 1","Luke 3","John 1"]},{"name":"Elizabeth","pronunciation":"ee-LIZ-ah-beth","pronunciationOriginal":"eh-lee-SHEH-vah","originalLanguage":"Hebrew","meaning":"My God is an oath","meaningNote":"Hebrew אֱלִישֶׁבַע (Elisheva). Also read 'God is abundance'. Aaron's wife carried the same name.","testament":"New Testament","book":"Luke","quoteRef":"Luke 1:41","gnvQuote":"And it came to pass, that when Elisabeth heard the salutation of Mary, the babe leaped in her womb; and Elisabeth was filled with the Holy Ghost:","kjvQuote":"And it came to pass, that when Elisabeth heard the salutation of Mary, the babe leaped in her womb; and Elisabeth was filled with the Holy Ghost:","description":"Cousin of Mary; mother of John the Baptist; righteous and faithful; recognised Mary as the mother of her Lord.","mentions":["Luke 1"]},{"name":"Zechariah","title":"father of John the Baptist","pronunciation":"zek-ah-RYE-ah","pronunciationOriginal":"zekh-ar-YAH","originalLanguage":"Hebrew","meaning":"YHWH remembers","meaningNote":"Hebrew זְכַרְיָה, from zakar, 'to remember'. He is struck silent for forgetting that God does.","testament":"New Testament","book":"Luke","quoteRef":"Luke 1:22","gnvQuote":"And he went into the temple of the Lord. And when he came out, he could not speak unto them: and they perceived that he had seen a vision in the temple: for he beckoned unto them, and remained speechless.","kjvQuote":"And he went into the temple of the Lord. And when he came out, he could not speak unto them: and they perceived that he had seen a vision in the temple: for he beckoned unto them, and remained speechless.","description":"Father of John the Baptist; priest; received vision from angel Gabriel; struck mute until John's birth.","mentions":["Luke 1"]},{"name":"Peter","title":"also called Cephas","pronunciation":"PEE-ter","pronunciationOriginal":"PEH-tros","originalLanguage":"Greek","meaning":"Rock; stone","meaningNote":"Greek Πέτρος (Petros), translating the Aramaic Kepha that Jesus actually gave him — the same man appears in this deck under that name, Cephas. A word that was not a personal name until this.","testament":"New Testament","book":"Matthew","quoteRef":"Matthew 16:17","gnvQuote":"And Jesus said unto him, Blessed art thou, Simon Barjona: for flesh and blood hath not revealed it unto thee, but my Father which is in heaven. And I say also unto thee, That thou art Peter, and upon this rock I will build my church; and the gates of hell shall not prevail against it.","kjvQuote":"And Jesus said unto him, Blessed art thou, Simon Barjona: for flesh and blood hath not revealed it unto thee, but my Father which is in heaven. And I say also unto thee, That thou art Peter, and upon this rock I will build my church; and the gates of hell shall not prevail against it.","description":"Chief apostle of Jesus; 'rock' on which Church built; denied Jesus three times; repented and led early Church.","mentions":["Matthew 4, 8, 10, 14-19, 26","Mark 1, 3, 5, 8-11, 13-14, 16","Luke 5-6, 8-9, 22, 24","John 1, 6, 13, 18-21","Acts 1-5, 8-12, 15"],"sameAs":"Cephas"},{"name":"James","title":"son of Zebedee","pronunciation":"JAYMZ","pronunciationOriginal":"yah-ah-KOV","originalLanguage":"Hebrew","meaning":"Heel-grasper; supplanter","meaningNote":"Greek Ἰάκωβος (Iakobos), from Hebrew Ya'aqov — the same name as Jacob, and the same meaning. Latin Iacomus softened through Old French to James, which is why James and Jacob are one name in two coats.","testament":"New Testament","book":"Matthew","quoteRef":"Acts 12:2","gnvQuote":"And he killed James the brother of John with the sword.","kjvQuote":"And he killed James the brother of John with the sword.","description":"Apostle of Jesus; son of Zebedee; brother of John; first apostle to be martyred (beheaded by Herod).","mentions":["Matthew 4, 10, 17, 20, 26","Mark 1, 3, 5, 9-10, 13-14","Luke 5-6, 8-9","Acts 1, 12"]},{"name":"John","title":"the Apostle","pronunciation":"JON","pronunciationOriginal":"yoh-khah-NAHN","originalLanguage":"Hebrew","meaning":"YHWH is gracious","meaningNote":"Hebrew יוֹחָנָן (Yochanan), from chanan, 'to show favour' — the same root as Hannah. Greek Ioannes, Latin Iohannes, then John.","testament":"New Testament","book":"Matthew","quoteRef":"John 19:27","gnvQuote":"Then saith he to the disciple, Behold thy mother! And from that hour that disciple took her unto his own home.","kjvQuote":"Then saith he to the disciple, Behold thy mother! And from that hour that disciple took her unto his own home.","description":"Beloved disciple; apostle; gospel writer; leaned on Jesus' breast; entrusted with care of Mary.","mentions":["Matthew 4, 10, 17, 20, 26","Mark 1, 3, 5, 9-10, 13-14","Luke 5-6, 8-9, 22","John 13, 18-21","Acts 1, 3-4, 8, 12"]},{"name":"Andrew","pronunciation":"AN-droo","pronunciationOriginal":"an-DREH-as","originalLanguage":"Greek","meaning":"Manly; brave","meaningNote":"Greek Ἀνδρέας (Andreas), from aner/andros, 'man'. A Greek name on a Galilean fisherman, which tells you how mixed that world was.","testament":"New Testament","book":"Matthew","quoteRef":"John 1:40","gnvQuote":"One of the two which heard John speak, and followed him, was Andrew, Simon Peter's brother.","kjvQuote":"One of the two which heard John speak, and followed him, was Andrew, Simon Peter's brother.","description":"Apostle of Jesus; first disciple called; brought Peter to Jesus; brought boy with loaves and fishes to Jesus.","mentions":["Matthew 4, 10","Mark 1, 3, 13","Luke 6","John 1, 6, 12","Acts 1"]},{"name":"Philip","title":"the Apostle","pronunciation":"FIL-ip","pronunciationOriginal":"FIL-ip-pos","originalLanguage":"Greek","meaning":"Lover of horses","meaningNote":"Greek Φίλιππος, from philos, 'loving', and hippos, 'horse'. A royal Macedonian name — Alexander's father bore it.","testament":"New Testament","book":"Matthew","quoteRef":"John 14:8","gnvQuote":"Philip saith unto him, Lord, shew us the Father, and it sufficeth us.","kjvQuote":"Philip saith unto him, Lord, shew us the Father, and it sufficeth us.","description":"Apostle of Jesus; from Bethsaida; brought Nathanael to Jesus; asked Jesus to show them the Father.","mentions":["Matthew 10","Mark 3","Luke 6","John 1, 6, 12, 14"]},{"name":"Nathanael","pronunciation":"nah-THAN-ay-el","pronunciationOriginal":"neh-tan-ALE","originalLanguage":"Hebrew","meaning":"God has given","meaningNote":"Hebrew נְתַנְאֵל. The same sense as Greek Theodore and Latin Deodatus.","testament":"New Testament","book":"John","quoteRef":"John 1:48","gnvQuote":"Jesus answered and said unto him, Before that Philip called thee, when thou wast under the fig tree, I saw thee.","kjvQuote":"Jesus answered and said unto him, Before that Philip called thee, when thou wast under the fig tree, I saw thee.","description":"Apostle of Jesus (also called Bartholomew); genuine Israelite without guile; witnessed Jesus' resurrection appearances.","mentions":["John 1, 21"]},{"name":"Matthew","pronunciation":"MATH-yoo","pronunciationOriginal":"mat-tit-YAH-hoo","originalLanguage":"Hebrew","meaning":"Gift of YHWH","meaningNote":"Hebrew מַתִּתְיָהוּ (Mattityahu), shortened to Mattai. Greek Maththaios. He is also called Levi.","testament":"New Testament","book":"Matthew","quoteRef":"Matthew 9:9","gnvQuote":"And as Jesus passed forth from thence, he saw a man, named Matthew, sitting at the receipt of custom: and he saith unto him, Follow me. And he arose, and followed him.","kjvQuote":"And as Jesus passed forth from thence, he saw a man, named Matthew, sitting at the receipt of custom: and he saith unto him, Follow me. And he arose, and followed him.","description":"Apostle of Jesus; tax collector; gospel writer; called by Jesus while collecting taxes.","mentions":["Matthew 9-10","Mark 2-3","Luke 5-6","Acts 1"]},{"name":"Thomas","pronunciation":"TOM-as","pronunciationOriginal":"teh-OH-mah","originalLanguage":"Aramaic","meaning":"Twin","meaningNote":"Aramaic תְּאוֹמָא (Te'oma). John glosses it with the Greek Didymos, which also means twin — the Gospel translating for readers who needed it.","testament":"New Testament","book":"Matthew","quoteRef":"John 14:5","gnvQuote":"Thomas said unto him, Lord, we know not whither thou goest; and how can we know the way?","kjvQuote":"Thomas said unto him, Lord, we know not whither thou goest; and how can we know the way?","description":"Apostle of Jesus; initially doubted resurrection; confessed Jesus as Lord and God; tradition says he went to India.","mentions":["Matthew 10","Mark 3","Luke 6","John 11, 14, 20-21"]},{"name":"Bartholomew","pronunciation":"bar-THOL-oh-myoo","pronunciationOriginal":"bar-tal-MYE","originalLanguage":"Aramaic","meaning":"Son of Talmai","meaningNote":"Aramaic bar-Talmai. A patronymic, not a given name, which is part of why he is often identified with Nathanael.","testament":"New Testament","book":"Matthew","quoteRef":"John 1:45","gnvQuote":"Philip found Nathanael, and saith unto him, We have found him, of whom Moses in the law, and the prophets, did write, Jesus of Nazareth, the son of Joseph.","kjvQuote":"Philip found Nathanael, and saith unto him, We have found him, of whom Moses in the law, and the prophets, did write, Jesus of Nazareth, the son of Joseph.","description":"Apostle of Jesus; likely same as Nathanael; brought by Philip to Jesus; believed Jesus was Son of God.","mentions":["Matthew 10","Mark 3","Luke 6","Acts 1"]},{"name":"Simon","title":"the Zealot","pronunciation":"SYE-mun","pronunciationOriginal":"shim-OHN","originalLanguage":"Hebrew","meaning":"He has heard","meaningNote":"Hebrew שִׁמְעוֹן (Shim'on), from shama, 'to hear'. Blended in Greek with the existing name Simon, 'snub-nosed'.","testament":"New Testament","book":"Matthew","quoteRef":"Matthew 10:4","gnvQuote":"Simon the Canaanite, and Judas Iscariot, who also betrayed him.","kjvQuote":"Simon the Canaanite, and Judas Iscariot, who also betrayed him.","description":"Apostle of Jesus; the Zealot; less well-known apostle; tradition says he preached in Persia and was martyred.","mentions":["Matthew 10","Mark 3","Luke 6","Acts 1"]},{"name":"Judas","title":"Iscariot","pronunciation":"JOO-das","pronunciationOriginal":"yeh-hoo-DAH","originalLanguage":"Hebrew","meaning":"Praised","meaningNote":"Greek form of Hebrew יְהוּדָה (Yehudah), 'let God be praised'. A common, honourable name that one man made unusable.","testament":"New Testament","book":"Matthew","quoteRef":"John 12:4-5","gnvQuote":"And Judas Iscariot, which was also one of the twelve, said, Why was not this ointment sold for three hundred pence, and given to the poor?","kjvQuote":"And Judas Iscariot, which was also one of the twelve, said, Why was not this ointment sold for three hundred pence, and given to the poor?","description":"Apostle and treasurer; betrayed Jesus for thirty pieces of silver; hanged himself in remorse; replaced by Matthias.","mentions":["Matthew 10, 26-27","Mark 3, 14","Luke 6, 22","John 6, 12-13, 18","Acts 1"]},{"name":"Paul","pronunciation":"PAWL","pronunciationOriginal":"POW-lus","originalLanguage":"Latin","meaning":"Small; humble","meaningNote":"Latin Paulus. Born Saul, 'asked for'; Paulus was likely his Roman name from the start rather than a conversion renaming.","testament":"New Testament","book":"Acts","quoteRef":"2 Timothy 4:6-7","gnvQuote":"For I am now ready to be offered, and the time of my departure is at hand. I have fought a good fight, I have finished my course, I have kept the faith:","kjvQuote":"For I am now ready to be offered, and the time of my departure is at hand. I have fought a good fight, I have finished my course, I have kept the faith:","description":"Apostle to the Gentiles; formerly Saul; zealous persecutor converted to Christian; wrote most of New Testament epistles.","mentions":["Acts 7-28","Romans-Philemon (epistles)"]},{"name":"Barnabas","pronunciation":"BAR-nah-bas","pronunciationOriginal":"bar-NAH-bah","originalLanguage":"Aramaic","meaning":"Son of encouragement","meaningNote":"Aramaic, glossed in Acts itself as 'son of consolation'. A nickname the apostles gave him that replaced his given name, Joses.","testament":"New Testament","book":"Acts","quoteRef":"Acts 4:36","gnvQuote":"And Joses, who by the apostles was surnamed Barnabas, (which is, being interpreted, The son of consolation,) a Levite, and of the country of Cyprus,","kjvQuote":"And Joses, who by the apostles was surnamed Barnabas, (which is, being interpreted, The son of consolation,) a Levite, and of the country of Cyprus,","description":"Companion of Paul; 'Son of Encouragement'; sold his land to help Church; brought Paul to Jerusalem apostles.","mentions":["Acts 4-15"]},{"name":"Stephen","pronunciation":"STEE-ven","pronunciationOriginal":"STEH-fah-nos","originalLanguage":"Greek","meaning":"Crown; garland","meaningNote":"Greek Στέφανος (Stephanos), the wreath given to a victor. The first martyr's name means the winner's crown.","testament":"New Testament","book":"Acts","quoteRef":"Acts 7:59","gnvQuote":"And they stoned Stephen, calling upon God, and saying, Lord Jesus, receive my spirit.","kjvQuote":"And they stoned Stephen, calling upon God, and saying, Lord Jesus, receive my spirit.","description":"First Christian martyr (protomartyr); full of grace and faith; performed great wonders; stoned to death in Jerusalem.","mentions":["Acts 6-7"]},{"name":"Philip","title":"the Evangelist","pronunciation":"FIL-ip","pronunciationOriginal":"FIL-ip-pos","originalLanguage":"Greek","meaning":"Lover of horses","meaningNote":"Greek Φίλιππος, from philos, 'loving', and hippos, 'horse'. A royal Macedonian name — Alexander's father bore it.","testament":"New Testament","book":"Acts","quoteRef":"Acts 8:5","gnvQuote":"Then Philip went down to the city of Samaria, and preached Christ unto them.","kjvQuote":"Then Philip went down to the city of Samaria, and preached Christ unto them.","description":"Evangelist; one of seven deacons; preached in Samaria; baptized the Ethiopian eunuch; had four prophesying daughters.","mentions":["Acts 6-8"]},{"name":"Priscilla","pronunciation":"pri-SIL-ah","pronunciationOriginal":"pris-KIL-lah","originalLanguage":"Latin","meaning":"Ancient; venerable","meaningNote":"Latin, a diminutive of Prisca, from priscus. Paul calls her Prisca; Luke uses the affectionate form.","testament":"New Testament","book":"Acts","quoteRef":"Acts 18:3","gnvQuote":"And because he was of the same craft, he abode with them, and wrought: for by their occupation they were tentmakers.","kjvQuote":"And because he was of the same craft, he abode with them, and wrought: for by their occupation they were tentmakers.","description":"Tentmaker; wife of Aquila; co-worker with Paul; explained the way of God to Apollos; hosted churches in homes.","mentions":["Acts 18","1 Corinthians 16","2 Timothy 4"]},{"name":"Aquila","pronunciation":"AK-wil-ah","pronunciationOriginal":"AK-wih-lah","originalLanguage":"Latin","meaning":"Eagle","meaningNote":"Latin. A Jewish tentmaker from Pontus carrying a Roman bird — the empire's reach in a single name.","testament":"New Testament","book":"Acts","quoteRef":"Acts 18:2","gnvQuote":"And found a certain Jew named Aquila, born in Pontus, lately come from Italy, with his wife Priscilla; (because that Claudius had commanded all Jews to depart from Rome:) and came unto them.","kjvQuote":"And found a certain Jew named Aquila, born in Pontus, lately come from Italy, with his wife Priscilla; (because that Claudius had commanded all Jews to depart from Rome:) and came unto them.","description":"Tentmaker; husband of Priscilla; Jewish refugee from Rome; worked with Paul; co-worker in gospel ministry.","mentions":["Acts 18","1 Corinthians 16","2 Timothy 4"]},{"name":"Timothy","pronunciation":"TIM-oh-thee","pronunciationOriginal":"tee-MOH-theh-os","originalLanguage":"Greek","meaning":"Honouring God","meaningNote":"Greek Τιμόθεος, from timao, 'to honour', and theos, 'God'.","testament":"New Testament","book":"1 Timothy","quoteRef":"1 Timothy 4:12","gnvQuote":"Let no man despise thy youth; but be thou an example of the believers, in word, in conversation, in charity, in spirit, in faith, in purity.","kjvQuote":"Let no man despise thy youth; but be thou an example of the believers, in word, in conversation, in charity, in spirit, in faith, in purity.","description":"Son of Jewish mother and Greek father; disciple of Paul; pastor of Ephesian church; recipient of Timothy epistles.","mentions":["Acts 16","1 Timothy","2 Timothy","Titus","Hebrews 13"]},{"name":"Titus","pronunciation":"TYE-tus","pronunciationOriginal":"TEE-tus","originalLanguage":"Latin","meaning":"'Title of honour' or 'defended'","meaningUncertain":true,"meaningNote":"Latin, an old Roman praenomen. Its meaning was already lost to the Romans themselves.","testament":"New Testament","book":"Titus","quoteRef":"2 Corinthians 7:6","gnvQuote":"But God, that comforteth those that are cast down, comforted us by the coming of Titus;","kjvQuote":"But God, that comforteth those that are cast down, comforted us by the coming of Titus;","description":"Greek Gentile; companion of Paul; pastoral leader in Crete; recipient of Titus epistle; not mentioned in Acts.","mentions":["2 Corinthians 2, 7-8","Galatians 2","Titus 1-3","2 Timothy 4"]},{"name":"Silas","pronunciation":"SYE-las","pronunciationOriginal":"see-LAS","originalLanguage":"Greek","meaning":"Of the forest","meaningNote":"Likely a short form of Latin Silvanus, the name Paul uses for him in the letters. May instead be Aramaic, from the same root as Saul.","testament":"New Testament","book":"Acts","quoteRef":"Acts 15:32","gnvQuote":"Judas and Silas, being prophets also themselves, exhorted the brethren with many words, and confirmed them.","kjvQuote":"Judas and Silas, being prophets also themselves, exhorted the brethren with many words, and confirmed them.","description":"Prophetic leader; companion of Paul on second missionary journey; imprisoned with Paul in Philippi; also called Silvanus.","mentions":["Acts 15-18","1 Peter 5"]},{"name":"Luke","pronunciation":"LOOK","pronunciationOriginal":"loo-KAHS","originalLanguage":"Greek","meaning":"From Lucania","meaningNote":"Greek Λουκᾶς (Loukas), short for Latin Lucanus, 'man from Lucania' in southern Italy. Often linked by ear to lux, 'light', though the connection is not etymological.","testament":"New Testament","book":"Luke","quoteRef":"Luke 1:1","gnvQuote":"Forasmuch as many have taken in hand to set forth in order a declaration of those things which are most surely believed among us, Even as they delivered them unto us, which from the beginning were eyewitnesses, and ministers of the word;","kjvQuote":"Forasmuch as many have taken in hand to set forth in order a declaration of those things which are most surely believed among us, Even as they delivered them unto us, which from the beginning were eyewitnesses, and ministers of the word;","description":"Physician; gospel writer; author of Acts; travelled with Paul; companion on missionary journeys; only Gentile gospel writer.","mentions":["Luke 1-24","Acts 1-28","Colossians 4","2 Timothy 4","Philemon"]},{"name":"Mark","pronunciation":"MARK","pronunciationOriginal":"MAR-kus","originalLanguage":"Latin","meaning":"Dedicated to Mars","meaningNote":"Latin Marcus, from the war god. His Hebrew name was John — Acts calls him John Mark, one name for each world.","testament":"New Testament","book":"Mark","quoteRef":"Mark 1:1","gnvQuote":"Beginning of the gospel of Jesus Christ, the Son of God;","kjvQuote":"Beginning of the gospel of Jesus Christ, the Son of God;","description":"Gospel writer; John Mark; companion of Paul and Barnabas; cousin of Barnabas; tradition says he founded Church in Egypt.","mentions":["Mark 1-16","Acts 12-15","Colossians 4","1 Peter 5","2 Timothy 4"]},{"name":"Apollos","pronunciation":"ah-POL-os","pronunciationOriginal":"ah-pol-LOSE","originalLanguage":"Greek","meaning":"Belonging to Apollo","meaningNote":"Greek, short for Apollonios. An Alexandrian Jew named for a Greek god, which says much about that city.","testament":"New Testament","book":"Acts","quoteRef":"Acts 18:24","gnvQuote":"And a certain Jew named Apollos, born at Alexandria, an eloquent man, and mighty in the scriptures, came to Ephesus.","kjvQuote":"And a certain Jew named Apollos, born at Alexandria, an eloquent man, and mighty in the scriptures, came to Ephesus.","description":"Eloquent Jew from Alexandria; mighty in scriptures; taught John's baptism; instructed by Priscilla and Aquila; watered what Paul planted.","mentions":["Acts 18-19","1 Corinthians 1-4, 16"]},{"name":"Lydia","pronunciation":"LID-ee-ah","pronunciationOriginal":"LYU-dee-ah","originalLanguage":"Greek","meaning":"Woman of Lydia","meaningNote":"Greek, from the region in Asia Minor. It may be a trade name rather than a birth name — Lydia was where purple dye came from, and purple was her business.","testament":"New Testament","book":"Acts","quoteRef":"Acts 16:14","gnvQuote":"And a certain woman named Lydia, a seller of purple, of the city of Thyatira, which worshipped God, heard us: whose heart the Lord opened, that she attended unto the things which were spoken of Paul.","kjvQuote":"And a certain woman named Lydia, a seller of purple, of the city of Thyatira, which worshipped God, heard us: whose heart the Lord opened, that she attended unto the things which were spoken of Paul.","description":"Purple merchant; first European convert to Christianity; opened her heart and home to Paul; baptized with household.","mentions":["Acts 16"]},{"name":"Dorcas","pronunciation":"DOR-kas","pronunciationOriginal":"dor-KAS","originalLanguage":"Greek","meaning":"Gazelle","meaningNote":"Greek Δορκάς, translating her Aramaic name Tabitha — which means the same thing. Luke gives both so neither audience is shut out.","testament":"New Testament","book":"Acts","quoteRef":"Acts 9:36","gnvQuote":"Now there was at Joppa a certain disciple named Tabitha, which by interpretation is called Dorcas: this woman was full of good works and almsdeeds which she did.","kjvQuote":"Now there was at Joppa a certain disciple named Tabitha, which by interpretation is called Dorcas: this woman was full of good works and almsdeeds which she did.","description":"Christian woman; full of good works; made garments for poor; died but was raised by Peter; embodied Christian compassion.","mentions":["Acts 9"]},{"name":"Cornelius","pronunciation":"kor-NEEL-yus","pronunciationOriginal":"kor-NAY-lee-us","originalLanguage":"Latin","meaning":"Of the horn","meaningNote":"Latin, an ancient patrician family name, from cornu. One of Rome's oldest houses; the first Gentile convert carries it.","testament":"New Testament","book":"Acts","quoteRef":"Acts 10:2","gnvQuote":"A devout man, and one that feared God with all his house, which gave much alms to the people, and prayed to God alway.","kjvQuote":"A devout man, and one that feared God with all his house, which gave much alms to the people, and prayed to God alway.","description":"Roman centurion; devout and God-fearing; received vision to send for Peter; first Gentile convert; received Holy Spirit.","mentions":["Acts 10-11"]},{"name":"Ananias","title":"husband of Sapphira","pronunciation":"an-ah-NYE-as","pronunciationOriginal":"khah-nan-YAH","originalLanguage":"Hebrew","meaning":"YHWH is gracious","meaningNote":"Greek form of Hebrew Hananiah — the same name and meaning as John. Three men in Acts bear it, and they could not be less alike.","testament":"New Testament","book":"Acts","quoteRef":"Acts 5:3","gnvQuote":"But Peter said, Ananias, why hath Satan filled thine heart to lie to the Holy Ghost, and to keep back part of the price of the land?","kjvQuote":"But Peter said, Ananias, why hath Satan filled thine heart to lie to the Holy Ghost, and to keep back part of the price of the land?","description":"Attempted deception in early Church; sold land but kept back proceeds; struck dead by God for lying to Holy Spirit.","mentions":["Acts 5"]},{"name":"Sapphira","pronunciation":"sah-FYE-rah","pronunciationOriginal":"shap-PEE-rah","originalLanguage":"Aramaic","meaning":"Beautiful","meaningNote":"Aramaic shappira, 'beautiful'. Also associated with Greek sappheiros, 'sapphire'.","testament":"New Testament","book":"Acts","quoteRef":"Acts 5:9","gnvQuote":"But Peter said unto her, How is it that ye have agreed together to tempt the Spirit of the Lord? behold, the feet of them which have buried thy husband are at the door, and shall carry thee out.","kjvQuote":"But Peter said unto her, How is it that ye have agreed together to tempt the Spirit of the Lord? behold, the feet of them which have buried thy husband are at the door, and shall carry thee out.","description":"Wife of Ananias; conspired with husband to deceive Church; struck dead for lying to Holy Spirit.","mentions":["Acts 5"]},{"name":"Philemon","pronunciation":"fye-LEE-mun","pronunciationOriginal":"fee-LAY-mone","originalLanguage":"Greek","meaning":"Affectionate; loving","meaningNote":"Greek Φιλήμων, from phileo, 'to love'. Paul's letter to him is an appeal to live up to it.","testament":"New Testament","book":"Philemon","quoteRef":"Philemon 1:1","gnvQuote":"Paul, a prisoner of Jesus Christ, and Timothy our brother, unto Philemon our dearly beloved, and fellowlabourer, And to our beloved Apphia, and Archippus our fellowsoldier, and to the church in thy house:","kjvQuote":"Paul, a prisoner of Jesus Christ, and Timothy our brother, unto Philemon our dearly beloved, and fellowlabourer, And to our beloved Apphia, and Archippus our fellowsoldier, and to the church in thy house:","description":"Wealthy Christian; Colossian slave owner; host of house church; recipient of Paul's epistle regarding slave Onesimus.","mentions":["Philemon 1:1-25 (whole book)"]},{"name":"Onesimus","pronunciation":"oh-NES-ih-mus","pronunciationOriginal":"oh-NAY-see-mos","originalLanguage":"Greek","meaning":"Useful; profitable","meaningNote":"Greek Ὀνήσιμος, a common slave name. Paul puns on it directly — once useless to you, now useful — which only works if you know what it means.","testament":"New Testament","book":"Philemon","quoteRef":"Philemon 1:10","gnvQuote":"I beseech thee for my son Onesimus, whom I have begotten in my bonds:","kjvQuote":"I beseech thee for my son Onesimus, whom I have begotten in my bonds:","description":"Runaway slave of Philemon; became Paul's convert in Rome; Paul sent him back to Philemon with epistle requesting forgiveness.","mentions":["Philemon 1:10-19","Colossians 4"]},{"name":"James","title":"brother of Jesus","pronunciation":"JAYMZ","pronunciationOriginal":"yah-ah-KOV","originalLanguage":"Hebrew","meaning":"Heel-grasper; supplanter","meaningNote":"Greek Ἰάκωβος (Iakobos), from Hebrew Ya'aqov — the same name as Jacob, and the same meaning. Latin Iacomus softened through Old French to James, which is why James and Jacob are one name in two coats.","testament":"New Testament","book":"James","quoteRef":"James 1:1","gnvQuote":"James, a servant of God and of the Lord Jesus Christ, to the twelve tribes which are scattered abroad, greeting.","kjvQuote":"James, a servant of God and of the Lord Jesus Christ, to the twelve tribes which are scattered abroad, greeting.","description":"Brother of Jesus; pastor of Jerusalem Church; epistle writer; known for faith and works emphasis; martyred by Herod.","mentions":["James 1-5","Galatians 1-2","Acts 15","1 Corinthians 15"]},{"name":"Cephas","title":"also called Peter","pronunciation":"SEE-fas","pronunciationOriginal":"KAY-fah","originalLanguage":"Aramaic","meaning":"Rock","meaningNote":"Aramaic כֵּיפָא (Kepha), the name Jesus gave in the language he spoke, and the same man as Peter in this deck. Greek renders it Petros; Paul keeps using the Aramaic.","testament":"New Testament","book":"1 Corinthians","quoteRef":"Galatians 1:11-12","gnvQuote":"But I certify you, brethren, that the gospel which was preached of me is not after man. For I neither received it of man, neither was I taught it, but by the revelation of Jesus Christ.","kjvQuote":"But I certify you, brethren, that the gospel which was preached of me is not after man. For I neither received it of man, neither was I taught it, but by the revelation of Jesus Christ.","description":"Aramaic name for Peter; apostle; foundation stone; symbolises stability and leadership in early Church.","mentions":["1 Corinthians 1, 3, 9, 15"],"sameAs":"Peter"}];
-</script>
-
 <script>
 (function(){
 'use strict';
-
-// ── Draw pile ────────────────────────────────────────────────────────
-// A physical deck doesn't put a card back before the next draw. This
-// mirrors that: every card dealt is SET ASIDE and cannot come up again
-// until the pile is gathered back in. Survives reloads, so finishing a
-// story and reopening the page doesn't hand you the same name again.
-function DrawPile(storeKey){
-  var drawn = {};                       // id -> true
-  try {
-    var raw = window.localStorage.getItem(storeKey);
-    if(raw) drawn = JSON.parse(raw) || {};
-  } catch(e) { drawn = {}; }
-
-  function persist(){
-    try { window.localStorage.setItem(storeKey, JSON.stringify(drawn)); }
-    catch(e) { /* private mode — the pile just won't outlive the session */ }
-  }
-
-  return {
-    // Cards still in the pile, out of the pool currently in play
-    remaining: function(pool, idOf){
-      return pool.filter(function(x){ return !drawn[idOf(x)]; });
-    },
-    setAsideCount: function(){
-      var n=0; for(var k in drawn) if(drawn[k]) n++; return n;
-    },
-    // Deal one, without replacement. Returns null when the pile is spent.
-    deal: function(pool, idOf){
-      var left = pool.filter(function(x){ return !drawn[idOf(x)]; });
-      if(!left.length) return null;
-      var pick = left[Math.floor(Math.random()*left.length)];
-      drawn[idOf(pick)] = true;
-      persist();
-      return pick;
-    },
-    // Gather every set-aside card back into the pile
-    gather: function(){ drawn = {}; persist(); },
-    isSetAside: function(id){ return !!drawn[id]; }
-  };
-}
-
-
-var EXPAND_ICO = "<svg class='xp-ico' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><g><path d='M8 8 L12.4 3.6'/><path d='M9.4 3 H13 V6.6'/></g><g transform='rotate(180 8 8)'><path d='M8 8 L12.4 3.6'/><path d='M9.4 3 H13 V6.6'/></g></svg>";
-var COLLAPSE_ICO = "<svg class='xp-ico' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><g><path d='M13 3 L9.2 6.8'/><path d='M12.6 7 H9 V3.4'/></g><g transform='rotate(180 8 8)'><path d='M13 3 L9.2 6.8'/><path d='M12.6 7 H9 V3.4'/></g></svg>";
-
-
-// ── Scripture links ───────────────────────────────────────────────
-// Canonical references open in the Geneva Bible, because that is the text
-// quoted on the page. The deuterocanonical books are NOT in Bible Gateway's
-// Geneva edition, so those open in NRSVCE, which carries them under the
-// same modern book names used here. 1 Enoch is on neither, so it stays
-// plain text rather than becoming a link that goes nowhere.
-var BG='https://www.biblegateway.com/passage/?search=';
-
-function refUrl(ref, version){
-  var clean = ref.replace(/\s*\([^)]*\)\s*/g,' ').trim();   // drop "(whole book)"
-  return BG + encodeURIComponent(clean) + '&version=' + (version||'GNV');
-}
-function refLink(ref, version){
-  if(!ref) return '';
-  var safe = String(ref).replace(/&/g,'&amp;').replace(/</g,'&lt;');
-  return '<a class="ref-link" target="_blank" rel="noopener noreferrer" href="'
-       + refUrl(ref, version) + '">' + safe + '</a>';
-}
-// Pseudepigraphal sources are not hosted anywhere linkable, so they are
-// returned unlinked rather than pointing at a 404.
-function sourceLink(source, status){
-  if(status === 'pseudepigraphal') return String(source);
-  return refLink(source, 'NRSVCE');
-}
-
-// ── Theme ─────────────────────────────────────────────────────
 var root=document.documentElement,
     tBtn=document.getElementById('themeBtn'),
     tLbl=document.getElementById('themeLabel'),
@@ -900,554 +751,11 @@ var root=document.documentElement,
 function isDark(){
   var s=root.getAttribute('data-theme');
   if(s) return s==='dark';
-  // Guarded: if matchMedia is missing the whole script would abort here,
-  // taking the deck and the writing box down with it.
   return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
 }
-function paintToggle(){
-  var d=isDark();
-  tLbl.textContent=d?'Light':'Dark';
-  tIco.textContent=d?'☀':'☾';
-}
-tBtn.addEventListener('click',function(){
-  root.setAttribute('data-theme', isDark()?'light':'dark');
-  paintToggle();
-});
+function paintToggle(){ var d=isDark(); tLbl.textContent=d?'Light':'Dark'; tIco.textContent=d?'☀':'☾'; }
+tBtn.addEventListener('click', function(){ root.setAttribute('data-theme', isDark()?'light':'dark'); paintToggle(); });
 paintToggle();
-
-// ── Toast ─────────────────────────────────────────────────────
-var toastEl=document.getElementById('toast'), toastT;
-function toast(msg){
-  toastEl.textContent=msg;
-  toastEl.classList.add('show');
-  clearTimeout(toastT);
-  toastT=setTimeout(function(){toastEl.classList.remove('show');},2200);
-}
-
-// ── Storage (in-memory; swap for localStorage on your own host) ──
-var STORE_KEY='wordspinBibleStories';
-var stories=[];
-try {
-  var raw=window.localStorage.getItem(STORE_KEY);
-  if(raw) stories=JSON.parse(raw)||[];
-} catch(e) { stories=[]; }
-function persist(){
-  try { window.localStorage.setItem(STORE_KEY, JSON.stringify(stories)); }
-  catch(e) { /* storage unavailable — stories stay for this session only */ }
-}
-
-// ── State ─────────────────────────────────────────────────────
-var filter='all', spinning=false, current=null;
-
-// Each name is its own card: same name + same title is the same person
-function cardId(n){ return n.name + (n.title ? '|'+n.title : ''); }
-var pile = DrawPile('wordspinBiblePile');
-
-var pileAside=document.getElementById('pileAside'),
-    asideSheet=document.getElementById('asideSheet'),
-    asideList=document.getElementById('asideList');
-
-// When true, the deck deals ONLY from the cards already set aside —
-// a way to revisit what you have drawn without losing your place.
-var onlyMode=false;
-
-// The pool currently in play, honouring the testament filter and only-mode
-function livePool(){
-  var pooled=pool();
-  if(onlyMode) return pooled.filter(function(n){ return pile.isSetAside(cardId(n)); });
-  return pooled;
-}
-
-function refreshPile(){
-  var pooled=pool();
-  var aside=pooled.filter(function(n){ return pile.isSetAside(cardId(n)); });
-  var left=pooled.length - aside.length;
-
-  if(onlyMode){
-    spinCount.textContent = aside.length + ' set aside · replaying';
-    deckArea.classList.remove('spent');
-  } else if(left===0){
-    spinCount.textContent = 'Deck empty';
-    deckArea.classList.add('spent');
-  } else {
-    spinCount.textContent = left + '/' + pooled.length + ' left';
-    deckArea.classList.remove('spent');
-  }
-
-  pileAside.textContent = onlyMode
-    ? 'replaying ' + aside.length + ' — back to deck'
-    : (aside.length===1 ? '1 set aside' : aside.length + ' set aside');
-  pileAside.classList.toggle('only-mode', onlyMode);
-  pileAside.style.display = (aside.length>0 || onlyMode) ? 'block' : 'none';
-}
-
-function openAside(){
-  var pooled=pool();
-  var aside=pooled.filter(function(n){ return pile.isSetAside(cardId(n)); });
-  if(!aside.length){ toast('Nothing set aside yet'); return; }
-  asideList.innerHTML = aside.map(function(n){
-    return '<span class="aside-chip">'+n.name+
-      (n.title?'<small>'+n.title+'</small>':'')+'</span>';
-  }).join('');
-  asideSheet.classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeAside(){
-  asideSheet.classList.remove('open');
-  document.body.style.overflow='';
-}
-
-pileAside.addEventListener('click', function(){
-  // While replaying, the same control is the way back out
-  if(onlyMode){ onlyMode=false; refreshPile(); toast('Back to the full deck'); return; }
-  openAside();
-});
-document.getElementById('asideClose').addEventListener('click', closeAside);
-asideSheet.addEventListener('click', function(e){ if(e.target===asideSheet) closeAside(); });
-
-document.getElementById('asideReturn').addEventListener('click', function(){
-  pile.gather();
-  onlyMode=false;
-  closeAside();
-  refreshPile();
-  toast('Shuffled back into the deck');
-});
-
-document.getElementById('asideOnly').addEventListener('click', function(){
-  onlyMode=true;
-  closeAside();
-  refreshPile();
-  toast('Replaying the set-aside cards');
-});
-
-function pool(){
-  if(filter==='all') return BIBLE_NAMES;
-  return BIBLE_NAMES.filter(function(n){ return n.testament===filter; });
-}
-
-// ── Deck build ────────────────────────────────────────────────
-var deckArea=document.getElementById('deckArea');
-function buildDeck(){
-  deckArea.innerHTML='';
-  for(var i=3;i>=1;i--){
-    var b=document.createElement('div');
-    b.className='deck-card back';
-    b.style.zIndex=i;
-    b.style.transform='translateY('+(i*3)+'px) translateX('+(i*2)+'px)';
-    deckArea.appendChild(b);
-  }
-  var f=document.createElement('div');
-  f.className='deck-card front';
-  f.style.zIndex=10;
-  f.style.boxShadow='3px 3px 14px rgba(26,16,8,0.18)';
-  f.innerHTML=
-    '<div class="card-header">WordSpin</div>'+
-    '<div class="card-pip-row top"><span>✦</span><span>✦</span></div>'+
-    '<div class="card-word-text" id="cardWordText">?</div>'+
-    '<div class="card-rule"></div>'+
-    '<div class="card-pip-row bot"><span>✦</span><span>✦</span></div>';
-  deckArea.appendChild(f);
-}
-buildDeck();
-
-// ── Spin ──────────────────────────────────────────────────────
-var chosenSec=document.getElementById('chosen'),
-    chosenName=document.getElementById('chosenName'),
-    chosenTitle=document.getElementById('chosenTitle'),
-    defPanel=document.getElementById('defPanel'),
-    defToggle=document.getElementById('defToggle'),
-    defPron=document.getElementById('defPron'),
-    defMeaning=document.getElementById('defMeaning'),
-    defUncertain=document.getElementById('defUncertain'),
-    defSameAs=document.getElementById('defSameAs'),
-    defMeaningNote=document.getElementById('defMeaningNote'),
-    defDesc=document.getElementById('defDesc'),
-    defVerse=document.getElementById('defVerse'),
-    defVerseSrc=document.getElementById('defVerseSrc'),
-    defMentions=document.getElementById('defMentions'),
-    defMentionsSec=document.getElementById('defMentionsSec'),
-    writeSec=document.getElementById('writeSec'),
-    spinCount=document.getElementById('spinCount');
-
-function spin(){
-  if(spinning) return;
-  spinning=true;
-
-  openPanel(defPanel, false);
-  defToggle.textContent='🔍 Read the breakdown';
-
-  var picked;
-  if(onlyMode){
-    // Replay: pick freely from the set-aside cards, without setting more aside
-    var replay=livePool();
-    picked = replay.length ? replay[Math.floor(Math.random()*replay.length)] : null;
-  } else {
-    picked = pile.deal(pool(), cardId);
-  }
-  if(!picked){
-    spinning=false;
-    refreshPile();
-    toast(onlyMode ? 'Nothing set aside here' : 'Deck empty — tap "set aside" to return them');
-    return;
-  }
-  var front=deckArea.querySelector('.deck-card.front');
-  var backs=deckArea.querySelectorAll('.deck-card.back');
-  var wordEl=document.getElementById('cardWordText');
-
-  front.classList.remove('revealed');
-  wordEl.textContent='?';
-
-  var STEPS=6, STEP_MS=95, step=0, last=0;
-  var easing='cubic-bezier(0.25,0.46,0.45,0.94)';
-
-  backs.forEach(function(c){ c.style.transition='transform '+STEP_MS+'ms '+easing; });
-  front.style.transition='transform '+STEP_MS+'ms '+easing;
-
-  function stepFn(ts){
-    if(step>=STEPS){ deal(picked, front, backs, wordEl); return; }
-    if(ts-last<STEP_MS && last!==0){ requestAnimationFrame(stepFn); return; }
-    last=ts;
-    var dir=(step%2===0)?1:-1;
-    backs.forEach(function(c,i){
-      var spread=(i+1)*10*dir, lift=-Math.abs(spread)*0.3;
-      c.style.transform='translateY('+(lift-i*2)+'px) translateX('+(spread+i)+'px) rotate('+(spread*0.35)+'deg)';
-    });
-    var w=(step%2===0)?-4:4;
-    front.style.transform='translateY(-4px) rotate('+w+'deg)';
-    step++;
-    requestAnimationFrame(stepFn);
-  }
-  requestAnimationFrame(stepFn);
-}
-
-// Opens a collapsible panel to its ACTUAL height rather than a guessed
-// maximum, then releases the constraint so it can never clip if the content
-// reflows (a long name wrapping, a font loading late, the window rotating).
-function openPanel(panel, open){
-  if(open){
-    panel.classList.add('open');
-    panel.style.maxHeight = panel.scrollHeight + 'px';
-    setTimeout(function(){
-      if(panel.classList.contains('open')) panel.style.maxHeight='none';
-    }, 420);
-  } else {
-    panel.style.maxHeight = panel.scrollHeight + 'px';
-    void panel.offsetHeight;          // force a reflow so the collapse animates
-    panel.classList.remove('open');
-    panel.style.maxHeight = '0px';
-  }
-}
-
-// Pronunciation block. Shows the original alongside the English whenever
-// the two differ — "Cephas" is SEE-fas now, but it was KAY-fah when it was given.
-function pronHTML(n){
-  var spk='\uD83D\uDDE3\uFE0F';
-  var h='<div class="pron-row"><span class="pron-lang">English</span>'+
-        '<span class="pron-val">'+spk+'&nbsp;&nbsp;'+n.pronunciation+'</span></div>';
-  if(n.pronunciationOriginal){
-    h+='<div class="pron-row old"><span class="pron-lang">'+n.originalLanguage+'</span>'+
-       '<span class="pron-val">'+spk+'&nbsp;&nbsp;'+n.pronunciationOriginal+'</span></div>';
-  }
-  return h;
-}
-
-// Longer names step down a size rather than wrapping or breaking mid-word
-function sizeClass(name){
-  var L=name.length;
-  if(L>=12) return 'len-xl';
-  if(L>=10) return 'len-l';
-  if(L>=8)  return 'len-m';
-  return '';
-}
-
-function deal(n, front, backs, wordEl){
-  backs.forEach(function(c,i){
-    c.style.transform='translateY('+((3-i)*3)+'px) translateX('+((3-i)*2)+'px)';
-  });
-  front.style.transform='translateY(0) rotate(0deg)';
-
-  setTimeout(function(){
-    wordEl.className='card-word-text '+sizeClass(n.name);
-    wordEl.innerHTML = n.name +
-      (n.title ? '<span class="card-title-sm">'+n.title+'</span>' : '');
-    front.classList.add('revealed');
-
-    current=n;
-    chosenName.textContent=n.name;
-    chosenTitle.textContent=n.title||'';
-    chosenTitle.style.display=n.title?'block':'none';
-
-    defPron.innerHTML=pronHTML(n);
-    defMeaning.textContent=n.meaning;
-    defMeaning.classList.toggle('is-uncertain', !!n.meaningUncertain);
-    defUncertain.style.display = n.meaningUncertain ? 'inline-block' : 'none';
-    // Peter and Cephas are one man under two names — say so plainly
-    defSameAs.textContent = n.sameAs ? 'Also in this deck as '+n.sameAs : '';
-    defSameAs.style.display = n.sameAs ? 'block' : 'none';
-    defMeaningNote.textContent=n.meaningNote;
-    defVerse.innerHTML='&ldquo;'+n.gnvQuote+'&rdquo;';
-    defVerseSrc.innerHTML=refLink(n.quoteRef)+'  ·  GNV';
-    defDesc.textContent=n.description;
-
-    var others=(n.mentions||[]).filter(function(m){ return m!==n.quoteRef; });
-    if(others.length){
-      defMentions.innerHTML=others.map(function(m){
-        return '<span class="mention">'+refLink(m)+'</span>';
-      }).join('');
-      defMentionsSec.style.display='block';
-    } else {
-      defMentionsSec.style.display='none';
-    }
-
-    chosenSec.style.display='flex';
-    writeSec.classList.add('on');
-
-    refreshPile();
-    spinning=false;
-
-    chosenSec.scrollIntoView({behavior:'smooth', block:'start'});
-  }, 180);
-}
-
-deckArea.addEventListener('click', spin);
-
-// ── Definition toggle ─────────────────────────────────────────
-defToggle.addEventListener('click', function(){
-  var open=!defPanel.classList.contains('open');
-  openPanel(defPanel, open);
-  defToggle.textContent = open ? '🔍 Hide the breakdown' : '🔍 Read the breakdown';
-});
-
-// ── Testament filter ──────────────────────────────────────────
-document.querySelectorAll('.test-btn').forEach(function(b){
-  b.addEventListener('click', function(){
-    document.querySelectorAll('.test-btn').forEach(function(x){ x.classList.remove('active'); });
-    b.classList.add('active');
-    filter=b.dataset.t;
-    refreshPile();
-    toast(pile.remaining(pool(), cardId).length+' left');
-  });
-});
-
-// ── Writing ───────────────────────────────────────────────────
-var box=document.getElementById('storyBox'),
-    wc=document.getElementById('wordCount');
-
-function countWords(s){
-  var t=s.trim();
-  return t ? t.split(/\s+/).length : 0;
-}
-function syncCount(){
-  var n=countWords(box.value);
-  var t = n===1 ? '1 word' : n+' words';
-  wc.textContent=t; expandedCount.textContent=t;
-}
-box.addEventListener('input', syncCount);
-
-// Expand / collapse the writing box
-var boxWrap=document.getElementById('boxWrap'),
-    expandBtn=document.getElementById('expandBtn'),
-    expandedCount=document.getElementById('expandedCount');
-
-function setExpanded(on){
-  boxWrap.classList.toggle('expanded', on);
-  document.body.classList.toggle('box-open', on);
-  expandBtn.innerHTML = on ? COLLAPSE_ICO : EXPAND_ICO;
-  expandBtn.setAttribute('aria-label', on ? 'Collapse the writing box' : 'Expand the writing box');
-  if(on){ boxWrap.appendChild(expandedCount); syncCount(); box.focus(); }
-  else  { writeSec.insertBefore(expandedCount, wc.nextSibling); }
-}
-expandBtn.addEventListener('click', function(){
-  setExpanded(!boxWrap.classList.contains('expanded'));
-});
-// Escape leaves the expanded box, but only when no dialog is above it
-document.addEventListener('keydown', function(e){
-  if(e.key==='Escape' && boxWrap.classList.contains('expanded')
-     && !mBack.classList.contains('open')){
-    setExpanded(false);
-  }
-});
-
-document.getElementById('saveBtn').addEventListener('click', function(){
-  var text=box.value.trim();
-  if(!text){ toast('Nothing to save yet'); box.focus(); return; }
-  if(!current){ toast('Shuffle a name first'); return; }
-  stories.unshift({
-    id: 'bs_'+Date.now().toString(36)+Math.random().toString(36).slice(2,7),
-    name: current.name,
-    title: current.title||'',
-    quoteRef: current.quoteRef,
-    pronunciation: current.pronunciation,
-    pronunciationOriginal: current.pronunciationOriginal,
-    originalLanguage: current.originalLanguage,
-    meaning: current.meaning,
-    meaningUncertain: current.meaningUncertain,
-    meaningNote: current.meaningNote,
-    gnvQuote: current.gnvQuote,
-    description: current.description,
-    mentions: current.mentions,
-    testament: current.testament,
-    level: 'bible',
-    text: text,
-    date: Date.now()
-  });
-  persist();
-  renderSaved();
-  box.value='';
-  syncCount();
-  if(boxWrap.classList.contains('expanded')) setExpanded(false);
-  toast('Saved');
-});
-
-document.getElementById('clearBtn').addEventListener('click', function(){
-  if(!box.value.trim()){ return; }
-  box.value='';
-  syncCount();
-  toast('Cleared');
-});
-
-// ── Saved list ────────────────────────────────────────────────
-var savedList=document.getElementById('savedList');
-
-function fmtDate(ts){
-  var d=new Date(ts);
-  var m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return d.getDate()+' '+m[d.getMonth()]+' '+d.getFullYear();
-}
-
-function renderSaved(){
-  if(!stories.length){
-    savedList.innerHTML='<p class="saved-empty">Nothing written yet. Shuffle a name and begin.</p>';
-    return;
-  }
-  savedList.innerHTML='';
-  stories.forEach(function(s){
-    var row=document.createElement('div');
-    row.className='saved-row';
-    row.innerHTML=
-      '<span class="saved-name">'+s.name+(s.title?' <em style="font-size:0.8em;opacity:0.7">'+s.title+'</em>':'')+'</span>'+
-      '<span class="saved-tag">Bible</span>'+
-      '<span class="saved-date">'+fmtDate(s.date)+'</span>';
-    row.addEventListener('click', function(){ openStory(s.id); });
-    savedList.appendChild(row);
-  });
-}
-
-// ── Modal ─────────────────────────────────────────────────────
-var mBack=document.getElementById('modalBack'),
-    mName=document.getElementById('mName'),
-    mMeta=document.getElementById('mMeta'),
-    mText=document.getElementById('mText'),
-    mBreakBtn=document.getElementById('mBreakBtn'),
-    mBreakPanel=document.getElementById('mBreakPanel'),
-    mPron=document.getElementById('mPron'),
-    mMeaning=document.getElementById('mMeaning'),
-    mUncertain=document.getElementById('mUncertain'),
-    mMeaningNote=document.getElementById('mMeaningNote'),
-    mVerse=document.getElementById('mVerse'),
-    mVerseSrc=document.getElementById('mVerseSrc'),
-    mDesc=document.getElementById('mDesc'),
-    mMentions=document.getElementById('mMentions'),
-    mMentionsSec=document.getElementById('mMentionsSec'),
-    openId=null;
-
-var mEdit=document.getElementById('mEdit'),
-    mFootRead=document.getElementById('mFootRead'),
-    mFootEdit=document.getElementById('mFootEdit');
-
-function setEditing(on){
-  mEdit.classList.toggle('on', on);
-  mText.style.display = on ? 'none' : 'block';
-  mFootRead.style.display = on ? 'none' : 'flex';
-  mFootEdit.style.display = on ? 'flex' : 'none';
-}
-
-document.getElementById('mEditBtn').addEventListener('click', function(){
-  mEdit.value = mText.textContent;
-  setEditing(true);
-  mEdit.focus();
-  // Caret to the end, so you carry on writing rather than overtyping
-  mEdit.setSelectionRange(mEdit.value.length, mEdit.value.length);
-});
-
-document.getElementById('mCancelEdit').addEventListener('click', function(){
-  setEditing(false);
-});
-
-document.getElementById('mSaveEdit').addEventListener('click', function(){
-  var txt=mEdit.value.trim();
-  if(!txt){ toast('A story cannot be empty'); mEdit.focus(); return; }
-  var s2=stories.filter(function(x){ return x.id===openId; })[0];
-  if(!s2) return;
-  s2.text=txt;
-  s2.edited=Date.now();
-  persist();
-  mText.textContent=txt;
-  setEditing(false);
-  renderSaved();
-  toast('Saved');
-});
-
-document.getElementById('mBreakBtn').addEventListener('click', function(){
-  var open=!mBreakPanel.classList.contains('open');
-  openPanel(mBreakPanel, open);
-  mBreakBtn.textContent = open ? '🔍 Hide the breakdown' : '🔍 Show the breakdown';
-});
-
-function openStory(id){
-  var s=stories.filter(function(x){ return x.id===id; })[0];
-  if(!s) return;
-  openId=id;
-  mName.textContent=s.name+(s.title?' — '+s.title:'');
-  mMeta.textContent=s.testament+'  ·  '+fmtDate(s.date)
-    +(s.edited?'  ·  edited '+fmtDate(s.edited):'');
-  mText.textContent=s.text;
-
-  // Breakdown, available while reading back what you wrote
-  mPron.innerHTML = s.pronunciation ? pronHTML(s) : '—';
-  mMeaning.textContent = s.meaning || '';
-  mMeaning.classList.toggle('is-uncertain', !!s.meaningUncertain);
-  mUncertain.style.display = s.meaningUncertain ? 'inline-block' : 'none';
-  mMeaningNote.textContent = s.meaningNote || '';
-  mVerse.innerHTML = s.gnvQuote ? '&ldquo;'+s.gnvQuote+'&rdquo;' : '';
-  mVerseSrc.innerHTML = s.quoteRef ? refLink(s.quoteRef)+'  ·  GNV' : '';
-  mDesc.textContent = s.description || '';
-  var ms=(s.mentions||[]).filter(function(x){ return x!==s.quoteRef; });
-  if(ms.length){
-    mMentions.innerHTML=ms.map(function(x){ return '<span class="mention">'+refLink(x)+'</span>'; }).join('');
-    mMentionsSec.style.display='block';
-  } else { mMentionsSec.style.display='none'; }
-
-  // Stories saved before the breakdown existed have no data to show
-  mBreakBtn.style.display = s.pronunciation ? 'inline-block' : 'none';
-  openPanel(mBreakPanel, false);
-  mBreakBtn.textContent='🔍 Show the breakdown';
-  setEditing(false);
-  mBack.classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeStory(){
-  mBack.classList.remove('open');
-  document.body.style.overflow='';
-  openId=null;
-}
-document.getElementById('mClose').addEventListener('click', closeStory);
-mBack.addEventListener('click', function(e){ if(e.target===mBack) closeStory(); });
-document.addEventListener('keydown', function(e){
-  if(e.key==='Escape' && mBack.classList.contains('open')) closeStory();
-});
-document.getElementById('mDelete').addEventListener('click', function(){
-  if(!openId) return;
-  stories=stories.filter(function(x){ return x.id!==openId; });
-  persist();
-  renderSaved();
-  closeStory();
-  toast('Deleted');
-});
-
-renderSaved();
-refreshPile();
-
 })();
 </script>
 
