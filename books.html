@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNSIgZmlsbD0iIzExMSIvPjx0ZXh0IHg9IjE2IiB5PSIyMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXN0eWxlPSJpdGFsaWMiIGZpbGw9IiNjODg5MmEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPldTPC90ZXh0Pjwvc3ZnPg=="/>
+
+  <title>Books — Bible Spin — WordSpin</title>
+  <meta name="description" content="Books — shuffle a book of the Bible, including the deuterocanonical and the removed ones, and write from it. Part of Bible Spin on WordSpin."/>
+  <link rel="canonical" href="https://www.wordspin.org/books.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Books — Bible Spin"/>
+  <meta property="og:description" content="Shuffle a book of the Bible and write from it."/>
+  <meta property="og:site_name" content="WordSpin"/>
+  <meta name="theme-color" content="#1a1008"/>
+  <meta name="color-scheme" content="light dark"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=DM+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1008;
+      --paper: #f5efe3;
+      --cream: #ede4d0;
+      --amber: #c8892a;
+      --rust: #b84c1e;
+      --muted: #8a7a62;
+      --card: #faf6ee;
+      --border: #d4c9b0;
+      --input-bg: #faf6ee;
+      --shadow: rgba(26,16,8,0.12);
+
+      --s1: 0.5rem; --s2: 0.8rem; --s3: 1.3rem;
+      --s4: 2.1rem; --s5: 3.4rem; --s6: 5.4rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ink: #f0e6d0; --paper: #000000; --cream: #111111;
+        --amber: #d4993a; --rust: #cc6644; --muted: #9a8a72;
+        --card: #141414; --border: #2a2a2a; --input-bg: #0d0d0d;
+        --shadow: rgba(0,0,0,0.6);
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #f0e6d0; --paper: #000000; --cream: #111111;
+      --amber: #d4993a; --rust: #cc6644; --muted: #9a8a72;
+      --card: #141414; --border: #2a2a2a; --input-bg: #0d0d0d;
+      --shadow: rgba(0,0,0,0.6);
+    }
+    :root[data-theme="light"] {
+      --ink: #1a1008; --paper: #f5efe3; --cream: #ede4d0;
+      --amber: #c8892a; --rust: #b84c1e; --muted: #8a7a62;
+      --card: #faf6ee; --border: #d4c9b0; --input-bg: #faf6ee;
+      --shadow: rgba(26,16,8,0.12);
+    }
+
+    html { background: var(--paper); }
+    body {
+      background: var(--paper); color: var(--ink);
+      font-family: 'DM Mono', monospace;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+    }
+    input, textarea, select { font-size: 16px; }
+
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.6;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: var(--s2) 1.3rem;
+      background: var(--paper); border-bottom: 1px solid var(--border);
+    }
+    .back-link {
+      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--amber); text-decoration: none;
+    }
+    .back-link:hover { opacity: 0.7; }
+    .theme-toggle {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      border: 1px solid var(--border); border-radius: 999px;
+      background: var(--card); color: var(--muted);
+      padding: 0.35rem 0.75rem; font-family: 'DM Mono', monospace;
+      font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    /* ── Page ── */
+    /* gap:0 — each section sets the space it needs from the one before it,
+       so the rhythm reflects how the parts relate rather than one flat value. */
+    .page {
+      max-width: 760px; margin: 0 auto;
+      padding: 2.8rem 1.5rem 4rem;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 0;
+      text-align: center;
+    }
+    .page > * { width: 100%; }
+    header { width: 100%; }
+
+    .testament-row  { margin-top: var(--s4); }   /* matches the space above the rule */
+    .deck-wrap      { margin-top: var(--s5); }
+    .chosen         { margin-top: var(--s5); }
+    .write          { margin-top: var(--s4); }
+    .saved          { margin-top: var(--s6); }   /* the one major break */
+    footer          { margin-top: var(--s5); }
+
+    header { text-align: center; }
+    .eyebrow {
+      font-size: 0.68rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--amber);
+      /* 0.3em of tracking hangs off the last letter; half of it back
+         keeps the word optically centred over the rule beneath. */
+      text-indent: 0.3em;
+    }
+    /* Short rule closing the section label, echoing the longer one that
+       closes the whole header. Narrower, because it marks a smaller thing. */
+    .eyebrow-rule {
+      width: 34px; height: 1px; background: var(--amber);
+      opacity: 0.55; margin: 0.75rem auto 0;
+    }
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 8vw, 4rem);
+      font-weight: 700; letter-spacing: -0.02em; line-height: 1;
+      margin: 1.15rem 0 0;
+    }
+    .page-sub {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: clamp(1.12rem, 3.4vw, 1.45rem);
+      color: var(--muted); max-width: 30rem; line-height: 1.55;
+      margin: var(--s2) auto 0;
+    }
+    /* Equal space above and below — it divides two things, so it should not
+       belong more to the one above it. The page gap after header matches. */
+    header::after {
+      content: ''; display: block; width: 60px; height: 2px;
+      background: var(--amber); margin: var(--s4) auto 0;
+    }
+
+    /* ── Testament filter (matches .diff-btn on the main site) ── */
+    .testament-row {
+      display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;
+    }
+    @media (max-width: 400px) {
+      .test-btn { padding: 0.45rem 0.7rem; letter-spacing: 0.14em; }
+    }
+    .test-btn {
+      font-family: 'DM Mono', monospace;
+      /* 0.6rem matches .diff-btn on the homepage; at 0.68rem the three
+         labels overflowed and wrapped onto a second line. */
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 0.45rem 1rem; white-space: nowrap;
+      border: 1.5px solid var(--border); border-radius: 2px;
+      background: transparent; color: var(--muted); cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .test-btn:hover { border-color: var(--amber); color: var(--amber); }
+    .test-btn.active {
+      background: var(--amber); border-color: var(--amber); color: #1a1008;
+    }
+
+    /* ── Deck ── */
+    .deck-wrap { display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .deck-area {
+      position: relative; width: 240px; height: 300px;
+      transform-style: flat; cursor: pointer;
+    }
+    .deck-card {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      border-radius: 14px; border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      backface-visibility: hidden; transform-origin: center center;
+      user-select: none;
+    }
+    .deck-card.back { background: #1a1008; cursor: default; }
+    :root[data-theme="dark"] .deck-card.back,
+    :root:not([data-theme="light"]) .deck-card.back { background: #faf6ee; }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) .deck-card.back { background: #1a1008; }
+    }
+
+    .deck-card.front {
+      background: #faf6ee; z-index: 10;
+      flex-direction: column; gap: 0; overflow: hidden;
+    }
+    .deck-card.front .card-header {
+      width: 100%; background: #c8892a;
+      padding: 0.5rem 1rem; font-size: 0.55rem;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: rgba(26,16,8,0.65); font-family: 'DM Mono', monospace;
+      text-align: center;
+    }
+    .deck-card.front .card-word-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; font-style: italic; font-weight: 700;
+      color: #1a1008; text-align: center; padding: 0 0.9rem;
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s ease 0.1s;
+      /* Names are single words — break-word would split them mid-name.
+         Long ones are scaled down instead, by the .len- class below. */
+      overflow-wrap: normal; word-break: normal; hyphens: none;
+    }
+    /* Bartholomew, Nebuchadnezzar-length names step down rather than wrap */
+    .card-word-text.len-m { font-size: 1.5rem; }
+    .card-word-text.len-l { font-size: 1.25rem; }
+    .card-word-text.len-xl { font-size: 1.05rem; }
+    .deck-card.front.revealed .card-word-text { opacity: 1; }
+    .card-title-sm {
+      display: block; font-family: 'DM Mono', monospace;
+      font-style: normal; font-size: 0.5rem; font-weight: 400;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(26,16,8,0.5); margin-top: 0.5rem;
+    }
+    .deck-card.front .card-rule {
+      width: calc(100% - 2.4rem); height: 1px;
+      background: linear-gradient(to right, transparent, var(--amber), transparent);
+      margin-bottom: 1.2rem;
+    }
+    .deck-card.front .card-pip-row {
+      position: absolute; width: 100%; display: flex;
+      justify-content: space-between; padding: 0.6rem 0.8rem;
+      font-size: 0.75rem; color: var(--amber); pointer-events: none;
+    }
+    .deck-card.front .card-pip-row.top { top: 2.2rem; }
+    .deck-card.front .card-pip-row.bot { bottom: 0; transform: rotate(180deg); }
+
+    .pile-aside {
+      display: block; margin: var(--s2) auto 0;
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.12em; background: none; border: none;
+      color: var(--amber); cursor: pointer; padding: 0.2rem 0.3rem;
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+    .pile-aside:hover { opacity: 0.7; }
+
+    /* Set-aside sheet */
+    .aside-sheet {
+      position: fixed; inset: 0; z-index: 1100;
+      background: rgba(0,0,0,0.72); display: none;
+      align-items: flex-end; justify-content: center;
+    }
+    .aside-sheet.open { display: flex; }
+    .aside-panel {
+      background: var(--card); border-top: 2px solid var(--amber);
+      border-radius: 8px 8px 0 0; width: 100%; max-width: 520px;
+      max-height: 78vh; display: flex; flex-direction: column;
+      padding: var(--s3) 1.2rem calc(var(--s3) + env(safe-area-inset-bottom, 0px));
+    }
+    @media (min-width: 620px) {
+      .aside-sheet { align-items: center; }
+      .aside-panel { border-radius: 8px; border: 1px solid var(--border); border-top: 2px solid var(--amber); }
+    }
+    .aside-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: var(--s2); border-bottom: 1px solid var(--border);
+    }
+    .aside-title {
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber);
+    }
+    .aside-x {
+      background: none; border: none; color: var(--muted);
+      font-size: 0.85rem; cursor: pointer; padding: 0.2rem 0.4rem;
+    }
+    .aside-x:hover { color: var(--amber); }
+    .aside-list {
+      flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+      padding: var(--s3) 0; display: flex; flex-wrap: wrap;
+      gap: 0.4rem; align-content: flex-start;
+    }
+    .aside-chip {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 0.9rem; color: var(--ink);
+      border: 1px solid var(--border); border-radius: 2px;
+      padding: 0.35rem 0.7rem;
+    }
+    .aside-chip small {
+      font-family: 'DM Mono', monospace; font-style: normal;
+      font-size: 0.55rem; color: var(--muted);
+      letter-spacing: 0.1em; margin-left: 0.4rem;
+    }
+    .aside-foot {
+      display: flex; gap: 0.6rem; padding-top: var(--s3);
+      border-top: 1px solid var(--border);
+    }
+    .aside-foot .wbtn { flex: 1; text-align: center; padding: 0.75rem 0.6rem; }
+    /* Playing the set-aside pile only */
+    .pile-aside.only-mode { color: var(--rust); }
+    /* The deck reads as empty once every card has been dealt */
+    .deck-area.spent { opacity: 0.45; cursor: default; }
+    .deck-area.spent .deck-card.front { border-style: dashed; }
+
+    .spin-count {
+      font-size: 0.72rem; color: var(--muted);
+      letter-spacing: 0.1em; text-align: center; margin-top: var(--s2);
+    }
+
+    /* ── Chosen name ── */
+
+    /* The topbar is sticky, so scrolling an element to the top of the
+       viewport parks it UNDERNEATH the bar. scroll-margin-top reserves
+       the bar's height plus air, so the card's label lands clear of it. */
+    .chosen { scroll-margin-top: 5.5rem; }
+
+    .chosen {
+      display: flex; flex-direction: column; align-items: center;
+      width: 100%; gap: 0;
+    }
+    .chosen-label {
+      font-size: 0.62rem; letter-spacing: 0.24em;
+      text-transform: uppercase; color: var(--amber);
+    }
+    .chosen-name {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(2rem, 7vw, 2.8rem); font-weight: 700;
+      line-height: 1.15; margin-top: var(--s2);
+    }
+    .chosen-title {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.05rem; color: var(--muted); margin-top: 0.2rem;
+    }
+
+    .def-toggle {
+      background: none; border: none; font-family: 'DM Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--amber); cursor: pointer;
+      text-decoration: underline; text-underline-offset: 3px;
+      padding: 0; margin-top: var(--s3);
+    }
+    .def-toggle:hover { opacity: 0.7; }
+
+    .def-panel {
+      max-height: 0; overflow: hidden; width: 100%;
+      transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+      opacity: 0;
+    }
+    /* max-height is set from the content's real height in JS (openPanel).
+       A fixed guess here clipped long breakdowns — which is what happened
+       at 900px once pronunciation, meaning and mentions all had to fit. */
+    .def-panel.open { opacity: 1; margin-top: var(--s3); }
+
+    .def-box {
+      background: var(--cream); border-left: 3px solid var(--amber);
+      padding: var(--s4) 1.5rem; text-align: left;
+      border-radius: 0 3px 3px 0;
+    }
+    /* Each section of the breakdown, divided by a hairline */
+    .def-sec + .def-sec {
+      border-top: 1px solid var(--border);
+      margin-top: var(--s4); padding-top: var(--s4);
+    }
+    .def-h {
+      font-size: 0.58rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--amber);
+      margin-bottom: var(--s3);
+    }
+
+    /* Pronunciation — WordSpin house style, respelling with a speaker.
+       Two rows where the original language sounded different from the English. */
+    .def-pron {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.95rem; letter-spacing: 0.06em; color: var(--ink);
+    }
+    .pron-row { display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap; }
+    .pron-row + .pron-row { margin-top: var(--s2); }
+    .pron-lang {
+      font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--amber); min-width: 4.6rem; flex-shrink: 0;
+    }
+    .pron-val {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.95rem; letter-spacing: 0.06em; color: var(--ink);
+    }
+    .pron-row.old .pron-val { color: var(--muted); }
+
+    .def-verse {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.08rem; line-height: 1.65; color: var(--ink);
+    }
+    .def-verse-src {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--amber); margin-top: var(--s2);
+    }
+
+    .def-desc {
+      font-size: 0.88rem; line-height: 1.95; color: var(--ink);
+    }
+
+    /* Mentions as chips — a list reads as a list, not a run-on line */
+    .def-mentions { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .mention {
+      font-family: 'DM Mono', monospace; font-size: 0.66rem;
+      letter-spacing: 0.06em;
+      border: 1px solid var(--amber); border-radius: 2px;
+      padding: 0.3rem 0.6rem;
+      background: rgba(200,137,42,0.14);
+      color: var(--amber);
+    }
+    :root[data-theme="dark"] .mention,
+    :root:not([data-theme="light"]) .mention { background: rgba(212,153,58,0.16); }
+
+    /* Meaning */
+    .def-meaning {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.15rem; font-weight: 700; color: var(--ink);
+    }
+    .def-meaning-note {
+      font-size: 0.8rem; line-height: 1.75; color: var(--muted);
+      margin-top: var(--s2);
+    }
+    .def-same {
+      font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--amber); margin-top: var(--s2);
+    }
+    /* Marks a disputed derivation. Sits ABOVE the meaning as a label, so it
+       can never be misread as part of what the name means. */
+    .uncertain-tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace; font-size: 0.52rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted);
+      border: 1px dashed var(--muted); border-radius: 2px;
+      padding: 0.2rem 0.5rem; margin-bottom: var(--s2);
+    }
+    .def-meaning.is-uncertain { color: var(--muted); }
+
+    .chosen-prompt {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.1rem; line-height: 1.6; color: var(--muted);
+      max-width: 30rem; margin-top: var(--s4);
+    }
+
+    /* ── Writing area ── */
+    .write { width: 100%; display: none; flex-direction: column; gap: 0; }
+    .write.on { display: flex; }
+    .box-wrap { position: relative; width: 100%; }
+    .expand-btn {
+      position: absolute; top: 0.55rem; right: 0.55rem;
+      width: 30px; height: 30px; line-height: 1;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 3px; color: var(--muted);
+      font-size: 0.85rem; cursor: pointer; opacity: 0.75;
+      transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+      z-index: 2;
+    }
+    .expand-btn:hover { opacity: 1; color: var(--amber); border-color: var(--amber); }
+    /* Drawn, not typed: the ⤢ glyph carries its own sidebearings and sits
+       off-centre in any box. An SVG on a symmetric viewBox does not. */
+    .expand-btn {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0;
+    }
+    .xp-ico { width: 15px; height: 15px; display: block; }
+    .box-wrap.expanded .expand-btn .xp-ico { width: 17px; height: 17px; }
+
+
+    /* Expanded: the box takes the whole screen so long writing has room.
+       position:fixed rather than a modal, so the textarea is never
+       re-created and the caret and undo history survive. */
+    .box-wrap.expanded {
+      position: fixed; inset: 0; z-index: 900;
+      background: var(--paper);
+      padding: 3.2rem 1.1rem 1.1rem;
+      display: flex; flex-direction: column;
+    }
+    .box-wrap.expanded textarea {
+      flex: 1; min-height: 0; height: auto;
+      border: none; border-radius: 0; background: var(--paper);
+      padding: 0.5rem 0.2rem; font-size: 16px; line-height: 1.95;
+    }
+    .box-wrap.expanded textarea:focus { border: none; }
+    .box-wrap.expanded .expand-btn {
+      top: 0.9rem; right: 1.1rem; width: 36px; height: 36px;
+      opacity: 1; font-size: 1rem;
+    }
+    .box-wrap.expanded .expanded-count {
+      display: block; font-size: 0.66rem; color: var(--muted);
+      letter-spacing: 0.1em; text-align: center; padding-top: 0.6rem;
+    }
+    .expanded-count { display: none; }
+    body.box-open { overflow: hidden; }
+
+    .write textarea {
+      width: 100%; min-height: 230px;
+      background: var(--input-bg); border: 1px solid var(--border);
+      border-radius: 3px; padding: 1.1rem 1.2rem;
+      color: var(--ink); font-family: 'DM Mono', monospace;
+      font-size: 16px; line-height: 1.85; resize: vertical;
+    }
+    .write textarea:focus { outline: none; border-color: var(--amber); }
+    .write-actions {
+      display: flex; gap: 0.7rem; margin-top: var(--s3); flex-wrap: wrap;
+      justify-content: center;
+    }
+    .wbtn {
+      font-family: 'DM Mono', monospace; font-size: 0.7rem;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 0.8rem 1.4rem; border-radius: 3px; cursor: pointer;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); transition: all 0.2s;
+    }
+    .wbtn:hover { border-color: var(--amber); color: var(--amber); }
+    .wbtn.primary {
+      background: var(--amber); border-color: var(--amber); color: #1a1008;
+    }
+    .wbtn.primary:hover { opacity: 0.85; color: #1a1008; }
+    .word-count {
+      font-size: 0.66rem; color: var(--muted);
+      letter-spacing: 0.1em; margin-top: var(--s2);
+    }
+
+    /* ── Saved stories ── */
+    .saved { width: 100%; border-top: 1px solid var(--border); padding-top: var(--s5); }
+    .saved-h {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 700; margin-bottom: var(--s4);
+    }
+    .saved-list { display: flex; flex-direction: column; gap: var(--s2); }
+    .saved-row {
+      display: flex; align-items: center; gap: 0.8rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-left: 3px solid var(--amber);
+      border-radius: 0 3px 3px 0; padding: 0.9rem 1rem;
+      cursor: pointer; text-align: left; transition: border-color 0.2s;
+    }
+    .saved-row:hover { border-color: var(--amber); }
+    .saved-name {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-weight: 700; font-size: 1rem; flex: 3; min-width: 0;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .saved-tag {
+      font-size: 0.5rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--amber); border: 1px solid var(--amber);
+      border-radius: 2px; padding: 0.15rem 0.4rem; flex-shrink: 0;
+    }
+    .saved-date {
+      font-size: 0.66rem; color: var(--muted);
+      min-width: 88px; text-align: right; flex-shrink: 0;
+    }
+    .saved-empty {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.05rem; color: var(--muted);
+    }
+
+    /* ── Modal ── */
+    .modal-back {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.72); display: none;
+      align-items: flex-start; justify-content: center;
+      padding: 1.2rem; overflow-y: auto;
+    }
+    .modal-back.open { display: flex; }
+    .modal {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 6px; max-width: 560px; width: 100%; margin: auto;
+      padding: var(--s4) 1.6rem; text-align: left;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .modal-name {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.6rem; font-weight: 700;
+    }
+    .modal-meta {
+      font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--amber); margin-top: var(--s1);
+    }
+    .modal-text {
+      font-size: 0.92rem; line-height: 1.9; white-space: pre-wrap;
+      border-top: 1px solid var(--border);
+      margin-top: var(--s3); padding-top: var(--s3);
+    }
+
+    /* Expandable edit box inside a story modal. Same idea as the main
+       writing box: position:fixed on the existing textarea, so the caret,
+       scroll position and undo history all survive the expand. */
+    .medit-wrap { position: relative; width: 100%; }
+    .medit-wrap.expanded {
+      position: fixed; inset: 0; z-index: 1300;
+      background: var(--paper); padding: 3.4rem 1.1rem 1.1rem;
+      display: flex; flex-direction: column;
+    }
+    .medit-wrap.expanded textarea {
+      flex: 1; min-height: 0; height: auto; display: block;
+      border: none; border-radius: 0; background: var(--paper);
+      padding: 0.5rem 0.2rem; line-height: 1.95; resize: none;
+    }
+    .medit-wrap.expanded textarea:focus { border: none; box-shadow: none; }
+    .medit-x {
+      position: absolute; top: 0.55rem; right: 0.55rem;
+      width: 30px; height: 30px; padding: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 3px; color: var(--muted); cursor: pointer;
+      opacity: 0.8; transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .medit-x:hover { opacity: 1; color: var(--amber); border-color: var(--amber); }
+    .medit-wrap.expanded .medit-x { top: 0.9rem; right: 1.1rem; width: 36px; height: 36px; }
+    .medit-x .xp-ico { width: 15px; height: 15px; display: block; }
+    .medit-wrap.expanded .medit-x .xp-ico { width: 17px; height: 17px; }
+
+    .modal-edit {
+      display: none; width: 100%; min-height: 220px;
+      background: var(--input-bg); border: 1px solid var(--amber);
+      border-radius: 3px; padding: 1rem 1.1rem;
+      color: var(--ink); font-family: 'DM Mono', monospace;
+      font-size: 16px; line-height: 1.9; resize: vertical;
+      border-top-width: 1px; margin-top: var(--s3);
+    }
+    .modal-edit:focus { outline: none; }
+    .modal-edit.on { display: block; }
+
+    .modal-foot { display: flex; gap: 0.7rem; margin-top: var(--s4); }
+    .modal-foot .wbtn { flex: 1; text-align: center; }
+    .wbtn.danger { border-color: var(--rust); color: var(--rust); }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; left: 50%; bottom: 2rem;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--card); border: 1px solid var(--amber);
+      border-radius: 3px; padding: 0.8rem 1.3rem;
+      font-size: 0.7rem; letter-spacing: 0.1em; color: var(--ink);
+      opacity: 0; pointer-events: none; transition: all 0.3s; z-index: 2000;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    footer {
+      border-top: 1px solid var(--border); padding-top: var(--s4);
+      width: 100%; display: flex; flex-direction: column; gap: var(--s2);
+    }
+    .foot-link {
+      font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--amber); text-decoration: underline; text-underline-offset: 4px;
+    }
+    .foot-link:hover { opacity: 0.7; }
+    .foot-mark {
+      font-size: 0.66rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    @media (max-width: 480px) {
+      :root { --s2: 0.7rem; --s3: 1.1rem; --s4: 1.8rem; --s5: 2.9rem; --s6: 4.6rem; }
+      .page { padding: 2.2rem 1.1rem 3rem; }
+      /* Deck stays 240x300 exactly as on the homepage — it was shrinking here
+         and reading as a different, smaller component. */
+    }
+    @media (min-width: 900px) {
+      :root { --s3: 1.5rem; --s4: 2.4rem; --s5: 3.9rem; --s6: 6.2rem; }
+      .page { padding: 4rem 3rem 5.5rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  
+    a.ref-link {
+      color: inherit; text-decoration: underline;
+      text-underline-offset: 3px; text-decoration-thickness: 1px;
+      text-decoration-color: rgba(200,137,42,0.45);
+      -webkit-tap-highlight-color: transparent; cursor: pointer;
+    }
+    a.ref-link:hover { text-decoration-color: var(--amber); opacity: 0.8; }
+    a.ref-link::after {
+      content: '\2197'; font-size: 0.75em; margin-left: 0.22em;
+      opacity: 0.6; text-decoration: none; display: inline-block;
+    }
+
+    /* ── Version picker ── */
+    .ver-sheet {
+      position: fixed; inset: 0; z-index: 1400;
+      background: rgba(0,0,0,0.72); display: none;
+      align-items: flex-end; justify-content: center;
+    }
+    .ver-sheet.open { display: flex; }
+    .ver-panel {
+      background: var(--card); border-top: 2px solid var(--amber);
+      border-radius: 8px 8px 0 0; width: 100%; max-width: 520px;
+      max-height: 80vh; display: flex; flex-direction: column;
+      padding: var(--s3) 1.2rem calc(var(--s3) + env(safe-area-inset-bottom, 0px));
+    }
+    @media (min-width: 620px) {
+      .ver-sheet { align-items: center; }
+      .ver-panel { border-radius: 8px; border: 1px solid var(--border);
+                   border-top: 2px solid var(--amber); }
+    }
+    .ver-head {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 1rem; padding-bottom: var(--s3);
+      border-bottom: 1px solid var(--border);
+    }
+    .ver-title {
+      display: block; font-family: 'Playfair Display', serif;
+      font-style: italic; font-weight: 700; font-size: 1.15rem; color: var(--ink);
+    }
+    .ver-sub {
+      display: block; font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.1em; color: var(--muted); margin-top: 0.35rem;
+    }
+    .ver-x {
+      background: none; border: none; color: var(--muted);
+      font-size: 0.85rem; cursor: pointer; padding: 0.2rem 0.4rem; flex-shrink: 0;
+    }
+    .ver-x:hover { color: var(--amber); }
+    .ver-list {
+      flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+      padding: var(--s3) 0 0; display: flex; flex-direction: column; gap: 0.3rem;
+    }
+    .ver-item {
+      display: flex; align-items: baseline; gap: 0.9rem; width: 100%;
+      text-align: left; cursor: pointer; background: transparent;
+      border: 1px solid transparent; border-radius: 3px;
+      padding: 0.7rem 0.8rem; color: var(--ink);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .ver-item:hover { border-color: var(--amber); }
+    .ver-item.is-pref { border-color: var(--amber); background: rgba(200,137,42,0.1); }
+    .ver-code {
+      font-family: 'DM Mono', monospace; font-size: 0.66rem;
+      letter-spacing: 0.1em; color: var(--amber);
+      min-width: 3.9rem; flex-shrink: 0;
+    }
+    .ver-name {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.02rem; color: var(--ink);
+    }
+    .ver-name small {
+      display: block; font-family: 'DM Mono', monospace; font-style: normal;
+      font-size: 0.55rem; letter-spacing: 0.08em; color: var(--muted);
+      margin-top: 0.2rem;
+    }
+</style><style>
+
+    /* Expandable edit box inside a story modal. Same idea as the main
+       writing box: position:fixed on the existing textarea, so the caret,
+       scroll position and undo history all survive the expand. */
+    .medit-wrap { position: relative; width: 100%; }
+    .medit-wrap.expanded {
+      position: fixed; inset: 0; z-index: 1300;
+      background: var(--paper); padding: 3.4rem 1.1rem 1.1rem;
+      display: flex; flex-direction: column;
+    }
+    .medit-wrap.expanded textarea {
+      flex: 1; min-height: 0; height: auto; display: block;
+      border: none; border-radius: 0; background: var(--paper);
+      padding: 0.5rem 0.2rem; line-height: 1.95; resize: none;
+    }
+    .medit-wrap.expanded textarea:focus { border: none; box-shadow: none; }
+    .medit-x {
+      position: absolute; top: 0.55rem; right: 0.55rem;
+      width: 30px; height: 30px; padding: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 3px; color: var(--muted); cursor: pointer;
+      opacity: 0.8; transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .medit-x:hover { opacity: 1; color: var(--amber); border-color: var(--amber); }
+    .medit-wrap.expanded .medit-x { top: 0.9rem; right: 1.1rem; width: 36px; height: 36px; }
+    .medit-x .xp-ico { width: 15px; height: 15px; display: block; }
+    .medit-wrap.expanded .medit-x .xp-ico { width: 17px; height: 17px; }
+
+</style>
+
+<style>
+  .grp-row { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+  .grp-btn {
+    font-family: 'DM Mono', monospace; font-size: 0.58rem;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    padding: 0.45rem 0.85rem; white-space: nowrap;
+    border: 1.5px solid var(--border); border-radius: 2px;
+    background: transparent; color: var(--muted); cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .grp-btn:hover { border-color: var(--amber); color: var(--amber); }
+  .grp-btn.active { background: var(--amber); border-color: var(--amber); color: #1a1008; }
+  @media (max-width: 400px) { .grp-btn { padding: 0.45rem 0.6rem; letter-spacing: 0.1em; } }
+
+  .fact-row { display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap; }
+  .fact-row + .fact-row { margin-top: var(--s2); }
+  .fact-k {
+    font-family: 'DM Mono', monospace; font-size: 0.55rem;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber);
+    min-width: 5.4rem; flex-shrink: 0;
+  }
+  .fact-v { font-size: 0.85rem; line-height: 1.8; color: var(--ink); }
+  .orig-line {
+    font-size: 0.8rem; line-height: 1.9; color: var(--muted); margin-top: var(--s3);
+  }
+  .orig-script {
+    font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--ink);
+  }
+  .start-ref {
+    font-family: 'DM Mono', monospace; font-size: 0.72rem;
+    letter-spacing: 0.08em; color: var(--ink);
+  }
+  .start-why { font-size: 0.84rem; line-height: 1.9; color: var(--muted); margin-top: var(--s2); }
+  .status-note {
+    font-size: 0.74rem; line-height: 1.8; color: var(--muted);
+    font-style: italic; margin-top: var(--s2);
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="bible.html" class="back-link">← Bible Spin</a>
+  <button class="theme-toggle" id="themeBtn" aria-label="Toggle theme">
+    <span id="themeLabel">Dark</span> <span id="themeIcon">☾</span>
+  </button>
+</div>
+
+<div class="page">
+
+  <header>
+    <div class="eyebrow">Bible Spin</div>
+    <div class="eyebrow-rule"></div>
+    <h1 class="page-title">Books</h1>
+    <p class="page-sub">Eighty-four books, including the ones that were removed. Shuffle one and write from it.</p>
+  </header>
+
+  <div class="grp-row" id="grpRow">
+    <button class="grp-btn active" data-g="all">All</button>
+    <button class="grp-btn" data-g="Old Testament">Old</button>
+    <button class="grp-btn" data-g="New Testament">New</button>
+    <button class="grp-btn" data-g="Deuterocanonical">Deuterocanonical</button>
+    <button class="grp-btn" data-g="Outside the canon">Removed</button>
+  </div>
+
+  <div class="deck-wrap">
+    <div class="deck-area" id="deckArea"></div>
+    <p class="spin-count" id="spinCount">Tap the cards to shuffle</p>
+    <button class="pile-aside" id="pileAside" style="display:none"></button>
+  </div>
+
+  <section class="chosen" id="chosen" style="display:none">
+    <div class="chosen-label">Your book</div>
+    <div class="chosen-name" id="chosenName"></div>
+    <div class="chosen-title" id="chosenSection"></div>
+    <button class="def-toggle" id="defToggle">🔍 Read the breakdown</button>
+    <div class="def-panel" id="defPanel">
+      <div class="def-box">
+
+        <div class="def-sec">
+          <div class="def-h">Pronunciation</div>
+          <div class="def-pron" id="defPron"></div>
+          <div class="orig-line" id="defOrig"></div>
+        </div>
+
+        <div class="def-sec">
+          <div class="def-h">What it is</div>
+          <div class="def-desc" id="defWhat"></div>
+          <div class="status-note" id="defStatus"></div>
+        </div>
+
+        <button class="learn-btn" id="learnBtn" aria-expanded="false">
+          <span>Learn more?</span>
+          <svg class="learn-caret" width="12" height="12" viewBox="0 0 12 12" fill="none"
+               stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 L6 8 L9.5 4.5"/></svg>
+        </button>
+
+        <div class="learn-panel" id="learnPanel">
+          <div class="def-sec">
+            <div class="def-h">The facts</div>
+            <div class="fact-row"><span class="fact-k">Group</span><span class="fact-v" id="defGroup"></span></div>
+            <div class="fact-row"><span class="fact-k">Section</span><span class="fact-v" id="defSection"></span></div>
+            <div class="fact-row"><span class="fact-k">Chapters</span><span class="fact-v" id="defChapters"></span></div>
+            <div class="fact-row"><span class="fact-k">Author</span><span class="fact-v" id="defAuthor"></span></div>
+          </div>
+          <div class="def-sec">
+            <div class="def-h">Where to start</div>
+            <div class="start-ref" id="defStart"></div>
+            <div class="start-why" id="defStartWhy"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <p class="chosen-prompt">Write from it. A summary, a question, a quarrel, whatever it stirs.</p>
+  </section>
+
+  <section class="write" id="writeSec">
+    <div class="box-wrap" id="boxWrap">
+      <textarea id="storyBox" placeholder="Begin here…"></textarea>
+      <button class="expand-btn" id="expandBtn" aria-label="Expand the writing box" title="Expand"><svg class="xp-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><path d="M8 8 L12.4 3.6"/><path d="M9.4 3 H13 V6.6"/></g><g transform="rotate(180 8 8)"><path d="M8 8 L12.4 3.6"/><path d="M9.4 3 H13 V6.6"/></g></svg></button>
+    </div>
+    <div class="word-count" id="wordCount">0 words</div>
+    <div class="expanded-count" id="expandedCount"></div>
+    <div class="write-actions">
+      <button class="wbtn primary" id="saveBtn">Save entry</button>
+      <button class="wbtn" id="clearBtn">Clear</button>
+    </div>
+  </section>
+
+  <section class="saved">
+    <h2 class="saved-h">Your entries</h2>
+    <div class="saved-list" id="savedList"></div>
+  </section>
+
+  <footer>
+    <div class="foot-mark">WordSpin — by MK</div>
+  </footer>
+
+</div>
+
+<div class="aside-sheet" id="asideSheet">
+  <div class="aside-panel">
+    <div class="aside-head">
+      <span class="aside-title">Set aside</span>
+      <button class="aside-x" id="asideClose" aria-label="Close">✕</button>
+    </div>
+    <div class="aside-list" id="asideList"></div>
+    <div class="aside-foot">
+      <button class="wbtn" id="asideOnly">Play these only</button>
+      <button class="wbtn primary" id="asideReturn">Return to deck</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-back" id="modalBack">
+  <div class="modal">
+    <div class="modal-name" id="mName"></div>
+    <div class="modal-meta" id="mMeta"></div>
+    <button class="def-toggle" id="mBreakBtn" style="margin-top:var(--s2)">🔍 Show the breakdown</button>
+    <div class="def-panel" id="mBreakPanel">
+      <div class="def-box" style="margin-top:var(--s3)">
+        <div class="def-sec">
+          <div class="def-h">Pronunciation</div>
+          <div class="def-pron" id="mPron"></div>
+          <div class="orig-line" id="mOrig"></div>
+        </div>
+        <div class="def-sec">
+          <div class="def-h">What it is</div>
+          <div class="def-desc" id="mWhat"></div>
+        </div>
+        <div class="def-sec">
+          <div class="def-h">Where to start</div>
+          <div class="start-ref" id="mStart"></div>
+          <div class="start-why" id="mStartWhy"></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-text" id="mText"></div>
+    <textarea class="modal-edit" id="mEdit"></textarea>
+    <div class="modal-foot" id="mFootRead">
+      <button class="wbtn" id="mClose">Close</button>
+      <button class="wbtn" id="mEditBtn">✎ Edit</button>
+      <button class="wbtn danger" id="mDelete">Delete</button>
+    </div>
+    <div class="modal-foot" id="mFootEdit" style="display:none">
+      <button class="wbtn" id="mCancelEdit">Cancel</button>
+      <button class="wbtn primary" id="mSaveEdit">Save changes</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var BOOKS = [{"name":"Genesis","pronunciation":"JEN-uh-sis","original":"בְּרֵאשִׁית","originalLanguage":"Hebrew","originalMeaning":"Bereshit — 'in the beginning', the book's first word","group":"Old Testament","section":"Law","status":"canonical","chapters":50,"author":"Traditionally Moses","what":"Origins: the world, humanity, the first failure, and one family chosen out of it. Half the book is four generations of a single household and their long argument with God and each other.","start":"Genesis 1","startWhy":"The account everything else is built on."},{"name":"Exodus","pronunciation":"EK-suh-dus","original":"שְׁמוֹת","originalLanguage":"Hebrew","originalMeaning":"Shemot — 'names', from its opening line","group":"Old Testament","section":"Law","status":"canonical","chapters":40,"author":"Traditionally Moses","what":"A nation is made out of slaves. Deliverance, the law at Sinai, and the golden calf within weeks of it.","start":"Exodus 3","startWhy":"The burning bush, and the name God gives for himself."},{"name":"Leviticus","pronunciation":"lih-VIT-ih-kus","original":"וַיִּקְרָא","originalLanguage":"Hebrew","originalMeaning":"Vayikra — 'and he called'","group":"Old Testament","section":"Law","status":"canonical","chapters":27,"author":"Traditionally Moses","what":"How a holy God is approached. Sacrifice, priesthood, clean and unclean, and the Day of Atonement at its centre.","start":"Leviticus 16","startWhy":"The Day of Atonement — the chapter the rest arranges itself around."},{"name":"Numbers","pronunciation":"NUM-berz","original":"בְּמִדְבַּר","originalLanguage":"Hebrew","originalMeaning":"Bemidbar — 'in the wilderness', which fits the book better","group":"Old Testament","section":"Law","status":"canonical","chapters":36,"author":"Traditionally Moses","what":"Forty years of walking in circles after one refusal at the border. Two censuses give it its English name.","start":"Numbers 13-14","startWhy":"The spies' report, and the decision that cost a generation."},{"name":"Deuteronomy","pronunciation":"dyoo-ter-ON-uh-mee","original":"דְּבָרִים","originalLanguage":"Hebrew","originalMeaning":"Devarim — 'words'; the Greek name means 'second law'","group":"Old Testament","section":"Law","status":"canonical","chapters":34,"author":"Traditionally Moses","what":"Moses' last sermons to people about to enter a land he will not. Repetition as inheritance.","start":"Deuteronomy 6","startWhy":"The Shema — hear, O Israel — still recited daily."},{"name":"Joshua","pronunciation":"JOSH-oo-ah","original":"יְהוֹשֻׁעַ","originalLanguage":"Hebrew","originalMeaning":"Yehoshua — 'YHWH is salvation'","group":"Old Testament","section":"History","status":"canonical","chapters":24,"author":"Traditionally Joshua","what":"Entering the land. Conquest, division of territory, and a covenant renewed at the end of a life.","start":"Joshua 24","startWhy":"Choose you this day — Joshua's closing challenge."},{"name":"Judges","pronunciation":"JUJ-iz","original":"שׁוֹפְטִים","originalLanguage":"Hebrew","originalMeaning":"Shoftim — 'judges', closer to deliverers than magistrates","group":"Old Testament","section":"History","status":"canonical","chapters":21,"author":"Traditionally Samuel; disputed","what":"A cycle repeated until it wears you down: forgetting, oppression, a rescuer, peace, forgetting. Ends with everyone doing what was right in their own eyes.","start":"Judges 4-5","startWhy":"Deborah — the account and then the song of the same battle."},{"name":"Ruth","pronunciation":"ROOTH","original":"רוּת","originalLanguage":"Hebrew","originalMeaning":"Ruth — likely 'friend, companion'","group":"Old Testament","section":"History","status":"canonical","chapters":4,"author":"Unknown","what":"Four chapters in the middle of the Judges period, and nothing in it is violent. A foreign widow, a field, and a kindness that reaches into David's line.","start":"Ruth 1","startWhy":"The road out of Moab, and the vow."},{"name":"1 Samuel","pronunciation":"SAM-yoo-el","original":"שְׁמוּאֵל","originalLanguage":"Hebrew","originalMeaning":"Shemuel — 'God has heard'","group":"Old Testament","section":"History","status":"canonical","chapters":31,"author":"Unknown; traditionally Samuel and others","what":"Israel asks for a king and gets one. Samuel, Saul and the rise of David, told without hiding what it cost any of them.","start":"1 Samuel 16","startWhy":"The anointing — man looks on the outward appearance."},{"name":"2 Samuel","pronunciation":"SAM-yoo-el","original":"שְׁמוּאֵל","originalLanguage":"Hebrew","originalMeaning":"Shemuel — 'God has heard'","group":"Old Testament","section":"History","status":"canonical","chapters":24,"author":"Unknown","what":"David as king: the height of it, and then Bathsheba, and then a house that never settles again.","start":"2 Samuel 11-12","startWhy":"The one chapter, and the confrontation that follows it."},{"name":"1 Kings","pronunciation":"KINGZ","original":"מְלָכִים","originalLanguage":"Hebrew","originalMeaning":"Melakhim — 'kings'","group":"Old Testament","section":"History","status":"canonical","chapters":22,"author":"Unknown; traditionally Jeremiah","what":"Solomon's temple and Solomon's decline, then a kingdom split in two, then Elijah against Ahab.","start":"1 Kings 18-19","startWhy":"Carmel, and the still small voice the day after."},{"name":"2 Kings","pronunciation":"KINGZ","original":"מְלָכִים","originalLanguage":"Hebrew","originalMeaning":"Melakhim — 'kings'","group":"Old Testament","section":"History","status":"canonical","chapters":25,"author":"Unknown","what":"Both kingdoms fall. Elisha, then a long line of kings measured in one sentence each, then exile.","start":"2 Kings 22-23","startWhy":"Josiah finds the law in the temple and reads it aloud."},{"name":"1 Chronicles","pronunciation":"KRON-ih-kulz","original":"דִּבְרֵי הַיָּמִים","originalLanguage":"Hebrew","originalMeaning":"Divrei Hayamim — 'the events of the days'","group":"Old Testament","section":"History","status":"canonical","chapters":29,"author":"Traditionally Ezra","what":"The same history retold for people coming home from exile, with the temple and David's line at the centre.","start":"1 Chronicles 29","startWhy":"David's prayer as he hands the work to his son."},{"name":"2 Chronicles","pronunciation":"KRON-ih-kulz","original":"דִּבְרֵי הַיָּמִים","originalLanguage":"Hebrew","originalMeaning":"Divrei Hayamim — 'the events of the days'","group":"Old Testament","section":"History","status":"canonical","chapters":36,"author":"Traditionally Ezra","what":"Solomon to the exile, ending mid-sentence with permission to go home.","start":"2 Chronicles 7","startWhy":"The prayer answered, and the promise attached to it."},{"name":"Ezra","pronunciation":"EZ-rah","original":"עֶזְרָא","originalLanguage":"Hebrew","originalMeaning":"Ezra — 'help'","group":"Old Testament","section":"History","status":"canonical","chapters":10,"author":"Traditionally Ezra","what":"Coming back and rebuilding, against local opposition and their own discouragement.","start":"Ezra 3","startWhy":"The foundation laid — some shouting for joy, some weeping."},{"name":"Nehemiah","pronunciation":"nee-eh-MY-ah","original":"נְחֶמְיָה","originalLanguage":"Hebrew","originalMeaning":"Nechemyah — 'YHWH comforts'","group":"Old Testament","section":"History","status":"canonical","chapters":13,"author":"Traditionally Nehemiah","what":"A wall rebuilt in fifty-two days by people working with one hand and holding a weapon in the other.","start":"Nehemiah 1-2","startWhy":"The news, the prayer, and the request to the king."},{"name":"Esther","pronunciation":"ES-ter","original":"אֶסְתֵּר","originalLanguage":"Hebrew","originalMeaning":"Esther — likely 'star'; her Hebrew name is Hadassah","group":"Old Testament","section":"History","status":"canonical","chapters":10,"author":"Unknown","what":"A Jewish girl becomes queen of Persia and stops a genocide. God is never named in the book.","start":"Esther 4","startWhy":"If I perish, I perish."},{"name":"Job","pronunciation":"JOHB","original":"אִיּוֹב","originalLanguage":"Hebrew","originalMeaning":"Iyyov — uncertain; possibly 'persecuted'","group":"Old Testament","section":"Wisdom","status":"canonical","chapters":42,"author":"Unknown","what":"The oldest question, argued at length. Three friends explain his suffering and are told at the end they were wrong.","start":"Job 38","startWhy":"God answers out of the whirlwind, and explains nothing."},{"name":"Psalms","pronunciation":"SAHMZ","original":"תְּהִלִּים","originalLanguage":"Hebrew","originalMeaning":"Tehillim — 'praises', though half of them are complaints","group":"Old Testament","section":"Wisdom","status":"canonical","chapters":150,"author":"David and others","what":"The whole range said out loud to God: praise, rage, despair, thanks, and several that end without resolution.","start":"Psalm 22","startWhy":"Begins in abandonment and ends in praise, without pretending."},{"name":"Proverbs","pronunciation":"PROV-erbz","original":"מִשְׁלֵי","originalLanguage":"Hebrew","originalMeaning":"Mishlei — 'proverbs, comparisons'","group":"Old Testament","section":"Wisdom","status":"canonical","chapters":31,"author":"Solomon and others","what":"Short sayings about how life generally goes. General, not promises — which Job and Ecclesiastes both push back on.","start":"Proverbs 3","startWhy":"Trust in the LORD with all thine heart."},{"name":"Ecclesiastes","pronunciation":"ih-klee-zee-AS-teez","original":"קֹהֶלֶת","originalLanguage":"Hebrew","originalMeaning":"Qohelet — 'the assembler' or 'the preacher'","group":"Old Testament","section":"Wisdom","status":"canonical","chapters":12,"author":"Traditionally Solomon; disputed","what":"A man who tried everything and found it all vapour. Bleak, honest, and strangely steadying.","start":"Ecclesiastes 3","startWhy":"A time to every purpose under the heaven."},{"name":"Song of Solomon","pronunciation":"SONG of SOL-uh-mun","original":"שִׁיר הַשִּׁירִים","originalLanguage":"Hebrew","originalMeaning":"Shir Hashirim — 'song of songs', meaning the greatest of them","group":"Old Testament","section":"Wisdom","status":"canonical","chapters":8,"author":"Traditionally Solomon","what":"Love poetry, unembarrassed. Read as it stands, and also as a picture of God and his people.","start":"Song of Solomon 8","startWhy":"Love is strong as death."},{"name":"Isaiah","pronunciation":"eye-ZAY-ah","original":"יְשַׁעְיָהוּ","originalLanguage":"Hebrew","originalMeaning":"Yeshayahu — 'YHWH is salvation'","group":"Old Testament","section":"Major Prophets","status":"canonical","chapters":66,"author":"Isaiah; later chapters disputed","what":"Judgement and then comfort, at enormous scale. Quoted in the New Testament more than any other prophet.","start":"Isaiah 53","startWhy":"The suffering servant."},{"name":"Jeremiah","pronunciation":"jair-eh-MY-ah","original":"יִרְמְיָהוּ","originalLanguage":"Hebrew","originalMeaning":"Yirmeyahu — 'YHWH exalts'","group":"Old Testament","section":"Major Prophets","status":"canonical","chapters":52,"author":"Jeremiah","what":"Forty years of warning almost nobody heeded, from a man who did not want the job and said so.","start":"Jeremiah 1","startWhy":"Called before he was formed, and objecting that he is a child."},{"name":"Lamentations","pronunciation":"lam-en-TAY-shunz","original":"אֵיכָה","originalLanguage":"Hebrew","originalMeaning":"Eikhah — 'how', the cry the book opens with","group":"Old Testament","section":"Major Prophets","status":"canonical","chapters":5,"author":"Traditionally Jeremiah","what":"Five poems over a burnt city. Four are acrostics — grief given a strict shape to hold it.","start":"Lamentations 3","startWhy":"His mercies are new every morning, in the middle of the ruin."},{"name":"Ezekiel","pronunciation":"ee-ZEE-kee-el","original":"יְחֶזְקֵאל","originalLanguage":"Hebrew","originalMeaning":"Yechezkel — 'God strengthens'","group":"Old Testament","section":"Major Prophets","status":"canonical","chapters":48,"author":"Ezekiel","what":"Visions in exile, some of them strange enough to be unsettling, and a temple measured stone by stone at the end.","start":"Ezekiel 37","startWhy":"The valley of dry bones."},{"name":"Daniel","pronunciation":"DAN-yel","original":"דָּנִיֵּאל","originalLanguage":"Hebrew","originalMeaning":"Daniyyel — 'God is my judge'","group":"Old Testament","section":"Major Prophets","status":"canonical","chapters":12,"author":"Daniel; dating disputed","what":"Six chapters of narrative under foreign kings, six of visions. Faithfulness where obedience is illegal.","start":"Daniel 3","startWhy":"But if not — the answer before the furnace."},{"name":"Hosea","pronunciation":"hoh-ZAY-ah","original":"הוֹשֵׁעַ","originalLanguage":"Hebrew","originalMeaning":"Hoshea — 'salvation'","group":"Old Testament","section":"Minor Prophets","status":"canonical","chapters":14,"author":"Hosea","what":"A prophet told to marry a woman who will leave him, so the nation can see what it is doing.","start":"Hosea 11","startWhy":"How shall I give thee up?"},{"name":"Joel","pronunciation":"JOH-el","original":"יוֹאֵל","originalLanguage":"Hebrew","originalMeaning":"Yoel — 'YHWH is God'","group":"Old Testament","section":"Minor Prophets","status":"canonical","chapters":3,"author":"Joel","what":"A locust plague read as a warning, and a promise of the Spirit poured out on everyone.","start":"Joel 2","startWhy":"Rend your heart, and not your garments."},{"name":"Amos","pronunciation":"AY-mus","original":"עָמוֹס","originalLanguage":"Hebrew","originalMeaning":"Amos — 'borne, carried'","group":"Old Testament","section":"Minor Prophets","status":"canonical","chapters":9,"author":"Amos","what":"A herdsman with no credentials telling a prosperous nation that its worship is worthless while it robs the poor.","start":"Amos 5","startWhy":"Let judgement run down as waters."},{"name":"Obadiah","pronunciation":"oh-bah-DYE-ah","original":"עֹבַדְיָה","originalLanguage":"Hebrew","originalMeaning":"Ovadyah — 'servant of YHWH'","group":"Old Testament","section":"Minor Prophets","status":"canonical","chapters":1,"author":"Obadiah","what":"The shortest book in the Old Testament. One chapter against Edom for standing by while its brother burned.","start":"Obadiah 1","startWhy":"The whole book — twenty-one verses."},{"name":"Jonah","pronunciation":"JOH-nah","original":"יוֹנָה","originalLanguage":"Hebrew","originalMeaning":"Yonah — 'dove'","group":"Old Testament","section":"Minor Prophets","status":"canonical","chapters":4,"author":"Unknown","what":"A prophet who succeeds despite himself and is furious about it. Ends on a question nobody answers.","start":"Jonah 4","startWhy":"The anger, the gourd, and God's last question."},{"name":"Micah","pronunciation":"MY-kah","original":"מִיכָה","originalLanguage":"Hebrew","originalMeaning":"Mikhah — 'who is like YHWH?'","group":"Old Testament","section":"Minor Prophets","status":"canonical","chapters":7,"author":"Micah","what":"Judgement on both kingdoms, and one of the plainest summaries of what is actually required.","start":"Micah 6","startWhy":"Do justly, love mercy, walk humbly."},{"name":"Nahum","pronunciation":"NAY-hum","original":"נַחוּם","originalLanguage":"Hebrew","originalMeaning":"Nachum — 'comfort'","group":"Old Testament","section":"Minor Prophets","status":"canonical","chapters":3,"author":"Nahum","what":"Nineveh again, a century after Jonah. This time there is no repentance and no reprieve.","start":"Nahum 1","startWhy":"The LORD is slow to anger, and great in power."},{"name":"Habakkuk","pronunciation":"huh-BAK-uk","original":"חֲבַקּוּק","originalLanguage":"Hebrew","originalMeaning":"Havaqquq — possibly 'embrace'","group":"Old Testament","section":"Minor Prophets","status":"canonical","chapters":3,"author":"Habakkuk","what":"A prophet who argues with God about injustice and is given an answer harder than the question.","start":"Habakkuk 3","startWhy":"Though the fig tree shall not blossom, yet I will rejoice."},{"name":"Zephaniah","pronunciation":"zef-uh-NYE-ah","original":"צְפַנְיָה","originalLanguage":"Hebrew","originalMeaning":"Tsefanyah — 'YHWH has hidden'","group":"Old Testament","section":"Minor Prophets","status":"canonical","chapters":3,"author":"Zephaniah","what":"The day of the LORD, dark and near — and then singing at the end of it.","start":"Zephaniah 3","startWhy":"He will rejoice over thee with joy."},{"name":"Haggai","pronunciation":"HAG-eye","original":"חַגַּי","originalLanguage":"Hebrew","originalMeaning":"Chaggai — 'festive'","group":"Old Testament","section":"Minor Prophets","status":"canonical","chapters":2,"author":"Haggai","what":"Two chapters asking one question: why is the temple still rubble while your own houses are finished?","start":"Haggai 1","startWhy":"Consider your ways."},{"name":"Zechariah","pronunciation":"zek-ah-RYE-ah","original":"זְכַרְיָה","originalLanguage":"Hebrew","originalMeaning":"Zekharyah — 'YHWH remembers'","group":"Old Testament","section":"Minor Prophets","status":"canonical","chapters":14,"author":"Zechariah","what":"Eight night visions and a run of prophecies the Gospels return to again and again.","start":"Zechariah 9","startWhy":"Thy King cometh, lowly, riding upon an ass."},{"name":"Malachi","pronunciation":"MAL-ah-kye","original":"מַלְאָכִי","originalLanguage":"Hebrew","originalMeaning":"Malakhi — 'my messenger'","group":"Old Testament","section":"Minor Prophets","status":"canonical","chapters":4,"author":"Malachi","what":"The last word before four centuries of silence, argued as a series of disputes.","start":"Malachi 3","startWhy":"Bring ye all the tithes into the storehouse."},{"name":"Matthew","pronunciation":"MATH-yoo","original":"Κατὰ Μαθθαῖον","originalLanguage":"Greek","originalMeaning":"Kata Maththaion — 'according to Matthew'","group":"New Testament","section":"Gospels","status":"canonical","chapters":28,"author":"Traditionally Matthew","what":"Written for readers who knew the Hebrew Scriptures — it keeps saying that this fulfils what was written.","start":"Matthew 5-7","startWhy":"The Sermon on the Mount, in one sitting."},{"name":"Mark","pronunciation":"MARK","original":"Κατὰ Μᾶρκον","originalLanguage":"Greek","originalMeaning":"Kata Markon — 'according to Mark'","group":"New Testament","section":"Gospels","status":"canonical","chapters":16,"author":"Traditionally Mark","what":"The shortest and fastest. Everything happens immediately; the oldest manuscripts end abruptly, on fear.","start":"Mark 1","startWhy":"The pace is the point — read the first chapter straight through."},{"name":"Luke","pronunciation":"LOOK","original":"Κατὰ Λουκᾶν","originalLanguage":"Greek","originalMeaning":"Kata Loukan — 'according to Luke'","group":"New Testament","section":"Gospels","status":"canonical","chapters":24,"author":"Traditionally Luke","what":"An ordered account by someone who interviewed witnesses. Notices women, the poor and outsiders more than the others.","start":"Luke 15","startWhy":"Three parables about things lost and found."},{"name":"John","pronunciation":"JON","original":"Κατὰ Ἰωάννην","originalLanguage":"Greek","originalMeaning":"Kata Ioannen — 'according to John'","group":"New Testament","section":"Gospels","status":"canonical","chapters":21,"author":"Traditionally John","what":"Different in shape and pace from the other three. Seven signs, seven I AM sayings, and long conversations.","start":"John 1","startWhy":"In the beginning was the Word."},{"name":"Acts","pronunciation":"AKTS","original":"Πράξεις","originalLanguage":"Greek","originalMeaning":"Praxeis — 'acts, deeds'","group":"New Testament","section":"History","status":"canonical","chapters":28,"author":"Traditionally Luke","what":"What happened next. A movement spreading out from one room in Jerusalem, and the arguments it caused.","start":"Acts 2","startWhy":"Pentecost."},{"name":"Romans","pronunciation":"ROH-munz","original":"Πρὸς Ῥωμαίους","originalLanguage":"Greek","originalMeaning":"Pros Rhomaious — 'to the Romans'","group":"New Testament","section":"Paul's Letters","status":"canonical","chapters":16,"author":"Paul","what":"The most systematic thing Paul wrote, to a church he had not yet met.","start":"Romans 8","startWhy":"Nothing shall separate us."},{"name":"1 Corinthians","pronunciation":"kuh-RIN-thee-unz","original":"Πρὸς Κορινθίους","originalLanguage":"Greek","originalMeaning":"Pros Korinthious — 'to the Corinthians'","group":"New Testament","section":"Paul's Letters","status":"canonical","chapters":16,"author":"Paul","what":"A difficult church, addressed problem by problem — division, lawsuits, food, worship, resurrection.","start":"1 Corinthians 13","startWhy":"Charity — read it outside a wedding."},{"name":"2 Corinthians","pronunciation":"kuh-RIN-thee-unz","original":"Πρὸς Κορινθίους","originalLanguage":"Greek","originalMeaning":"Pros Korinthious — 'to the Corinthians'","group":"New Testament","section":"Paul's Letters","status":"canonical","chapters":13,"author":"Paul","what":"The most personal letter he wrote. He defends himself by listing his failures and beatings.","start":"2 Corinthians 12","startWhy":"My strength is made perfect in weakness."},{"name":"Galatians","pronunciation":"guh-LAY-shunz","original":"Πρὸς Γαλάτας","originalLanguage":"Greek","originalMeaning":"Pros Galatas — 'to the Galatians'","group":"New Testament","section":"Paul's Letters","status":"canonical","chapters":6,"author":"Paul","what":"Written angry. No thanksgiving at the start, which in his letters is itself a statement.","start":"Galatians 5","startWhy":"The fruit of the Spirit."},{"name":"Ephesians","pronunciation":"ih-FEE-zhunz","original":"Πρὸς Ἐφεσίους","originalLanguage":"Greek","originalMeaning":"Pros Ephesious — 'to the Ephesians'","group":"New Testament","section":"Paul's Letters","status":"canonical","chapters":6,"author":"Paul; authorship debated","what":"Three chapters on what is true, three on how to live in it. Written from prison.","start":"Ephesians 6","startWhy":"The armour of God."},{"name":"Philippians","pronunciation":"fih-LIP-ee-unz","original":"Πρὸς Φιλιππησίους","originalLanguage":"Greek","originalMeaning":"Pros Philippesious — 'to the Philippians'","group":"New Testament","section":"Paul's Letters","status":"canonical","chapters":4,"author":"Paul","what":"A thank-you letter about joy, written in chains, to the church that kept sending help.","start":"Philippians 2","startWhy":"He made himself of no reputation."},{"name":"Colossians","pronunciation":"kuh-LOSH-unz","original":"Πρὸς Κολοσσαεῖς","originalLanguage":"Greek","originalMeaning":"Pros Kolossaeis — 'to the Colossians'","group":"New Testament","section":"Paul's Letters","status":"canonical","chapters":4,"author":"Paul; authorship debated","what":"Against a mixture of philosophy and rule-keeping that was crowding Christ out.","start":"Colossians 1","startWhy":"The hymn — he is before all things."},{"name":"1 Thessalonians","pronunciation":"thes-uh-LOH-nee-unz","original":"Πρὸς Θεσσαλονικεῖς","originalLanguage":"Greek","originalMeaning":"Pros Thessalonikeis — 'to the Thessalonians'","group":"New Testament","section":"Paul's Letters","status":"canonical","chapters":5,"author":"Paul","what":"Possibly his earliest letter. Warm, short, and largely about people who had died before he expected.","start":"1 Thessalonians 4","startWhy":"Sorrow not, even as others which have no hope."},{"name":"2 Thessalonians","pronunciation":"thes-uh-LOH-nee-unz","original":"Πρὸς Θεσσαλονικεῖς","originalLanguage":"Greek","originalMeaning":"Pros Thessalonikeis — 'to the Thessalonians'","group":"New Testament","section":"Paul's Letters","status":"canonical","chapters":3,"author":"Paul; authorship debated","what":"A follow-up to people who had stopped working because they thought the end had come.","start":"2 Thessalonians 3","startWhy":"If any would not work, neither should he eat."},{"name":"1 Timothy","pronunciation":"TIM-oh-thee","original":"Πρὸς Τιμόθεον","originalLanguage":"Greek","originalMeaning":"Pros Timotheon — 'to Timothy'","group":"New Testament","section":"Paul's Letters","status":"canonical","chapters":6,"author":"Paul; authorship debated","what":"An older man writing to a younger one he left in charge of a difficult situation.","start":"1 Timothy 4","startWhy":"Let no man despise thy youth."},{"name":"2 Timothy","pronunciation":"TIM-oh-thee","original":"Πρὸς Τιμόθεον","originalLanguage":"Greek","originalMeaning":"Pros Timotheon — 'to Timothy'","group":"New Testament","section":"Paul's Letters","status":"canonical","chapters":4,"author":"Paul; authorship debated","what":"The last letter. He asks for his cloak and his books, and says most people have left.","start":"2 Timothy 4","startWhy":"I have fought a good fight."},{"name":"Titus","pronunciation":"TYE-tus","original":"Πρὸς Τίτον","originalLanguage":"Greek","originalMeaning":"Pros Titon — 'to Titus'","group":"New Testament","section":"Paul's Letters","status":"canonical","chapters":3,"author":"Paul; authorship debated","what":"Short instructions for organising a church on Crete, and a blunt opinion about Cretans.","start":"Titus 2","startWhy":"The grace of God that bringeth salvation hath appeared."},{"name":"Philemon","pronunciation":"fye-LEE-mun","original":"Πρὸς Φιλήμονα","originalLanguage":"Greek","originalMeaning":"Pros Philemona — 'to Philemon'","group":"New Testament","section":"Paul's Letters","status":"canonical","chapters":1,"author":"Paul","what":"One chapter, one favour: take back the slave who ran, as a brother. Never commands it.","start":"Philemon 1","startWhy":"The whole letter — twenty-five verses."},{"name":"Hebrews","pronunciation":"HEE-brooz","original":"Πρὸς Ἑβραίους","originalLanguage":"Greek","originalMeaning":"Pros Hebraious — 'to the Hebrews'","group":"New Testament","section":"General Letters","status":"canonical","chapters":13,"author":"Unknown","what":"An argument that everything in the old system pointed forward. Author never named, and never has been.","start":"Hebrews 11","startWhy":"The roll call of faith, including the ones who did not receive the promise."},{"name":"James","pronunciation":"JAYMZ","original":"Ἰακώβου","originalLanguage":"Greek","originalMeaning":"Iakobou — 'of James', the same name as Jacob","group":"New Testament","section":"General Letters","status":"canonical","chapters":5,"author":"Traditionally James, brother of Jesus","what":"Practical to the point of bluntness. Faith without works is dead, and watch your mouth.","start":"James 3","startWhy":"The tongue is a little member."},{"name":"1 Peter","pronunciation":"PEE-ter","original":"Πέτρου","originalLanguage":"Greek","originalMeaning":"Petrou — 'of Peter'","group":"New Testament","section":"General Letters","status":"canonical","chapters":5,"author":"Traditionally Peter","what":"Written to scattered people under pressure, about suffering that is not deserved.","start":"1 Peter 2","startWhy":"Ye are a chosen generation."},{"name":"2 Peter","pronunciation":"PEE-ter","original":"Πέτρου","originalLanguage":"Greek","originalMeaning":"Petrou — 'of Peter'","group":"New Testament","section":"General Letters","status":"canonical","chapters":3,"author":"Traditionally Peter; authorship debated","what":"A warning about teachers inside the church, and about people asking where the promise has got to.","start":"2 Peter 3","startWhy":"One day is with the Lord as a thousand years."},{"name":"1 John","pronunciation":"JON","original":"Ἰωάννου","originalLanguage":"Greek","originalMeaning":"Ioannou — 'of John'","group":"New Testament","section":"General Letters","status":"canonical","chapters":5,"author":"Traditionally John","what":"Short, circular, and returns to the same few things: light, love, truth, and knowing.","start":"1 John 4","startWhy":"God is love."},{"name":"2 John","pronunciation":"JON","original":"Ἰωάννου","originalLanguage":"Greek","originalMeaning":"Ioannou — 'of John'","group":"New Testament","section":"General Letters","status":"canonical","chapters":1,"author":"Traditionally John","what":"Thirteen verses to a household, about truth and about who to let in.","start":"2 John 1","startWhy":"The whole letter."},{"name":"3 John","pronunciation":"JON","original":"Ἰωάννου","originalLanguage":"Greek","originalMeaning":"Ioannou — 'of John'","group":"New Testament","section":"General Letters","status":"canonical","chapters":1,"author":"Traditionally John","what":"Fifteen verses about three named men, one of whom loved to have the pre-eminence.","start":"3 John 1","startWhy":"The whole letter."},{"name":"Jude","pronunciation":"JOOD","original":"Ἰούδα","originalLanguage":"Greek","originalMeaning":"Iouda — 'of Judas', a different Judas","group":"New Testament","section":"General Letters","status":"canonical","chapters":1,"author":"Traditionally Jude, brother of James","what":"One chapter, sharply worded — and the book that quotes Enoch by name.","start":"Jude 1","startWhy":"The whole letter — note verses 14-15."},{"name":"Revelation","pronunciation":"rev-uh-LAY-shun","original":"Ἀποκάλυψις","originalLanguage":"Greek","originalMeaning":"Apokalypsis — 'unveiling, disclosure'","group":"New Testament","section":"Prophecy","status":"canonical","chapters":22,"author":"Traditionally John","what":"Visions given to a man in exile, written for churches under pressure. Read as letters first, then as vision.","start":"Revelation 2-3","startWhy":"The seven letters, before anything else."},{"name":"Tobit","pronunciation":"TOH-bit","original":"Τωβίτ","originalLanguage":"Greek","originalMeaning":"Tobit, from Hebrew Tovi — 'my good'","group":"Deuterocanonical","section":"Deuterocanonical","status":"deuterocanonical","chapters":14,"author":"Unknown","what":"A blind man, his son, a dangerous journey and an angel in disguise. Domestic in a way little else is.","start":"Tobit 4","startWhy":"A father's instructions before his son leaves."},{"name":"Judith","pronunciation":"JOO-dith","original":"Ἰουδίθ","originalLanguage":"Greek","originalMeaning":"Ioudith — 'Jewish woman'","group":"Deuterocanonical","section":"Deuterocanonical","status":"deuterocanonical","chapters":16,"author":"Unknown","what":"A widow walks into the enemy camp and comes back with the general's head. The city is saved by one woman.","start":"Judith 8","startWhy":"Her speech to the elders who had set God a deadline."},{"name":"Wisdom of Solomon","pronunciation":"WIZ-dum","original":"Σοφία Σαλωμῶνος","originalLanguage":"Greek","originalMeaning":"Sophia Salomonos — 'wisdom of Solomon'","group":"Deuterocanonical","section":"Deuterocanonical","status":"deuterocanonical","chapters":19,"author":"Unknown; written in Greek","what":"Wisdom as a person, and a long argument that the righteous who die are not defeated.","start":"Wisdom of Solomon 3","startWhy":"The souls of the righteous are in the hand of God."},{"name":"Sirach","pronunciation":"SIGH-rak","original":"Σοφία Σειράχ","originalLanguage":"Greek","originalMeaning":"Also called Ecclesiasticus — 'the church's book'","group":"Deuterocanonical","section":"Deuterocanonical","status":"deuterocanonical","chapters":51,"author":"Jesus ben Sira","what":"Proverbs at greater length and with a named author, who signs his own work at the end.","start":"Sirach 2","startWhy":"If thou come to serve the Lord, prepare thy soul for temptation."},{"name":"Baruch","pronunciation":"BAR-uk","original":"Βαρούχ","originalLanguage":"Greek","originalMeaning":"Barukh — 'blessed'","group":"Deuterocanonical","section":"Deuterocanonical","status":"deuterocanonical","chapters":5,"author":"Attributed to Baruch, Jeremiah's scribe","what":"A short book of confession and consolation from exile.","start":"Baruch 3","startWhy":"Where is the place of understanding?"},{"name":"1 Maccabees","pronunciation":"MAK-uh-beez","original":"Μακκαβαίων","originalLanguage":"Greek","originalMeaning":"Makkabaion — probably 'hammer'","group":"Deuterocanonical","section":"Deuterocanonical","status":"deuterocanonical","chapters":16,"author":"Unknown","what":"Sober history of the revolt against Antiochus. The events behind Hanukkah.","start":"1 Maccabees 2","startWhy":"Mattathias refuses, in front of everyone."},{"name":"2 Maccabees","pronunciation":"MAK-uh-beez","original":"Μακκαβαίων","originalLanguage":"Greek","originalMeaning":"Makkabaion — probably 'hammer'","group":"Deuterocanonical","section":"Deuterocanonical","status":"deuterocanonical","chapters":15,"author":"Unknown","what":"The same period told with more theology and more blood.","start":"2 Maccabees 7","startWhy":"The mother and her seven sons."},{"name":"Additions to Esther","pronunciation":"ES-ter","original":"Ἐσθήρ","originalLanguage":"Greek","originalMeaning":"Extra chapters found in the Greek Esther","group":"Deuterocanonical","section":"Deuterocanonical","status":"deuterocanonical","chapters":6,"author":"Unknown","what":"Prayers and a court scene missing from the Hebrew — and the God the Hebrew never names is named here.","start":"Esther 14","startWhy":"Esther's prayer before she goes in."},{"name":"Prayer of Manasseh","pronunciation":"muh-NAS-uh","original":"Προσευχὴ Μανασσῆ","originalLanguage":"Greek","originalMeaning":"The prayer of a king Scripture calls the worst of them","group":"Deuterocanonical","section":"Deuterocanonical","status":"deuterocanonical","chapters":1,"author":"Unknown","what":"Fifteen verses of a repentance so complete it is hard to read quickly.","start":"Prayer of Manasseh 1","startWhy":"The whole prayer."},{"name":"Susanna","pronunciation":"soo-ZAN-uh","original":"Σουσάννα","originalLanguage":"Greek","originalMeaning":"Shoshannah — 'lily'","group":"Deuterocanonical","section":"Deuterocanonical","status":"deuterocanonical","chapters":1,"author":"Unknown","what":"Two elders trap a woman, and a young Daniel cross-examines them separately.","start":"Susanna 1","startWhy":"The whole account."},{"name":"Bel and the Dragon","pronunciation":"BEL","original":"Βὴλ καὶ Δράκων","originalLanguage":"Greek","originalMeaning":"An addition to the Greek Daniel","group":"Deuterocanonical","section":"Deuterocanonical","status":"deuterocanonical","chapters":1,"author":"Unknown","what":"Daniel exposes a fraud with a floor of ashes and footprints.","start":"Bel and the Dragon 1","startWhy":"The whole account."},{"name":"Song of the Three","pronunciation":"SONG of the THREE","original":"Ὕμνος τῶν τριῶν","originalLanguage":"Greek","originalMeaning":"Added to Daniel 3, sung inside the furnace","group":"Deuterocanonical","section":"Deuterocanonical","status":"deuterocanonical","chapters":1,"author":"Unknown","what":"The prayer of Azariah and the hymn the three sang in the fire.","start":"Song of the Three 1","startWhy":"The whole addition."},{"name":"1 Esdras","pronunciation":"EZ-drus","original":"Ἔσδρας","originalLanguage":"Greek","originalMeaning":"Esdras — the Greek form of Ezra","group":"Deuterocanonical","section":"Deuterocanonical","status":"deuterocanonical","chapters":9,"author":"Unknown","what":"A retelling of the return from exile, including a debate about what is strongest in the world.","start":"1 Esdras 3-4","startWhy":"The contest: wine, the king, women, or truth."},{"name":"2 Esdras","pronunciation":"EZ-drus","original":"Esdras","originalLanguage":"Latin","originalMeaning":"Also called 4 Ezra; survives mainly in Latin","group":"Deuterocanonical","section":"Deuterocanonical","status":"deuterocanonical","chapters":16,"author":"Unknown","what":"Seven visions, and a man arguing with an angel about why God allows what he allows.","start":"2 Esdras 4","startWhy":"Weigh me the weight of the fire."},{"name":"1 Enoch","pronunciation":"EE-nok","original":"መጽሐፈ ሄኖክ","originalLanguage":"Ge'ez","originalMeaning":"Preserved complete only in Ethiopic","group":"Outside the canon","section":"Outside the canon","status":"pseudepigraphal","chapters":108,"author":"Unknown; composite","what":"Watchers, giants, cosmic journeys and judgement. Quoted by name in Jude. Canon in the Ethiopian Orthodox Church and nowhere else.","start":"1 Enoch 1","startWhy":"The opening blessing, and the announcement of judgement."},{"name":"Jubilees","pronunciation":"JOO-bih-leez","original":"መጽሐፈ ኩፋሌ","originalLanguage":"Ge'ez","originalMeaning":"'Book of Division' in Ethiopic","group":"Outside the canon","section":"Outside the canon","status":"pseudepigraphal","chapters":50,"author":"Unknown","what":"Genesis and Exodus retold on a calendar of jubilees, with a great deal the original leaves out.","start":"Jubilees 2","startWhy":"The creation week, counted."},{"name":"Jasher","pronunciation":"JASH-er","original":"סֵפֶר הַיָּשָׁר","originalLanguage":"Hebrew","originalMeaning":"Sefer HaYashar — 'the book of the upright'","group":"Outside the canon","section":"Outside the canon","status":"pseudepigraphal","chapters":91,"author":"Unknown","what":"An old retelling of Genesis and Exodus with the gaps filled in. Named twice in Scripture as a book that existed, though whether this is that book is disputed.","start":"Jasher 15","startWhy":"Abraham says out loud why he asked Sarah to lie."},{"name":"Meqabyan","pronunciation":"meh-KAB-yan","original":"መቃብያን","originalLanguage":"Ge'ez","originalMeaning":"The Ethiopian Maccabees — a different work from 1-2 Maccabees","group":"Outside the canon","section":"Outside the canon","status":"pseudepigraphal","chapters":3,"author":"Unknown","what":"Three books in the Ethiopian canon, unrelated to the Greek Maccabees despite the name.","start":"1 Meqabyan 1","startWhy":"The opening account."}];
+</script>
+
+<script>
+(function(){
+'use strict';
+var EXPAND_ICO = "<svg class='xp-ico' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><g><path d='M8 8 L12.4 3.6'/><path d='M9.4 3 H13 V6.6'/></g><g transform='rotate(180 8 8)'><path d='M8 8 L12.4 3.6'/><path d='M9.4 3 H13 V6.6'/></g></svg>";
+var COLLAPSE_ICO = "<svg class='xp-ico' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><g><path d='M13 3 L9.2 6.8'/><path d='M12.6 7 H9 V3.4'/></g><g transform='rotate(180 8 8)'><path d='M13 3 L9.2 6.8'/><path d='M12.6 7 H9 V3.4'/></g></svg>";
+// ── Draw pile ────────────────────────────────────────────────────────
+// A physical deck doesn't put a card back before the next draw. This
+// mirrors that: every card dealt is SET ASIDE and cannot come up again
+// until the pile is gathered back in. Survives reloads, so finishing a
+// story and reopening the page doesn't hand you the same name again.
+function DrawPile(storeKey){
+  var drawn = {};                       // id -> true
+  try {
+    var raw = window.localStorage.getItem(storeKey);
+    if(raw) drawn = JSON.parse(raw) || {};
+  } catch(e) { drawn = {}; }
+
+  function persist(){
+    try { window.localStorage.setItem(storeKey, JSON.stringify(drawn)); }
+    catch(e) { /* private mode — the pile just won't outlive the session */ }
+  }
+
+  return {
+    // Cards still in the pile, out of the pool currently in play
+    remaining: function(pool, idOf){
+      return pool.filter(function(x){ return !drawn[idOf(x)]; });
+    },
+    setAsideCount: function(){
+      var n=0; for(var k in drawn) if(drawn[k]) n++; return n;
+    },
+    // Deal one, without replacement. Returns null when the pile is spent.
+    deal: function(pool, idOf){
+      var left = pool.filter(function(x){ return !drawn[idOf(x)]; });
+      if(!left.length) return null;
+      var pick = left[Math.floor(Math.random()*left.length)];
+      drawn[idOf(pick)] = true;
+      persist();
+      return pick;
+    },
+    // Gather every set-aside card back into the pile
+    gather: function(){ drawn = {}; persist(); },
+    isSetAside: function(id){ return !!drawn[id]; }
+  };
+}
+// ── Scripture links ───────────────────────────────────────────────
+// Canonical references open in the Geneva Bible, because that is the text
+// quoted on the page. The deuterocanonical books are NOT in Bible Gateway's
+// Geneva edition, so those open in NRSVCE, which carries them under the
+// same modern book names used here. 1 Enoch is on neither, so it stays
+// plain text rather than becoming a link that goes nowhere.
+var BG='https://www.biblegateway.com/passage/?search=';
+
+function refUrl(ref, version){
+  var clean = ref.replace(/\s*\([^)]*\)\s*/g,' ').trim();   // drop "(whole book)"
+  return BG + encodeURIComponent(clean) + '&version=' + (version||'GNV');
+}
+function refLink(ref, version){
+  if(!ref) return '';
+  var safe = String(ref).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  var deut = (version === 'NRSVCE') ? ' data-deutero="1"' : '';
+  return '<a class="ref-link" data-ref="' + safe + '"' + deut
+       + ' target="_blank" rel="noopener noreferrer" href="'
+       + refUrl(ref, version || preferredVersion() || 'GNV') + '">' + safe + '</a>';
+}
+// Pseudepigraphal sources are not hosted anywhere linkable, so they are
+// returned unlinked rather than pointing at a 404.
+// ── Bible version picker ──────────────────────────────────────────
+// GNV is the text these pages quote, so it stays the default. A reader
+// can choose another and it is remembered, because being asked on every
+// tap would be worse than not being asked at all.
+//
+// Two lists: Bible Gateway's Geneva edition and most modern Protestant
+// versions do NOT carry the deuterocanonical books, so a Sirach or Tobit
+// reference is only offered versions that actually contain it.
+var BIBLE_VERSIONS = [
+  {code:'GNV',    name:'Geneva Bible',        note:'1599 — quoted on this page'},
+  {code:'KJV',    name:'King James'},
+  {code:'NKJV',   name:'New King James'},
+  {code:'NIV',    name:'New International'},
+  {code:'ESV',    name:'English Standard'},
+  {code:'NASB',   name:'New American Standard'},
+  {code:'NLT',    name:'New Living'},
+  {code:'CSB',    name:'Christian Standard'},
+  {code:'AMP',    name:'Amplified'},
+  {code:'MSG',    name:'The Message',         note:'paraphrase'},
+  {code:'NRSVUE', name:'New Revised Standard'},
+  {code:'ASV',    name:'American Standard',   note:'1901'},
+  {code:'YLT',    name:"Young's Literal"}
+];
+
+// Versions that include the Apocrypha / deuterocanonical books
+var DEUTERO_VERSIONS = [
+  {code:'NRSVCE', name:'New Revised Standard', note:'Catholic edition'},
+  {code:'NRSVUE', name:'New Revised Standard', note:'updated edition'},
+  {code:'RSVCE',  name:'Revised Standard',     note:'Catholic edition'},
+  {code:'DRA',    name:'Douay-Rheims',         note:'1899 — older book names'},
+  {code:'GNT',    name:'Good News',            note:'with Apocrypha'},
+  {code:'NABRE',  name:'New American',         note:'revised edition'}
+];
+
+var VER_KEY='wordspinBibleVersion';
+function preferredVersion(){
+  try { return window.localStorage.getItem(VER_KEY) || ''; } catch(e){ return ''; }
+}
+function setPreferredVersion(code){
+  try { window.localStorage.setItem(VER_KEY, code); } catch(e){}
+}
+
+function sourceLink(source, status){
+  if(status === 'pseudepigraphal') return String(source);
+  return refLink(source, 'NRSVCE');
+}
+
+// Makes a modal's edit textarea expand to full screen, like the main box
+function makeExpandable(textarea, expandIco, collapseIco){
+  if(!textarea || textarea.dataset.expandable) return;
+  textarea.dataset.expandable='1';
+  var wrap=document.createElement('div');
+  wrap.className='medit-wrap';
+  textarea.parentNode.insertBefore(wrap, textarea);
+  wrap.appendChild(textarea);
+  var btn=document.createElement('button');
+  btn.type='button'; btn.className='medit-x';
+  btn.setAttribute('aria-label','Expand the editor');
+  btn.innerHTML=expandIco;
+  wrap.appendChild(btn);
+
+  function setOpen(on){
+    wrap.classList.toggle('expanded', on);
+    document.body.classList.toggle('box-open', on);
+    btn.innerHTML = on ? collapseIco : expandIco;
+    btn.setAttribute('aria-label', on?'Collapse the editor':'Expand the editor');
+    if(on) textarea.focus();
+  }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); setOpen(!wrap.classList.contains('expanded')); });
+  textarea._collapse = function(){ if(wrap.classList.contains('expanded')) setOpen(false); };
+  return wrap;
+}
+
+var root=document.documentElement,
+    tBtn=document.getElementById('themeBtn'),
+    tLbl=document.getElementById('themeLabel'),
+    tIco=document.getElementById('themeIcon');
+function isDark(){
+  var s=root.getAttribute('data-theme');
+  if(s) return s==='dark';
+  return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+}
+function paintToggle(){ var d=isDark(); tLbl.textContent=d?'Light':'Dark'; tIco.textContent=d?'\u2600':'\u263E'; }
+tBtn.addEventListener('click', function(){ root.setAttribute('data-theme', isDark()?'light':'dark'); paintToggle(); });
+paintToggle();
+
+var toastEl=document.getElementById('toast'), toastT;
+function toast(msg){
+  toastEl.textContent=msg; toastEl.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(function(){ toastEl.classList.remove('show'); },2200);
+}
+
+var STORE_KEY='wordspinBookEntries';
+var entries=[];
+try { var raw=window.localStorage.getItem(STORE_KEY); if(raw) entries=JSON.parse(raw)||[]; } catch(e){ entries=[]; }
+function persist(){ try{ window.localStorage.setItem(STORE_KEY, JSON.stringify(entries)); }catch(e){} }
+
+var group='all', spinning=false, current=null, onlyMode=false;
+function bookId(b){ return b.name; }
+var pile=DrawPile('wordspinBookPile');
+function pool(){ return group==='all' ? BOOKS : BOOKS.filter(function(b){ return b.group===group; }); }
+function asidePool(){ return pool().filter(function(b){ return pile.isSetAside(bookId(b)); }); }
+
+var deckArea=document.getElementById('deckArea'),
+    spinCount=document.getElementById('spinCount'),
+    pileAside=document.getElementById('pileAside'),
+    asideSheet=document.getElementById('asideSheet'),
+    asideList=document.getElementById('asideList');
+
+function refreshPile(){
+  var pooled=pool(), aside=asidePool(), left=pooled.length-aside.length;
+  if(onlyMode){ spinCount.textContent=aside.length+' set aside \u00b7 replaying'; deckArea.classList.remove('spent'); }
+  else if(left===0){ spinCount.textContent='Deck empty'; deckArea.classList.add('spent'); }
+  else { spinCount.textContent=left+'/'+pooled.length+' left'; deckArea.classList.remove('spent'); }
+  pileAside.textContent = onlyMode ? 'replaying '+aside.length+' \u2014 back to deck'
+    : (aside.length===1 ? '1 set aside' : aside.length+' set aside');
+  pileAside.classList.toggle('only-mode', onlyMode);
+  pileAside.style.display=(aside.length>0||onlyMode)?'block':'none';
+}
+function openAside(){
+  var aside=asidePool();
+  if(!aside.length){ toast('Nothing set aside yet'); return; }
+  asideList.innerHTML=aside.map(function(b){ return '<span class="aside-chip">'+b.name+'</span>'; }).join('');
+  asideSheet.classList.add('open'); document.body.style.overflow='hidden';
+}
+function closeAside(){ asideSheet.classList.remove('open'); document.body.style.overflow=''; }
+pileAside.addEventListener('click', function(){
+  if(onlyMode){ onlyMode=false; refreshPile(); toast('Back to the full deck'); return; }
+  openAside();
+});
+document.getElementById('asideClose').addEventListener('click', closeAside);
+asideSheet.addEventListener('click', function(e){ if(e.target===asideSheet) closeAside(); });
+document.getElementById('asideReturn').addEventListener('click', function(){
+  pile.gather(); onlyMode=false; closeAside(); refreshPile(); toast('Shuffled back into the deck');
+});
+document.getElementById('asideOnly').addEventListener('click', function(){
+  onlyMode=true; closeAside(); refreshPile(); toast('Replaying the set-aside cards');
+});
+
+function buildDeck(){
+  deckArea.innerHTML='';
+  for(var i=3;i>=1;i--){
+    var b=document.createElement('div');
+    b.className='deck-card back'; b.style.zIndex=i;
+    b.style.transform='translateY('+(i*3)+'px) translateX('+(i*2)+'px)';
+    deckArea.appendChild(b);
+  }
+  var f=document.createElement('div');
+  f.className='deck-card front'; f.style.zIndex=10;
+  f.style.boxShadow='3px 3px 14px rgba(26,16,8,0.18)';
+  f.innerHTML='<div class="card-header">WordSpin</div>'+
+    '<div class="card-pip-row top"><span>\u2726</span><span>\u2726</span></div>'+
+    '<div class="card-word-text" id="cardWordText">?</div>'+
+    '<div class="card-rule"></div>'+
+    '<div class="card-pip-row bot"><span>\u2726</span><span>\u2726</span></div>';
+  deckArea.appendChild(f);
+}
+buildDeck();
+
+function sizeClass(w){
+  var L=w.length;
+  if(L>=16) return 'len-xl';
+  if(L>=12) return 'len-l';
+  if(L>=9)  return 'len-m';
+  return '';
+}
+function openPanel(panel, open){
+  if(!panel) return;
+  if(open){
+    panel.classList.add('open');
+    panel.style.maxHeight=panel.scrollHeight+'px';
+    setTimeout(function(){ if(panel.classList.contains('open')) panel.style.maxHeight='none'; },440);
+  } else {
+    panel.style.maxHeight=panel.scrollHeight+'px';
+    void panel.offsetHeight;
+    panel.classList.remove('open');
+    panel.style.maxHeight='0px';
+  }
+}
+function pronHTML(b){
+  var spk='\uD83D\uDDE3\uFE0F';
+  return '<div class="pron-row"><span class="pron-lang">English</span>'+
+         '<span class="pron-val">'+spk+'&nbsp;&nbsp;'+b.pronunciation+'</span></div>';
+}
+function origHTML(b){
+  if(!b.original) return '';
+  return '<span class="orig-script">'+b.original+'</span> &nbsp;'+
+         b.originalLanguage+' \u2014 '+b.originalMeaning;
+}
+function statusNote(b){
+  if(b.status==='deuterocanonical')
+    return 'In the Apocrypha of the 1599 Geneva Bible, and canon for Catholic and Orthodox readers.';
+  if(b.status==='pseudepigraphal')
+    return 'Outside the canon of most traditions. Read as an old writing, not as Scripture.';
+  return '';
+}
+function startHTML(b){
+  // Removed books are on no Bible Gateway version, so they stay plain text
+  if(b.status==='pseudepigraphal') return b.start;
+  return refLink(b.start, b.status==='deuterocanonical' ? 'NRSVCE' : 'GNV');
+}
+
+var chosenSec=document.getElementById('chosen'),
+    chosenName=document.getElementById('chosenName'),
+    chosenSection=document.getElementById('chosenSection'),
+    defPanel=document.getElementById('defPanel'),
+    defToggle=document.getElementById('defToggle'),
+    learnBtn=document.getElementById('learnBtn'),
+    learnPanel=document.getElementById('learnPanel'),
+    writeSec=document.getElementById('writeSec');
+
+function setLearn(open){
+  learnBtn.setAttribute('aria-expanded', open?'true':'false');
+  learnBtn.querySelector('span').textContent = open ? 'Show less' : 'Learn more?';
+  openPanel(learnPanel, open);
+  if(open) setTimeout(function(){
+    if(defPanel.classList.contains('open')) defPanel.style.maxHeight='none';
+  },460);
+}
+learnBtn.addEventListener('click', function(){ setLearn(learnBtn.getAttribute('aria-expanded')!=='true'); });
+defToggle.addEventListener('click', function(){
+  var open=!defPanel.classList.contains('open');
+  openPanel(defPanel, open);
+  defToggle.textContent = open ? '\uD83D\uDD0D Hide the breakdown' : '\uD83D\uDD0D Read the breakdown';
+});
+
+function spin(){
+  if(spinning) return;
+  spinning=true;
+  openPanel(defPanel,false);
+  defToggle.textContent='\uD83D\uDD0D Read the breakdown';
+  var picked;
+  if(onlyMode){
+    var r=asidePool();
+    picked=r.length? r[Math.floor(Math.random()*r.length)] : null;
+  } else { picked=pile.deal(pool(), bookId); }
+  if(!picked){
+    spinning=false; refreshPile();
+    toast(onlyMode?'Nothing set aside here':'Deck empty \u2014 tap "set aside" to return them');
+    return;
+  }
+  var front=deckArea.querySelector('.deck-card.front');
+  var backs=deckArea.querySelectorAll('.deck-card.back');
+  var wordEl=document.getElementById('cardWordText');
+  front.classList.remove('revealed');
+  wordEl.textContent='?';
+  var STEPS=6, STEP_MS=95, step=0, last=0;
+  var easing='cubic-bezier(0.25,0.46,0.45,0.94)';
+  backs.forEach(function(c){ c.style.transition='transform '+STEP_MS+'ms '+easing; });
+  front.style.transition='transform '+STEP_MS+'ms '+easing;
+  function stepFn(ts){
+    if(step>=STEPS){ deal(picked, front, backs, wordEl); return; }
+    if(ts-last<STEP_MS && last!==0){ requestAnimationFrame(stepFn); return; }
+    last=ts;
+    var dir=(step%2===0)?1:-1;
+    backs.forEach(function(c,i){
+      var spread=(i+1)*10*dir, lift=-Math.abs(spread)*0.3;
+      c.style.transform='translateY('+(lift-i*2)+'px) translateX('+(spread+i)+'px) rotate('+(spread*0.35)+'deg)';
+    });
+    front.style.transform='translateY(-4px) rotate('+((step%2===0)?-4:4)+'deg)';
+    step++;
+    requestAnimationFrame(stepFn);
+  }
+  requestAnimationFrame(stepFn);
+}
+
+function deal(b, front, backs, wordEl){
+  backs.forEach(function(c,i){ c.style.transform='translateY('+((3-i)*3)+'px) translateX('+((3-i)*2)+'px)'; });
+  front.style.transform='translateY(0) rotate(0deg)';
+  setTimeout(function(){
+    wordEl.className='card-word-text '+sizeClass(b.name);
+    wordEl.textContent=b.name;
+    front.classList.add('revealed');
+    current=b;
+    chosenName.textContent=b.name;
+    chosenSection.textContent=b.section+' \u00b7 '+b.group;
+    document.getElementById('defPron').innerHTML=pronHTML(b);
+    document.getElementById('defOrig').innerHTML=origHTML(b);
+    document.getElementById('defWhat').textContent=b.what;
+    var sn=statusNote(b);
+    var el=document.getElementById('defStatus');
+    el.textContent=sn; el.style.display=sn?'block':'none';
+    document.getElementById('defGroup').textContent=b.group;
+    document.getElementById('defSection').textContent=b.section;
+    document.getElementById('defChapters').textContent=b.chapters+(b.chapters===1?' chapter':' chapters');
+    document.getElementById('defAuthor').textContent=b.author;
+    document.getElementById('defStart').innerHTML=startHTML(b);
+    document.getElementById('defStartWhy').textContent=b.startWhy;
+    setLearn(false);
+    chosenSec.style.display='flex';
+    writeSec.classList.add('on');
+    refreshPile();
+    spinning=false;
+    chosenSec.scrollIntoView({behavior:'smooth', block:'start'});
+  },180);
+}
+deckArea.addEventListener('click', spin);
+
+document.querySelectorAll('.grp-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.grp-btn').forEach(function(x){ x.classList.remove('active'); });
+    btn.classList.add('active');
+    group=btn.dataset.g; onlyMode=false;
+    refreshPile();
+    toast(pile.remaining(pool(), bookId).length+' left');
+  });
+});
+
+var box=document.getElementById('storyBox'),
+    wc=document.getElementById('wordCount'),
+    boxWrap=document.getElementById('boxWrap'),
+    expandBtn=document.getElementById('expandBtn'),
+    expandedCount=document.getElementById('expandedCount');
+function countWords(s){ var t=s.trim(); return t? t.split(/\s+/).length : 0; }
+function syncCount(){
+  var n=countWords(box.value), t=(n===1?'1 word':n+' words');
+  wc.textContent=t; expandedCount.textContent=t;
+}
+box.addEventListener('input', syncCount);
+function setExpanded(on){
+  boxWrap.classList.toggle('expanded', on);
+  document.body.classList.toggle('box-open', on);
+  expandBtn.innerHTML = on ? COLLAPSE_ICO : EXPAND_ICO;
+  if(on){ boxWrap.appendChild(expandedCount); syncCount(); box.focus(); }
+  else { writeSec.insertBefore(expandedCount, wc.nextSibling); }
+}
+expandBtn.addEventListener('click', function(){ setExpanded(!boxWrap.classList.contains('expanded')); });
+
+document.getElementById('saveBtn').addEventListener('click', function(){
+  var text=box.value.trim();
+  if(!text){ toast('Nothing to save yet'); box.focus(); return; }
+  if(!current){ toast('Shuffle a book first'); return; }
+  entries.unshift({
+    id:'bk_'+Date.now().toString(36)+Math.random().toString(36).slice(2,7),
+    name:current.name, group:current.group, section:current.section,
+    level:'books', text:text, date:Date.now(),
+    snap:{ pronunciation:current.pronunciation, original:current.original,
+           originalLanguage:current.originalLanguage, originalMeaning:current.originalMeaning,
+           what:current.what, start:current.start, startWhy:current.startWhy, status:current.status }
+  });
+  persist(); renderSaved();
+  box.value=''; syncCount();
+  if(boxWrap.classList.contains('expanded')) setExpanded(false);
+  toast('Saved');
+});
+document.getElementById('clearBtn').addEventListener('click', function(){
+  if(!box.value.trim()) return;
+  box.value=''; syncCount(); toast('Cleared');
+});
+
+var savedList=document.getElementById('savedList');
+function fmtDate(ts){
+  var d=new Date(ts), m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return d.getDate()+' '+m[d.getMonth()]+' '+d.getFullYear();
+}
+function renderSaved(){
+  if(!entries.length){
+    savedList.innerHTML='<p class="saved-empty">Nothing written yet. Shuffle a book and begin.</p>';
+    return;
+  }
+  savedList.innerHTML='';
+  entries.forEach(function(e){
+    var row=document.createElement('div');
+    row.className='saved-row';
+    row.innerHTML='<span class="saved-name">'+e.name+'</span>'+
+      '<span class="saved-tag">Book</span>'+
+      '<span class="saved-date">'+fmtDate(e.date)+'</span>';
+    row.addEventListener('click', function(){ openEntry(e.id); });
+    savedList.appendChild(row);
+  });
+}
+
+var mBack=document.getElementById('modalBack'),
+    mName=document.getElementById('mName'),
+    mMeta=document.getElementById('mMeta'),
+    mText=document.getElementById('mText'),
+    mEdit=document.getElementById('mEdit'),
+    mFootRead=document.getElementById('mFootRead'),
+    mFootEdit=document.getElementById('mFootEdit'),
+    mBreakBtn=document.getElementById('mBreakBtn'),
+    mBreakPanel=document.getElementById('mBreakPanel'),
+    openId=null;
+
+mBreakBtn.addEventListener('click', function(){
+  var open=!mBreakPanel.classList.contains('open');
+  openPanel(mBreakPanel, open);
+  mBreakBtn.textContent = open ? '\uD83D\uDD0D Hide the breakdown' : '\uD83D\uDD0D Show the breakdown';
+});
+function setEditing(on){
+  mEdit.classList.toggle('on', on);
+  mText.style.display=on?'none':'block';
+  mFootRead.style.display=on?'none':'flex';
+  mFootEdit.style.display=on?'flex':'none';
+}
+function openEntry(id){
+  var e=entries.filter(function(x){ return x.id===id; })[0];
+  if(!e) return;
+  openId=id;
+  mName.textContent=e.name;
+  mMeta.textContent=e.section+'  \u00b7  '+e.group+'  \u00b7  '+fmtDate(e.date)+
+    (e.edited?'  \u00b7  edited '+fmtDate(e.edited):'');
+  mText.textContent=e.text;
+  var s=e.snap;
+  if(s){
+    mBreakBtn.style.display='inline-block';
+    document.getElementById('mPron').innerHTML=pronHTML(s);
+    document.getElementById('mOrig').innerHTML=origHTML(s);
+    document.getElementById('mWhat').textContent=s.what||'';
+    document.getElementById('mStart').innerHTML=startHTML(s);
+    document.getElementById('mStartWhy').textContent=s.startWhy||'';
+  } else { mBreakBtn.style.display='none'; }
+  openPanel(mBreakPanel, false);
+  mBreakBtn.textContent='\uD83D\uDD0D Show the breakdown';
+  setEditing(false);
+  mBack.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeEntry(){
+  if(mEdit && mEdit._collapse) mEdit._collapse();
+  mBack.classList.remove('open'); document.body.style.overflow=''; openId=null;
+}
+document.getElementById('mClose').addEventListener('click', closeEntry);
+mBack.addEventListener('click', function(e){ if(e.target===mBack) closeEntry(); });
+document.addEventListener('keydown', function(e){
+  if(e.key!=='Escape') return;
+  if(mBack.classList.contains('open')) { closeEntry(); return; }
+  if(asideSheet.classList.contains('open')) { closeAside(); return; }
+  if(boxWrap.classList.contains('expanded')) setExpanded(false);
+});
+document.getElementById('mEditBtn').addEventListener('click', function(){
+  mEdit.value=mText.textContent; setEditing(true); mEdit.focus();
+  mEdit.setSelectionRange(mEdit.value.length, mEdit.value.length);
+});
+document.getElementById('mCancelEdit').addEventListener('click', function(){ setEditing(false); });
+document.getElementById('mSaveEdit').addEventListener('click', function(){
+  var t=mEdit.value.trim();
+  if(!t){ toast('An entry cannot be empty'); mEdit.focus(); return; }
+  var e=entries.filter(function(x){ return x.id===openId; })[0];
+  if(!e) return;
+  e.text=t; e.edited=Date.now(); persist();
+  mText.textContent=t; setEditing(false); renderSaved(); toast('Saved');
+});
+document.getElementById('mDelete').addEventListener('click', function(){
+  if(!openId) return;
+  entries=entries.filter(function(x){ return x.id!==openId; });
+  persist(); renderSaved(); closeEntry(); toast('Deleted');
+});
+
+makeExpandable(mEdit, EXPAND_ICO, COLLAPSE_ICO);
+// Sheet that opens when a reference is tapped. Remembers the choice, and
+// offers a way back to it, so the question is asked once rather than always.
+(function(){
+  var sheet, list, titleEl, subEl, pending=null;
+
+  function build(){
+    sheet=document.createElement('div');
+    sheet.className='ver-sheet';
+    sheet.innerHTML=
+      '<div class="ver-panel">'+
+        '<div class="ver-head">'+
+          '<div><span class="ver-title" id="verTitle"></span>'+
+          '<span class="ver-sub" id="verSub"></span></div>'+
+          '<button class="ver-x" aria-label="Close">&#10005;</button>'+
+        '</div>'+
+        '<div class="ver-list" id="verList"></div>'+
+      '</div>';
+    document.body.appendChild(sheet);
+    list=sheet.querySelector('#verList');
+    titleEl=sheet.querySelector('#verTitle');
+    subEl=sheet.querySelector('#verSub');
+    sheet.querySelector('.ver-x').addEventListener('click', close);
+    sheet.addEventListener('click', function(e){ if(e.target===sheet) close(); });
+    document.addEventListener('keydown', function(e){
+      if(e.key==='Escape' && sheet.classList.contains('open')) close();
+    });
+  }
+  function close(){
+    sheet.classList.remove('open');
+    document.body.style.overflow='';
+    pending=null;
+  }
+  function open(ref, deutero){
+    if(!sheet) build();
+    var versions = deutero ? DEUTERO_VERSIONS : BIBLE_VERSIONS;
+    var pref = preferredVersion();
+    titleEl.textContent = ref;
+    subEl.textContent = deutero
+      ? 'Only versions that include the Apocrypha'
+      : 'Choose a version to read it in';
+    list.innerHTML = versions.map(function(v){
+      var on = (v.code===pref) ? ' is-pref' : '';
+      return '<button class="ver-item'+on+'" data-code="'+v.code+'">'+
+        '<span class="ver-code">'+v.code+'</span>'+
+        '<span class="ver-name">'+v.name+
+          (v.note?'<small>'+v.note+'</small>':'')+'</span></button>';
+    }).join('');
+    Array.prototype.forEach.call(list.querySelectorAll('.ver-item'), function(b){
+      b.addEventListener('click', function(){
+        var code=b.dataset.code;
+        // Only remember a choice from the full list; the Apocrypha list is
+        // a narrower set and should not become the default for everything.
+        if(!deutero) setPreferredVersion(code);
+        var url=refUrl(pending, code);
+        close();
+        window.open(url, '_blank', 'noopener');
+      });
+    });
+    pending=ref;
+    sheet.classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+
+  // Intercept taps on any reference link
+  document.addEventListener('click', function(e){
+    var a=e.target.closest && e.target.closest('a.ref-link');
+    if(!a) return;
+    e.preventDefault();
+    var ref=a.dataset.ref || a.textContent.trim();
+    var deutero = a.dataset.deutero === '1';
+    var pref = preferredVersion();
+    // Once a version is chosen, go straight there — unless it is an
+    // Apocrypha reference the chosen version does not contain.
+    if(pref && !deutero){
+      window.open(refUrl(ref, pref), '_blank', 'noopener');
+      return;
+    }
+    open(ref, deutero);
+  }, true);
+
+  window.openVersionPicker = open;
+})();
+
+renderSaved();
+refreshPile();
+
+})();
+</script>
+
+</body>
+</html>

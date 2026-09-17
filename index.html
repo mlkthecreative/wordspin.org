@@ -18,7 +18,7 @@
   <meta name="keywords" content="word prompt game, free creative writing prompts, storytelling game, random word generator, vocabulary builder, creative writing practice, word game for kids, educational word game, story starter, writing skills, brain training game, classroom word game, group storytelling, word game online, daily writing prompt, family word game" />
   <meta name="author" content="WordSpin™" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://www.wordspin.org/" />
+  <link rel="canonical" href="https://www.wordspin.org/"/>
 
   <!-- ══ OPEN GRAPH ══ -->
   <meta property="og:type" content="website" />
@@ -207,6 +207,7 @@
       background: var(--amber);
       margin: 1.2rem auto 0;
     }
+    h1.site-name { margin: 0; }
     .site-name {
       font-family: 'Playfair Display', serif;
       font-size: clamp(3rem, 8vw, 5.5rem);
@@ -225,6 +226,33 @@
     }
 
     /* ---- Card Deck Shuffle ---- */
+
+    /* ── Four ways in ── */
+    .ways {
+      display: grid; grid-template-columns: 1fr; gap: 0.6rem;
+      max-width: 34rem; margin: 2.4rem auto 3.4rem; width: 100%;
+    }
+    @media (min-width: 620px) { .ways { grid-template-columns: 1fr 1fr; } }
+    .way {
+      display: block; text-align: left; text-decoration: none;
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 1rem 1.1rem; color: var(--ink);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .way:hover { border-color: var(--amber); transform: translateY(-2px); }
+    .way-name {
+      display: block; font-family: 'Playfair Display', serif;
+      font-style: italic; font-weight: 700; font-size: 1.1rem; color: var(--ink);
+    }
+    .way-desc {
+      display: block; font-family: 'DM Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.06em; line-height: 1.6;
+      color: var(--muted); margin-top: 0.4rem;
+    }
+    .way[href="#play"] { border-color: var(--amber); }
+    html { scroll-behavior: smooth; }
+    #play { scroll-margin-top: 1.5rem; }
+
     .deck-section {
       display: flex;
       flex-direction: column;
@@ -1851,12 +1879,34 @@
 
   <!-- Header -->
   <header>
-    <div class="site-name">Word<span>Spin</span><sup style="font-size:0.27em;vertical-align:super;letter-spacing:0;">™</sup></div>
+    <h1 class="site-name">Word<span>Spin</span><sup style="font-size:0.27em;vertical-align:super;letter-spacing:0;">™</sup></h1>
     <p class="tagline">Shuffle a word &mdash; tell its story</p>
   </header>
 
+  <!-- Four ways in. The game stays on this page below, so nothing moves
+       URL and no indexed text is lost — this only surfaces what was
+       previously reachable from the footer alone. -->
+  <nav class="ways" aria-label="Sections">
+    <a class="way" href="#play">
+      <span class="way-name">Play WordSpin</span>
+      <span class="way-desc">Shuffle a word and write its story</span>
+    </a>
+    <a class="way" href="bible.html">
+      <span class="way-name">Play Bible Spin</span>
+      <span class="way-desc">Scripture as the spark &mdash; names, seasons, books</span>
+    </a>
+    <a class="way" href="chickennuggets.html">
+      <span class="way-name">Read Chicken Nuggets</span>
+      <span class="way-desc">Short stories, written from these prompts</span>
+    </a>
+    <a class="way" href="products.html">
+      <span class="way-name">See Products</span>
+      <span class="way-desc">Wallpapers and custom messages</span>
+    </a>
+  </nav>
+
   <!-- Card Deck Shuffle -->
-  <section class="deck-section">
+  <section class="deck-section" id="play">
     <div class="difficulty-row">
       <button class="diff-btn active-easy" id="diffEasy"   data-level="easy">Easy</button>
       <button class="diff-btn"             id="diffMedium" data-level="medium">Medium</button>

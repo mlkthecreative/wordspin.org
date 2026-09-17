@@ -392,6 +392,71 @@
       font-size: 1.08rem; line-height: 1.75; color: var(--ink);
     }
 
+
+    /* ── Version picker ── */
+    .ver-sheet {
+      position: fixed; inset: 0; z-index: 1400;
+      background: rgba(0,0,0,0.72); display: none;
+      align-items: flex-end; justify-content: center;
+    }
+    .ver-sheet.open { display: flex; }
+    .ver-panel {
+      background: var(--card); border-top: 2px solid var(--amber);
+      border-radius: 8px 8px 0 0; width: 100%; max-width: 520px;
+      max-height: 80vh; display: flex; flex-direction: column;
+      padding: var(--s3) 1.2rem calc(var(--s3) + env(safe-area-inset-bottom, 0px));
+    }
+    @media (min-width: 620px) {
+      .ver-sheet { align-items: center; }
+      .ver-panel { border-radius: 8px; border: 1px solid var(--border);
+                   border-top: 2px solid var(--amber); }
+    }
+    .ver-head {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 1rem; padding-bottom: var(--s3);
+      border-bottom: 1px solid var(--border);
+    }
+    .ver-title {
+      display: block; font-family: 'Playfair Display', serif;
+      font-style: italic; font-weight: 700; font-size: 1.15rem; color: var(--ink);
+    }
+    .ver-sub {
+      display: block; font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.1em; color: var(--muted); margin-top: 0.35rem;
+    }
+    .ver-x {
+      background: none; border: none; color: var(--muted);
+      font-size: 0.85rem; cursor: pointer; padding: 0.2rem 0.4rem; flex-shrink: 0;
+    }
+    .ver-x:hover { color: var(--amber); }
+    .ver-list {
+      flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+      padding: var(--s3) 0 0; display: flex; flex-direction: column; gap: 0.3rem;
+    }
+    .ver-item {
+      display: flex; align-items: baseline; gap: 0.9rem; width: 100%;
+      text-align: left; cursor: pointer; background: transparent;
+      border: 1px solid transparent; border-radius: 3px;
+      padding: 0.7rem 0.8rem; color: var(--ink);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .ver-item:hover { border-color: var(--amber); }
+    .ver-item.is-pref { border-color: var(--amber); background: rgba(200,137,42,0.1); }
+    .ver-code {
+      font-family: 'DM Mono', monospace; font-size: 0.66rem;
+      letter-spacing: 0.1em; color: var(--amber);
+      min-width: 3.9rem; flex-shrink: 0;
+    }
+    .ver-name {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.02rem; color: var(--ink);
+    }
+    .ver-name small {
+      display: block; font-family: 'DM Mono', monospace; font-style: normal;
+      font-size: 0.55rem; letter-spacing: 0.08em; color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
     a.ref-link {
       color: inherit; text-decoration: underline;
       text-underline-offset: 3px; text-decoration-thickness: 1px;
@@ -910,11 +975,57 @@ function refUrl(ref, version){
 function refLink(ref, version){
   if(!ref) return '';
   var safe = String(ref).replace(/&/g,'&amp;').replace(/</g,'&lt;');
-  return '<a class="ref-link" target="_blank" rel="noopener noreferrer" href="'
-       + refUrl(ref, version) + '">' + safe + '</a>';
+  var deut = (version === 'NRSVCE') ? ' data-deutero="1"' : '';
+  // data-ref carries the clean reference; the picker reads it rather than
+  // the link text, which may have been wrapped or styled.
+  return '<a class="ref-link" data-ref="' + safe + '"' + deut
+       + ' target="_blank" rel="noopener noreferrer" href="'
+       + refUrl(ref, version || preferredVersion() || 'GNV') + '">' + safe + '</a>';
 }
 // Pseudepigraphal sources are not hosted anywhere linkable, so they are
 // returned unlinked rather than pointing at a 404.
+// ── Bible version picker ──────────────────────────────────────────
+// GNV is the text these pages quote, so it stays the default. A reader
+// can choose another and it is remembered, because being asked on every
+// tap would be worse than not being asked at all.
+//
+// Two lists: Bible Gateway's Geneva edition and most modern Protestant
+// versions do NOT carry the deuterocanonical books, so a Sirach or Tobit
+// reference is only offered versions that actually contain it.
+var BIBLE_VERSIONS = [
+  {code:'GNV',    name:'Geneva Bible',        note:'1599 — quoted on this page'},
+  {code:'KJV',    name:'King James'},
+  {code:'NKJV',   name:'New King James'},
+  {code:'NIV',    name:'New International'},
+  {code:'ESV',    name:'English Standard'},
+  {code:'NASB',   name:'New American Standard'},
+  {code:'NLT',    name:'New Living'},
+  {code:'CSB',    name:'Christian Standard'},
+  {code:'AMP',    name:'Amplified'},
+  {code:'MSG',    name:'The Message',         note:'paraphrase'},
+  {code:'NRSVUE', name:'New Revised Standard'},
+  {code:'ASV',    name:'American Standard',   note:'1901'},
+  {code:'YLT',    name:"Young's Literal"}
+];
+
+// Versions that include the Apocrypha / deuterocanonical books
+var DEUTERO_VERSIONS = [
+  {code:'NRSVCE', name:'New Revised Standard', note:'Catholic edition'},
+  {code:'NRSVUE', name:'New Revised Standard', note:'updated edition'},
+  {code:'RSVCE',  name:'Revised Standard',     note:'Catholic edition'},
+  {code:'DRA',    name:'Douay-Rheims',         note:'1899 — older book names'},
+  {code:'GNT',    name:'Good News',            note:'with Apocrypha'},
+  {code:'NABRE',  name:'New American',         note:'revised edition'}
+];
+
+var VER_KEY='wordspinBibleVersion';
+function preferredVersion(){
+  try { return window.localStorage.getItem(VER_KEY) || ''; } catch(e){ return ''; }
+}
+function setPreferredVersion(code){
+  try { window.localStorage.setItem(VER_KEY, code); } catch(e){}
+}
+
 function sourceLink(source, status){
   if(status === 'pseudepigraphal') return String(source);
   return refLink(source, 'NRSVCE');
@@ -1502,6 +1613,89 @@ document.getElementById('mDelete').addEventListener('click', function(){
 });
 
 makeExpandable(document.getElementById('mEdit'), EXPAND_ICO, COLLAPSE_ICO);
+
+// Sheet that opens when a reference is tapped. Remembers the choice, and
+// offers a way back to it, so the question is asked once rather than always.
+(function(){
+  var sheet, list, titleEl, subEl, pending=null;
+
+  function build(){
+    sheet=document.createElement('div');
+    sheet.className='ver-sheet';
+    sheet.innerHTML=
+      '<div class="ver-panel">'+
+        '<div class="ver-head">'+
+          '<div><span class="ver-title" id="verTitle"></span>'+
+          '<span class="ver-sub" id="verSub"></span></div>'+
+          '<button class="ver-x" aria-label="Close">&#10005;</button>'+
+        '</div>'+
+        '<div class="ver-list" id="verList"></div>'+
+      '</div>';
+    document.body.appendChild(sheet);
+    list=sheet.querySelector('#verList');
+    titleEl=sheet.querySelector('#verTitle');
+    subEl=sheet.querySelector('#verSub');
+    sheet.querySelector('.ver-x').addEventListener('click', close);
+    sheet.addEventListener('click', function(e){ if(e.target===sheet) close(); });
+    document.addEventListener('keydown', function(e){
+      if(e.key==='Escape' && sheet.classList.contains('open')) close();
+    });
+  }
+  function close(){
+    sheet.classList.remove('open');
+    document.body.style.overflow='';
+    pending=null;
+  }
+  function open(ref, deutero){
+    if(!sheet) build();
+    var versions = deutero ? DEUTERO_VERSIONS : BIBLE_VERSIONS;
+    var pref = preferredVersion();
+    titleEl.textContent = ref;
+    subEl.textContent = deutero
+      ? 'Only versions that include the Apocrypha'
+      : 'Choose a version to read it in';
+    list.innerHTML = versions.map(function(v){
+      var on = (v.code===pref) ? ' is-pref' : '';
+      return '<button class="ver-item'+on+'" data-code="'+v.code+'">'+
+        '<span class="ver-code">'+v.code+'</span>'+
+        '<span class="ver-name">'+v.name+
+          (v.note?'<small>'+v.note+'</small>':'')+'</span></button>';
+    }).join('');
+    Array.prototype.forEach.call(list.querySelectorAll('.ver-item'), function(b){
+      b.addEventListener('click', function(){
+        var code=b.dataset.code;
+        // Only remember a choice from the full list; the Apocrypha list is
+        // a narrower set and should not become the default for everything.
+        if(!deutero) setPreferredVersion(code);
+        var url=refUrl(pending, code);
+        close();
+        window.open(url, '_blank', 'noopener');
+      });
+    });
+    pending=ref;
+    sheet.classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+
+  // Intercept taps on any reference link
+  document.addEventListener('click', function(e){
+    var a=e.target.closest && e.target.closest('a.ref-link');
+    if(!a) return;
+    e.preventDefault();
+    var ref=a.dataset.ref || a.textContent.trim();
+    var deutero = a.dataset.deutero === '1';
+    var pref = preferredVersion();
+    // Once a version is chosen, go straight there — unless it is an
+    // Apocrypha reference the chosen version does not contain.
+    if(pref && !deutero){
+      window.open(refUrl(ref, pref), '_blank', 'noopener');
+      return;
+    }
+    open(ref, deutero);
+  }, true);
+
+  window.openVersionPicker = open;
+})();
 
 renderSaved();
 refreshPile();
