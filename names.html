@@ -1639,6 +1639,8 @@ document.getElementById('mSaveEdit').addEventListener('click', function(){
   persist();
   mText.textContent=txt;
   setEditing(false);
+  // reopen the entry so the meta line picks up the edited date
+  var keep=openId; if(keep){ openEntry(keep); }
   renderSaved();
   toast('Saved');
 });
@@ -1739,8 +1741,12 @@ makeExpandable(document.getElementById('mEdit'), EXPAND_ICO, COLLAPSE_ICO);
   }
   function open(ref, deutero){
     if(!sheet) build();
-    var versions = deutero ? DEUTERO_VERSIONS : BIBLE_VERSIONS;
+    var versions = (deutero ? DEUTERO_VERSIONS : BIBLE_VERSIONS).slice();
     var pref = preferredVersion();
+    if(pref){
+      var i = versions.map(function(v){ return v.code; }).indexOf(pref);
+      if(i > 0) versions.unshift(versions.splice(i,1)[0]);
+    }
     titleEl.textContent = ref;
     subEl.textContent = deutero
       ? 'Only versions that include the Apocrypha'
@@ -1775,13 +1781,9 @@ makeExpandable(document.getElementById('mEdit'), EXPAND_ICO, COLLAPSE_ICO);
     e.preventDefault();
     var ref=a.dataset.ref || a.textContent.trim();
     var deutero = a.dataset.deutero === '1';
-    var pref = preferredVersion();
-    // Once a version is chosen, go straight there — unless it is an
-    // Apocrypha reference the chosen version does not contain.
-    if(pref && !deutero){
-      window.open(refUrl(ref, pref), '_blank', 'noopener');
-      return;
-    }
+    // Always offer the choice. Skipping the sheet once a preference existed
+    // meant a line labelled GNV silently opened in KJV, which is worse than
+    // one extra tap. The remembered version is listed first and marked.
     open(ref, deutero);
   }, true);
 

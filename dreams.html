@@ -810,6 +810,26 @@
       font-size: 0.55rem; letter-spacing: 0.12em; color: var(--muted);
       margin-top: var(--s2);
     }
+
+    .learn-btn {
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      width: 100%; margin-top: var(--s4); cursor: pointer;
+      background: transparent; border: 1px solid var(--amber); border-radius: 3px;
+      padding: 0.85rem 1rem; color: var(--amber);
+      font-family: 'DM Mono', monospace; font-size: 0.64rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      transition: opacity 0.2s;
+    }
+    .learn-btn:hover { opacity: 0.75; }
+    .learn-caret { transition: transform 0.3s ease; }
+    .learn-btn[aria-expanded="true"] .learn-caret { transform: rotate(180deg); }
+    .learn-panel { max-height: 0; overflow: hidden; opacity: 0;
+                   transition: max-height 0.45s ease, opacity 0.3s ease; }
+    .learn-panel.open { opacity: 1; }
+    .learn-panel.open > .def-sec:first-child {
+      border-top: 1px solid var(--border);
+      margin-top: var(--s4); padding-top: var(--s4);
+    }
 </style><style>
 
     /* Expandable edit box inside a story modal. Same idea as the main
@@ -848,9 +868,9 @@
     margin-top: var(--s4);          /* the page is gap:0 — this was missing */
   }
   .grp-btn {
-    font-family: 'DM Mono', monospace; font-size: 0.58rem;
-    letter-spacing: 0.16em; text-transform: uppercase;
-    padding: 0.5rem 0.9rem; white-space: nowrap; min-width: 4.4rem;
+    font-family: 'DM Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 0.5rem 1rem; white-space: nowrap; min-width: 5rem;
     text-align: center;
     border: 1.5px solid var(--border); border-radius: 2px;
     background: transparent; color: var(--muted); cursor: pointer;
@@ -1007,18 +1027,25 @@
     <div class="def-panel" id="mBreakPanel">
       <div class="def-box" style="margin-top:var(--s3)">
         <div class="def-sec">
-          <div class="def-h">Pronunciation</div>
-          <div class="def-pron" id="mPron"></div>
-          <div class="orig-line" id="mOrig"></div>
+          <div class="def-h">Where and when</div>
+          <div class="def-desc" id="mWhere"></div>
+          <div class="def-verse-src" id="mRef"></div>
         </div>
         <div class="def-sec">
-          <div class="def-h">What it is</div>
-          <div class="def-desc" id="mWhat"></div>
+          <div class="def-h" id="mHDream">The dream</div>
+          <div class="def-verse" id="mDream"></div>
+        </div>
+        <div class="def-sec" id="mSecSaid">
+          <div class="def-h">What they said</div>
+          <div class="def-verse" id="mSaid"></div>
+        </div>
+        <div class="def-sec" id="mSecProcess">
+          <div class="def-h">What they went through</div>
+          <div class="def-desc" id="mProcess"></div>
         </div>
         <div class="def-sec">
-          <div class="def-h">Where to start</div>
-          <div class="start-ref" id="mStart"></div>
-          <div class="start-why" id="mStartWhy"></div>
+          <div class="def-h">What it meant</div>
+          <div class="def-desc" id="mMeant"></div>
         </div>
       </div>
     </div>
@@ -1260,6 +1287,12 @@ try { var raw=window.localStorage.getItem(STORE_KEY); if(raw) entries=JSON.parse
 function persist(){ try{ window.localStorage.setItem(STORE_KEY, JSON.stringify(entries)); }catch(e){} }
 
 var group='dreamers', spinning=false, current=null, onlyMode=false;
+function cardLabel(b){
+  if(!b) return '';
+  if(b.__kind==='dreamers') return b.name + (b.title ? ' — '+b.title : '');
+  if(b.__kind==='dreams')   return b.title;
+  return b.ref;
+}
 function bookId(b){ // identity must be unique ACROSS the three decks — teachings have no name
   return b.__kind+'|'+(b.name ? b.name+(b.title||'') : (b.title||b.ref)); }
 var pile=DrawPile('wordspinDreamsPile');
@@ -1564,12 +1597,19 @@ document.getElementById('saveBtn').addEventListener('click', function(){
   if(!text){ toast('Nothing to save yet'); box.focus(); return; }
   if(!current){ toast('Shuffle a book first'); return; }
   entries.unshift({
-    id:'bk_'+Date.now().toString(36)+Math.random().toString(36).slice(2,7),
-    name:current.name, group:current.group, section:current.section,
-    level:'books', text:text, date:Date.now(),
-    snap:{ pronunciation:current.pronunciation, original:current.original,
-           originalLanguage:current.originalLanguage, originalMeaning:current.originalMeaning,
-           what:current.what, start:current.start, startWhy:current.startWhy, status:current.status }
+    id:'dr_'+Date.now().toString(36)+Math.random().toString(36).slice(2,7),
+    title: cardLabel(current),
+    kind: current.__kind,
+    deck: current.__kind==='dreamers' ? 'Dreamer'
+        : current.__kind==='dreams'   ? 'Dream' : 'On dreams',
+    ref: current.ref,
+    level:'dreams', text:text, date:Date.now(),
+    snap:{
+      kind:current.__kind, where:current.where||'', ref:current.ref,
+      dream:current.dream||current.what||current.says||'',
+      said:current.said||'', process:current.process||'',
+      meant:current.meant||current.note||'', dreamer:current.dreamer||''
+    }
   });
   persist(); renderSaved();
   box.value=''; syncCount();
@@ -1595,8 +1635,8 @@ function renderSaved(){
   entries.forEach(function(e){
     var row=document.createElement('div');
     row.className='saved-row';
-    row.innerHTML='<span class="saved-name">'+e.name+'</span>'+
-      '<span class="saved-tag">Book</span>'+
+    row.innerHTML='<span class="saved-name">'+(e.title||cardLabel(e)||'')+'</span>'+
+      '<span class="saved-tag">'+(e.deck||'Dream')+'</span>'+
       '<span class="saved-date">'+fmtDate(e.date)+(e.edited?'<em>edited</em>':'')+'</span>';
     row.addEventListener('click', function(){ openEntry(e.id); });
     savedList.appendChild(row);
@@ -1636,17 +1676,27 @@ function openEntry(id){
   mName.textContent=e.name;
   stampMeta(mEdit.parentNode && mEdit.parentNode.querySelector('.medit-bar'),
             fmtDate(e.date), e.edited?fmtDate(e.edited):null);
-  mMeta.textContent=e.section+'  \u00b7  '+e.group+'  \u00b7  '+fmtDate(e.date)+
-    (e.edited?'  \u00b7  edited '+fmtDate(e.edited):'');
+  mName.textContent = e.title || cardLabel(e) || '';
+  var bits=[];
+  if(e.deck) bits.push(e.deck);
+  if(e.snap && e.snap.dreamer) bits.push('dreamt by '+e.snap.dreamer);
+  bits.push(fmtDate(e.date));
+  if(e.edited) bits.push('edited '+fmtDate(e.edited));
+  mMeta.textContent = bits.join('  \u00b7  ');
   mText.textContent=e.text;
   var s=e.snap;
   if(s){
     mBreakBtn.style.display='inline-block';
-    document.getElementById('mPron').innerHTML=pronHTML(s);
-    document.getElementById('mOrig').innerHTML=origHTML(s);
-    document.getElementById('mWhat').textContent=s.what||'';
-    document.getElementById('mStart').innerHTML=startHTML(s);
-    document.getElementById('mStartWhy').textContent=s.startWhy||'';
+    var sn=e.snap||{};
+    document.getElementById('mWhere').textContent=sn.where||'';
+    document.getElementById('mRef').innerHTML=sn.ref?refLink(sn.ref)+'  \u00b7  GNV':'';
+    document.getElementById('mHDream').textContent = sn.kind==='teachings' ? 'What it says' : 'The dream';
+    document.getElementById('mDream').innerHTML = sn.dream ? '&ldquo;'+sn.dream+'&rdquo;' : '';
+    document.getElementById('mSecSaid').style.display = sn.said ? 'block' : 'none';
+    if(sn.said) document.getElementById('mSaid').innerHTML='&ldquo;'+sn.said+'&rdquo;';
+    document.getElementById('mSecProcess').style.display = sn.process ? 'block' : 'none';
+    if(sn.process) document.getElementById('mProcess').textContent=sn.process;
+    document.getElementById('mMeant').textContent=sn.meant||'';
   } else { mBreakBtn.style.display='none'; }
   openPanel(mBreakPanel, false);
   mBreakBtn.textContent='\uD83D\uDD0D Show the breakdown';
@@ -1677,7 +1727,9 @@ document.getElementById('mSaveEdit').addEventListener('click', function(){
   var e=entries.filter(function(x){ return x.id===openId; })[0];
   if(!e) return;
   e.text=t; e.edited=Date.now(); persist();
-  mText.textContent=t; setEditing(false); renderSaved(); toast('Saved');
+  mText.textContent=t; setEditing(false);
+  // reopen the entry so the meta line picks up the edited date
+  var keep=openId; if(keep){ openEntry(keep); } renderSaved(); toast('Saved');
 });
 document.getElementById('mDelete').addEventListener('click', function(){
   if(!openId) return;
@@ -1720,8 +1772,12 @@ makeExpandable(mEdit, EXPAND_ICO, COLLAPSE_ICO);
   }
   function open(ref, deutero){
     if(!sheet) build();
-    var versions = deutero ? DEUTERO_VERSIONS : BIBLE_VERSIONS;
+    var versions = (deutero ? DEUTERO_VERSIONS : BIBLE_VERSIONS).slice();
     var pref = preferredVersion();
+    if(pref){
+      var i = versions.map(function(v){ return v.code; }).indexOf(pref);
+      if(i > 0) versions.unshift(versions.splice(i,1)[0]);
+    }
     titleEl.textContent = ref;
     subEl.textContent = deutero
       ? 'Only versions that include the Apocrypha'
@@ -1756,13 +1812,9 @@ makeExpandable(mEdit, EXPAND_ICO, COLLAPSE_ICO);
     e.preventDefault();
     var ref=a.dataset.ref || a.textContent.trim();
     var deutero = a.dataset.deutero === '1';
-    var pref = preferredVersion();
-    // Once a version is chosen, go straight there — unless it is an
-    // Apocrypha reference the chosen version does not contain.
-    if(pref && !deutero){
-      window.open(refUrl(ref, pref), '_blank', 'noopener');
-      return;
-    }
+    // Always offer the choice. Skipping the sheet once a preference existed
+    // meant a line labelled GNV silently opened in KJV, which is worse than
+    // one extra tap. The remembered version is listed first and marked.
     open(ref, deutero);
   }, true);
 
