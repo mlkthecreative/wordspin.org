@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNSIgZmlsbD0iIzExMSIvPjx0ZXh0IHg9IjE2IiB5PSIyMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXN0eWxlPSJpdGFsaWMiIGZpbGw9IiNjODg5MmEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPldTPC90ZXh0Pjwvc3ZnPg=="/>
+
+  <title>Dreamers and Dreams — BibleSpin — WordSpin</title>
+  <meta name="description" content="Dreamers and Dreams — every dream recorded in Scripture, who dreamt it, what it meant, and what the Bible itself says about dreams. Part of BibleSpin on WordSpin."/>
+  <link rel="canonical" href="https://www.wordspin.org/dreams.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Dreamers and Dreams — BibleSpin"/>
+  <meta property="og:description" content="Shuffle a book of the Bible and write from it."/>
+  <meta property="og:site_name" content="WordSpin"/>
+  <meta name="theme-color" content="#1a1008"/>
+  <meta name="color-scheme" content="light dark"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=DM+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1008;
+      --paper: #f5efe3;
+      --cream: #ede4d0;
+      --amber: #c8892a;
+      --rust: #b84c1e;
+      --muted: #8a7a62;
+      --card: #faf6ee;
+      --border: #d4c9b0;
+      --input-bg: #faf6ee;
+      --shadow: rgba(26,16,8,0.12);
+
+      --s1: 0.5rem; --s2: 0.8rem; --s3: 1.3rem;
+      --s4: 2.1rem; --s5: 3.4rem; --s6: 5.4rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ink: #f0e6d0; --paper: #000000; --cream: #111111;
+        --amber: #d4993a; --rust: #cc6644; --muted: #9a8a72;
+        --card: #141414; --border: #2a2a2a; --input-bg: #0d0d0d;
+        --shadow: rgba(0,0,0,0.6);
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #f0e6d0; --paper: #000000; --cream: #111111;
+      --amber: #d4993a; --rust: #cc6644; --muted: #9a8a72;
+      --card: #141414; --border: #2a2a2a; --input-bg: #0d0d0d;
+      --shadow: rgba(0,0,0,0.6);
+    }
+    :root[data-theme="light"] {
+      --ink: #1a1008; --paper: #f5efe3; --cream: #ede4d0;
+      --amber: #c8892a; --rust: #b84c1e; --muted: #8a7a62;
+      --card: #faf6ee; --border: #d4c9b0; --input-bg: #faf6ee;
+      --shadow: rgba(26,16,8,0.12);
+    }
+
+    html { background: var(--paper); }
+    body {
+      background: var(--paper); color: var(--ink);
+      font-family: 'DM Mono', monospace;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+    }
+    input, textarea, select { font-size: 16px; }
+
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.6;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: var(--s2) 1.3rem;
+      background: var(--paper); border-bottom: 1px solid var(--border);
+    }
+    .back-link {
+      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--amber); text-decoration: none;
+    }
+    .back-link:hover { opacity: 0.7; }
+    .theme-toggle {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      border: 1px solid var(--border); border-radius: 999px;
+      background: var(--card); color: var(--muted);
+      padding: 0.35rem 0.75rem; font-family: 'DM Mono', monospace;
+      font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    /* ── Page ── */
+    /* gap:0 — each section sets the space it needs from the one before it,
+       so the rhythm reflects how the parts relate rather than one flat value. */
+    .page {
+      max-width: 760px; margin: 0 auto;
+      padding: 2.8rem 1.5rem 4rem;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 0;
+      text-align: center;
+    }
+    .page > * { width: 100%; }
+    header { width: 100%; }
+
+    .testament-row  { margin-top: var(--s4); }   /* matches the space above the rule */
+    .deck-wrap      { margin-top: var(--s5); }
+    .grp-row + .deck-wrap { margin-top: var(--s5); }
+    .chosen         { margin-top: var(--s5); }
+    .write          { margin-top: var(--s4); }
+    .saved          { margin-top: var(--s6); }   /* the one major break */
+    footer          { margin-top: var(--s5); }
+
+    header { text-align: center; }
+    .eyebrow {
+      font-size: 0.68rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--amber);
+      /* 0.3em of tracking hangs off the last letter; half of it back
+         keeps the word optically centred over the rule beneath. */
+      text-indent: 0.3em;
+    }
+    /* Short rule closing the section label, echoing the longer one that
+       closes the whole header. Narrower, because it marks a smaller thing. */
+    .eyebrow-rule {
+      width: 34px; height: 1px; background: var(--amber);
+      opacity: 0.55; margin: 0.75rem auto 0;
+    }
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 8vw, 4rem);
+      font-weight: 700; letter-spacing: -0.02em; line-height: 1;
+      margin: 1.15rem 0 0;
+    }
+    .page-sub {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: clamp(1.12rem, 3.4vw, 1.45rem);
+      color: var(--muted); max-width: 30rem; line-height: 1.55;
+      margin: var(--s2) auto 0;
+    }
+    /* Equal space above and below — it divides two things, so it should not
+       belong more to the one above it. The page gap after header matches. */
+    header::after {
+      content: ''; display: block; width: 60px; height: 2px;
+      background: var(--amber); margin: var(--s4) auto 0;
+    }
+
+    /* ── Testament filter (matches .diff-btn on the main site) ── */
+    .testament-row {
+      display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;
+    }
+    @media (max-width: 400px) {
+      .test-btn { padding: 0.45rem 0.7rem; letter-spacing: 0.14em; }
+    }
+    .test-btn {
+      font-family: 'DM Mono', monospace;
+      /* 0.6rem matches .diff-btn on the homepage; at 0.68rem the three
+         labels overflowed and wrapped onto a second line. */
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 0.45rem 1rem; white-space: nowrap;
+      border: 1.5px solid var(--border); border-radius: 2px;
+      background: transparent; color: var(--muted); cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .test-btn:hover { border-color: var(--amber); color: var(--amber); }
+    .test-btn.active {
+      background: var(--amber); border-color: var(--amber); color: #1a1008;
+    }
+
+    /* ── Deck ── */
+    .deck-wrap { display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .deck-area {
+      position: relative; width: 240px; height: 300px;
+      transform-style: flat; cursor: pointer;
+    }
+    .deck-card {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      border-radius: 14px; border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      backface-visibility: hidden; transform-origin: center center;
+      user-select: none;
+    }
+    .deck-card.back { background: #1a1008; cursor: default; }
+    :root[data-theme="dark"] .deck-card.back,
+    :root:not([data-theme="light"]) .deck-card.back { background: #faf6ee; }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) .deck-card.back { background: #1a1008; }
+    }
+
+    .deck-card.front {
+      background: #faf6ee; z-index: 10;
+      flex-direction: column; gap: 0; overflow: hidden;
+    }
+    .deck-card.front .card-header {
+      width: 100%; background: #c8892a;
+      padding: 0.5rem 1rem; font-size: 0.55rem;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: rgba(26,16,8,0.65); font-family: 'DM Mono', monospace;
+      text-align: center;
+    }
+    .deck-card.front .card-word-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; font-style: italic; font-weight: 700;
+      color: #1a1008; text-align: center; padding: 0 0.9rem;
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s ease 0.1s;
+      /* Names are single words — break-word would split them mid-name.
+         Long ones are scaled down instead, by the .len- class below. */
+      overflow-wrap: normal; word-break: normal; hyphens: none;
+    }
+    /* Bartholomew, Nebuchadnezzar-length names step down rather than wrap */
+    .card-word-text.len-m { font-size: 1.5rem; }
+    .card-word-text.len-l { font-size: 1.25rem; }
+    .card-word-text.len-xl { font-size: 1.05rem; }
+    .deck-card.front.revealed .card-word-text { opacity: 1; }
+    .card-title-sm {
+      display: block; font-family: 'DM Mono', monospace;
+      font-style: normal; font-size: 0.5rem; font-weight: 400;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(26,16,8,0.5); margin-top: 0.5rem;
+    }
+    .deck-card.front .card-rule {
+      width: calc(100% - 2.4rem); height: 1px;
+      background: linear-gradient(to right, transparent, var(--amber), transparent);
+      margin-bottom: 1.2rem;
+    }
+    .deck-card.front .card-pip-row {
+      position: absolute; width: 100%; display: flex;
+      justify-content: space-between; padding: 0.6rem 0.8rem;
+      font-size: 0.75rem; color: var(--amber); pointer-events: none;
+    }
+    .deck-card.front .card-pip-row.top { top: 2.2rem; }
+    .deck-card.front .card-pip-row.bot { bottom: 0; transform: rotate(180deg); }
+
+    .pile-aside {
+      display: block; margin: var(--s2) auto 0;
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.12em; background: none; border: none;
+      color: var(--amber); cursor: pointer; padding: 0.2rem 0.3rem;
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+    .pile-aside:hover { opacity: 0.7; }
+
+    /* Set-aside sheet */
+    .aside-sheet {
+      position: fixed; inset: 0; z-index: 1100;
+      background: rgba(0,0,0,0.72); display: none;
+      align-items: flex-end; justify-content: center;
+    }
+    .aside-sheet.open { display: flex; }
+    .aside-panel {
+      background: var(--card); border-top: 2px solid var(--amber);
+      border-radius: 8px 8px 0 0; width: 100%; max-width: 520px;
+      max-height: 78vh; display: flex; flex-direction: column;
+      padding: var(--s3) 1.2rem calc(var(--s3) + env(safe-area-inset-bottom, 0px));
+    }
+    @media (min-width: 620px) {
+      .aside-sheet { align-items: center; }
+      .aside-panel { border-radius: 8px; border: 1px solid var(--border); border-top: 2px solid var(--amber); }
+    }
+    .aside-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: var(--s2); border-bottom: 1px solid var(--border);
+    }
+    .aside-title {
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber);
+    }
+    .aside-x {
+      background: none; border: none; color: var(--muted);
+      font-size: 0.85rem; cursor: pointer; padding: 0.2rem 0.4rem;
+    }
+    .aside-x:hover { color: var(--amber); }
+    .aside-list {
+      flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+      padding: var(--s3) 0; display: flex; flex-wrap: wrap;
+      gap: 0.4rem; align-content: flex-start;
+    }
+    .aside-chip {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 0.9rem; color: var(--ink);
+      border: 1px solid var(--border); border-radius: 2px;
+      padding: 0.35rem 0.7rem;
+    }
+    .aside-chip small {
+      font-family: 'DM Mono', monospace; font-style: normal;
+      font-size: 0.55rem; color: var(--muted);
+      letter-spacing: 0.1em; margin-left: 0.4rem;
+    }
+    .aside-foot {
+      display: flex; gap: 0.6rem; padding-top: var(--s3);
+      border-top: 1px solid var(--border);
+    }
+    .aside-foot .wbtn { flex: 1; text-align: center; padding: 0.75rem 0.6rem; }
+    /* Playing the set-aside pile only */
+    .pile-aside.only-mode { color: var(--rust); }
+    /* The deck reads as empty once every card has been dealt */
+    .deck-area.spent { opacity: 0.45; cursor: default; }
+    .deck-area.spent .deck-card.front { border-style: dashed; }
+
+    .spin-count {
+      font-size: 0.72rem; color: var(--muted);
+      letter-spacing: 0.1em; text-align: center; margin-top: var(--s2);
+    }
+
+    /* ── Chosen name ── */
+
+    /* The topbar is sticky, so scrolling an element to the top of the
+       viewport parks it UNDERNEATH the bar. scroll-margin-top reserves
+       the bar's height plus air, so the card's label lands clear of it. */
+    .chosen { scroll-margin-top: 5.5rem; }
+
+    .chosen {
+      display: flex; flex-direction: column; align-items: center;
+      width: 100%; gap: 0;
+    }
+    .chosen-label {
+      font-size: 0.62rem; letter-spacing: 0.24em;
+      text-transform: uppercase; color: var(--amber);
+    }
+    .chosen-name {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(2rem, 7vw, 2.8rem); font-weight: 700;
+      line-height: 1.15; margin-top: var(--s2);
+    }
+    .chosen-title {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.05rem; color: var(--muted); margin-top: 0.2rem;
+    }
+
+    .def-toggle {
+      background: none; border: none; font-family: 'DM Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--amber); cursor: pointer;
+      text-decoration: underline; text-underline-offset: 3px;
+      padding: 0; margin-top: var(--s3);
+    }
+    .def-toggle:hover { opacity: 0.7; }
+
+    .def-panel {
+      max-height: 0; overflow: hidden; width: 100%;
+      transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+      opacity: 0;
+    }
+    /* max-height is set from the content's real height in JS (openPanel).
+       A fixed guess here clipped long breakdowns — which is what happened
+       at 900px once pronunciation, meaning and mentions all had to fit. */
+    .def-panel.open { opacity: 1; margin-top: var(--s3); }
+
+    .def-box {
+      background: var(--cream); border-left: 3px solid var(--amber);
+      padding: var(--s4) 1.5rem; text-align: left;
+      border-radius: 0 3px 3px 0;
+    }
+    /* Each section of the breakdown, divided by a hairline */
+    .def-sec + .def-sec {
+      border-top: 1px solid var(--border);
+      margin-top: var(--s4); padding-top: var(--s4);
+    }
+    .def-h {
+      font-size: 0.58rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--amber);
+      margin-bottom: var(--s3);
+    }
+
+    /* Pronunciation — WordSpin house style, respelling with a speaker.
+       Two rows where the original language sounded different from the English. */
+    .def-pron {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.95rem; letter-spacing: 0.06em; color: var(--ink);
+    }
+    .pron-row { display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap; }
+    .pron-row + .pron-row { margin-top: var(--s2); }
+    .pron-lang {
+      font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--amber); min-width: 4.6rem; flex-shrink: 0;
+    }
+    .pron-val {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.95rem; letter-spacing: 0.06em; color: var(--ink);
+    }
+    .pron-row.old .pron-val { color: var(--muted); }
+
+    .def-verse {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.08rem; line-height: 1.65; color: var(--ink);
+    }
+    .def-verse-src {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--amber); margin-top: var(--s2);
+    }
+
+    .def-desc {
+      font-size: 0.88rem; line-height: 1.95; color: var(--ink);
+    }
+
+    /* Mentions as chips — a list reads as a list, not a run-on line */
+    .def-mentions { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .mention {
+      font-family: 'DM Mono', monospace; font-size: 0.66rem;
+      letter-spacing: 0.06em;
+      border: 1px solid var(--amber); border-radius: 2px;
+      padding: 0.3rem 0.6rem;
+      background: rgba(200,137,42,0.14);
+      color: var(--amber);
+    }
+    :root[data-theme="dark"] .mention,
+    :root:not([data-theme="light"]) .mention { background: rgba(212,153,58,0.16); }
+
+    /* Meaning */
+    .def-meaning {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.15rem; font-weight: 700; color: var(--ink);
+    }
+    .def-meaning-note {
+      font-size: 0.8rem; line-height: 1.75; color: var(--muted);
+      margin-top: var(--s2);
+    }
+    .def-same {
+      font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--amber); margin-top: var(--s2);
+    }
+    /* Marks a disputed derivation. Sits ABOVE the meaning as a label, so it
+       can never be misread as part of what the name means. */
+    .uncertain-tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace; font-size: 0.52rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted);
+      border: 1px dashed var(--muted); border-radius: 2px;
+      padding: 0.2rem 0.5rem; margin-bottom: var(--s2);
+    }
+    .def-meaning.is-uncertain { color: var(--muted); }
+
+    .chosen-prompt {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.1rem; line-height: 1.6; color: var(--muted);
+      max-width: 30rem; margin-top: var(--s4);
+    }
+
+    /* ── Writing area ── */
+    .write { width: 100%; display: none; flex-direction: column; gap: 0; }
+    .write.on { display: flex; }
+    .box-wrap { position: relative; width: 100%; }
+    .expand-btn {
+      position: absolute; top: 0.55rem; right: 0.55rem;
+      width: 30px; height: 30px; line-height: 1;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 3px; color: var(--muted);
+      font-size: 0.85rem; cursor: pointer; opacity: 0.75;
+      transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+      z-index: 2;
+    }
+    .expand-btn:hover { opacity: 1; color: var(--amber); border-color: var(--amber); }
+    /* Drawn, not typed: the ⤢ glyph carries its own sidebearings and sits
+       off-centre in any box. An SVG on a symmetric viewBox does not. */
+    .expand-btn {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0;
+    }
+    .xp-ico { width: 15px; height: 15px; display: block; }
+    .box-wrap.expanded .expand-btn .xp-ico { width: 17px; height: 17px; }
+
+
+    /* Expanded: the box takes the whole screen so long writing has room.
+       position:fixed rather than a modal, so the textarea is never
+       re-created and the caret and undo history survive. */
+    .box-wrap.expanded {
+      position: fixed; inset: 0; z-index: 900;
+      background: var(--paper);
+      padding: 3.2rem 1.1rem 1.1rem;
+      display: flex; flex-direction: column;
+    }
+    .box-wrap.expanded textarea {
+      flex: 1; min-height: 0; height: auto;
+      border: none; border-radius: 0; background: var(--paper);
+      padding: 0.5rem 0.2rem; font-size: 16px; line-height: 1.95;
+    }
+    .box-wrap.expanded textarea:focus { border: none; }
+    .box-wrap.expanded .expand-btn {
+      top: 0.9rem; right: 1.1rem; width: 36px; height: 36px;
+      opacity: 1; font-size: 1rem;
+    }
+    .box-wrap.expanded .expanded-count {
+      display: block; font-size: 0.66rem; color: var(--muted);
+      letter-spacing: 0.1em; text-align: center; padding-top: 0.6rem;
+    }
+    .expanded-count { display: none; }
+    body.box-open { overflow: hidden; }
+
+    .write textarea {
+      width: 100%; min-height: 230px;
+      background: var(--input-bg); border: 1px solid var(--border);
+      border-radius: 3px; padding: 1.1rem 1.2rem;
+      color: var(--ink); font-family: 'DM Mono', monospace;
+      font-size: 16px; line-height: 1.85; resize: vertical;
+    }
+    .write textarea:focus { outline: none; border-color: var(--amber); }
+    .write-actions {
+      display: flex; gap: 0.7rem; margin-top: var(--s3); flex-wrap: wrap;
+      justify-content: center;
+    }
+    .wbtn {
+      font-family: 'DM Mono', monospace; font-size: 0.7rem;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 0.8rem 1.4rem; border-radius: 3px; cursor: pointer;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); transition: all 0.2s;
+    }
+    .wbtn:hover { border-color: var(--amber); color: var(--amber); }
+    .wbtn.primary {
+      background: var(--amber); border-color: var(--amber); color: #1a1008;
+    }
+    .wbtn.primary:hover { opacity: 0.85; color: #1a1008; }
+    .word-count {
+      font-size: 0.66rem; color: var(--muted);
+      letter-spacing: 0.1em; margin-top: var(--s2);
+    }
+
+    /* ── Saved stories ── */
+    .saved { width: 100%; border-top: 1px solid var(--border); padding-top: var(--s5); }
+    .saved-h {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 700; margin-bottom: var(--s4);
+    }
+    .saved-list { display: flex; flex-direction: column; gap: var(--s2); }
+    .saved-row {
+      display: flex; align-items: center; gap: 0.8rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-left: 3px solid var(--amber);
+      border-radius: 0 3px 3px 0; padding: 0.9rem 1rem;
+      cursor: pointer; text-align: left; transition: border-color 0.2s;
+    }
+    .saved-row:hover { border-color: var(--amber); }
+    .saved-name {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-weight: 700; font-size: 1rem; flex: 3; min-width: 0;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .saved-tag {
+      font-size: 0.5rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--amber); border: 1px solid var(--amber);
+      border-radius: 2px; padding: 0.15rem 0.4rem; flex-shrink: 0;
+    }
+
+    .saved-date em {
+      display: block; font-style: normal; font-size: 0.52rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--amber); opacity: 0.75; margin-top: 0.15rem;
+    }
+    .saved-date {
+      font-size: 0.66rem; color: var(--muted);
+      min-width: 88px; text-align: right; flex-shrink: 0;
+    }
+    .saved-empty {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.05rem; color: var(--muted);
+    }
+
+    /* ── Modal ── */
+    .modal-back {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.72); display: none;
+      align-items: flex-start; justify-content: center;
+      padding: 1.2rem; overflow-y: auto;
+    }
+    .modal-back.open { display: flex; }
+    .modal {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 6px; max-width: 560px; width: 100%; margin: auto;
+      padding: var(--s4) 1.6rem; text-align: left;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .modal-name {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.6rem; font-weight: 700;
+    }
+    .modal-meta {
+      font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--amber); margin-top: var(--s1);
+    }
+    .modal-text {
+      font-size: 0.92rem; line-height: 1.9; white-space: pre-wrap;
+      border-top: 1px solid var(--border);
+      margin-top: var(--s3); padding-top: var(--s3);
+    }
+
+    /* Expandable edit box inside a story modal. Same idea as the main
+       writing box: position:fixed on the existing textarea, so the caret,
+       scroll position and undo history all survive the expand. */
+    .medit-wrap { position: relative; width: 100%; }
+    /* A bar along the foot of the expanded editor, so a long session can be
+       saved without collapsing back first. */
+    .medit-bar {
+      display: none; align-items: center; justify-content: space-between;
+      gap: 0.8rem; padding-top: 0.8rem; flex-wrap: wrap;
+    }
+    .box-wrap.expanded .medit-bar, .medit-wrap.expanded .medit-bar { display: flex; }
+    .medit-bar .bar-meta {
+      font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.08em; color: var(--muted); line-height: 1.7;
+    }
+    .medit-bar .bar-actions { display: flex; gap: 0.5rem; margin-left: auto; }
+    .bar-btn {
+      font-family: 'DM Mono', monospace; font-size: 0.64rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.65rem 1.1rem; border-radius: 3px; cursor: pointer;
+      background: transparent; border: 1px solid var(--border); color: var(--muted);
+    }
+    .bar-btn:hover { border-color: var(--amber); color: var(--amber); }
+    .bar-btn.primary { background: var(--amber); border-color: var(--amber); color: #1a1008; }
+    .bar-btn.primary:hover { opacity: 0.85; color: #1a1008; }
+
+    /* Only visible while actually editing */
+    .medit-wrap:not(.editing) { display: none; }
+
+    .medit-wrap.expanded {
+      position: fixed; inset: 0; z-index: 1300;
+      background: var(--paper); padding: 3.4rem 1.1rem 1.1rem;
+      display: flex; flex-direction: column;
+    }
+    .medit-wrap.expanded textarea {
+      flex: 1; min-height: 0; height: auto; display: block;
+      border: none; border-radius: 0; background: var(--paper);
+      padding: 0.5rem 0.2rem; line-height: 1.95; resize: none;
+    }
+    .medit-wrap.expanded textarea:focus { border: none; box-shadow: none; }
+    .medit-x {
+      position: absolute; top: 0.55rem; right: 0.55rem;
+      width: 30px; height: 30px; padding: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 3px; color: var(--muted); cursor: pointer;
+      opacity: 0.8; transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .medit-x:hover { opacity: 1; color: var(--amber); border-color: var(--amber); }
+    .medit-wrap.expanded .medit-x { top: 0.9rem; right: 1.1rem; width: 36px; height: 36px; }
+    .medit-x .xp-ico { width: 15px; height: 15px; display: block; }
+    .medit-wrap.expanded .medit-x .xp-ico { width: 17px; height: 17px; }
+
+    .modal-edit {
+      display: none; width: 100%; min-height: 220px;
+      background: var(--input-bg); border: 1px solid var(--amber);
+      border-radius: 3px; padding: 1rem 1.1rem;
+      color: var(--ink); font-family: 'DM Mono', monospace;
+      font-size: 16px; line-height: 1.9; resize: vertical;
+      border-top-width: 1px; margin-top: var(--s3);
+    }
+    .modal-edit:focus { outline: none; }
+    .modal-edit.on { display: block; }
+
+    .modal-foot { display: flex; gap: 0.7rem; margin-top: var(--s4); }
+    .modal-foot .wbtn { flex: 1; text-align: center; }
+    .wbtn.danger { border-color: var(--rust); color: var(--rust); }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; left: 50%; bottom: 2rem;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--card); border: 1px solid var(--amber);
+      border-radius: 3px; padding: 0.8rem 1.3rem;
+      font-size: 0.7rem; letter-spacing: 0.1em; color: var(--ink);
+      opacity: 0; pointer-events: none; transition: all 0.3s; z-index: 2000;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    footer {
+      border-top: 1px solid var(--border); padding-top: var(--s4);
+      width: 100%; display: flex; flex-direction: column; gap: var(--s2);
+    }
+    .foot-link {
+      font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--amber); text-decoration: underline; text-underline-offset: 4px;
+    }
+    .foot-link:hover { opacity: 0.7; }
+    .foot-mark {
+      font-size: 0.66rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    @media (max-width: 480px) {
+      :root { --s2: 0.7rem; --s3: 1.1rem; --s4: 1.8rem; --s5: 2.9rem; --s6: 4.6rem; }
+      .page { padding: 2.2rem 1.1rem 3rem; }
+      /* Deck stays 240x300 exactly as on the homepage — it was shrinking here
+         and reading as a different, smaller component. */
+    }
+    @media (min-width: 900px) {
+      :root { --s3: 1.5rem; --s4: 2.4rem; --s5: 3.9rem; --s6: 6.2rem; }
+      .page { padding: 4rem 3rem 5.5rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  
+    a.ref-link {
+      color: inherit; text-decoration: underline;
+      text-underline-offset: 3px; text-decoration-thickness: 1px;
+      text-decoration-color: rgba(200,137,42,0.45);
+      -webkit-tap-highlight-color: transparent; cursor: pointer;
+    }
+    a.ref-link:hover { text-decoration-color: var(--amber); opacity: 0.8; }
+    a.ref-link::after {
+      content: '\2197'; font-size: 0.75em; margin-left: 0.22em;
+      opacity: 0.6; text-decoration: none; display: inline-block;
+    }
+
+    /* ── Version picker ── */
+    .ver-sheet {
+      position: fixed; inset: 0; z-index: 1400;
+      background: rgba(0,0,0,0.72); display: none;
+      align-items: flex-end; justify-content: center;
+    }
+    .ver-sheet.open { display: flex; }
+    .ver-panel {
+      background: var(--card); border-top: 2px solid var(--amber);
+      border-radius: 8px 8px 0 0; width: 100%; max-width: 520px;
+      max-height: 80vh; display: flex; flex-direction: column;
+      padding: var(--s3) 1.2rem calc(var(--s3) + env(safe-area-inset-bottom, 0px));
+    }
+    @media (min-width: 620px) {
+      .ver-sheet { align-items: center; }
+      .ver-panel { border-radius: 8px; border: 1px solid var(--border);
+                   border-top: 2px solid var(--amber); }
+    }
+    .ver-head {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 1rem; padding-bottom: var(--s3);
+      border-bottom: 1px solid var(--border);
+    }
+    .ver-title {
+      display: block; font-family: 'Playfair Display', serif;
+      font-style: italic; font-weight: 700; font-size: 1.15rem; color: var(--ink);
+    }
+    .ver-sub {
+      display: block; font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.1em; color: var(--muted); margin-top: 0.35rem;
+    }
+    .ver-x {
+      background: none; border: none; color: var(--muted);
+      font-size: 0.85rem; cursor: pointer; padding: 0.2rem 0.4rem; flex-shrink: 0;
+    }
+    .ver-x:hover { color: var(--amber); }
+    .ver-list {
+      flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+      padding: var(--s3) 0 0; display: flex; flex-direction: column; gap: 0.3rem;
+    }
+    .ver-item {
+      display: flex; align-items: baseline; gap: 0.9rem; width: 100%;
+      text-align: left; cursor: pointer; background: transparent;
+      border: 1px solid transparent; border-radius: 3px;
+      padding: 0.7rem 0.8rem; color: var(--ink);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .ver-item:hover { border-color: var(--amber); }
+    .ver-item.is-pref { border-color: var(--amber); background: rgba(200,137,42,0.1); }
+    .ver-code {
+      font-family: 'DM Mono', monospace; font-size: 0.66rem;
+      letter-spacing: 0.1em; color: var(--amber);
+      min-width: 3.9rem; flex-shrink: 0;
+    }
+    .ver-name {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.02rem; color: var(--ink);
+    }
+    .ver-name small {
+      display: block; font-family: 'DM Mono', monospace; font-style: normal;
+      font-size: 0.55rem; letter-spacing: 0.08em; color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* A reference with no Bible Gateway entry opens a note instead */
+    .note-ref {
+      display: inline-flex; align-items: baseline; gap: 0.5rem;
+      background: none; border: none; padding: 0; cursor: pointer;
+      font-family: 'DM Mono', monospace; font-size: 0.72rem;
+      letter-spacing: 0.08em; color: var(--ink);
+      text-decoration: underline; text-underline-offset: 3px;
+      text-decoration-color: rgba(200,137,42,0.45);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .note-ref:hover { text-decoration-color: var(--amber); }
+    .note-cue {
+      font-size: 0.5rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--amber); border: 1px dashed var(--amber);
+      border-radius: 2px; padding: 0.1rem 0.34rem; text-decoration: none;
+    }
+    .note-ref.is-open .note-cue { background: rgba(200,137,42,0.14); }
+    .note-panel {
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
+    }
+    .note-panel.open { opacity: 1; margin-top: var(--s3); }
+    .note-body { font-size: 0.8rem; line-height: 1.9; color: var(--muted); }
+    .excerpt {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1rem; line-height: 1.7; color: var(--ink);
+      border-left: 2px solid var(--muted); padding-left: 0.9rem;
+      margin-top: var(--s3);
+    }
+    .excerpt-src {
+      display: block; font-family: 'DM Mono', monospace; font-style: normal;
+      font-size: 0.55rem; letter-spacing: 0.12em; color: var(--muted);
+      margin-top: var(--s2);
+    }
+</style><style>
+
+    /* Expandable edit box inside a story modal. Same idea as the main
+       writing box: position:fixed on the existing textarea, so the caret,
+       scroll position and undo history all survive the expand. */
+    .medit-wrap { position: relative; width: 100%; }
+    .medit-wrap.expanded {
+      position: fixed; inset: 0; z-index: 1300;
+      background: var(--paper); padding: 3.4rem 1.1rem 1.1rem;
+      display: flex; flex-direction: column;
+    }
+    .medit-wrap.expanded textarea {
+      flex: 1; min-height: 0; height: auto; display: block;
+      border: none; border-radius: 0; background: var(--paper);
+      padding: 0.5rem 0.2rem; line-height: 1.95; resize: none;
+    }
+    .medit-wrap.expanded textarea:focus { border: none; box-shadow: none; }
+    .medit-x {
+      position: absolute; top: 0.55rem; right: 0.55rem;
+      width: 30px; height: 30px; padding: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 3px; color: var(--muted); cursor: pointer;
+      opacity: 0.8; transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .medit-x:hover { opacity: 1; color: var(--amber); border-color: var(--amber); }
+    .medit-wrap.expanded .medit-x { top: 0.9rem; right: 1.1rem; width: 36px; height: 36px; }
+    .medit-x .xp-ico { width: 15px; height: 15px; display: block; }
+    .medit-wrap.expanded .medit-x .xp-ico { width: 17px; height: 17px; }
+
+</style>
+
+<style>
+  .grp-row {
+    display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;
+    margin-top: var(--s4);          /* the page is gap:0 — this was missing */
+  }
+  .grp-btn {
+    font-family: 'DM Mono', monospace; font-size: 0.58rem;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    padding: 0.5rem 0.9rem; white-space: nowrap; min-width: 4.4rem;
+    text-align: center;
+    border: 1.5px solid var(--border); border-radius: 2px;
+    background: transparent; color: var(--muted); cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .grp-btn:hover { border-color: var(--amber); color: var(--amber); }
+  .grp-btn.active { background: var(--amber); border-color: var(--amber); color: #1a1008; }
+  @media (max-width: 400px) { .grp-btn { padding: 0.45rem 0.6rem; letter-spacing: 0.1em; } }
+
+  .fact-row { display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap; }
+  .fact-row + .fact-row { margin-top: var(--s2); }
+  .fact-k {
+    font-family: 'DM Mono', monospace; font-size: 0.55rem;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber);
+    min-width: 5.4rem; flex-shrink: 0;
+  }
+  .fact-v { font-size: 0.85rem; line-height: 1.8; color: var(--ink); }
+  .orig-line {
+    font-size: 0.8rem; line-height: 1.9; color: var(--muted); margin-top: var(--s3);
+  }
+  .orig-script {
+    font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--ink);
+  }
+  .start-ref {
+    font-family: 'DM Mono', monospace; font-size: 0.72rem;
+    letter-spacing: 0.08em; color: var(--ink);
+  }
+  .start-why { font-size: 0.84rem; line-height: 1.9; color: var(--muted); margin-top: var(--s2); }
+  .status-note {
+    font-size: 0.74rem; line-height: 1.8; color: var(--muted);
+    font-style: italic; margin-top: var(--s2);
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="bible.html" class="back-link">← BibleSpin</a>
+  <button class="theme-toggle" id="themeBtn" aria-label="Toggle theme">
+    <span id="themeLabel">Dark</span> <span id="themeIcon">☾</span>
+  </button>
+</div>
+
+<div class="page">
+
+  <header>
+    <div class="eyebrow">BibleSpin</div>
+    <div class="eyebrow-rule"></div>
+    <h1 class="page-title">Dreamers and Dreams</h1>
+    <p class="page-sub">Dreams carried messages. Shuffle a dreamer, a dream, or what Scripture itself says about them.</p>
+  </header>
+
+  <div class="grp-row" id="grpRow">
+    <button class="grp-btn active" data-g="dreamers">Dreamers</button>
+    <button class="grp-btn" data-g="dreams">Dreams</button>
+    <button class="grp-btn" data-g="teachings">On dreams</button>
+  </div>
+
+  <div class="deck-wrap">
+    <div class="deck-area" id="deckArea"></div>
+    <p class="spin-count" id="spinCount">Tap the cards to shuffle</p>
+    <button class="pile-aside" id="pileAside" style="display:none"></button>
+  </div>
+
+  <section class="chosen" id="chosen" style="display:none">
+    <div class="chosen-label" id="chosenLabel">Your dreamer</div>
+    <div class="chosen-name" id="chosenName"></div>
+    <div class="chosen-title" id="chosenSection"></div>
+    <button class="def-toggle" id="defToggle">🔍 Read the breakdown</button>
+    <div class="def-panel" id="defPanel">
+      <div class="def-box">
+
+        <div class="def-sec" id="secWhere">
+          <div class="def-h">Where and when</div>
+          <div class="def-desc" id="defWhere"></div>
+          <div class="def-verse-src" id="defRef"></div>
+        </div>
+
+        <div class="def-sec" id="secDream">
+          <div class="def-h" id="hDream">The dream</div>
+          <div class="def-verse" id="defDream"></div>
+        </div>
+
+        <button class="learn-btn" id="learnBtn" aria-expanded="false">
+          <span>Learn more?</span>
+          <svg class="learn-caret" width="12" height="12" viewBox="0 0 12 12" fill="none"
+               stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 L6 8 L9.5 4.5"/></svg>
+        </button>
+
+        <div class="learn-panel" id="learnPanel">
+          <div class="def-sec" id="secSaid">
+            <div class="def-h">What they said</div>
+            <div class="def-verse" id="defSaid"></div>
+          </div>
+          <div class="def-sec" id="secProcess">
+            <div class="def-h">What they went through</div>
+            <div class="def-desc" id="defProcess"></div>
+          </div>
+          <div class="def-sec" id="secMeant">
+            <div class="def-h">What it meant</div>
+            <div class="def-desc" id="defMeant"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <p class="chosen-prompt">Write from it. What it stirs, what it reminds you of, what you want to ask.</p>
+  </section>
+
+  <section class="write" id="writeSec">
+    <div class="box-wrap" id="boxWrap">
+      <textarea id="storyBox" placeholder="Begin here…"></textarea>
+      <button class="expand-btn" id="expandBtn" aria-label="Expand the writing box" title="Expand"><svg class="xp-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><path d="M8 8 L12.4 3.6"/><path d="M9.4 3 H13 V6.6"/></g><g transform="rotate(180 8 8)"><path d="M8 8 L12.4 3.6"/><path d="M9.4 3 H13 V6.6"/></g></svg></button>
+    </div>
+    <div class="word-count" id="wordCount">0 words</div>
+    <div class="expanded-count" id="expandedCount"></div>
+    <div class="write-actions">
+      <button class="wbtn primary" id="saveBtn">Save entry</button>
+      <button class="wbtn" id="clearBtn">Clear</button>
+    </div>
+  </section>
+
+  <section class="saved">
+    <h2 class="saved-h">Your entries</h2>
+    <div class="saved-list" id="savedList"></div>
+  </section>
+
+  <footer>
+    <div class="foot-mark">WordSpin — by MK</div>
+  </footer>
+
+</div>
+
+<div class="aside-sheet" id="asideSheet">
+  <div class="aside-panel">
+    <div class="aside-head">
+      <span class="aside-title">Set aside</span>
+      <button class="aside-x" id="asideClose" aria-label="Close">✕</button>
+    </div>
+    <div class="aside-list" id="asideList"></div>
+    <div class="aside-foot">
+      <button class="wbtn" id="asideOnly">Play these only</button>
+      <button class="wbtn primary" id="asideReturn">Return to deck</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-back" id="modalBack">
+  <div class="modal">
+    <div class="modal-name" id="mName"></div>
+    <div class="modal-meta" id="mMeta"></div>
+    <button class="def-toggle" id="mBreakBtn" style="margin-top:var(--s2)">🔍 Show the breakdown</button>
+    <div class="def-panel" id="mBreakPanel">
+      <div class="def-box" style="margin-top:var(--s3)">
+        <div class="def-sec">
+          <div class="def-h">Pronunciation</div>
+          <div class="def-pron" id="mPron"></div>
+          <div class="orig-line" id="mOrig"></div>
+        </div>
+        <div class="def-sec">
+          <div class="def-h">What it is</div>
+          <div class="def-desc" id="mWhat"></div>
+        </div>
+        <div class="def-sec">
+          <div class="def-h">Where to start</div>
+          <div class="start-ref" id="mStart"></div>
+          <div class="start-why" id="mStartWhy"></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-text" id="mText"></div>
+    <textarea class="modal-edit" id="mEdit"></textarea>
+    <div class="modal-foot" id="mFootRead">
+      <button class="wbtn" id="mClose">Close</button>
+      <button class="wbtn" id="mEditBtn">✎ Edit</button>
+      <button class="wbtn danger" id="mDelete">Delete</button>
+    </div>
+    <div class="modal-foot" id="mFootEdit" style="display:none">
+      <button class="wbtn" id="mCancelEdit">Cancel</button>
+      <button class="wbtn primary" id="mSaveEdit">Save changes</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var DREAMS_DATA = {"dreamers":[{"name":"Jacob","where":"Bethel, running from his brother","ref":"Genesis 28:10-17","dream":"A ladder set on the earth with its top reaching heaven, and angels going up and down it.","said":"Surely the LORD is in this place, and I was not aware. How fearful is this place!","process":"He was alone, a stone for a pillow, on the run after cheating Esau. He did not ask for this and had done nothing to deserve it.","meant":"The promise given to Abraham was restated to him personally, at his lowest and least deserving. He woke, set up the stone, and named the place.","__kind":"dreamers"},{"name":"Joseph","title":"son of Jacob","where":"at home, seventeen years old","ref":"Genesis 37:5-11","dream":"Sheaves in a field bowing to his sheaf; then the sun, moon and eleven stars bowing to him.","said":"Hear, I pray you, this dream which I have dreamed.","process":"He told his brothers, who already hated him, and then told his father, who rebuked him — and yet observed the saying.","meant":"It came true, twenty-two years later, after slavery and prison. The dream was right and telling it was costly; Scripture lets both stand.","__kind":"dreamers"},{"name":"Pharaoh's butler","where":"prison in Egypt","ref":"Genesis 40:9-13","dream":"A vine with three branches that budded, blossomed and ripened, and he pressed the grapes into Pharaoh's cup.","said":"We have dreamed a dream, and there is none to interpret it.","process":"He told Joseph because there was nobody else. Joseph's first words were that interpretations belong to God.","meant":"Three days to his restoration. He was restored, and forgot Joseph for two years.","__kind":"dreamers"},{"name":"Pharaoh's baker","where":"the same prison","ref":"Genesis 40:16-19","dream":"Three white baskets on his head, the top one full of baked goods, and birds eating out of it.","said":"He told it only after he saw that the butler's interpretation was good.","process":"He asked because the first answer had been favourable. The second was not.","meant":"Three days to his execution. Scripture records the interpretation being given plainly, without softening.","__kind":"dreamers"},{"name":"Pharaoh","where":"his own bed","ref":"Genesis 41:1-36","dream":"Seven fat cows eaten by seven lean ones; seven full ears devoured by seven thin ones.","said":"I have dreamed a dream, and there is none that can interpret it.","process":"Every magician in Egypt failed. A forgotten prisoner was remembered and brought up out of the dungeon.","meant":"Seven years of plenty and seven of famine. The dream was doubled because the thing was established by God, and would shortly come to pass.","__kind":"dreamers"},{"name":"Abimelech","where":"Gerar","ref":"Genesis 20:3-7","dream":"God came to him by night and told him he was a dead man, for the woman he had taken was married.","said":"Lord, wilt thou slay even the righteous nation?","process":"He argued his innocence inside the dream and was heard — God answered that he knew it, and had withheld him from sinning.","meant":"A warning that arrived in time. He rose early, told his servants, and gave Sarah back.","__kind":"dreamers"},{"name":"Laban","where":"pursuing Jacob","ref":"Genesis 31:24, 29","dream":"God came to him in a dream by night with one instruction: take heed that thou speak not to Jacob either good or bad.","said":"It is in the power of my hand to do you evil, but the God of your father spake unto me yesternight.","process":"He had seven days of chasing to build his case and was stopped the night before he caught up.","meant":"The confrontation happened, but the harm did not. He says so out loud to Jacob's face.","__kind":"dreamers"},{"name":"The Midianite soldier","where":"the enemy camp, at night","ref":"Judges 7:13-15","dream":"A cake of barley bread tumbled into the host of Midian, struck a tent and overturned it.","said":"This is nothing else save the sword of Gideon, for into his hand hath God delivered Midian.","process":"Gideon, who had asked for two signs already, was sent down to overhear this one. A stranger interpreted his own dream aloud, and did it correctly.","meant":"Gideon worshipped there in the dark and then went back and woke the three hundred.","__kind":"dreamers"},{"name":"Solomon","where":"Gibeon","ref":"1 Kings 3:5-15","dream":"The LORD appeared and said: ask what I shall give thee.","said":"Give therefore unto thy servant an understanding heart to judge thy people.","process":"An open question with no conditions attached. He asked for discernment rather than long life, riches or the death of his enemies.","meant":"He was given what he asked for and what he did not. The text notes he awoke, and behold, it was a dream — and then he went and acted on it.","__kind":"dreamers"},{"name":"Nebuchadnezzar","where":"Babylon","ref":"Daniel 2:1-45","dream":"A great image of gold, silver, brass, iron and clay, struck by a stone cut without hands.","said":"The thing is gone from me — tell me the dream and its interpretation.","process":"He demanded that his wise men tell him the dream itself, not just its meaning, and sentenced them all to death when they could not.","meant":"Four kingdoms, and then one that would not be destroyed. Daniel told him plainly that there is a God in heaven that revealeth secrets.","__kind":"dreamers"},{"name":"Nebuchadnezzar","title":"the second dream","where":"at rest in his palace","ref":"Daniel 4:4-37","dream":"A tree reaching to heaven, cut down at a watcher's command, its stump bound with iron and brass.","said":"I saw a dream which made me afraid.","process":"Daniel was astonished for one hour before he spoke, and then urged him to break off his sins. Twelve months passed. Nothing changed.","meant":"Seven seasons of madness, and afterwards a king who blessed the Most High. The warning came a full year before the fall.","__kind":"dreamers"},{"name":"Daniel","where":"Babylon, in his own bed","ref":"Daniel 7:1-28","dream":"Four great beasts rising from the sea, and the Ancient of Days seated in judgement.","said":"My cogitations much troubled me, and my countenance changed; but I kept the matter in my heart.","process":"The interpreter of everyone else's dreams could not read his own. He had to ask one standing by what it meant.","meant":"He was given an answer and it still disturbed him. Scripture does not tidy that away.","__kind":"dreamers"},{"name":"Joseph","title":"husband of Mary","where":"Nazareth, and then Egypt","ref":"Matthew 1:20; 2:13, 19, 22","dream":"Four dreams: take Mary as your wife; flee to Egypt; return; settle in Galilee instead of Judea.","said":"Nothing. Not one word of Joseph's is recorded anywhere in Scripture.","process":"Each time he rose and did it, twice in the middle of the night. He is the most obedient dreamer in the Bible and the most silent.","meant":"The child lived. A man who never speaks is the reason the family kept moving in time.","__kind":"dreamers"},{"name":"The wise men","where":"on the road from Bethlehem","ref":"Matthew 2:12","dream":"They were warned of God in a dream that they should not return to Herod.","said":"Nothing is recorded — they simply departed into their own country another way.","process":"They had already promised Herod they would come back. The dream asked them to break a promise to a king.","meant":"Obedience to the warning cost them nothing and bought the child years.","__kind":"dreamers"},{"name":"Pilate's wife","where":"the judgement hall, mid-trial","ref":"Matthew 27:19","dream":"She had suffered many things that day in a dream because of him.","said":"Have thou nothing to do with that just man.","process":"She sent word to her husband while he sat on the judgement seat. A Roman woman, not a believer, interrupting a trial.","meant":"He washed his hands and did it anyway. A warning given and refused, recorded in one verse.","__kind":"dreamers"},{"name":"Peter","where":"a rooftop in Joppa, hungry","ref":"Acts 10:9-16","dream":"A sheet let down from heaven with all manner of beasts, and a voice: rise, kill and eat.","said":"Not so, Lord; for I have never eaten any thing that is common or unclean.","process":"He argued with the voice. It came three times, and he doubted in himself what it should mean — then the men from Cornelius knocked.","meant":"Not about food. The meaning arrived at the door while he was still puzzling over it.","__kind":"dreamers"},{"name":"Paul","where":"Troas, at night","ref":"Acts 16:9-10","dream":"A man of Macedonia stood and prayed him: come over into Macedonia, and help us.","said":"Nothing to the figure. He told the others, and they concluded together that the Lord had called them.","process":"They had already been forbidden twice to go elsewhere. The vision resolved a closed door, not an open question.","meant":"The gospel crossed into Europe because of one night's vision, tested by a group rather than acted on alone.","__kind":"dreamers"}],"dreams":[{"title":"The ladder","dreamer":"Jacob","ref":"Genesis 28:10-17","what":"A ladder set on the earth with its top reaching heaven, and angels going up and down it.","meant":"The promise given to Abraham was restated to him personally, at his lowest and least deserving. He woke, set up the stone, and named the place.","where":"Bethel, running from his brother","__kind":"dreams"},{"title":"The sheaves, and the stars","dreamer":"Joseph — son of Jacob","ref":"Genesis 37:5-11","what":"Sheaves in a field bowing to his sheaf; then the sun, moon and eleven stars bowing to him.","meant":"It came true, twenty-two years later, after slavery and prison. The dream was right and telling it was costly; Scripture lets both stand.","where":"at home, seventeen years old","__kind":"dreams"},{"title":"The vine with three branches","dreamer":"Pharaoh's butler","ref":"Genesis 40:9-13","what":"A vine with three branches that budded, blossomed and ripened, and he pressed the grapes into Pharaoh's cup.","meant":"Three days to his restoration. He was restored, and forgot Joseph for two years.","where":"prison in Egypt","__kind":"dreams"},{"title":"The three white baskets","dreamer":"Pharaoh's baker","ref":"Genesis 40:16-19","what":"Three white baskets on his head, the top one full of baked goods, and birds eating out of it.","meant":"Three days to his execution. Scripture records the interpretation being given plainly, without softening.","where":"the same prison","__kind":"dreams"},{"title":"The seven cows and the seven ears","dreamer":"Pharaoh","ref":"Genesis 41:1-36","what":"Seven fat cows eaten by seven lean ones; seven full ears devoured by seven thin ones.","meant":"Seven years of plenty and seven of famine. The dream was doubled because the thing was established by God, and would shortly come to pass.","where":"his own bed","__kind":"dreams"},{"title":"The warning in the night","dreamer":"Abimelech","ref":"Genesis 20:3-7","what":"God came to him by night and told him he was a dead man, for the woman he had taken was married.","meant":"A warning that arrived in time. He rose early, told his servants, and gave Sarah back.","where":"Gerar","__kind":"dreams"},{"title":"Speak not either good or bad","dreamer":"Laban","ref":"Genesis 31:24, 29","what":"God came to him in a dream by night with one instruction: take heed that thou speak not to Jacob either good or bad.","meant":"The confrontation happened, but the harm did not. He says so out loud to Jacob's face.","where":"pursuing Jacob","__kind":"dreams"},{"title":"The barley loaf","dreamer":"The Midianite soldier","ref":"Judges 7:13-15","what":"A cake of barley bread tumbled into the host of Midian, struck a tent and overturned it.","meant":"Gideon worshipped there in the dark and then went back and woke the three hundred.","where":"the enemy camp, at night","__kind":"dreams"},{"title":"Ask what I shall give thee","dreamer":"Solomon","ref":"1 Kings 3:5-15","what":"The LORD appeared and said: ask what I shall give thee.","meant":"He was given what he asked for and what he did not. The text notes he awoke, and behold, it was a dream — and then he went and acted on it.","where":"Gibeon","__kind":"dreams"},{"title":"The great image","dreamer":"Nebuchadnezzar","ref":"Daniel 2:1-45","what":"A great image of gold, silver, brass, iron and clay, struck by a stone cut without hands.","meant":"Four kingdoms, and then one that would not be destroyed. Daniel told him plainly that there is a God in heaven that revealeth secrets.","where":"Babylon","__kind":"dreams"},{"title":"The tree cut down","dreamer":"Nebuchadnezzar — the second dream","ref":"Daniel 4:4-37","what":"A tree reaching to heaven, cut down at a watcher's command, its stump bound with iron and brass.","meant":"Seven seasons of madness, and afterwards a king who blessed the Most High. The warning came a full year before the fall.","where":"at rest in his palace","__kind":"dreams"},{"title":"The four beasts","dreamer":"Daniel","ref":"Daniel 7:1-28","what":"Four great beasts rising from the sea, and the Ancient of Days seated in judgement.","meant":"He was given an answer and it still disturbed him. Scripture does not tidy that away.","where":"Babylon, in his own bed","__kind":"dreams"},{"title":"Four dreams, and no words","dreamer":"Joseph — husband of Mary","ref":"Matthew 1:20; 2:13, 19, 22","what":"Four dreams: take Mary as your wife; flee to Egypt; return; settle in Galilee instead of Judea.","meant":"The child lived. A man who never speaks is the reason the family kept moving in time.","where":"Nazareth, and then Egypt","__kind":"dreams"},{"title":"Return another way","dreamer":"The wise men","ref":"Matthew 2:12","what":"They were warned of God in a dream that they should not return to Herod.","meant":"Obedience to the warning cost them nothing and bought the child years.","where":"on the road from Bethlehem","__kind":"dreams"},{"title":"That just man","dreamer":"Pilate's wife","ref":"Matthew 27:19","what":"She had suffered many things that day in a dream because of him.","meant":"He washed his hands and did it anyway. A warning given and refused, recorded in one verse.","where":"the judgement hall, mid-trial","__kind":"dreams"},{"title":"The sheet let down","dreamer":"Peter","ref":"Acts 10:9-16","what":"A sheet let down from heaven with all manner of beasts, and a voice: rise, kill and eat.","meant":"Not about food. The meaning arrived at the door while he was still puzzling over it.","where":"a rooftop in Joppa, hungry","__kind":"dreams"},{"title":"The man of Macedonia","dreamer":"Paul","ref":"Acts 16:9-10","what":"A man of Macedonia stood and prayed him: come over into Macedonia, and help us.","meant":"The gospel crossed into Europe because of one night's vision, tested by a group rather than acted on alone.","where":"Troas, at night","__kind":"dreams"}],"teachings":[{"ref":"Numbers 12:6","says":"If there be a prophet among you, I the LORD will be known to him by a vision, and will speak unto him by a dream.","note":"God names dreams as one of his ordinary means of speaking — and in the same breath says Moses is the exception, spoken to mouth to mouth. Dreams are a real channel, and not the highest one.","__kind":"teachings"},{"ref":"Genesis 40:8","says":"Do not interpretations belong to God? Tell me them, I pray you.","note":"Joseph's first move is to take the credit off himself. Nobody in Scripture who interprets rightly claims the skill as their own.","__kind":"teachings"},{"ref":"Daniel 2:27-28","says":"There is a God in heaven that revealeth secrets, and maketh known to the king Nebuchadnezzar what shall be in the latter days.","note":"Said to a king who had just sentenced every wise man in Babylon to death for failing. Daniel begins by saying no wise man, astrologer or magician could do this.","__kind":"teachings"},{"ref":"Job 33:14-18","says":"God speaketh once or twice, and one seeth it not. In dreams and visions of the night, when sleep falleth upon men, then he openeth the ears of men.","note":"The stated purpose here is protective — to withdraw a person from their purpose, and to keep back their soul from the pit. A dream as an interruption before a decision.","__kind":"teachings"},{"ref":"Joel 2:28","says":"Your sons and your daughters shall prophesy; your old men shall dream dreams, and your young men shall see visions.","note":"Quoted by Peter at Pentecost. The promise is deliberately wide — sons and daughters, old and young, servants and handmaids.","__kind":"teachings"},{"ref":"Ecclesiastes 5:3","says":"For as a dream cometh by the multitude of business, so the voice of a fool is in the multitude of words.","note":"Plainly said: some dreams are the residue of a busy mind. Scripture says this itself, which is worth knowing before anyone says it to you.","__kind":"teachings"},{"ref":"Ecclesiastes 5:7","says":"For in the multitude of dreams, and in many words, there are also divers vanities: but fear thou God.","note":"The counterweight to over-reading. A dream can be vanity — and the instruction that follows is not to analyse harder but to fear God.","__kind":"teachings"},{"ref":"Jeremiah 23:25-28","says":"I have heard what the prophets said, that prophesy lies in my name, saying, I have dreamed, I have dreamed. What is the chaff to the wheat?","note":"The sharpest warning in Scripture about dreams, and it is aimed at people using them to speak for God. The test offered is not sincerity but substance.","__kind":"teachings"},{"ref":"Deuteronomy 13:1-3","says":"If there arise among you a dreamer of dreams, and giveth thee a sign, and the sign come to pass, saying, Let us go after other gods — thou shalt not hearken.","note":"Even a dream that comes true is not self-authenticating. Where it points matters more than whether it was accurate.","__kind":"teachings"},{"ref":"Zechariah 10:2","says":"The idols have spoken vanity, and the soothsayers have seen a lie, and have told false dreams; they comfort in vain.","note":"False comfort is named as a harm, not a kindness. A dream read to soothe someone can do damage.","__kind":"teachings"},{"ref":"1 Samuel 28:6","says":"And when Saul asked counsel of the LORD, the LORD answered him not, neither by dreams, nor by Urim, nor by prophets.","note":"Dreams listed among the channels that can go silent. Saul's response to the silence — going to the woman at Endor — is the warning.","__kind":"teachings"},{"ref":"Jude 8","says":"Likewise these filthy dreamers defile the flesh, despise government, and speak evil of them that are in authority.","note":"A reminder that the word dreamer is not automatically a compliment in Scripture.","__kind":"teachings"}]};
+</script>
+
+<script>
+(function(){
+'use strict';
+var EXPAND_ICO = "<svg class='xp-ico' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><g><path d='M8 8 L12.4 3.6'/><path d='M9.4 3 H13 V6.6'/></g><g transform='rotate(180 8 8)'><path d='M8 8 L12.4 3.6'/><path d='M9.4 3 H13 V6.6'/></g></svg>";
+var COLLAPSE_ICO = "<svg class='xp-ico' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><g><path d='M13 3 L9.2 6.8'/><path d='M12.6 7 H9 V3.4'/></g><g transform='rotate(180 8 8)'><path d='M13 3 L9.2 6.8'/><path d='M12.6 7 H9 V3.4'/></g></svg>";
+// ── Draw pile ────────────────────────────────────────────────────────
+// A physical deck doesn't put a card back before the next draw. This
+// mirrors that: every card dealt is SET ASIDE and cannot come up again
+// until the pile is gathered back in. Survives reloads, so finishing a
+// story and reopening the page doesn't hand you the same name again.
+function DrawPile(storeKey){
+  var drawn = {};                       // id -> true
+  try {
+    var raw = window.localStorage.getItem(storeKey);
+    if(raw) drawn = JSON.parse(raw) || {};
+  } catch(e) { drawn = {}; }
+
+  function persist(){
+    try { window.localStorage.setItem(storeKey, JSON.stringify(drawn)); }
+    catch(e) { /* private mode — the pile just won't outlive the session */ }
+  }
+
+  return {
+    // Cards still in the pile, out of the pool currently in play
+    remaining: function(pool, idOf){
+      return pool.filter(function(x){ return !drawn[idOf(x)]; });
+    },
+    setAsideCount: function(){
+      var n=0; for(var k in drawn) if(drawn[k]) n++; return n;
+    },
+    // Deal one, without replacement. Returns null when the pile is spent.
+    deal: function(pool, idOf){
+      var left = pool.filter(function(x){ return !drawn[idOf(x)]; });
+      if(!left.length) return null;
+      var pick = left[Math.floor(Math.random()*left.length)];
+      drawn[idOf(pick)] = true;
+      persist();
+      return pick;
+    },
+    // Gather every set-aside card back into the pile
+    gather: function(){ drawn = {}; persist(); },
+    isSetAside: function(id){ return !!drawn[id]; }
+  };
+}
+// ── Scripture links ───────────────────────────────────────────────
+// Canonical references open in the Geneva Bible, because that is the text
+// quoted on the page. The deuterocanonical books are NOT in Bible Gateway's
+// Geneva edition, so those open in NRSVCE, which carries them under the
+// same modern book names used here. 1 Enoch is on neither, so it stays
+// plain text rather than becoming a link that goes nowhere.
+var BG='https://www.biblegateway.com/passage/?search=';
+
+function refUrl(ref, version){
+  var clean = ref.replace(/\s*\([^)]*\)\s*/g,' ').trim();   // drop "(whole book)"
+  var v = version||'GNV';
+  // Apocrypha lookups need the Gateway's own book name
+  if(v!=='GNV' && typeof gatewayRef==='function') clean = gatewayRef(clean);
+  return BG + encodeURIComponent(clean) + '&version=' + v;
+}
+function refLink(ref, version){
+  if(!ref) return '';
+  var safe = String(ref).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  var deut = (version === 'CEB' || version === 'NRSVCE') ? ' data-deutero="1"' : '';
+  return '<a class="ref-link" data-ref="' + safe + '"' + deut
+       + ' target="_blank" rel="noopener noreferrer" href="'
+       + refUrl(ref, version || preferredVersion() || 'GNV') + '">' + safe + '</a>';
+}
+// Pseudepigraphal sources are not hosted anywhere linkable, so they are
+// returned unlinked rather than pointing at a 404.
+// ── Bible version picker ──────────────────────────────────────────
+// GNV is the text these pages quote, so it stays the default. A reader
+// can choose another and it is remembered, because being asked on every
+// tap would be worse than not being asked at all.
+//
+// Two lists: Bible Gateway's Geneva edition and most modern Protestant
+// versions do NOT carry the deuterocanonical books, so a Sirach or Tobit
+// reference is only offered versions that actually contain it.
+var BIBLE_VERSIONS = [
+  {code:'GNV',    name:'Geneva Bible',        note:'1599 — quoted on this page'},
+  {code:'KJV',    name:'King James'},
+  {code:'NKJV',   name:'New King James'},
+  {code:'NIV',    name:'New International'},
+  {code:'ESV',    name:'English Standard'},
+  {code:'NASB',   name:'New American Standard'},
+  {code:'NLT',    name:'New Living'},
+  {code:'CSB',    name:'Christian Standard'},
+  {code:'AMP',    name:'Amplified'},
+  {code:'MSG',    name:'The Message',         note:'paraphrase'},
+  {code:'NRSVUE', name:'New Revised Standard'},
+  {code:'ASV',    name:'American Standard',   note:'1901'},
+  {code:'YLT',    name:"Young's Literal"}
+];
+
+// Versions that include the Apocrypha / deuterocanonical books
+var DEUTERO_VERSIONS = [
+  {code:'CEB',    name:'Common English',       note:'widest Apocrypha on Bible Gateway'},
+  {code:'NRSVCE', name:'New Revised Standard', note:'Catholic edition'},
+  {code:'RSVCE',  name:'Revised Standard',     note:'Catholic edition'},
+  {code:'NABRE',  name:'New American',         note:'revised edition'},
+  {code:'GNT',    name:'Good News',            note:'with Apocrypha'},
+  {code:'DRA',    name:'Douay-Rheims',         note:'1899 — older book names'}
+];
+
+// Bible Gateway indexes a few of these under a different name than the one
+// used here. Without this, "Bel and the Dragon 1" resolves to nothing —
+// which is exactly what it did.
+var GATEWAY_BOOK_NAMES = {
+  'Wisdom of Solomon': 'Wisdom',
+  'Song of the Three': 'Prayer of Azariah',
+  'Additions to Esther': 'Greek Esther',
+  'Letter of Jeremiah': 'Letter of Jeremiah'
+};
+function gatewayRef(ref){
+  var out = String(ref);
+  for(var from in GATEWAY_BOOK_NAMES){
+    if(out.indexOf(from) === 0){
+      out = GATEWAY_BOOK_NAMES[from] + out.slice(from.length);
+      break;
+    }
+  }
+  return out;
+}
+
+var VER_KEY='wordspinBibleVersion';
+function preferredVersion(){
+  try { return window.localStorage.getItem(VER_KEY) || ''; } catch(e){ return ''; }
+}
+function setPreferredVersion(code){
+  try { window.localStorage.setItem(VER_KEY, code); } catch(e){}
+}
+
+function sourceLink(source, status){
+  if(status === 'pseudepigraphal') return String(source);
+  return refLink(source, 'CEB');
+}
+
+
+// Builds the foot bar for an expanded editor: a saved/edited line on the
+// left, and the actions on the right so a long entry can be committed
+// without collapsing the screen first.
+function attachEditorBar(wrap, opts){
+  if(!wrap || wrap.querySelector('.medit-bar')) return wrap && wrap.querySelector('.medit-bar');
+  var bar=document.createElement('div');
+  bar.className='medit-bar';
+  bar.innerHTML='<div class="bar-meta"></div><div class="bar-actions"></div>';
+  var actions=bar.querySelector('.bar-actions');
+  (opts.buttons||[]).forEach(function(b){
+    var el=document.createElement('button');
+    el.type='button';
+    el.className='bar-btn'+(b.primary?' primary':'');
+    el.textContent=b.label;
+    el.addEventListener('click', b.onClick);
+    actions.appendChild(el);
+  });
+  wrap.appendChild(bar);
+  return bar;
+}
+function stampMeta(bar, written, edited){
+  if(!bar) return;
+  var m=bar.querySelector('.bar-meta');
+  if(!m) return;
+  var parts=[];
+  if(written) parts.push('Written '+written);
+  if(edited)  parts.push('edited '+edited);
+  m.textContent=parts.join('  ·  ');
+}
+
+// Makes a modal's edit textarea expand to full screen, like the main box
+function makeExpandable(textarea, expandIco, collapseIco){
+  if(!textarea || textarea.dataset.expandable) return;
+  textarea.dataset.expandable='1';
+  var wrap=document.createElement('div');
+  wrap.className='medit-wrap';
+  textarea.parentNode.insertBefore(wrap, textarea);
+  wrap.appendChild(textarea);
+  var btn=document.createElement('button');
+  btn.type='button'; btn.className='medit-x';
+  btn.setAttribute('aria-label','Expand the editor');
+  btn.innerHTML=expandIco;
+  wrap.appendChild(btn);
+
+  function setOpen(on){
+    wrap.classList.toggle('expanded', on);
+    document.body.classList.toggle('box-open', on);
+    btn.innerHTML = on ? collapseIco : expandIco;
+    btn.setAttribute('aria-label', on?'Collapse the editor':'Expand the editor');
+    if(on) textarea.focus();
+  }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); setOpen(!wrap.classList.contains('expanded')); });
+  textarea._collapse = function(){ if(wrap.classList.contains('expanded')) setOpen(false); };
+  return wrap;
+}
+
+var root=document.documentElement,
+    tBtn=document.getElementById('themeBtn'),
+    tLbl=document.getElementById('themeLabel'),
+    tIco=document.getElementById('themeIcon');
+function isDark(){
+  var s=root.getAttribute('data-theme');
+  if(s) return s==='dark';
+  return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+}
+function paintToggle(){ var d=isDark(); tLbl.textContent=d?'Light':'Dark'; tIco.textContent=d?'\u2600':'\u263E'; }
+tBtn.addEventListener('click', function(){ root.setAttribute('data-theme', isDark()?'light':'dark'); paintToggle(); });
+paintToggle();
+
+var toastEl=document.getElementById('toast'), toastT;
+function toast(msg){
+  toastEl.textContent=msg; toastEl.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(function(){ toastEl.classList.remove('show'); },2200);
+}
+
+var STORE_KEY='wordspinDreamEntries';
+var entries=[];
+try { var raw=window.localStorage.getItem(STORE_KEY); if(raw) entries=JSON.parse(raw)||[]; } catch(e){ entries=[]; }
+function persist(){ try{ window.localStorage.setItem(STORE_KEY, JSON.stringify(entries)); }catch(e){} }
+
+var group='dreamers', spinning=false, current=null, onlyMode=false;
+function bookId(b){ // identity must be unique ACROSS the three decks — teachings have no name
+  return b.__kind+'|'+(b.name ? b.name+(b.title||'') : (b.title||b.ref)); }
+var pile=DrawPile('wordspinDreamsPile');
+function pool(){ return DREAMS_DATA[group] || DREAMS_DATA.dreamers; }
+function asidePool(){ return pool().filter(function(b){ return pile.isSetAside(bookId(b)); }); }
+
+var deckArea=document.getElementById('deckArea'),
+    spinCount=document.getElementById('spinCount'),
+    pileAside=document.getElementById('pileAside'),
+    asideSheet=document.getElementById('asideSheet'),
+    asideList=document.getElementById('asideList');
+
+function refreshPile(){
+  var pooled=pool(), aside=asidePool(), left=pooled.length-aside.length;
+  if(onlyMode){ spinCount.textContent=aside.length+' set aside \u00b7 replaying'; deckArea.classList.remove('spent'); }
+  else if(left===0){ spinCount.textContent='Deck empty'; deckArea.classList.add('spent'); }
+  else { spinCount.textContent=left+'/'+pooled.length+' left'; deckArea.classList.remove('spent'); }
+  pileAside.textContent = onlyMode ? 'replaying '+aside.length+' \u2014 back to deck'
+    : (aside.length===1 ? '1 set aside' : aside.length+' set aside');
+  pileAside.classList.toggle('only-mode', onlyMode);
+  pileAside.style.display=(aside.length>0||onlyMode)?'block':'none';
+}
+function openAside(){
+  var aside=asidePool();
+  if(!aside.length){ toast('Nothing set aside yet'); return; }
+  asideList.innerHTML=aside.map(function(b){ return '<span class="aside-chip">'+b.name+'</span>'; }).join('');
+  asideSheet.classList.add('open'); document.body.style.overflow='hidden';
+}
+function closeAside(){ asideSheet.classList.remove('open'); document.body.style.overflow=''; }
+pileAside.addEventListener('click', function(){
+  if(onlyMode){ onlyMode=false; refreshPile(); toast('Back to the full deck'); return; }
+  openAside();
+});
+document.getElementById('asideClose').addEventListener('click', closeAside);
+asideSheet.addEventListener('click', function(e){ if(e.target===asideSheet) closeAside(); });
+document.getElementById('asideReturn').addEventListener('click', function(){
+  pile.gather(); onlyMode=false; closeAside(); refreshPile(); toast('Shuffled back into the deck');
+});
+document.getElementById('asideOnly').addEventListener('click', function(){
+  onlyMode=true; closeAside(); refreshPile(); toast('Replaying the set-aside cards');
+});
+
+function buildDeck(){
+  deckArea.innerHTML='';
+  for(var i=3;i>=1;i--){
+    var b=document.createElement('div');
+    b.className='deck-card back'; b.style.zIndex=i;
+    b.style.transform='translateY('+(i*3)+'px) translateX('+(i*2)+'px)';
+    deckArea.appendChild(b);
+  }
+  var f=document.createElement('div');
+  f.className='deck-card front'; f.style.zIndex=10;
+  f.style.boxShadow='3px 3px 14px rgba(26,16,8,0.18)';
+  f.innerHTML='<div class="card-header">WordSpin</div>'+
+    '<div class="card-pip-row top"><span>\u2726</span><span>\u2726</span></div>'+
+    '<div class="card-word-text" id="cardWordText">?</div>'+
+    '<div class="card-rule"></div>'+
+    '<div class="card-pip-row bot"><span>\u2726</span><span>\u2726</span></div>';
+  deckArea.appendChild(f);
+}
+buildDeck();
+
+function sizeClass(w){
+  var L=w.length;
+  if(L>=16) return 'len-xl';
+  if(L>=12) return 'len-l';
+  if(L>=9)  return 'len-m';
+  return '';
+}
+function openPanel(panel, open){
+  if(!panel) return;
+  if(open){
+    panel.classList.add('open');
+    panel.style.maxHeight=panel.scrollHeight+'px';
+    setTimeout(function(){ if(panel.classList.contains('open')) panel.style.maxHeight='none'; },440);
+  } else {
+    panel.style.maxHeight=panel.scrollHeight+'px';
+    void panel.offsetHeight;
+    panel.classList.remove('open');
+    panel.style.maxHeight='0px';
+  }
+}
+function pronHTML(b){
+  var spk='\uD83D\uDDE3\uFE0F';
+  return '<div class="pron-row"><span class="pron-lang">English</span>'+
+         '<span class="pron-val">'+spk+'&nbsp;&nbsp;'+b.pronunciation+'</span></div>';
+}
+function origHTML(b){
+  if(!b.original) return '';
+  return '<span class="orig-script">'+b.original+'</span> &nbsp;'+
+         b.originalLanguage+' \u2014 '+b.originalMeaning;
+}
+function statusNote(b){
+  if(b.status==='deuterocanonical')
+    return 'In the Apocrypha of the 1599 Geneva Bible, and canon for Catholic and Orthodox readers.';
+  if(b.status==='pseudepigraphal')
+    return 'Outside the canon of most traditions. Read as an old writing, not as Scripture.';
+  return '';
+}
+function startHTML(b){
+  // Removed books are on no Bible Gateway version. Instead of a dead link or
+  // inert text, the reference opens a note saying where the text actually is.
+  if(b.status==='pseudepigraphal'){
+    if(!b.startNote) return b.start;
+    var h='<button class="note-ref" type="button">'+b.start+
+          '<span class="note-cue">note</span></button>'+
+          '<div class="note-panel"><div class="note-body">'+b.startNote+'</div>';
+    if(b.startExcerpt){
+      h+='<div class="excerpt">&ldquo;'+b.startExcerpt+'&rdquo;'+
+         '<span class="excerpt-src">'+(b.startExcerptSource||'')+'</span></div>';
+    }
+    return h+'</div>';
+  }
+  return refLink(b.start, b.status==='deuterocanonical' ? 'CEB' : 'GNV');
+}
+
+// One delegated handler covers both the card and the modal
+document.addEventListener('click', function(e){
+  var btn = e.target.closest && e.target.closest('.note-ref');
+  if(!btn) return;
+  var panel = btn.nextElementSibling;
+  if(!panel || !panel.classList.contains('note-panel')) return;
+  var open = !panel.classList.contains('open');
+  panel.classList.toggle('open', open);
+  btn.classList.toggle('is-open', open);
+  if(open){
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+    setTimeout(function(){
+      if(panel.classList.contains('open')) panel.style.maxHeight='none';
+      // the breakdown around it just grew
+      var dp=document.getElementById('defPanel');
+      if(dp && dp.classList.contains('open')) dp.style.maxHeight='none';
+      var lp=document.getElementById('learnPanel');
+      if(lp && lp.classList.contains('open')) lp.style.maxHeight='none';
+    },420);
+  } else {
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+    void panel.offsetHeight;
+    panel.style.maxHeight = '0px';
+  }
+});
+
+var chosenSec=document.getElementById('chosen'),
+    chosenName=document.getElementById('chosenName'),
+    chosenSection=document.getElementById('chosenSection'),
+    defPanel=document.getElementById('defPanel'),
+    defToggle=document.getElementById('defToggle'),
+    learnBtn=document.getElementById('learnBtn'),
+    learnPanel=document.getElementById('learnPanel'),
+    writeSec=document.getElementById('writeSec');
+
+function setLearn(open){
+  learnBtn.setAttribute('aria-expanded', open?'true':'false');
+  learnBtn.querySelector('span').textContent = open ? 'Show less' : 'Learn more?';
+  openPanel(learnPanel, open);
+  if(open) setTimeout(function(){
+    if(defPanel.classList.contains('open')) defPanel.style.maxHeight='none';
+  },460);
+}
+learnBtn.addEventListener('click', function(){ setLearn(learnBtn.getAttribute('aria-expanded')!=='true'); });
+defToggle.addEventListener('click', function(){
+  var open=!defPanel.classList.contains('open');
+  openPanel(defPanel, open);
+  defToggle.textContent = open ? '\uD83D\uDD0D Hide the breakdown' : '\uD83D\uDD0D Read the breakdown';
+});
+
+function spin(){
+  if(spinning) return;
+  spinning=true;
+  openPanel(defPanel,false);
+  defToggle.textContent='\uD83D\uDD0D Read the breakdown';
+  var picked;
+  if(onlyMode){
+    var r=asidePool();
+    picked=r.length? r[Math.floor(Math.random()*r.length)] : null;
+  } else { picked=pile.deal(pool(), bookId); }
+  if(!picked){
+    spinning=false; refreshPile();
+    toast(onlyMode?'Nothing set aside here':'Deck empty \u2014 tap "set aside" to return them');
+    return;
+  }
+  var front=deckArea.querySelector('.deck-card.front');
+  var backs=deckArea.querySelectorAll('.deck-card.back');
+  var wordEl=document.getElementById('cardWordText');
+  front.classList.remove('revealed');
+  wordEl.textContent='?';
+  var STEPS=6, STEP_MS=95, step=0, last=0;
+  var easing='cubic-bezier(0.25,0.46,0.45,0.94)';
+  backs.forEach(function(c){ c.style.transition='transform '+STEP_MS+'ms '+easing; });
+  front.style.transition='transform '+STEP_MS+'ms '+easing;
+  function stepFn(ts){
+    if(step>=STEPS){ deal(picked, front, backs, wordEl); return; }
+    if(ts-last<STEP_MS && last!==0){ requestAnimationFrame(stepFn); return; }
+    last=ts;
+    var dir=(step%2===0)?1:-1;
+    backs.forEach(function(c,i){
+      var spread=(i+1)*10*dir, lift=-Math.abs(spread)*0.3;
+      c.style.transform='translateY('+(lift-i*2)+'px) translateX('+(spread+i)+'px) rotate('+(spread*0.35)+'deg)';
+    });
+    front.style.transform='translateY(-4px) rotate('+((step%2===0)?-4:4)+'deg)';
+    step++;
+    requestAnimationFrame(stepFn);
+  }
+  requestAnimationFrame(stepFn);
+}
+
+function deal(b, front, backs, wordEl){
+  backs.forEach(function(c,i){ c.style.transform='translateY('+((3-i)*3)+'px) translateX('+((3-i)*2)+'px)'; });
+  front.style.transform='translateY(0) rotate(0deg)';
+
+  setTimeout(function(){
+    var label = b.__kind==='dreamers' ? (b.name + (b.title? ' — '+b.title : ''))
+              : b.__kind==='dreams'   ? b.title
+              : b.ref;
+    wordEl.className='card-word-text '+sizeClass(label);
+    wordEl.textContent=label;
+    front.classList.add('revealed');
+
+    current=b;
+    chosenName.textContent=label;
+    document.getElementById('chosenLabel').textContent =
+      b.__kind==='dreamers' ? 'Your dreamer'
+      : b.__kind==='dreams' ? 'Your dream'
+      : 'What Scripture says';
+
+    var sec=document.getElementById('chosenSection');
+    sec.textContent = b.__kind==='dreams' ? ('dreamt by '+b.dreamer)
+                    : b.__kind==='dreamers' ? b.where : '';
+
+    function show(id,on){ document.getElementById(id).style.display=on?'block':'none'; }
+
+    if(b.__kind==='teachings'){
+      show('secWhere',false);
+      show('secDream',true);
+      document.getElementById('hDream').textContent='What it says';
+      document.getElementById('defDream').innerHTML='&ldquo;'+b.says+'&rdquo;';
+      show('secSaid',false); show('secProcess',false);
+      show('secMeant',true);
+      document.getElementById('defMeant').textContent=b.note;
+      document.getElementById('defRef').innerHTML=refLink(b.ref)+'  ·  GNV';
+      show('secWhere',true);
+      document.getElementById('defWhere').textContent='';
+    } else {
+      show('secWhere',true);
+      document.getElementById('defWhere').textContent=b.where||'';
+      document.getElementById('defRef').innerHTML=refLink(b.ref)+'  ·  GNV';
+      show('secDream',true);
+      document.getElementById('hDream').textContent='The dream';
+      document.getElementById('defDream').innerHTML='&ldquo;'+(b.dream||b.what)+'&rdquo;';
+      show('secSaid', b.__kind==='dreamers');
+      if(b.__kind==='dreamers'){
+        document.getElementById('defSaid').innerHTML='&ldquo;'+b.said+'&rdquo;';
+        show('secProcess',true);
+        document.getElementById('defProcess').textContent=b.process;
+      } else { show('secProcess',false); }
+      show('secMeant',true);
+      document.getElementById('defMeant').textContent=b.meant;
+    }
+
+    setLearn(false);
+    chosenSec.style.display='flex';
+    writeSec.classList.add('on');
+    refreshPile();
+    spinning=false;
+    chosenSec.scrollIntoView({behavior:'smooth', block:'start'});
+  },180);
+}
+deckArea.addEventListener('click', spin);
+
+document.querySelectorAll('.grp-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.grp-btn').forEach(function(x){ x.classList.remove('active'); });
+    btn.classList.add('active');
+    group=btn.dataset.g; onlyMode=false;
+    refreshPile();
+    toast(pile.remaining(pool(), bookId).length+' left');
+  });
+});
+
+var box=document.getElementById('storyBox'),
+    wc=document.getElementById('wordCount'),
+    boxWrap=document.getElementById('boxWrap'),
+    expandBtn=document.getElementById('expandBtn'),
+    expandedCount=document.getElementById('expandedCount');
+function countWords(s){ var t=s.trim(); return t? t.split(/\s+/).length : 0; }
+function syncCount(){
+  var n=countWords(box.value), t=(n===1?'1 word':n+' words');
+  wc.textContent=t; expandedCount.textContent=t;
+}
+box.addEventListener('input', syncCount);
+function setExpanded(on){
+  boxWrap.classList.toggle('expanded', on);
+  document.body.classList.toggle('box-open', on);
+  expandBtn.innerHTML = on ? COLLAPSE_ICO : EXPAND_ICO;
+  if(on){ boxWrap.appendChild(expandedCount); syncCount(); box.focus(); }
+  else { writeSec.insertBefore(expandedCount, wc.nextSibling); }
+}
+expandBtn.addEventListener('click', function(){ setExpanded(!boxWrap.classList.contains('expanded')); });
+
+document.getElementById('saveBtn').addEventListener('click', function(){
+  var text=box.value.trim();
+  if(!text){ toast('Nothing to save yet'); box.focus(); return; }
+  if(!current){ toast('Shuffle a book first'); return; }
+  entries.unshift({
+    id:'bk_'+Date.now().toString(36)+Math.random().toString(36).slice(2,7),
+    name:current.name, group:current.group, section:current.section,
+    level:'books', text:text, date:Date.now(),
+    snap:{ pronunciation:current.pronunciation, original:current.original,
+           originalLanguage:current.originalLanguage, originalMeaning:current.originalMeaning,
+           what:current.what, start:current.start, startWhy:current.startWhy, status:current.status }
+  });
+  persist(); renderSaved();
+  box.value=''; syncCount();
+  if(boxWrap.classList.contains('expanded')) setExpanded(false);
+  toast('Saved');
+});
+document.getElementById('clearBtn').addEventListener('click', function(){
+  if(!box.value.trim()) return;
+  box.value=''; syncCount(); toast('Cleared');
+});
+
+var savedList=document.getElementById('savedList');
+function fmtDate(ts){
+  var d=new Date(ts), m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return d.getDate()+' '+m[d.getMonth()]+' '+d.getFullYear();
+}
+function renderSaved(){
+  if(!entries.length){
+    savedList.innerHTML='<p class="saved-empty">Nothing written yet. Shuffle a book and begin.</p>';
+    return;
+  }
+  savedList.innerHTML='';
+  entries.forEach(function(e){
+    var row=document.createElement('div');
+    row.className='saved-row';
+    row.innerHTML='<span class="saved-name">'+e.name+'</span>'+
+      '<span class="saved-tag">Book</span>'+
+      '<span class="saved-date">'+fmtDate(e.date)+(e.edited?'<em>edited</em>':'')+'</span>';
+    row.addEventListener('click', function(){ openEntry(e.id); });
+    savedList.appendChild(row);
+  });
+}
+
+var mBack=document.getElementById('modalBack'),
+    mName=document.getElementById('mName'),
+    mMeta=document.getElementById('mMeta'),
+    mText=document.getElementById('mText'),
+    mEdit=document.getElementById('mEdit'),
+    mFootRead=document.getElementById('mFootRead'),
+    mFootEdit=document.getElementById('mFootEdit'),
+    mBreakBtn=document.getElementById('mBreakBtn'),
+    mBreakPanel=document.getElementById('mBreakPanel'),
+    openId=null;
+
+mBreakBtn.addEventListener('click', function(){
+  var open=!mBreakPanel.classList.contains('open');
+  openPanel(mBreakPanel, open);
+  mBreakBtn.textContent = open ? '\uD83D\uDD0D Hide the breakdown' : '\uD83D\uDD0D Show the breakdown';
+});
+function setEditing(on){
+  mEdit.classList.toggle('on', on);
+  mText.style.display=on?'none':'block';
+  mFootRead.style.display=on?'none':'flex';
+  mFootEdit.style.display=on?'flex':'none';
+  // The wrapper and its expand button must go too, or the button floats
+  // over the footer while the textarea underneath it is hidden.
+  var wrap=mEdit.parentNode;
+  if(wrap && wrap.classList.contains('medit-wrap')) wrap.classList.toggle('editing', on);
+}
+function openEntry(id){
+  var e=entries.filter(function(x){ return x.id===id; })[0];
+  if(!e) return;
+  openId=id;
+  mName.textContent=e.name;
+  stampMeta(mEdit.parentNode && mEdit.parentNode.querySelector('.medit-bar'),
+            fmtDate(e.date), e.edited?fmtDate(e.edited):null);
+  mMeta.textContent=e.section+'  \u00b7  '+e.group+'  \u00b7  '+fmtDate(e.date)+
+    (e.edited?'  \u00b7  edited '+fmtDate(e.edited):'');
+  mText.textContent=e.text;
+  var s=e.snap;
+  if(s){
+    mBreakBtn.style.display='inline-block';
+    document.getElementById('mPron').innerHTML=pronHTML(s);
+    document.getElementById('mOrig').innerHTML=origHTML(s);
+    document.getElementById('mWhat').textContent=s.what||'';
+    document.getElementById('mStart').innerHTML=startHTML(s);
+    document.getElementById('mStartWhy').textContent=s.startWhy||'';
+  } else { mBreakBtn.style.display='none'; }
+  openPanel(mBreakPanel, false);
+  mBreakBtn.textContent='\uD83D\uDD0D Show the breakdown';
+  setEditing(false);
+  mBack.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeEntry(){
+  if(mEdit && mEdit._collapse) mEdit._collapse();
+  mBack.classList.remove('open'); document.body.style.overflow=''; openId=null;
+}
+document.getElementById('mClose').addEventListener('click', closeEntry);
+mBack.addEventListener('click', function(e){ if(e.target===mBack) closeEntry(); });
+document.addEventListener('keydown', function(e){
+  if(e.key!=='Escape') return;
+  if(mBack.classList.contains('open')) { closeEntry(); return; }
+  if(asideSheet.classList.contains('open')) { closeAside(); return; }
+  if(boxWrap.classList.contains('expanded')) setExpanded(false);
+});
+document.getElementById('mEditBtn').addEventListener('click', function(){
+  mEdit.value=mText.textContent; setEditing(true); mEdit.focus();
+  mEdit.setSelectionRange(mEdit.value.length, mEdit.value.length);
+});
+document.getElementById('mCancelEdit').addEventListener('click', function(){ setEditing(false); });
+document.getElementById('mSaveEdit').addEventListener('click', function(){
+  var t=mEdit.value.trim();
+  if(!t){ toast('An entry cannot be empty'); mEdit.focus(); return; }
+  var e=entries.filter(function(x){ return x.id===openId; })[0];
+  if(!e) return;
+  e.text=t; e.edited=Date.now(); persist();
+  mText.textContent=t; setEditing(false); renderSaved(); toast('Saved');
+});
+document.getElementById('mDelete').addEventListener('click', function(){
+  if(!openId) return;
+  entries=entries.filter(function(x){ return x.id!==openId; });
+  persist(); renderSaved(); closeEntry(); toast('Deleted');
+});
+
+makeExpandable(mEdit, EXPAND_ICO, COLLAPSE_ICO);
+// Sheet that opens when a reference is tapped. Remembers the choice, and
+// offers a way back to it, so the question is asked once rather than always.
+(function(){
+  var sheet, list, titleEl, subEl, pending=null;
+
+  function build(){
+    sheet=document.createElement('div');
+    sheet.className='ver-sheet';
+    sheet.innerHTML=
+      '<div class="ver-panel">'+
+        '<div class="ver-head">'+
+          '<div><span class="ver-title" id="verTitle"></span>'+
+          '<span class="ver-sub" id="verSub"></span></div>'+
+          '<button class="ver-x" aria-label="Close">&#10005;</button>'+
+        '</div>'+
+        '<div class="ver-list" id="verList"></div>'+
+      '</div>';
+    document.body.appendChild(sheet);
+    list=sheet.querySelector('#verList');
+    titleEl=sheet.querySelector('#verTitle');
+    subEl=sheet.querySelector('#verSub');
+    sheet.querySelector('.ver-x').addEventListener('click', close);
+    sheet.addEventListener('click', function(e){ if(e.target===sheet) close(); });
+    document.addEventListener('keydown', function(e){
+      if(e.key==='Escape' && sheet.classList.contains('open')) close();
+    });
+  }
+  function close(){
+    sheet.classList.remove('open');
+    document.body.style.overflow='';
+    pending=null;
+  }
+  function open(ref, deutero){
+    if(!sheet) build();
+    var versions = deutero ? DEUTERO_VERSIONS : BIBLE_VERSIONS;
+    var pref = preferredVersion();
+    titleEl.textContent = ref;
+    subEl.textContent = deutero
+      ? 'Only versions that include the Apocrypha'
+      : 'Choose a version to read it in';
+    list.innerHTML = versions.map(function(v){
+      var on = (v.code===pref) ? ' is-pref' : '';
+      return '<button class="ver-item'+on+'" data-code="'+v.code+'">'+
+        '<span class="ver-code">'+v.code+'</span>'+
+        '<span class="ver-name">'+v.name+
+          (v.note?'<small>'+v.note+'</small>':'')+'</span></button>';
+    }).join('');
+    Array.prototype.forEach.call(list.querySelectorAll('.ver-item'), function(b){
+      b.addEventListener('click', function(){
+        var code=b.dataset.code;
+        // Only remember a choice from the full list; the Apocrypha list is
+        // a narrower set and should not become the default for everything.
+        if(!deutero) setPreferredVersion(code);
+        var url=refUrl(pending, code);
+        close();
+        window.open(url, '_blank', 'noopener');
+      });
+    });
+    pending=ref;
+    sheet.classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+
+  // Intercept taps on any reference link
+  document.addEventListener('click', function(e){
+    var a=e.target.closest && e.target.closest('a.ref-link');
+    if(!a) return;
+    e.preventDefault();
+    var ref=a.dataset.ref || a.textContent.trim();
+    var deutero = a.dataset.deutero === '1';
+    var pref = preferredVersion();
+    // Once a version is chosen, go straight there — unless it is an
+    // Apocrypha reference the chosen version does not contain.
+    if(pref && !deutero){
+      window.open(refUrl(ref, pref), '_blank', 'noopener');
+      return;
+    }
+    open(ref, deutero);
+  }, true);
+
+  window.openVersionPicker = open;
+})();
+
+// ── Save bars on the expanded editors ──
+(function(){
+  var mainWrap=document.getElementById('boxWrap');
+  if(mainWrap){
+    attachEditorBar(mainWrap, {buttons:[
+      {label:'Save', primary:true, onClick:function(){ document.getElementById('saveBtn').click(); }},
+      {label:'Done', onClick:function(){ document.getElementById('expandBtn').click(); }}
+    ]});
+  }
+  var mEditEl=document.getElementById('mEdit');
+  if(mEditEl && mEditEl.parentNode && mEditEl.parentNode.classList.contains('medit-wrap')){
+    attachEditorBar(mEditEl.parentNode, {buttons:[
+      {label:'Save changes', primary:true, onClick:function(){ document.getElementById('mSaveEdit').click(); }},
+      {label:'Cancel', onClick:function(){ document.getElementById('mCancelEdit').click(); }}
+    ]});
+  }
+})();
+
+renderSaved();
+refreshPile();
+
+})();
+</script>
+
+</body>
+</html>
