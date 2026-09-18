@@ -628,6 +628,12 @@
       color: var(--amber); border: 1px solid var(--amber);
       border-radius: 2px; padding: 0.15rem 0.4rem; flex-shrink: 0;
     }
+
+    .saved-date em {
+      display: block; font-style: normal; font-size: 0.52rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--amber); opacity: 0.75; margin-top: 0.15rem;
+    }
     .saved-date {
       font-size: 0.66rem; color: var(--muted);
       min-width: 88px; text-align: right; flex-shrink: 0;
@@ -669,6 +675,31 @@
        writing box: position:fixed on the existing textarea, so the caret,
        scroll position and undo history all survive the expand. */
     .medit-wrap { position: relative; width: 100%; }
+    /* A bar along the foot of the expanded editor, so a long session can be
+       saved without collapsing back first. */
+    .medit-bar {
+      display: none; align-items: center; justify-content: space-between;
+      gap: 0.8rem; padding-top: 0.8rem; flex-wrap: wrap;
+    }
+    .box-wrap.expanded .medit-bar, .medit-wrap.expanded .medit-bar { display: flex; }
+    .medit-bar .bar-meta {
+      font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.08em; color: var(--muted); line-height: 1.7;
+    }
+    .medit-bar .bar-actions { display: flex; gap: 0.5rem; margin-left: auto; }
+    .bar-btn {
+      font-family: 'DM Mono', monospace; font-size: 0.64rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.65rem 1.1rem; border-radius: 3px; cursor: pointer;
+      background: transparent; border: 1px solid var(--border); color: var(--muted);
+    }
+    .bar-btn:hover { border-color: var(--amber); color: var(--amber); }
+    .bar-btn.primary { background: var(--amber); border-color: var(--amber); color: #1a1008; }
+    .bar-btn.primary:hover { opacity: 0.85; color: #1a1008; }
+
+    /* Only visible while actually editing */
+    .medit-wrap:not(.editing) { display: none; }
+
     .medit-wrap.expanded {
       position: fixed; inset: 0; z-index: 1300;
       background: var(--paper); padding: 3.4rem 1.1rem 1.1rem;
@@ -970,12 +1001,15 @@ var BG='https://www.biblegateway.com/passage/?search=';
 
 function refUrl(ref, version){
   var clean = ref.replace(/\s*\([^)]*\)\s*/g,' ').trim();   // drop "(whole book)"
-  return BG + encodeURIComponent(clean) + '&version=' + (version||'GNV');
+  var v = version||'GNV';
+  // Apocrypha lookups need the Gateway's own book name
+  if(v!=='GNV' && typeof gatewayRef==='function') clean = gatewayRef(clean);
+  return BG + encodeURIComponent(clean) + '&version=' + v;
 }
 function refLink(ref, version){
   if(!ref) return '';
   var safe = String(ref).replace(/&/g,'&amp;').replace(/</g,'&lt;');
-  var deut = (version === 'NRSVCE') ? ' data-deutero="1"' : '';
+  var deut = (version === 'CEB' || version === 'NRSVCE') ? ' data-deutero="1"' : '';
   // data-ref carries the clean reference; the picker reads it rather than
   // the link text, which may have been wrapped or styled.
   return '<a class="ref-link" data-ref="' + safe + '"' + deut
@@ -1010,13 +1044,33 @@ var BIBLE_VERSIONS = [
 
 // Versions that include the Apocrypha / deuterocanonical books
 var DEUTERO_VERSIONS = [
+  {code:'CEB',    name:'Common English',       note:'widest Apocrypha on Bible Gateway'},
   {code:'NRSVCE', name:'New Revised Standard', note:'Catholic edition'},
-  {code:'NRSVUE', name:'New Revised Standard', note:'updated edition'},
   {code:'RSVCE',  name:'Revised Standard',     note:'Catholic edition'},
-  {code:'DRA',    name:'Douay-Rheims',         note:'1899 — older book names'},
+  {code:'NABRE',  name:'New American',         note:'revised edition'},
   {code:'GNT',    name:'Good News',            note:'with Apocrypha'},
-  {code:'NABRE',  name:'New American',         note:'revised edition'}
+  {code:'DRA',    name:'Douay-Rheims',         note:'1899 — older book names'}
 ];
+
+// Bible Gateway indexes a few of these under a different name than the one
+// used here. Without this, "Bel and the Dragon 1" resolves to nothing —
+// which is exactly what it did.
+var GATEWAY_BOOK_NAMES = {
+  'Wisdom of Solomon': 'Wisdom',
+  'Song of the Three': 'Prayer of Azariah',
+  'Additions to Esther': 'Greek Esther',
+  'Letter of Jeremiah': 'Letter of Jeremiah'
+};
+function gatewayRef(ref){
+  var out = String(ref);
+  for(var from in GATEWAY_BOOK_NAMES){
+    if(out.indexOf(from) === 0){
+      out = GATEWAY_BOOK_NAMES[from] + out.slice(from.length);
+      break;
+    }
+  }
+  return out;
+}
 
 var VER_KEY='wordspinBibleVersion';
 function preferredVersion(){
@@ -1028,9 +1082,40 @@ function setPreferredVersion(code){
 
 function sourceLink(source, status){
   if(status === 'pseudepigraphal') return String(source);
-  return refLink(source, 'NRSVCE');
+  return refLink(source, 'CEB');
 }
 
+
+
+// Builds the foot bar for an expanded editor: a saved/edited line on the
+// left, and the actions on the right so a long entry can be committed
+// without collapsing the screen first.
+function attachEditorBar(wrap, opts){
+  if(!wrap || wrap.querySelector('.medit-bar')) return wrap && wrap.querySelector('.medit-bar');
+  var bar=document.createElement('div');
+  bar.className='medit-bar';
+  bar.innerHTML='<div class="bar-meta"></div><div class="bar-actions"></div>';
+  var actions=bar.querySelector('.bar-actions');
+  (opts.buttons||[]).forEach(function(b){
+    var el=document.createElement('button');
+    el.type='button';
+    el.className='bar-btn'+(b.primary?' primary':'');
+    el.textContent=b.label;
+    el.addEventListener('click', b.onClick);
+    actions.appendChild(el);
+  });
+  wrap.appendChild(bar);
+  return bar;
+}
+function stampMeta(bar, written, edited){
+  if(!bar) return;
+  var m=bar.querySelector('.bar-meta');
+  if(!m) return;
+  var parts=[];
+  if(written) parts.push('Written '+written);
+  if(edited)  parts.push('edited '+edited);
+  m.textContent=parts.join('  ·  ');
+}
 
 // Makes a modal's edit textarea expand to full screen, like the main box
 function makeExpandable(textarea, expandIco, collapseIco){
@@ -1493,7 +1578,7 @@ function renderSaved(){
     row.innerHTML=
       '<span class="saved-name">'+s.name+(s.title?' <em style="font-size:0.8em;opacity:0.7">'+s.title+'</em>':'')+'</span>'+
       '<span class="saved-tag">Bible</span>'+
-      '<span class="saved-date">'+fmtDate(s.date)+'</span>';
+      '<span class="saved-date">'+fmtDate(s.date)+(s.edited?'<em>edited</em>':'')+'</span>';
     row.addEventListener('click', function(){ openStory(s.id); });
     savedList.appendChild(row);
   });
@@ -1526,6 +1611,10 @@ function setEditing(on){
   mText.style.display = on ? 'none' : 'block';
   mFootRead.style.display = on ? 'none' : 'flex';
   mFootEdit.style.display = on ? 'flex' : 'none';
+  // The wrapper and its expand button must go too, or the button floats
+  // over the footer while the textarea underneath it is hidden.
+  var wrap=mEdit.parentNode;
+  if(wrap && wrap.classList.contains('medit-wrap')) wrap.classList.toggle('editing', on);
 }
 
 document.getElementById('mEditBtn').addEventListener('click', function(){
@@ -1565,6 +1654,8 @@ function openStory(id){
   if(!s) return;
   openId=id;
   mName.textContent=s.name+(s.title?' — '+s.title:'');
+  stampMeta(mEdit.parentNode && mEdit.parentNode.querySelector('.medit-bar'),
+            fmtDate(s.date), s.edited?fmtDate(s.edited):null);
   mMeta.textContent=s.testament+'  ·  '+fmtDate(s.date)
     +(s.edited?'  ·  edited '+fmtDate(s.edited):'');
   mText.textContent=s.text;
@@ -1695,6 +1786,24 @@ makeExpandable(document.getElementById('mEdit'), EXPAND_ICO, COLLAPSE_ICO);
   }, true);
 
   window.openVersionPicker = open;
+})();
+
+// ── Save bars on the expanded editors ──
+(function(){
+  var mainWrap=document.getElementById('boxWrap');
+  if(mainWrap){
+    attachEditorBar(mainWrap, {buttons:[
+      {label:'Save', primary:true, onClick:function(){ document.getElementById('saveBtn').click(); }},
+      {label:'Done', onClick:function(){ document.getElementById('expandBtn').click(); }}
+    ]});
+  }
+  var mEditEl=document.getElementById('mEdit');
+  if(mEditEl && mEditEl.parentNode && mEditEl.parentNode.classList.contains('medit-wrap')){
+    attachEditorBar(mEditEl.parentNode, {buttons:[
+      {label:'Save changes', primary:true, onClick:function(){ document.getElementById('mSaveEdit').click(); }},
+      {label:'Cancel', onClick:function(){ document.getElementById('mCancelEdit').click(); }}
+    ]});
+  }
 })();
 
 renderSaved();
