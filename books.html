@@ -810,6 +810,54 @@
       font-size: 0.55rem; letter-spacing: 0.12em; color: var(--muted);
       margin-top: var(--s2);
     }
+
+    /* ── Select mode on the saved list ── */
+    .saved-head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .sel-toggle {
+      background: none; border: none; cursor: pointer; padding: 0.2rem 0;
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber);
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+    .sel-toggle:hover { opacity: 0.7; }
+
+    .saved-row .sel-box {
+      display: none; flex-shrink: 0;
+      width: 18px; height: 18px; border-radius: 2px;
+      border: 1.5px solid var(--border); margin-right: 0.2rem;
+      align-items: center; justify-content: center;
+      font-size: 0.6rem; color: #1a1008; line-height: 1;
+    }
+    body.selecting .saved-row .sel-box { display: flex; }
+    body.selecting .saved-row { cursor: pointer; }
+    .saved-row.picked { border-color: var(--amber); }
+    .saved-row.picked .sel-box { background: var(--amber); border-color: var(--amber); }
+
+    /* Bar that appears once something is picked */
+    .sel-bar {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 1200;
+      display: none; align-items: center; gap: 0.7rem; flex-wrap: wrap;
+      background: var(--card); border-top: 2px solid var(--amber);
+      padding: 0.9rem 1.1rem calc(0.9rem + env(safe-area-inset-bottom, 0px));
+    }
+    .sel-bar.on { display: flex; }
+    .sel-count {
+      font-family: 'DM Mono', monospace; font-size: 0.66rem;
+      letter-spacing: 0.1em; color: var(--ink);
+    }
+    .sel-actions { display: flex; gap: 0.5rem; margin-left: auto; }
+    .sel-btn {
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.6rem 1rem; border-radius: 3px; cursor: pointer;
+      background: transparent; border: 1px solid var(--border); color: var(--muted);
+    }
+    .sel-btn:hover { border-color: var(--amber); color: var(--amber); }
+    .sel-btn.danger { border-color: var(--rust); color: var(--rust); }
+    .sel-btn.danger:hover { background: var(--rust); color: var(--paper); }
 </style><style>
 
     /* Expandable edit box inside a story modal. Same idea as the main
@@ -978,7 +1026,7 @@
   </section>
 
   <section class="saved">
-    <h2 class="saved-h">Your entries</h2>
+    <div class="saved-head"><h2 class="saved-h">Your entries</h2><button class="sel-toggle" id="selToggle">Select</button></div>
     <div class="saved-list" id="savedList"></div>
   </section>
 
@@ -1039,6 +1087,16 @@
   </div>
 </div>
 
+
+<div class="sel-bar" id="selBar">
+  <span class="sel-count" id="selCount"></span>
+  <div class="sel-actions">
+    <button class="sel-btn" id="selAll">Select all</button>
+    <button class="sel-btn" id="selCancel">Cancel</button>
+    <button class="sel-btn danger" id="selDelete">Delete</button>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -1095,6 +1153,19 @@ function DrawPile(storeKey){
 // Geneva edition, so those open in NRSVCE, which carries them under the
 // same modern book names used here. 1 Enoch is on neither, so it stays
 // plain text rather than becoming a link that goes nowhere.
+
+// Mobile Chrome treats window.open() with a features string as a popup, which
+// is how a correct URL ends up as a bare biblegateway.com/passage/ page. A
+// real anchor click is an ordinary navigation and is never blocked.
+function openExternal(url){
+  var a=document.createElement('a');
+  a.href=url; a.target='_blank'; a.rel='noopener noreferrer';
+  a.style.display='none';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){ if(a.parentNode) a.parentNode.removeChild(a); }, 0);
+}
+
 var BG='https://www.biblegateway.com/passage/?search=';
 
 function refUrl(ref, version){
@@ -1557,6 +1628,12 @@ function fmtDate(ts){
   var d=new Date(ts), m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   return d.getDate()+' '+m[d.getMonth()]+' '+d.getFullYear();
 }
+function deleteMany(ids){
+  var kill={}; ids.forEach(function(i){ kill[i]=true; });
+  entries=entries.filter(function(x){ return !kill[x.id]; });
+  persist(); renderSaved();
+}
+
 function renderSaved(){
   if(!entries.length){
     savedList.innerHTML='<p class="saved-empty">Nothing written yet. Shuffle a book and begin.</p>';
@@ -1566,10 +1643,14 @@ function renderSaved(){
   entries.forEach(function(e){
     var row=document.createElement('div');
     row.className='saved-row';
-    row.innerHTML='<span class="saved-name">'+e.name+'</span>'+
+    row.dataset.id=e.id;
+    row.innerHTML='<span class="sel-box">\u2713</span>'+'<span class="saved-name">'+e.name+'</span>'+
       '<span class="saved-tag">Book</span>'+
       '<span class="saved-date">'+fmtDate(e.date)+(e.edited?'<em>edited</em>':'')+'</span>';
-    row.addEventListener('click', function(){ openEntry(e.id); });
+    row.addEventListener('click', function(){
+      if(selecting){ picked[row.dataset.id]=!picked[row.dataset.id]; paintSel(); return; }
+      openEntry(e.id);
+    });
     savedList.appendChild(row);
   });
 }
@@ -1718,7 +1799,7 @@ makeExpandable(mEdit, EXPAND_ICO, COLLAPSE_ICO);
         if(!deutero) setPreferredVersion(code);
         var url=refUrl(pending, code);
         close();
-        window.open(url, '_blank', 'noopener');
+        openExternal(url);
       });
     });
     pending=ref;
@@ -1761,6 +1842,55 @@ makeExpandable(mEdit, EXPAND_ICO, COLLAPSE_ICO);
 })();
 
 renderSaved();
+
+// ── Select mode ───────────────────────────────────────────────────
+// Deleting one entry at a time through the modal is fine for one and
+// tedious for ten, so the list can be put into a picking state.
+var selecting=false, picked={};
+var selBar=document.getElementById('selBar'),
+    selCount=document.getElementById('selCount'),
+    selToggle=document.getElementById('selToggle');
+
+function selIds(){ return Object.keys(picked).filter(function(k){ return picked[k]; }); }
+
+function paintSel(){
+  var n=selIds().length;
+  selCount.textContent = n===1 ? '1 selected' : n+' selected';
+  selBar.classList.toggle('on', selecting);
+  document.body.classList.toggle('selecting', selecting);
+  if(selToggle) selToggle.textContent = selecting ? 'Done' : 'Select';
+  Array.prototype.forEach.call(document.querySelectorAll('.saved-row'), function(r){
+    r.classList.toggle('picked', !!picked[r.dataset.id]);
+  });
+  var del=document.getElementById('selDelete');
+  del.disabled = n===0;
+  del.style.opacity = n===0 ? 0.45 : 1;
+}
+
+function setSelecting(on){
+  selecting=on;
+  if(!on) picked={};
+  paintSel();
+}
+
+if(selToggle) selToggle.addEventListener('click', function(){ setSelecting(!selecting); });
+document.getElementById('selCancel').addEventListener('click', function(){ setSelecting(false); });
+document.getElementById('selAll').addEventListener('click', function(){
+  var rows=document.querySelectorAll('.saved-row');
+  var all=selIds().length===rows.length;
+  picked={};
+  if(!all) Array.prototype.forEach.call(rows, function(r){ picked[r.dataset.id]=true; });
+  paintSel();
+});
+document.getElementById('selDelete').addEventListener('click', function(){
+  var ids=selIds();
+  if(!ids.length) return;
+  if(!window.confirm('Delete '+ids.length+' '+(ids.length===1?'entry':'entries')+'? This cannot be undone.')) return;
+  deleteMany(ids);
+  setSelecting(false);
+  toast(ids.length+' deleted');
+});
+paintSel();
 refreshPile();
 
 })();
