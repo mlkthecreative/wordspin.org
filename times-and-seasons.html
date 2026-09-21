@@ -746,6 +746,11 @@
     .sel-btn:hover { border-color: var(--amber); color: var(--amber); }
     .sel-btn.danger { border-color: var(--rust); color: var(--rust); }
     .sel-btn.danger:hover { background: var(--rust); color: var(--paper); }
+
+    /* Long unbroken strings (links above all) must wrap inside the frame */
+    .modal-text, #modalText { overflow-wrap: anywhere; word-break: break-word; }
+    a.user-link { color: var(--amber); text-decoration: underline;
+                  text-underline-offset: 3px; overflow-wrap: anywhere; }
 </style>
 <style>
 
@@ -1133,6 +1138,13 @@
     margin-top: var(--s2);
   }
   .extra-about { font-size: 0.72rem; line-height: 1.8; color: var(--muted); margin-top: var(--s2); font-style: italic; }
+
+  /* Verse number in its own column. The old hanging indent (negative
+     text-indent) had room for one digit, so "10" and up were clipped
+     against the rule on the left. */
+  .verse { display: grid !important; grid-template-columns: 2rem 1fr;
+           text-indent: 0 !important; padding-left: 0 !important; align-items: baseline; }
+  .verse .vnum { width: auto !important; }
 </style>
 </head>
 <body>
@@ -1645,6 +1657,17 @@ function openExternal(url){
   setTimeout(function(){ if(a.parentNode) a.parentNode.removeChild(a); }, 0);
 }
 
+
+// Renders saved text with any typed link made tappable. The full URL stays as
+// the visible text, so reading it back for editing returns exactly what was typed.
+function linkifyInto(el, text){
+  var esc=String(text||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  el.innerHTML=esc.replace(/((?:https?:\/\/|www\.)[^\s<]+[^\s<.,;:!?)\]'"])/g, function(u){
+    var href = /^www\./.test(u) ? 'https://'+u : u;
+    return '<a class="user-link" href="'+href+'" target="_blank" rel="noopener noreferrer">'+u+'</a>';
+  });
+}
+
 var BG='https://www.biblegateway.com/passage/?search=';
 
 function refUrl(ref, version){
@@ -1860,7 +1883,7 @@ function refreshPile(){
 
   if(onlyMode){ spinCount.textContent=aside.length+' set aside · replaying'; deckArea.classList.remove('spent'); }
   else if(left===0){ spinCount.textContent='Deck empty'; deckArea.classList.add('spent'); }
-  else { spinCount.textContent=left+'/'+pooled.length+' left'; deckArea.classList.remove('spent'); }
+  else { spinCount.textContent=left+'/'+pooled.length; deckArea.classList.remove('spent'); }
 
   pileAside.textContent = onlyMode
     ? 'replaying '+aside.length+' — back to deck'
@@ -2338,7 +2361,7 @@ function openEntry(id){
   mMeta.textContent=(e.feeling?e.feeling+'  ·  ':'')+
     (e.anchorPerson?e.anchorPerson+' · '+e.anchorRef+'  ·  ':'')+fmtDate(e.date)+
     (e.edited?'  ·  edited '+fmtDate(e.edited):'');
-  mText.textContent=e.text;
+  linkifyInto(mText, e.text);
   setEditing(false);
   mBack.classList.add('open');
   document.body.style.overflow='hidden';
@@ -2364,7 +2387,7 @@ document.getElementById('mSaveEdit').addEventListener('click', function(){
   var e=entries.filter(function(x){ return x.id===openId; })[0];
   if(!e) return;
   e.text=t; e.edited=Date.now(); persist();
-  mText.textContent=t; setEditing(false);
+  linkifyInto(mText, t); setEditing(false);
   // reopen the entry so the meta line picks up the edited date
   var keep=openId; if(keep){ openEntry(keep); } renderSaved(); toast('Saved');
 });
@@ -2390,10 +2413,7 @@ var layer1=document.getElementById('layer1'),
     dot1=document.getElementById('dot1'),
     dot2=document.getElementById('dot2');
 
-if(tsSeen()){
-  if(dot1) dot1.classList.add('quiet');
-  if(dot2) dot2.classList.add('quiet');
-}
+// The dot keeps pulsing every visit, by her choice — it is an invitation, not a tutorial
 
 function setReveal(panel, open){
   if(!panel) return;

@@ -1855,7 +1855,12 @@
       .fan-canvas { width: 260px; height: 260px; }
     }
 
-  </style>
+  
+    /* Long unbroken strings (links above all) must wrap inside the frame */
+    .modal-text, #modalText { overflow-wrap: anywhere; word-break: break-word; }
+    a.user-link { color: var(--amber); text-decoration: underline;
+                  text-underline-offset: 3px; overflow-wrap: anywhere; }
+</style>
 </head>
 <body>
 
@@ -3421,7 +3426,7 @@ function DrawPile(storeKey){
       count.textContent = 'Deck empty';
       if(deck) deck.classList.add('spent');
     } else {
-      count.textContent = left + '/' + pooled.length + ' left';
+      count.textContent = left + '/' + pooled.length;
       if(deck) deck.classList.remove('spent');
     }
 
@@ -4054,7 +4059,7 @@ function DrawPile(storeKey){
     }
     setModalBreak(false);
     modalDate.textContent = story.date;
-    modalText.textContent = story.text;
+    linkifyInto(modalText, story.text);
     modalEditArea.value = story.text;
     modalBackdrop.classList.add('open');
     storyModal.classList.add('open');
@@ -4120,7 +4125,7 @@ function DrawPile(storeKey){
     stories[modalStoryIndex].text = updated;
     localStorage.setItem('wordspinStories', JSON.stringify(stories));
     renderStories();
-    modalText.textContent = updated;
+    linkifyInto(modalText, updated);
     exitEditMode();
     showToast('Story updated ✓');
   });
@@ -4261,6 +4266,17 @@ function DrawPile(storeKey){
   
   makeExpandable(document.getElementById('modalEditArea'), EXPAND_ICO2, COLLAPSE_ICO2);
 
+
+  // Renders saved text with any typed link made tappable. The full URL stays as
+  // the visible text, so reading it back for editing returns exactly what was typed.
+  function linkifyInto(el, text){
+    var esc=String(text||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    el.innerHTML=esc.replace(/((?:https?:\/\/|www\.)[^\s<]+[^\s<.,;:!?)\]'"])/g, function(u){
+      var href = /^www\./.test(u) ? 'https://'+u : u;
+      return '<a class="user-link" href="'+href+'" target="_blank" rel="noopener noreferrer">'+u+'</a>';
+    });
+  }
+  
   function showToast(msg) {
     toast.textContent = msg;
     toast.classList.add('show');

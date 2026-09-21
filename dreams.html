@@ -878,6 +878,11 @@
     .sel-btn:hover { border-color: var(--amber); color: var(--amber); }
     .sel-btn.danger { border-color: var(--rust); color: var(--rust); }
     .sel-btn.danger:hover { background: var(--rust); color: var(--paper); }
+
+    /* Long unbroken strings (links above all) must wrap inside the frame */
+    .modal-text, #modalText { overflow-wrap: anywhere; word-break: break-word; }
+    a.user-link { color: var(--amber); text-decoration: underline;
+                  text-underline-offset: 3px; overflow-wrap: anywhere; }
 </style><style>
 
     /* Expandable edit box inside a story modal. Same idea as the main
@@ -1190,6 +1195,17 @@ function openExternal(url){
   setTimeout(function(){ if(a.parentNode) a.parentNode.removeChild(a); }, 0);
 }
 
+
+// Renders saved text with any typed link made tappable. The full URL stays as
+// the visible text, so reading it back for editing returns exactly what was typed.
+function linkifyInto(el, text){
+  var esc=String(text||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  el.innerHTML=esc.replace(/((?:https?:\/\/|www\.)[^\s<]+[^\s<.,;:!?)\]'"])/g, function(u){
+    var href = /^www\./.test(u) ? 'https://'+u : u;
+    return '<a class="user-link" href="'+href+'" target="_blank" rel="noopener noreferrer">'+u+'</a>';
+  });
+}
+
 var BG='https://www.biblegateway.com/passage/?search=';
 
 function refUrl(ref, version){
@@ -1380,7 +1396,7 @@ function refreshPile(){
   var pooled=pool(), aside=asidePool(), left=pooled.length-aside.length;
   if(onlyMode){ spinCount.textContent=aside.length+' set aside \u00b7 replaying'; deckArea.classList.remove('spent'); }
   else if(left===0){ spinCount.textContent='Deck empty'; deckArea.classList.add('spent'); }
-  else { spinCount.textContent=left+'/'+pooled.length+' left'; deckArea.classList.remove('spent'); }
+  else { spinCount.textContent=left+'/'+pooled.length; deckArea.classList.remove('spent'); }
   pileAside.textContent = onlyMode ? 'replaying '+aside.length+' \u2014 back to deck'
     : (aside.length===1 ? '1 set aside' : aside.length+' set aside');
   pileAside.classList.toggle('only-mode', onlyMode);
@@ -1389,7 +1405,7 @@ function refreshPile(){
 function openAside(){
   var aside=asidePool();
   if(!aside.length){ toast('Nothing set aside yet'); return; }
-  asideList.innerHTML=aside.map(function(b){ return '<span class="aside-chip">'+b.name+'</span>'; }).join('');
+  asideList.innerHTML=aside.map(function(b){ return '<span class="aside-chip">'+cardLabel(b)+'</span>'; }).join('');
   asideSheet.classList.add('open'); document.body.style.overflow='hidden';
 }
 function closeAside(){ asideSheet.classList.remove('open'); document.body.style.overflow=''; }
@@ -1639,7 +1655,7 @@ document.querySelectorAll('.grp-btn').forEach(function(btn){
     btn.classList.add('active');
     group=btn.dataset.g; onlyMode=false;
     refreshPile();
-    toast(pile.remaining(pool(), bookId).length+' left');
+    toast(pile.remaining(pool(), bookId).length+'/'+pool().length);
   });
 });
 
@@ -1764,7 +1780,7 @@ function openEntry(id){
   bits.push(fmtDate(e.date));
   if(e.edited) bits.push('edited '+fmtDate(e.edited));
   mMeta.textContent = bits.join('  \u00b7  ');
-  mText.textContent=e.text;
+  linkifyInto(mText, e.text);
   var s=e.snap;
   if(s){
     mBreakBtn.style.display='inline-block';
@@ -1808,7 +1824,7 @@ document.getElementById('mSaveEdit').addEventListener('click', function(){
   var e=entries.filter(function(x){ return x.id===openId; })[0];
   if(!e) return;
   e.text=t; e.edited=Date.now(); persist();
-  mText.textContent=t; setEditing(false);
+  linkifyInto(mText, t); setEditing(false);
   // reopen the entry so the meta line picks up the edited date
   var keep=openId; if(keep){ openEntry(keep); } renderSaved(); toast('Saved');
 });

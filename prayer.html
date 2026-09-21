@@ -952,6 +952,11 @@
   .fast-note-h { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em;
                  text-transform: uppercase; color: var(--rust); margin-bottom: var(--s2); }
   .fast-note p { font-size: 0.82rem; line-height: 1.85; color: var(--ink); }
+
+    /* Long unbroken strings (links above all) must wrap inside the frame */
+    .modal-text, #modalText { overflow-wrap: anywhere; word-break: break-word; }
+    a.user-link { color: var(--amber); text-decoration: underline;
+                  text-underline-offset: 3px; overflow-wrap: anywhere; }
 </style><style>
 
     /* Expandable edit box inside a story modal. Same idea as the main
@@ -1025,6 +1030,13 @@
     font-size: 0.74rem; line-height: 1.8; color: var(--muted);
     font-style: italic; margin-top: var(--s2);
   }
+
+  /* Verse number in its own column. The old hanging indent (negative
+     text-indent) had room for one digit, so "10" and up were clipped
+     against the rule on the left. */
+  .verse { display: grid !important; grid-template-columns: 2rem 1fr;
+           text-indent: 0 !important; padding-left: 0 !important; align-items: baseline; }
+  .verse .vnum { width: auto !important; }
 </style>
 </head>
 <body>
@@ -1300,6 +1312,17 @@ function openExternal(url){
   setTimeout(function(){ if(a.parentNode) a.parentNode.removeChild(a); }, 0);
 }
 
+
+// Renders saved text with any typed link made tappable. The full URL stays as
+// the visible text, so reading it back for editing returns exactly what was typed.
+function linkifyInto(el, text){
+  var esc=String(text||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  el.innerHTML=esc.replace(/((?:https?:\/\/|www\.)[^\s<]+[^\s<.,;:!?)\]'"])/g, function(u){
+    var href = /^www\./.test(u) ? 'https://'+u : u;
+    return '<a class="user-link" href="'+href+'" target="_blank" rel="noopener noreferrer">'+u+'</a>';
+  });
+}
+
 var BG='https://www.biblegateway.com/passage/?search=';
 
 function refUrl(ref, version){
@@ -1489,7 +1512,7 @@ function refreshPile(){
   var pooled=pool(), aside=asidePool(), left=pooled.length-aside.length;
   if(onlyMode){ spinCount.textContent=aside.length+' set aside \u00b7 replaying'; deckArea.classList.remove('spent'); }
   else if(left===0){ spinCount.textContent='Deck empty'; deckArea.classList.add('spent'); }
-  else { spinCount.textContent=left+'/'+pooled.length+' left'; deckArea.classList.remove('spent'); }
+  else { spinCount.textContent=left+'/'+pooled.length; deckArea.classList.remove('spent'); }
   pileAside.textContent = onlyMode ? 'replaying '+aside.length+' \u2014 back to deck'
     : (aside.length===1 ? '1 set aside' : aside.length+' set aside');
   pileAside.classList.toggle('only-mode', onlyMode);
@@ -1498,7 +1521,7 @@ function refreshPile(){
 function openAside(){
   var aside=asidePool();
   if(!aside.length){ toast('Nothing set aside yet'); return; }
-  asideList.innerHTML=aside.map(function(b){ return '<span class="aside-chip">'+b.name+'</span>'; }).join('');
+  asideList.innerHTML=aside.map(function(b){ return '<span class="aside-chip">'+cardLabel(b)+'</span>'; }).join('');
   asideSheet.classList.add('open'); document.body.style.overflow='hidden';
 }
 function closeAside(){ asideSheet.classList.remove('open'); document.body.style.overflow=''; }
@@ -1555,11 +1578,6 @@ function openPanel(panel, open){
     panel.style.maxHeight='0px';
   }
 }
-function pronHTML(b){
-  var spk='\uD83D\uDDE3\uFE0F';
-  return '<div class="pron-row"><span class="pron-lang">English</span>'+
-         '<span class="pron-val">'+spk+'&nbsp;&nbsp;'+b.pronunciation+'</span></div>';
-}
 function origHTML(b){
   if(!b.original) return '';
   return '<span class="orig-script">'+b.original+'</span> &nbsp;'+
@@ -1571,22 +1589,6 @@ function statusNote(b){
   if(b.status==='pseudepigraphal')
     return 'Outside the canon of most traditions. Read as an old writing, not as Scripture.';
   return '';
-}
-function startHTML(b){
-  // Removed books are on no Bible Gateway version. Instead of a dead link or
-  // inert text, the reference opens a note saying where the text actually is.
-  if(b.status==='pseudepigraphal'){
-    if(!b.startNote) return b.start;
-    var h='<button class="note-ref" type="button">'+b.start+
-          '<span class="note-cue">note</span></button>'+
-          '<div class="note-panel"><div class="note-body">'+b.startNote+'</div>';
-    if(b.startExcerpt){
-      h+='<div class="excerpt">&ldquo;'+b.startExcerpt+'&rdquo;'+
-         '<span class="excerpt-src">'+(b.startExcerptSource||'')+'</span></div>';
-    }
-    return h+'</div>';
-  }
-  return refLink(b.start, b.status==='deuterocanonical' ? 'CEB' : 'GNV');
 }
 
 // One delegated handler covers both the card and the modal
@@ -1723,7 +1725,7 @@ document.querySelectorAll('.grp-btn').forEach(function(btn){
     btn.classList.add('active');
     group=btn.dataset.g; onlyMode=false;
     paintDeckUI(); refreshPile();
-    toast(pile.remaining(pool(), bookId).length+' left');
+    toast(pile.remaining(pool(), bookId).length+'/'+pool().length);
   });
 });
 document.querySelectorAll('.cat-btn').forEach(function(btn){
@@ -1853,7 +1855,7 @@ function openEntry(id){
   bits.push(fmtDate(e.date));
   if(e.edited) bits.push('edited '+fmtDate(e.edited));
   mMeta.textContent = bits.join('  \u00b7  ');
-  mText.textContent=e.text;
+  linkifyInto(mText, e.text);
   var s=e.snap;
   if(s){
     mBreakBtn.style.display='inline-block';
@@ -1895,7 +1897,7 @@ document.getElementById('mSaveEdit').addEventListener('click', function(){
   var e=entries.filter(function(x){ return x.id===openId; })[0];
   if(!e) return;
   e.text=t; e.edited=Date.now(); persist();
-  mText.textContent=t; setEditing(false);
+  linkifyInto(mText, t); setEditing(false);
   // reopen the entry so the meta line picks up the edited date
   var keep=openId; if(keep){ openEntry(keep); } renderSaved(); toast('Saved');
 });
@@ -2023,8 +2025,7 @@ renderSaved();
   var l1=document.getElementById('layer1'), rest=document.getElementById('restWrap'),
       ow=document.getElementById('openWhy'), why=document.getElementById('whyWrap'),
       l2=document.getElementById('layer2'), l3=document.getElementById('layer3');
-  if(seen()){ document.getElementById('dot1').classList.add('quiet');
-              document.getElementById('dot2').classList.add('quiet'); }
+  // The dot keeps pulsing every visit, by her choice — it is an invitation, not a tutorial
   function closeWhy(){ ow.setAttribute('aria-expanded','false'); setReveal(why,false); }
   function closeRest(){ l1.setAttribute('data-open','false'); l1.setAttribute('aria-expanded','false');
                         closeWhy(); setReveal(rest,false); }
