@@ -883,6 +883,15 @@
     .modal-text, #modalText { overflow-wrap: anywhere; word-break: break-word; }
     a.user-link { color: var(--amber); text-decoration: underline;
                   text-underline-offset: 3px; overflow-wrap: anywhere; }
+
+  /* A tap on a touch screen is not a hover: without this, the last pill
+     tapped keeps its amber hover border and looks selected when it is not. */
+  @media (hover: none) {
+    .grp-btn:hover:not(.active), .cat-btn:hover:not(.active),
+    .test-btn:hover:not(.active), .feel-btn:hover:not(.active),
+    .side-btn:hover:not(.active), .diff-btn:hover:not(.active) {
+      border-color: var(--border); color: var(--muted); }
+  }
 </style><style>
 
     /* Expandable edit box inside a story modal. Same idea as the main

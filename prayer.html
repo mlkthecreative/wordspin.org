@@ -957,6 +957,33 @@
     .modal-text, #modalText { overflow-wrap: anywhere; word-break: break-word; }
     a.user-link { color: var(--amber); text-decoration: underline;
                   text-underline-offset: 3px; overflow-wrap: anywhere; }
+
+  /* ── Balance (prayer page) ──────────────────────────────────────── */
+  /* Equal space either side of the header rule: the rule has s4 above it,
+     so the line beneath it gets s4 too (s2 margin + s3 padding ≈ s4). */
+  .unravel { margin-top: var(--s2) !important; }
+  .v1 { padding: var(--s3) 0.7rem !important; text-align: center; }
+  .dot-inline { position: static !important; display: inline-block;
+                margin: 0 0 0 0.55rem !important; vertical-align: 0.2em; }
+  .layer[data-open="true"] .dot-inline { display: none; }
+
+  /* Four decks, four equal columns — no orphan on a second line */
+  .grp-row { display: grid !important; grid-template-columns: repeat(4, 1fr);
+             gap: 0.45rem; max-width: 34rem; width: 100%; margin-left: auto; margin-right: auto; }
+  .grp-row .grp-btn { min-width: 0; padding: 0.5rem 0.2rem; letter-spacing: 0.14em; }
+
+  /* Eight filters (All + seven kinds) as two even rows of four */
+  .cat-row { display: grid !important; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; }
+  .cat-row .cat-btn { min-width: 0; padding: 0.42rem 0.15rem; font-size: 0.52rem;
+                      letter-spacing: 0.07em; text-align: center; }
+  @media (max-width: 340px) { .cat-row { grid-template-columns: repeat(2, 1fr); } }
+
+  /* A tap on a phone is not a hover. Without this the last-tapped pill kept
+     an amber border and looked selected when it was not. */
+  @media (hover: none) {
+    .grp-btn:hover:not(.active), .cat-btn:hover:not(.active) {
+      border-color: var(--border); color: var(--muted); }
+  }
 </style><style>
 
     /* Expandable edit box inside a story modal. Same idea as the main
@@ -1058,8 +1085,7 @@
 
   <section class="unravel">
     <div class="layer" id="layer1" data-open="false" role="button" tabindex="0" aria-expanded="false">
-      <p class="v1">Our Father which art in heaven, hallowed be thy Name.</p>
-      <span class="dot" id="dot1" aria-hidden="true"></span>
+      <p class="v1">Our Father which art in heaven, hallowed be thy Name.<span class="dot dot-inline" id="dot1" aria-hidden="true"></span></p>
     </div>
     <div class="reveal" id="restWrap">
       <div class="layer" id="layer2" role="button" tabindex="0" title="Tap to close">
@@ -1094,8 +1120,8 @@
 
   <div class="grp-row" id="grpRow">
     <button class="grp-btn active" data-g="prayers">Prayers</button>
-    <button class="grp-btn" data-g="jesus">Jesus on prayer</button>
-    <button class="grp-btn" data-g="apostles">The apostles</button>
+    <button class="grp-btn" data-g="jesus">Jesus</button>
+    <button class="grp-btn" data-g="apostles">Apostles</button>
     <button class="grp-btn" data-g="fasting">Fasting</button>
   </div>
 
