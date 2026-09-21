@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNSIgZmlsbD0iIzExMSIvPjx0ZXh0IHg9IjE2IiB5PSIyMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXN0eWxlPSJpdGFsaWMiIGZpbGw9IiNjODg5MmEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPldTPC90ZXh0Pjwvc3ZnPg=="/>
+
+  <title>Prayer — BibleSpin — WordSpin</title>
+  <meta name="description" content="Prayer and fasting in Scripture — the prayers people actually prayed, what Jesus taught, what James and the apostles wrote, and the fasts recorded. Part of BibleSpin on WordSpin."/>
+  <link rel="canonical" href="https://www.wordspin.org/prayer.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Prayer — BibleSpin"/>
+  <meta property="og:description" content="Shuffle a book of the Bible and write from it."/>
+  <meta property="og:site_name" content="WordSpin"/>
+  <meta name="theme-color" content="#1a1008"/>
+  <meta name="color-scheme" content="light dark"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=DM+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1008;
+      --paper: #f5efe3;
+      --cream: #ede4d0;
+      --amber: #c8892a;
+      --rust: #b84c1e;
+      --muted: #8a7a62;
+      --card: #faf6ee;
+      --border: #d4c9b0;
+      --input-bg: #faf6ee;
+      --shadow: rgba(26,16,8,0.12);
+
+      --s1: 0.5rem; --s2: 0.8rem; --s3: 1.3rem;
+      --s4: 2.1rem; --s5: 3.4rem; --s6: 5.4rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ink: #f0e6d0; --paper: #000000; --cream: #111111;
+        --amber: #d4993a; --rust: #cc6644; --muted: #9a8a72;
+        --card: #141414; --border: #2a2a2a; --input-bg: #0d0d0d;
+        --shadow: rgba(0,0,0,0.6);
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #f0e6d0; --paper: #000000; --cream: #111111;
+      --amber: #d4993a; --rust: #cc6644; --muted: #9a8a72;
+      --card: #141414; --border: #2a2a2a; --input-bg: #0d0d0d;
+      --shadow: rgba(0,0,0,0.6);
+    }
+    :root[data-theme="light"] {
+      --ink: #1a1008; --paper: #f5efe3; --cream: #ede4d0;
+      --amber: #c8892a; --rust: #b84c1e; --muted: #8a7a62;
+      --card: #faf6ee; --border: #d4c9b0; --input-bg: #faf6ee;
+      --shadow: rgba(26,16,8,0.12);
+    }
+
+    html { background: var(--paper); }
+    body {
+      background: var(--paper); color: var(--ink);
+      font-family: 'DM Mono', monospace;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+    }
+    input, textarea, select { font-size: 16px; }
+
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.6;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: var(--s2) 1.3rem;
+      background: var(--paper); border-bottom: 1px solid var(--border);
+    }
+    .back-link {
+      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--amber); text-decoration: none;
+    }
+    .back-link:hover { opacity: 0.7; }
+    .theme-toggle {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      border: 1px solid var(--border); border-radius: 999px;
+      background: var(--card); color: var(--muted);
+      padding: 0.35rem 0.75rem; font-family: 'DM Mono', monospace;
+      font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    /* ── Page ── */
+    /* gap:0 — each section sets the space it needs from the one before it,
+       so the rhythm reflects how the parts relate rather than one flat value. */
+    .page {
+      max-width: 760px; margin: 0 auto;
+      padding: 2.8rem 1.5rem 4rem;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 0;
+      text-align: center;
+    }
+    .page > * { width: 100%; }
+    header { width: 100%; }
+
+    .testament-row  { margin-top: var(--s4); }   /* matches the space above the rule */
+    .deck-wrap      { margin-top: var(--s5); }
+    .grp-row + .deck-wrap { margin-top: var(--s5); }
+    .chosen         { margin-top: var(--s5); }
+    .write          { margin-top: var(--s4); }
+    .saved          { margin-top: var(--s6); }   /* the one major break */
+    footer          { margin-top: var(--s5); }
+
+    header { text-align: center; }
+    .eyebrow {
+      font-size: 0.68rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--amber);
+      /* 0.3em of tracking hangs off the last letter; half of it back
+         keeps the word optically centred over the rule beneath. */
+      text-indent: 0.3em;
+    }
+    /* Short rule closing the section label, echoing the longer one that
+       closes the whole header. Narrower, because it marks a smaller thing. */
+    .eyebrow-rule {
+      width: 34px; height: 1px; background: var(--amber);
+      opacity: 0.55; margin: 0.75rem auto 0;
+    }
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 8vw, 4rem);
+      font-weight: 700; letter-spacing: -0.02em; line-height: 1;
+      margin: 1.15rem 0 0;
+    }
+    .page-sub {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: clamp(1.12rem, 3.4vw, 1.45rem);
+      color: var(--muted); max-width: 30rem; line-height: 1.55;
+      margin: var(--s2) auto 0;
+    }
+    /* Equal space above and below — it divides two things, so it should not
+       belong more to the one above it. The page gap after header matches. */
+    header::after {
+      content: ''; display: block; width: 60px; height: 2px;
+      background: var(--amber); margin: var(--s4) auto 0;
+    }
+
+    /* ── Testament filter (matches .diff-btn on the main site) ── */
+    .testament-row {
+      display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;
+    }
+    @media (max-width: 400px) {
+      .test-btn { padding: 0.45rem 0.7rem; letter-spacing: 0.14em; }
+    }
+    .test-btn {
+      font-family: 'DM Mono', monospace;
+      /* 0.6rem matches .diff-btn on the homepage; at 0.68rem the three
+         labels overflowed and wrapped onto a second line. */
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 0.45rem 1rem; white-space: nowrap;
+      border: 1.5px solid var(--border); border-radius: 2px;
+      background: transparent; color: var(--muted); cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .test-btn:hover { border-color: var(--amber); color: var(--amber); }
+    .test-btn.active {
+      background: var(--amber); border-color: var(--amber); color: #1a1008;
+    }
+
+    /* ── Deck ── */
+    .deck-wrap { display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .deck-area {
+      position: relative; width: 240px; height: 300px;
+      transform-style: flat; cursor: pointer;
+    }
+    .deck-card {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      border-radius: 14px; border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      backface-visibility: hidden; transform-origin: center center;
+      user-select: none;
+    }
+    .deck-card.back { background: #1a1008; cursor: default; }
+    :root[data-theme="dark"] .deck-card.back,
+    :root:not([data-theme="light"]) .deck-card.back { background: #faf6ee; }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) .deck-card.back { background: #1a1008; }
+    }
+
+    .deck-card.front {
+      background: #faf6ee; z-index: 10;
+      flex-direction: column; gap: 0; overflow: hidden;
+    }
+    .deck-card.front .card-header {
+      width: 100%; background: #c8892a;
+      padding: 0.5rem 1rem; font-size: 0.55rem;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: rgba(26,16,8,0.65); font-family: 'DM Mono', monospace;
+      text-align: center;
+    }
+    .deck-card.front .card-word-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; font-style: italic; font-weight: 700;
+      color: #1a1008; text-align: center; padding: 0 0.9rem;
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s ease 0.1s;
+      /* Names are single words — break-word would split them mid-name.
+         Long ones are scaled down instead, by the .len- class below. */
+      overflow-wrap: normal; word-break: normal; hyphens: none;
+    }
+    /* Bartholomew, Nebuchadnezzar-length names step down rather than wrap */
+    .card-word-text.len-m { font-size: 1.5rem; }
+    .card-word-text.len-l { font-size: 1.25rem; }
+    .card-word-text.len-xl { font-size: 1.05rem; }
+    .deck-card.front.revealed .card-word-text { opacity: 1; }
+    .card-title-sm {
+      display: block; font-family: 'DM Mono', monospace;
+      font-style: normal; font-size: 0.5rem; font-weight: 400;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(26,16,8,0.5); margin-top: 0.5rem;
+    }
+    .deck-card.front .card-rule {
+      width: calc(100% - 2.4rem); height: 1px;
+      background: linear-gradient(to right, transparent, var(--amber), transparent);
+      margin-bottom: 1.2rem;
+    }
+    .deck-card.front .card-pip-row {
+      position: absolute; width: 100%; display: flex;
+      justify-content: space-between; padding: 0.6rem 0.8rem;
+      font-size: 0.75rem; color: var(--amber); pointer-events: none;
+    }
+    .deck-card.front .card-pip-row.top { top: 2.2rem; }
+    .deck-card.front .card-pip-row.bot { bottom: 0; transform: rotate(180deg); }
+
+    .pile-aside {
+      display: block; margin: var(--s2) auto 0;
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.12em; background: none; border: none;
+      color: var(--amber); cursor: pointer; padding: 0.2rem 0.3rem;
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+    .pile-aside:hover { opacity: 0.7; }
+
+    /* Set-aside sheet */
+    .aside-sheet {
+      position: fixed; inset: 0; z-index: 1100;
+      background: rgba(0,0,0,0.72); display: none;
+      align-items: flex-end; justify-content: center;
+    }
+    .aside-sheet.open { display: flex; }
+    .aside-panel {
+      background: var(--card); border-top: 2px solid var(--amber);
+      border-radius: 8px 8px 0 0; width: 100%; max-width: 520px;
+      max-height: 78vh; display: flex; flex-direction: column;
+      padding: var(--s3) 1.2rem calc(var(--s3) + env(safe-area-inset-bottom, 0px));
+    }
+    @media (min-width: 620px) {
+      .aside-sheet { align-items: center; }
+      .aside-panel { border-radius: 8px; border: 1px solid var(--border); border-top: 2px solid var(--amber); }
+    }
+    .aside-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: var(--s2); border-bottom: 1px solid var(--border);
+    }
+    .aside-title {
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber);
+    }
+    .aside-x {
+      background: none; border: none; color: var(--muted);
+      font-size: 0.85rem; cursor: pointer; padding: 0.2rem 0.4rem;
+    }
+    .aside-x:hover { color: var(--amber); }
+    .aside-list {
+      flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+      padding: var(--s3) 0; display: flex; flex-wrap: wrap;
+      gap: 0.4rem; align-content: flex-start;
+    }
+    .aside-chip {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 0.9rem; color: var(--ink);
+      border: 1px solid var(--border); border-radius: 2px;
+      padding: 0.35rem 0.7rem;
+    }
+    .aside-chip small {
+      font-family: 'DM Mono', monospace; font-style: normal;
+      font-size: 0.55rem; color: var(--muted);
+      letter-spacing: 0.1em; margin-left: 0.4rem;
+    }
+    .aside-foot {
+      display: flex; gap: 0.6rem; padding-top: var(--s3);
+      border-top: 1px solid var(--border);
+    }
+    .aside-foot .wbtn { flex: 1; text-align: center; padding: 0.75rem 0.6rem; }
+    /* Playing the set-aside pile only */
+    .pile-aside.only-mode { color: var(--rust); }
+    /* The deck reads as empty once every card has been dealt */
+    .deck-area.spent { opacity: 0.45; cursor: default; }
+    .deck-area.spent .deck-card.front { border-style: dashed; }
+
+    .spin-count {
+      font-size: 0.72rem; color: var(--muted);
+      letter-spacing: 0.1em; text-align: center; margin-top: var(--s2);
+    }
+
+    /* ── Chosen name ── */
+
+    /* The topbar is sticky, so scrolling an element to the top of the
+       viewport parks it UNDERNEATH the bar. scroll-margin-top reserves
+       the bar's height plus air, so the card's label lands clear of it. */
+    .chosen { scroll-margin-top: 5.5rem; }
+
+    .chosen {
+      display: flex; flex-direction: column; align-items: center;
+      width: 100%; gap: 0;
+    }
+    .chosen-label {
+      font-size: 0.62rem; letter-spacing: 0.24em;
+      text-transform: uppercase; color: var(--amber);
+    }
+    .chosen-name {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(2rem, 7vw, 2.8rem); font-weight: 700;
+      line-height: 1.15; margin-top: var(--s2);
+    }
+    .chosen-title {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.05rem; color: var(--muted); margin-top: 0.2rem;
+    }
+
+    .def-toggle {
+      background: none; border: none; font-family: 'DM Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--amber); cursor: pointer;
+      text-decoration: underline; text-underline-offset: 3px;
+      padding: 0; margin-top: var(--s3);
+    }
+    .def-toggle:hover { opacity: 0.7; }
+
+    .def-panel {
+      max-height: 0; overflow: hidden; width: 100%;
+      transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+      opacity: 0;
+    }
+    /* max-height is set from the content's real height in JS (openPanel).
+       A fixed guess here clipped long breakdowns — which is what happened
+       at 900px once pronunciation, meaning and mentions all had to fit. */
+    .def-panel.open { opacity: 1; margin-top: var(--s3); }
+
+    .def-box {
+      background: var(--cream); border-left: 3px solid var(--amber);
+      padding: var(--s4) 1.5rem; text-align: left;
+      border-radius: 0 3px 3px 0;
+    }
+    /* Each section of the breakdown, divided by a hairline */
+    .def-sec + .def-sec {
+      border-top: 1px solid var(--border);
+      margin-top: var(--s4); padding-top: var(--s4);
+    }
+    .def-h {
+      font-size: 0.58rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--amber);
+      margin-bottom: var(--s3);
+    }
+
+    /* Pronunciation — WordSpin house style, respelling with a speaker.
+       Two rows where the original language sounded different from the English. */
+    .def-pron {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.95rem; letter-spacing: 0.06em; color: var(--ink);
+    }
+    .pron-row { display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap; }
+    .pron-row + .pron-row { margin-top: var(--s2); }
+    .pron-lang {
+      font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--amber); min-width: 4.6rem; flex-shrink: 0;
+    }
+    .pron-val {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.95rem; letter-spacing: 0.06em; color: var(--ink);
+    }
+    .pron-row.old .pron-val { color: var(--muted); }
+
+    .def-verse {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.08rem; line-height: 1.65; color: var(--ink);
+    }
+    .def-verse-src {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--amber); margin-top: var(--s2);
+    }
+
+    .def-desc {
+      font-size: 0.88rem; line-height: 1.95; color: var(--ink);
+    }
+
+    /* Mentions as chips — a list reads as a list, not a run-on line */
+    .def-mentions { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .mention {
+      font-family: 'DM Mono', monospace; font-size: 0.66rem;
+      letter-spacing: 0.06em;
+      border: 1px solid var(--amber); border-radius: 2px;
+      padding: 0.3rem 0.6rem;
+      background: rgba(200,137,42,0.14);
+      color: var(--amber);
+    }
+    :root[data-theme="dark"] .mention,
+    :root:not([data-theme="light"]) .mention { background: rgba(212,153,58,0.16); }
+
+    /* Meaning */
+    .def-meaning {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.15rem; font-weight: 700; color: var(--ink);
+    }
+    .def-meaning-note {
+      font-size: 0.8rem; line-height: 1.75; color: var(--muted);
+      margin-top: var(--s2);
+    }
+    .def-same {
+      font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--amber); margin-top: var(--s2);
+    }
+    /* Marks a disputed derivation. Sits ABOVE the meaning as a label, so it
+       can never be misread as part of what the name means. */
+    .uncertain-tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace; font-size: 0.52rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted);
+      border: 1px dashed var(--muted); border-radius: 2px;
+      padding: 0.2rem 0.5rem; margin-bottom: var(--s2);
+    }
+    .def-meaning.is-uncertain { color: var(--muted); }
+
+    .chosen-prompt {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.1rem; line-height: 1.6; color: var(--muted);
+      max-width: 30rem; margin-top: var(--s4);
+    }
+
+    /* ── Writing area ── */
+    .write { width: 100%; display: none; flex-direction: column; gap: 0; }
+    .write.on { display: flex; }
+    .box-wrap { position: relative; width: 100%; }
+    .expand-btn {
+      position: absolute; top: 0.55rem; right: 0.55rem;
+      width: 30px; height: 30px; line-height: 1;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 3px; color: var(--muted);
+      font-size: 0.85rem; cursor: pointer; opacity: 0.75;
+      transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+      z-index: 2;
+    }
+    .expand-btn:hover { opacity: 1; color: var(--amber); border-color: var(--amber); }
+    /* Drawn, not typed: the ⤢ glyph carries its own sidebearings and sits
+       off-centre in any box. An SVG on a symmetric viewBox does not. */
+    .expand-btn {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0;
+    }
+    .xp-ico { width: 15px; height: 15px; display: block; }
+    .box-wrap.expanded .expand-btn .xp-ico { width: 17px; height: 17px; }
+
+
+    /* Expanded: the box takes the whole screen so long writing has room.
+       position:fixed rather than a modal, so the textarea is never
+       re-created and the caret and undo history survive. */
+    .box-wrap.expanded {
+      position: fixed; inset: 0; z-index: 900;
+      background: var(--paper);
+      padding: 3.2rem 1.1rem 1.1rem;
+      display: flex; flex-direction: column;
+    }
+    .box-wrap.expanded textarea {
+      flex: 1; min-height: 0; height: auto;
+      border: none; border-radius: 0; background: var(--paper);
+      padding: 0.5rem 0.2rem; font-size: 16px; line-height: 1.95;
+    }
+    .box-wrap.expanded textarea:focus { border: none; }
+    .box-wrap.expanded .expand-btn {
+      top: 0.9rem; right: 1.1rem; width: 36px; height: 36px;
+      opacity: 1; font-size: 1rem;
+    }
+    .box-wrap.expanded .expanded-count {
+      display: block; font-size: 0.66rem; color: var(--muted);
+      letter-spacing: 0.1em; text-align: center; padding-top: 0.6rem;
+    }
+    .expanded-count { display: none; }
+    body.box-open { overflow: hidden; }
+
+    .write textarea {
+      width: 100%; min-height: 230px;
+      background: var(--input-bg); border: 1px solid var(--border);
+      border-radius: 3px; padding: 1.1rem 1.2rem;
+      color: var(--ink); font-family: 'DM Mono', monospace;
+      font-size: 16px; line-height: 1.85; resize: vertical;
+    }
+    .write textarea:focus { outline: none; border-color: var(--amber); }
+    .write-actions {
+      display: flex; gap: 0.7rem; margin-top: var(--s3); flex-wrap: wrap;
+      justify-content: center;
+    }
+    .wbtn {
+      font-family: 'DM Mono', monospace; font-size: 0.7rem;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 0.8rem 1.4rem; border-radius: 3px; cursor: pointer;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); transition: all 0.2s;
+    }
+    .wbtn:hover { border-color: var(--amber); color: var(--amber); }
+    .wbtn.primary {
+      background: var(--amber); border-color: var(--amber); color: #1a1008;
+    }
+    .wbtn.primary:hover { opacity: 0.85; color: #1a1008; }
+    .word-count {
+      font-size: 0.66rem; color: var(--muted);
+      letter-spacing: 0.1em; margin-top: var(--s2);
+    }
+
+    /* ── Saved stories ── */
+    .saved { width: 100%; border-top: 1px solid var(--border); padding-top: var(--s5); }
+    .saved-h {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 700; margin-bottom: var(--s4);
+    }
+    .saved-list { display: flex; flex-direction: column; gap: var(--s2); }
+    .saved-row {
+      display: flex; align-items: center; gap: 0.8rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-left: 3px solid var(--amber);
+      border-radius: 0 3px 3px 0; padding: 0.9rem 1rem;
+      cursor: pointer; text-align: left; transition: border-color 0.2s;
+    }
+    .saved-row:hover { border-color: var(--amber); }
+    .saved-name {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-weight: 700; font-size: 1rem; flex: 3; min-width: 0;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .saved-tag {
+      font-size: 0.5rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--amber); border: 1px solid var(--amber);
+      border-radius: 2px; padding: 0.15rem 0.4rem; flex-shrink: 0;
+    }
+
+    .saved-date em {
+      display: block; font-style: normal; font-size: 0.52rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--amber); opacity: 0.75; margin-top: 0.15rem;
+    }
+    .saved-date {
+      font-size: 0.66rem; color: var(--muted);
+      min-width: 88px; text-align: right; flex-shrink: 0;
+    }
+    .saved-empty {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.05rem; color: var(--muted);
+    }
+
+    /* ── Modal ── */
+    .modal-back {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.72); display: none;
+      align-items: flex-start; justify-content: center;
+      padding: 1.2rem; overflow-y: auto;
+    }
+    .modal-back.open { display: flex; }
+    .modal {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 6px; max-width: 560px; width: 100%; margin: auto;
+      padding: var(--s4) 1.6rem; text-align: left;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .modal-name {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.6rem; font-weight: 700;
+    }
+    .modal-meta {
+      font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--amber); margin-top: var(--s1);
+    }
+    .modal-text {
+      font-size: 0.92rem; line-height: 1.9; white-space: pre-wrap;
+      border-top: 1px solid var(--border);
+      margin-top: var(--s3); padding-top: var(--s3);
+    }
+
+    /* Expandable edit box inside a story modal. Same idea as the main
+       writing box: position:fixed on the existing textarea, so the caret,
+       scroll position and undo history all survive the expand. */
+    .medit-wrap { position: relative; width: 100%; }
+    /* A bar along the foot of the expanded editor, so a long session can be
+       saved without collapsing back first. */
+    .medit-bar {
+      display: none; align-items: center; justify-content: space-between;
+      gap: 0.8rem; padding-top: 0.8rem; flex-wrap: wrap;
+    }
+    .box-wrap.expanded .medit-bar, .medit-wrap.expanded .medit-bar { display: flex; }
+    .medit-bar .bar-meta {
+      font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.08em; color: var(--muted); line-height: 1.7;
+    }
+    .medit-bar .bar-actions { display: flex; gap: 0.5rem; margin-left: auto; }
+    .bar-btn {
+      font-family: 'DM Mono', monospace; font-size: 0.64rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.65rem 1.1rem; border-radius: 3px; cursor: pointer;
+      background: transparent; border: 1px solid var(--border); color: var(--muted);
+    }
+    .bar-btn:hover { border-color: var(--amber); color: var(--amber); }
+    .bar-btn.primary { background: var(--amber); border-color: var(--amber); color: #1a1008; }
+    .bar-btn.primary:hover { opacity: 0.85; color: #1a1008; }
+
+    /* Only visible while actually editing */
+    .medit-wrap:not(.editing) { display: none; }
+
+    .medit-wrap.expanded {
+      position: fixed; inset: 0; z-index: 1300;
+      background: var(--paper); padding: 3.4rem 1.1rem 1.1rem;
+      display: flex; flex-direction: column;
+    }
+    .medit-wrap.expanded textarea {
+      flex: 1; min-height: 0; height: auto; display: block;
+      border: none; border-radius: 0; background: var(--paper);
+      padding: 0.5rem 0.2rem; line-height: 1.95; resize: none;
+    }
+    .medit-wrap.expanded textarea:focus { border: none; box-shadow: none; }
+    .medit-x {
+      position: absolute; top: 0.55rem; right: 0.55rem;
+      width: 30px; height: 30px; padding: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 3px; color: var(--muted); cursor: pointer;
+      opacity: 0.8; transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .medit-x:hover { opacity: 1; color: var(--amber); border-color: var(--amber); }
+    .medit-wrap.expanded .medit-x { top: 0.9rem; right: 1.1rem; width: 36px; height: 36px; }
+    .medit-x .xp-ico { width: 15px; height: 15px; display: block; }
+    .medit-wrap.expanded .medit-x .xp-ico { width: 17px; height: 17px; }
+
+    .modal-edit {
+      display: none; width: 100%; min-height: 220px;
+      background: var(--input-bg); border: 1px solid var(--amber);
+      border-radius: 3px; padding: 1rem 1.1rem;
+      color: var(--ink); font-family: 'DM Mono', monospace;
+      font-size: 16px; line-height: 1.9; resize: vertical;
+      border-top-width: 1px; margin-top: var(--s3);
+    }
+    .modal-edit:focus { outline: none; }
+    .modal-edit.on { display: block; }
+
+    .modal-foot { display: flex; gap: 0.7rem; margin-top: var(--s4); }
+    .modal-foot .wbtn { flex: 1; text-align: center; }
+    .wbtn.danger { border-color: var(--rust); color: var(--rust); }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; left: 50%; bottom: 2rem;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--card); border: 1px solid var(--amber);
+      border-radius: 3px; padding: 0.8rem 1.3rem;
+      font-size: 0.7rem; letter-spacing: 0.1em; color: var(--ink);
+      opacity: 0; pointer-events: none; transition: all 0.3s; z-index: 2000;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    footer {
+      border-top: 1px solid var(--border); padding-top: var(--s4);
+      width: 100%; display: flex; flex-direction: column; gap: var(--s2);
+    }
+    .foot-link {
+      font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--amber); text-decoration: underline; text-underline-offset: 4px;
+    }
+    .foot-link:hover { opacity: 0.7; }
+    .foot-mark {
+      font-size: 0.66rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    @media (max-width: 480px) {
+      :root { --s2: 0.7rem; --s3: 1.1rem; --s4: 1.8rem; --s5: 2.9rem; --s6: 4.6rem; }
+      .page { padding: 2.2rem 1.1rem 3rem; }
+      /* Deck stays 240x300 exactly as on the homepage — it was shrinking here
+         and reading as a different, smaller component. */
+    }
+    @media (min-width: 900px) {
+      :root { --s3: 1.5rem; --s4: 2.4rem; --s5: 3.9rem; --s6: 6.2rem; }
+      .page { padding: 4rem 3rem 5.5rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  
+    a.ref-link {
+      color: inherit; text-decoration: underline;
+      text-underline-offset: 3px; text-decoration-thickness: 1px;
+      text-decoration-color: rgba(200,137,42,0.45);
+      -webkit-tap-highlight-color: transparent; cursor: pointer;
+    }
+    a.ref-link:hover { text-decoration-color: var(--amber); opacity: 0.8; }
+    a.ref-link::after {
+      content: '\2197'; font-size: 0.75em; margin-left: 0.22em;
+      opacity: 0.6; text-decoration: none; display: inline-block;
+    }
+
+    /* ── Version picker ── */
+    .ver-sheet {
+      position: fixed; inset: 0; z-index: 1400;
+      background: rgba(0,0,0,0.72); display: none;
+      align-items: flex-end; justify-content: center;
+    }
+    .ver-sheet.open { display: flex; }
+    .ver-panel {
+      background: var(--card); border-top: 2px solid var(--amber);
+      border-radius: 8px 8px 0 0; width: 100%; max-width: 520px;
+      max-height: 80vh; display: flex; flex-direction: column;
+      padding: var(--s3) 1.2rem calc(var(--s3) + env(safe-area-inset-bottom, 0px));
+    }
+    @media (min-width: 620px) {
+      .ver-sheet { align-items: center; }
+      .ver-panel { border-radius: 8px; border: 1px solid var(--border);
+                   border-top: 2px solid var(--amber); }
+    }
+    .ver-head {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 1rem; padding-bottom: var(--s3);
+      border-bottom: 1px solid var(--border);
+    }
+    .ver-title {
+      display: block; font-family: 'Playfair Display', serif;
+      font-style: italic; font-weight: 700; font-size: 1.15rem; color: var(--ink);
+    }
+    .ver-sub {
+      display: block; font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.1em; color: var(--muted); margin-top: 0.35rem;
+    }
+    .ver-x {
+      background: none; border: none; color: var(--muted);
+      font-size: 0.85rem; cursor: pointer; padding: 0.2rem 0.4rem; flex-shrink: 0;
+    }
+    .ver-x:hover { color: var(--amber); }
+    .ver-list {
+      flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+      padding: var(--s3) 0 0; display: flex; flex-direction: column; gap: 0.3rem;
+    }
+    .ver-item {
+      display: flex; align-items: baseline; gap: 0.9rem; width: 100%;
+      text-align: left; cursor: pointer; background: transparent;
+      border: 1px solid transparent; border-radius: 3px;
+      padding: 0.7rem 0.8rem; color: var(--ink);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .ver-item:hover { border-color: var(--amber); }
+    .ver-item.is-pref { border-color: var(--amber); background: rgba(200,137,42,0.1); }
+    .ver-code {
+      font-family: 'DM Mono', monospace; font-size: 0.66rem;
+      letter-spacing: 0.1em; color: var(--amber);
+      min-width: 3.9rem; flex-shrink: 0;
+    }
+    .ver-name {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.02rem; color: var(--ink);
+    }
+    .ver-name small {
+      display: block; font-family: 'DM Mono', monospace; font-style: normal;
+      font-size: 0.55rem; letter-spacing: 0.08em; color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* A reference with no Bible Gateway entry opens a note instead */
+    .note-ref {
+      display: inline-flex; align-items: baseline; gap: 0.5rem;
+      background: none; border: none; padding: 0; cursor: pointer;
+      font-family: 'DM Mono', monospace; font-size: 0.72rem;
+      letter-spacing: 0.08em; color: var(--ink);
+      text-decoration: underline; text-underline-offset: 3px;
+      text-decoration-color: rgba(200,137,42,0.45);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .note-ref:hover { text-decoration-color: var(--amber); }
+    .note-cue {
+      font-size: 0.5rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--amber); border: 1px dashed var(--amber);
+      border-radius: 2px; padding: 0.1rem 0.34rem; text-decoration: none;
+    }
+    .note-ref.is-open .note-cue { background: rgba(200,137,42,0.14); }
+    .note-panel {
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
+    }
+    .note-panel.open { opacity: 1; margin-top: var(--s3); }
+    .note-body { font-size: 0.8rem; line-height: 1.9; color: var(--muted); }
+    .excerpt {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1rem; line-height: 1.7; color: var(--ink);
+      border-left: 2px solid var(--muted); padding-left: 0.9rem;
+      margin-top: var(--s3);
+    }
+    .excerpt-src {
+      display: block; font-family: 'DM Mono', monospace; font-style: normal;
+      font-size: 0.55rem; letter-spacing: 0.12em; color: var(--muted);
+      margin-top: var(--s2);
+    }
+
+    .learn-btn {
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      width: 100%; margin-top: var(--s4); cursor: pointer;
+      background: transparent; border: 1px solid var(--amber); border-radius: 3px;
+      padding: 0.85rem 1rem; color: var(--amber);
+      font-family: 'DM Mono', monospace; font-size: 0.64rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      transition: opacity 0.2s;
+    }
+    .learn-btn:hover { opacity: 0.75; }
+    .learn-caret { transition: transform 0.3s ease; }
+    .learn-btn[aria-expanded="true"] .learn-caret { transform: rotate(180deg); }
+    .learn-panel { max-height: 0; overflow: hidden; opacity: 0;
+                   transition: max-height 0.45s ease, opacity 0.3s ease; }
+    .learn-panel.open { opacity: 1; }
+    .learn-panel.open > .def-sec:first-child {
+      border-top: 1px solid var(--border);
+      margin-top: var(--s4); padding-top: var(--s4);
+    }
+
+    /* ── Select mode on the saved list ── */
+    .saved-head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .sel-toggle {
+      background: none; border: none; cursor: pointer; padding: 0.2rem 0;
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber);
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+    .sel-toggle:hover { opacity: 0.7; }
+
+    .saved-row .sel-box {
+      display: none; flex-shrink: 0;
+      width: 18px; height: 18px; border-radius: 2px;
+      border: 1.5px solid var(--border); margin-right: 0.2rem;
+      align-items: center; justify-content: center;
+      font-size: 0.6rem; color: #1a1008; line-height: 1;
+    }
+    body.selecting .saved-row .sel-box { display: flex; }
+    body.selecting .saved-row { cursor: pointer; }
+    .saved-row.picked { border-color: var(--amber); }
+    .saved-row.picked .sel-box { background: var(--amber); border-color: var(--amber); }
+
+    /* Bar that appears once something is picked */
+    .sel-bar {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 1200;
+      display: none; align-items: center; gap: 0.7rem; flex-wrap: wrap;
+      background: var(--card); border-top: 2px solid var(--amber);
+      padding: 0.9rem 1.1rem calc(0.9rem + env(safe-area-inset-bottom, 0px));
+    }
+    .sel-bar.on { display: flex; }
+    .sel-count {
+      font-family: 'DM Mono', monospace; font-size: 0.66rem;
+      letter-spacing: 0.1em; color: var(--ink);
+    }
+    .sel-actions { display: flex; gap: 0.5rem; margin-left: auto; }
+    .sel-btn {
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.6rem 1rem; border-radius: 3px; cursor: pointer;
+      background: transparent; border: 1px solid var(--border); color: var(--muted);
+    }
+    .sel-btn:hover { border-color: var(--amber); color: var(--amber); }
+    .sel-btn.danger { border-color: var(--rust); color: var(--rust); }
+    .sel-btn.danger:hover { background: var(--rust); color: var(--paper); }
+
+  /* ── Lord's Prayer, unravelling (same idiom as Times and Seasons) ──
+     Every section below sets its own margin-top: the page is gap:0. ── */
+  .unravel { max-width: 34rem; width: 100%; margin: var(--s5) auto 0; }
+  .layer { position: relative; cursor: pointer; -webkit-tap-highlight-color: transparent;
+           border-radius: 3px; transition: background 0.25s; }
+  .layer:hover { background: rgba(200,137,42,0.05); }
+  .v1 { font-family: 'Cormorant Garamond', serif; font-style: italic;
+        font-size: clamp(1.12rem, 3.4vw, 1.45rem); color: var(--muted);
+        line-height: 1.6; padding: var(--s3) 1.9rem var(--s3) 0.7rem; text-align: center; }
+  .dot { position: absolute; right: 0.35rem; top: 50%; width: 8px; height: 8px;
+         margin-top: -4px; border-radius: 50%; background: var(--amber);
+         animation: dotPulse 2.1s ease-out infinite; }
+  .dot.quiet { animation: none; opacity: 0.4; }
+  .layer[data-open="true"] > .dot { display: none; }
+  @keyframes dotPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(200,137,42,0.55); transform: scale(1); }
+    70%  { box-shadow: 0 0 0 11px rgba(200,137,42,0); transform: scale(1.12); }
+    100% { box-shadow: 0 0 0 0 rgba(200,137,42,0); transform: scale(1); } }
+  @media (prefers-reduced-motion: reduce) { .dot { animation: none; } }
+  .reveal { max-height: 0; overflow: hidden; opacity: 0;
+            transition: max-height 0.5s ease, opacity 0.35s ease; }
+  .reveal.open { opacity: 1; }
+  .rest-inner { text-align: left; border-left: 3px solid var(--amber); background: var(--cream);
+                border-radius: 0 3px 3px 0; padding: var(--s4) 1.3rem; margin-top: var(--s3); }
+  .ref-line { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.18em;
+              text-transform: uppercase; color: var(--amber); margin-bottom: var(--s3); }
+  .lp-intro { font-family: 'Cormorant Garamond', serif; font-style: italic;
+              font-size: 1rem; color: var(--muted); margin-bottom: var(--s3); }
+  .verse { font-family: 'Cormorant Garamond', serif; font-style: italic;
+           font-size: 1.06rem; line-height: 1.7; color: var(--ink);
+           text-indent: -1.5rem; padding-left: 1.5rem; }
+  .verse + .verse { margin-top: var(--s3); }
+  .vnum { font-family: 'DM Mono', monospace; font-style: normal; font-size: 0.6rem;
+          color: var(--amber); display: inline-block; width: 1.5rem;
+          vertical-align: 0.15em; letter-spacing: 0; }
+  .ravel-hint { display: block; text-align: right; font-family: 'DM Mono', monospace;
+                font-size: 0.52rem; letter-spacing: 0.18em; text-transform: uppercase;
+                color: var(--muted); opacity: 0.65; margin-top: var(--s2); }
+  .opener { display: flex; align-items: center; justify-content: center; gap: 0.7rem;
+            width: 100%; margin-top: var(--s4); cursor: pointer; position: relative;
+            background: transparent; border: 1px solid var(--border); border-radius: 3px;
+            padding: 0.85rem 1rem; color: var(--amber); font-family: 'DM Mono', monospace;
+            font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; }
+  .opener:hover { opacity: 0.75; }
+  .opener[aria-expanded="true"] { border-color: var(--amber); }
+  .opener .dot { position: static; margin: 0; }
+  .opener[aria-expanded="true"] .dot { display: none; }
+  .why-list { list-style: none; margin: var(--s4) 0 0; padding: var(--s4) 0 0;
+              border-top: 1px solid var(--border); text-align: left; }
+  .why-list li { font-family: 'Cormorant Garamond', serif; font-style: italic;
+                 font-size: 1.05rem; line-height: 1.7; color: var(--muted); }
+  .why-list li + li { margin-top: var(--s3); }
+  .why-ref { display: block; font-family: 'DM Mono', monospace; font-style: normal;
+             font-size: 0.56rem; letter-spacing: 0.16em; text-transform: uppercase;
+             color: var(--amber); margin-bottom: 0.2rem; }
+
+  /* ── Category filters (Prayers deck only) ── */
+  .cat-row { display: flex; flex-wrap: wrap; gap: 0.45rem; justify-content: center;
+             max-width: 34rem; width: 100%; margin: var(--s3) auto 0; }
+  .cat-btn { font-family: 'DM Mono', monospace; font-size: 0.56rem; letter-spacing: 0.14em;
+             text-transform: uppercase; padding: 0.42rem 0.8rem; cursor: pointer; white-space: nowrap;
+             background: transparent; color: var(--muted); border: 1px solid var(--border);
+             border-radius: 999px; transition: all 0.15s; }
+  .cat-btn:hover { border-color: var(--amber); color: var(--amber); }
+  .cat-btn.active { background: var(--amber); border-color: var(--amber); color: #1a1008; }
+
+  /* ── Health note (Fasting deck only) ── */
+  .fast-note { max-width: 34rem; width: 100%; margin: var(--s4) auto 0; text-align: left;
+               border-left: 3px solid var(--rust); background: rgba(184,76,30,0.06);
+               border-radius: 0 3px 3px 0; padding: var(--s3) 1.2rem; }
+  .fast-note-h { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em;
+                 text-transform: uppercase; color: var(--rust); margin-bottom: var(--s2); }
+  .fast-note p { font-size: 0.82rem; line-height: 1.85; color: var(--ink); }
+</style><style>
+
+    /* Expandable edit box inside a story modal. Same idea as the main
+       writing box: position:fixed on the existing textarea, so the caret,
+       scroll position and undo history all survive the expand. */
+    .medit-wrap { position: relative; width: 100%; }
+    .medit-wrap.expanded {
+      position: fixed; inset: 0; z-index: 1300;
+      background: var(--paper); padding: 3.4rem 1.1rem 1.1rem;
+      display: flex; flex-direction: column;
+    }
+    .medit-wrap.expanded textarea {
+      flex: 1; min-height: 0; height: auto; display: block;
+      border: none; border-radius: 0; background: var(--paper);
+      padding: 0.5rem 0.2rem; line-height: 1.95; resize: none;
+    }
+    .medit-wrap.expanded textarea:focus { border: none; box-shadow: none; }
+    .medit-x {
+      position: absolute; top: 0.55rem; right: 0.55rem;
+      width: 30px; height: 30px; padding: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 3px; color: var(--muted); cursor: pointer;
+      opacity: 0.8; transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .medit-x:hover { opacity: 1; color: var(--amber); border-color: var(--amber); }
+    .medit-wrap.expanded .medit-x { top: 0.9rem; right: 1.1rem; width: 36px; height: 36px; }
+    .medit-x .xp-ico { width: 15px; height: 15px; display: block; }
+    .medit-wrap.expanded .medit-x .xp-ico { width: 17px; height: 17px; }
+
+</style>
+
+<style>
+  .grp-row {
+    display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;
+    margin-top: var(--s4);          /* the page is gap:0 — this was missing */
+  }
+  .grp-btn {
+    font-family: 'DM Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 0.5rem 1rem; white-space: nowrap; min-width: 5rem;
+    text-align: center;
+    border: 1.5px solid var(--border); border-radius: 2px;
+    background: transparent; color: var(--muted); cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .grp-btn:hover { border-color: var(--amber); color: var(--amber); }
+  .grp-btn.active { background: var(--amber); border-color: var(--amber); color: #1a1008; }
+  @media (max-width: 400px) { .grp-btn { padding: 0.45rem 0.6rem; letter-spacing: 0.1em; } }
+
+  .fact-row { display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap; }
+  .fact-row + .fact-row { margin-top: var(--s2); }
+  .fact-k {
+    font-family: 'DM Mono', monospace; font-size: 0.55rem;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber);
+    min-width: 5.4rem; flex-shrink: 0;
+  }
+  .fact-v { font-size: 0.85rem; line-height: 1.8; color: var(--ink); }
+  .orig-line {
+    font-size: 0.8rem; line-height: 1.9; color: var(--muted); margin-top: var(--s3);
+  }
+  .orig-script {
+    font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--ink);
+  }
+  .start-ref {
+    font-family: 'DM Mono', monospace; font-size: 0.72rem;
+    letter-spacing: 0.08em; color: var(--ink);
+  }
+  .start-why { font-size: 0.84rem; line-height: 1.9; color: var(--muted); margin-top: var(--s2); }
+  .status-note {
+    font-size: 0.74rem; line-height: 1.8; color: var(--muted);
+    font-style: italic; margin-top: var(--s2);
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="bible.html" class="back-link">← BibleSpin</a>
+  <button class="theme-toggle" id="themeBtn" aria-label="Toggle theme">
+    <span id="themeLabel">Dark</span> <span id="themeIcon">☾</span>
+  </button>
+</div>
+
+<div class="page">
+
+  <header>
+    <div class="eyebrow">BibleSpin</div>
+    <div class="eyebrow-rule"></div>
+    <h1 class="page-title">Prayer</h1>
+  </header>
+
+  <section class="unravel">
+    <div class="layer" id="layer1" data-open="false" role="button" tabindex="0" aria-expanded="false">
+      <p class="v1">Our Father which art in heaven, hallowed be thy Name.</p>
+      <span class="dot" id="dot1" aria-hidden="true"></span>
+    </div>
+    <div class="reveal" id="restWrap">
+      <div class="layer" id="layer2" role="button" tabindex="0" title="Tap to close">
+        <div class="rest-inner">
+          <div class="ref-line">Matthew 6:9-13 · Geneva Bible</div>
+          <p class="lp-intro">After this manner therefore pray ye —</p>
+          <p class="verse"><span class="vnum">10</span>Thy kingdom come. Thy will be done even in earth, as it is in heaven.</p>
+          <p class="verse"><span class="vnum">11</span>Give us this day our daily bread.</p>
+          <p class="verse"><span class="vnum">12</span>And forgive us our debts, as we also forgive our debtors.</p>
+          <p class="verse"><span class="vnum">13</span>And lead us not into temptation, but deliver us from evil: for thine is the kingdom, and the power, and the glory for ever. Amen.</p>
+          <span class="ravel-hint">tap to close</span>
+        </div>
+      </div>
+      <button class="opener" id="openWhy" aria-expanded="false">
+        <span>Why we pray</span>
+        <span class="dot" id="dot2" aria-hidden="true"></span>
+      </button>
+      <div class="reveal" id="whyWrap">
+        <div class="layer" id="layer3" role="button" tabindex="0" title="Tap to close">
+          <ul class="why-list">
+          <li><span class="why-ref">Mark 1:35</span>Because Jesus did. He rose long before day and went to a solitary place to pray — the busiest man in the story made time first.</li>
+          <li><span class="why-ref">Philippians 4:6</span>Because we are told to bring everything, not only the large things — in all things let your requests be shown unto God.</li>
+          <li><span class="why-ref">Romans 8:26</span>Because we are weak and often do not know what to ask, and the Spirit prays with us when words fail.</li>
+          <li><span class="why-ref">James 5:16</span>Because it does something. The prayer of a righteous person, if it be fervent, availeth much.</li>
+          <li><span class="why-ref">1 Peter 5:7</span>Because he cares for us, and a weight carried alone was never meant to be.</li>
+          </ul>
+          <span class="ravel-hint">tap to close</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="grp-row" id="grpRow">
+    <button class="grp-btn active" data-g="prayers">Prayers</button>
+    <button class="grp-btn" data-g="jesus">Jesus on prayer</button>
+    <button class="grp-btn" data-g="apostles">The apostles</button>
+    <button class="grp-btn" data-g="fasting">Fasting</button>
+  </div>
+
+  <div class="cat-row" id="catRow">
+    <button class="cat-btn active" data-c="all">All</button>
+    <button class="cat-btn" data-c="praise">Praise</button>
+    <button class="cat-btn" data-c="thanksgiving">Thanksgiving</button>
+    <button class="cat-btn" data-c="confession">Confession</button>
+    <button class="cat-btn" data-c="petition">Petition</button>
+    <button class="cat-btn" data-c="intercession">Intercession</button>
+    <button class="cat-btn" data-c="lament">Lament</button>
+    <button class="cat-btn" data-c="surrender">Surrender</button>
+  </div>
+
+  <div class="fast-note" id="fastNote" style="display:none">
+    <div class="fast-note-h">Before you fast</div>
+    <p>Fasting in Scripture was never only about food — Daniel kept a partial fast, and Isaiah calls justice and generosity the fast God chooses. If you are pregnant, diabetic, on medication, have any health condition, or have ever struggled with eating, please speak to a doctor before going without food. Nothing here is instruction on how long to fast.</p>
+  </div>
+
+  <div class="deck-wrap">
+    <div class="deck-area" id="deckArea"></div>
+    <p class="spin-count" id="spinCount">Tap the cards to shuffle</p>
+    <button class="pile-aside" id="pileAside" style="display:none"></button>
+  </div>
+
+  <section class="chosen" id="chosen" style="display:none">
+    <div class="chosen-label" id="chosenLabel">Your card</div>
+    <div class="chosen-name" id="chosenName"></div>
+    <div class="chosen-title" id="chosenSection"></div>
+    <button class="def-toggle" id="defToggle">🔍 Read the breakdown</button>
+    <div class="def-panel" id="defPanel">
+      <div class="def-box">
+
+        <div class="def-sec" id="secContext">
+          <div class="def-h">When</div>
+          <div class="def-desc" id="defContext"></div>
+        </div>
+
+        <div class="def-sec">
+          <div class="def-h" id="hQuote">The prayer</div>
+          <div class="def-verse" id="defQuote"></div>
+          <div class="def-verse-src" id="defRef"></div>
+        </div>
+
+        <button class="learn-btn" id="learnBtn" aria-expanded="false">
+          <span>Learn more?</span>
+          <svg class="learn-caret" width="12" height="12" viewBox="0 0 12 12" fill="none"
+               stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 L6 8 L9.5 4.5"/></svg>
+        </button>
+
+        <div class="learn-panel" id="learnPanel">
+          <div class="def-sec">
+            <div class="def-h" id="hAfter">What followed</div>
+            <div class="def-desc" id="defAfter"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <p class="chosen-prompt" id="chosenPrompt">Write your own prayer. Nobody has to read it.</p>
+  </section>
+
+  <section class="write" id="writeSec">
+    <div class="box-wrap" id="boxWrap">
+      <textarea id="storyBox" placeholder="Begin here…"></textarea>
+      <button class="expand-btn" id="expandBtn" aria-label="Expand the writing box" title="Expand"><svg class="xp-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><path d="M8 8 L12.4 3.6"/><path d="M9.4 3 H13 V6.6"/></g><g transform="rotate(180 8 8)"><path d="M8 8 L12.4 3.6"/><path d="M9.4 3 H13 V6.6"/></g></svg></button>
+    </div>
+    <div class="word-count" id="wordCount">0 words</div>
+    <div class="expanded-count" id="expandedCount"></div>
+    <div class="write-actions">
+      <button class="wbtn primary" id="saveBtn">Save entry</button>
+      <button class="wbtn" id="clearBtn">Clear</button>
+    </div>
+  </section>
+
+  <section class="saved">
+    <div class="saved-head"><h2 class="saved-h">Your entries</h2><button class="sel-toggle" id="selToggle">Select</button></div>
+    <div class="saved-list" id="savedList"></div>
+  </section>
+
+  <footer>
+    <div class="foot-mark">WordSpin — by MK</div>
+  </footer>
+
+</div>
+
+<div class="aside-sheet" id="asideSheet">
+  <div class="aside-panel">
+    <div class="aside-head">
+      <span class="aside-title">Set aside</span>
+      <button class="aside-x" id="asideClose" aria-label="Close">✕</button>
+    </div>
+    <div class="aside-list" id="asideList"></div>
+    <div class="aside-foot">
+      <button class="wbtn" id="asideOnly">Play these only</button>
+      <button class="wbtn primary" id="asideReturn">Return to deck</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-back" id="modalBack">
+  <div class="modal">
+    <div class="modal-name" id="mName"></div>
+    <div class="modal-meta" id="mMeta"></div>
+    <button class="def-toggle" id="mBreakBtn" style="margin-top:var(--s2)">🔍 Show the breakdown</button>
+    <div class="def-panel" id="mBreakPanel">
+      <div class="def-box" style="margin-top:var(--s3)">
+        <div class="def-sec" id="mSecContext">
+          <div class="def-h">When</div>
+          <div class="def-desc" id="mContext"></div>
+        </div>
+        <div class="def-sec">
+          <div class="def-h" id="mHQuote">The prayer</div>
+          <div class="def-verse" id="mQuote"></div>
+          <div class="def-verse-src" id="mRef"></div>
+        </div>
+        <div class="def-sec">
+          <div class="def-h" id="mHAfter">What followed</div>
+          <div class="def-desc" id="mAfter"></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-text" id="mText"></div>
+    <textarea class="modal-edit" id="mEdit"></textarea>
+    <div class="modal-foot" id="mFootRead">
+      <button class="wbtn" id="mClose">Close</button>
+      <button class="wbtn" id="mEditBtn">✎ Edit</button>
+      <button class="wbtn danger" id="mDelete">Delete</button>
+    </div>
+    <div class="modal-foot" id="mFootEdit" style="display:none">
+      <button class="wbtn" id="mCancelEdit">Cancel</button>
+      <button class="wbtn primary" id="mSaveEdit">Save changes</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="sel-bar" id="selBar">
+  <span class="sel-count" id="selCount"></span>
+  <div class="sel-actions">
+    <button class="sel-btn" id="selAll">Select all</button>
+    <button class="sel-btn" id="selCancel">Cancel</button>
+    <button class="sel-btn danger" id="selDelete">Delete</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var PRAYER_DATA = {"prayers":[{"kind":"prayers","title":"Hannah's prayer","sub":"Hannah · petition","context":"At Shiloh, after years of barrenness and a rival's provocation, praying so hard only her lips moved.","ref":"1 Samuel 1:10-11","quoteHead":"The prayer","quote":"O LORD of hosts, if thou wilt look on the trouble of thine handmaid, and remember me, and not forget thine handmaid, but give unto thine handmaid a man child, then I will give him unto the LORD all the days of his life.","afterHead":"What followed","after":"The priest thought she was drunk, and she corrected him. She went away and her countenance was no more sad — before anything had changed. Samuel was born, and she kept her vow.","category":"petition"},{"kind":"prayers","title":"A clean heart","sub":"David · confession","context":"After Nathan confronted him over Bathsheba and Uriah.","ref":"Psalm 51:1, 10","quoteHead":"The prayer","quote":"Have mercy upon me, O God, according to thy loving kindness: according to the multitude of thy compassions put away mine iniquities. Create in me a clean heart, O God, and renew a right spirit within me.","afterHead":"What followed","after":"No bargaining and no excuse. He asks for a new heart rather than a lighter sentence, and the consequences still came.","category":"confession"},{"kind":"prayers","title":"From the belly of the fish","sub":"Jonah · lament","context":"Inside the fish, three days, after running from God and being thrown overboard.","ref":"Jonah 2:1-2","quoteHead":"The prayer","quote":"I cried in mine affliction unto the LORD, and he heard me: out of the belly of hell cried I, and thou heardest my voice.","afterHead":"What followed","after":"He was brought out on dry land and went to Nineveh. The prayer did not make him agreeable — he was angry again by the next chapter — and it was heard anyway.","category":"lament"},{"kind":"prayers","title":"Not my will","sub":"Jesus · surrender","context":"Gethsemane, the night before the cross, sweating as it were drops of blood.","ref":"Luke 22:42","quoteHead":"The prayer","quote":"Father, if thou wilt, take away this cup from me: nevertheless not my will, but thine be done.","afterHead":"What followed","after":"The cup was not taken away. An angel came and strengthened him, and he got up and went to meet them.","category":"surrender"},{"kind":"prayers","title":"That they all may be one","sub":"Jesus · intercession","context":"The night of his arrest, praying aloud in front of his disciples.","ref":"John 17:20-21","quoteHead":"The prayer","quote":"I pray not for these alone, but for them also which shall believe in me through their word, that they all may be one.","afterHead":"What followed","after":"The longest recorded prayer of Jesus, and most of it is for other people — including everyone who would believe after them.","category":"intercession"},{"kind":"prayers","title":"Although the fig tree","sub":"Habakkuk · praise","context":"After asking God why he was silent, and being told to wait for an answer that would come late.","ref":"Habakkuk 3:17-18","quoteHead":"The prayer","quote":"For the fig tree shall not flourish, neither shall fruit be in the vines: yet I will rejoice in the LORD: I will joy in the God of my salvation.","afterHead":"What followed","after":"Nothing had changed. The praise is chosen in the middle of the loss, not after it.","category":"praise"},{"kind":"prayers","title":"O Lord, hear; O Lord, forgive","sub":"Daniel · confession","context":"Babylon, reading Jeremiah and realising the seventy years were nearly done.","ref":"Daniel 9:18-19","quoteHead":"The prayer","quote":"We do not present our supplications before thee for our own righteousness, but for thy great tender mercies. O Lord, hear; O Lord, forgive.","afterHead":"What followed","after":"He confesses sins he did not personally commit, as one of the people. The answer arrived while he was still speaking.","category":"confession"},{"kind":"prayers","title":"Lay not this sin to their charge","sub":"Stephen · intercession","context":"Being stoned, with Saul of Tarsus holding the coats.","ref":"Acts 7:60","quoteHead":"The prayer","quote":"Lord, lay not this sin to their charge.","afterHead":"What followed","after":"His last words were a prayer for his killers. One of the men in that crowd became Paul.","category":"intercession"},{"kind":"prayers","title":"My soul magnifieth the Lord","sub":"Mary · praise","context":"Pregnant, unmarried, visiting Elizabeth in the hill country.","ref":"Luke 1:46-47","quoteHead":"The prayer","quote":"My soul magnifieth the Lord, and my spirit rejoiceth in God my Saviour.","afterHead":"What followed","after":"Sung before anything was safe. The praise comes at the start of the story, not the end of it.","category":"praise"},{"kind":"prayers","title":"Be merciful to me a sinner","sub":"The tax collector · confession","context":"In the temple, standing far off, not lifting his eyes, beating his breast.","ref":"Luke 18:13","quoteHead":"The prayer","quote":"O God, be merciful to me a sinner.","afterHead":"What followed","after":"Seven words. Jesus said this man, not the one with the longer and truer list of good deeds, went home justified.","category":"confession"},{"kind":"prayers","title":"Will God indeed dwell on the earth?","sub":"Solomon · intercession","context":"The dedication of the temple, before the whole assembly.","ref":"1 Kings 8:27-28","quoteHead":"The prayer","quote":"Behold, the heavens, and the heavens of heavens are not able to contain thee: how much more unable is this house that I have built? Yet have thou respect unto the prayer of thy servant.","afterHead":"What followed","after":"The most magnificent building in Israel, and the prayer begins by admitting it cannot hold him. He then prays for the foreigner who will come to it.","category":"intercession"},{"kind":"prayers","title":"Remember how I have walked","sub":"Hezekiah · petition","context":"Told by Isaiah to set his house in order, for he would die.","ref":"2 Kings 20:2-3","quoteHead":"The prayer","quote":"I beseech thee, O LORD, remember now how I have walked before thee in truth and with a perfect heart. And Hezekiah wept sore.","afterHead":"What followed","after":"Before Isaiah had left the middle court he was sent back: fifteen more years. Those years produced Manasseh, the worst king Judah had.","category":"petition"},{"kind":"prayers","title":"The prayer between the words","sub":"Nehemiah · petition","context":"Standing before the king, asked a question he could not afford to answer badly.","ref":"Nehemiah 2:4-5","quoteHead":"The prayer","quote":"Then I prayed to the God of heaven, and said unto the king...","afterHead":"What followed","after":"A prayer so short it fits between a question and its answer. Nothing of what he prayed is recorded — only that he did.","category":"petition"},{"kind":"prayers","title":"Father, I thank thee","sub":"Jesus · thanksgiving","context":"At Lazarus' tomb, after the stone was rolled away and before he called him out.","ref":"John 11:41-42","quoteHead":"The prayer","quote":"Father, I thank thee because thou hast heard me. I know that thou hearest me always.","afterHead":"What followed","after":"Thanks given before the thing happened, out loud, for the sake of those standing by.","category":"thanksgiving"},{"kind":"prayers","title":"For the saints","sub":"Paul · intercession","context":"Writing from prison to a church he loved.","ref":"Ephesians 3:14-19","quoteHead":"The prayer","quote":"That ye may be able to comprehend with all saints, what is the breadth, and length, and depth, and height; and to know the love of Christ, which passeth knowledge.","afterHead":"What followed","after":"A prisoner praying that free people might understand how much they were loved.","category":"intercession"},{"kind":"prayers","title":"Enlarge my coast","sub":"Jabez · petition","context":"A single verse in a list of names, whose mother named him for her sorrow.","ref":"1 Chronicles 4:10","quoteHead":"The prayer","quote":"Oh that thou wouldest bless me indeed, and enlarge my coast, and that thine hand might be with me, and that thou wouldest keep me from evil, that I be not grieved.","afterHead":"What followed","after":"God granted him that which he requested. The whole of his story is the prayer.","category":"petition"},{"kind":"prayers","title":"Why hast thou forsaken me?","sub":"Jesus · lament","context":"On the cross, about the ninth hour.","ref":"Matthew 27:46","quoteHead":"The prayer","quote":"My God, my God, why hast thou forsaken me?","afterHead":"What followed","after":"The first line of Psalm 22, prayed aloud. Lament is not a failure of faith — it was prayed by Jesus himself, in the words of the Psalms.","category":"lament"},{"kind":"prayers","title":"Let it be known this day","sub":"Elijah · petition","context":"Mount Carmel, after the prophets of Baal had cried all day with no answer.","ref":"1 Kings 18:36-37","quoteHead":"The prayer","quote":"Hear me, O LORD, hear me, that this people may know that thou art the LORD God.","afterHead":"What followed","after":"A short prayer after their long one. Fire fell. The next day he ran for his life from one woman's threat.","category":"petition"},{"kind":"prayers","title":"The one who came back","sub":"The Samaritan leper · thanksgiving","context":"One of ten healed on the road, who noticed on the way.","ref":"Luke 17:15-16","quoteHead":"The prayer","quote":"And one of them, when he saw that he was healed, turned back, and with a loud voice praised God, and fell on his face at his feet, giving him thanks.","afterHead":"What followed","after":"Where are the nine? Ten were healed. One said thank you, and he was the foreigner.","category":"thanksgiving"},{"kind":"prayers","title":"How long, O LORD?","sub":"David · lament","context":"Unknown — the psalm gives no occasion, which makes it fit most.","ref":"Psalm 13:1-2","quoteHead":"The prayer","quote":"How long wilt thou forget me, O LORD, for ever? how long wilt thou hide thy face from me?","afterHead":"What followed","after":"Four times how long in two verses. By the end he says he will sing, and nothing in the psalm says the situation had changed.","category":"lament"},{"kind":"prayers","title":"Who am I, O Lord GOD?","sub":"David · thanksgiving","context":"After being promised a house that would last for ever.","ref":"2 Samuel 7:18","quoteHead":"The prayer","quote":"Who am I, O Lord GOD, and what is mine house, that thou hast brought me hitherto?","afterHead":"What followed","after":"He had wanted to build God a house and was told no — God would build him one instead. The answer to a refused plan was gratitude.","category":"thanksgiving"},{"kind":"prayers","title":"Three times I asked","sub":"Paul · surrender","context":"A thorn in the flesh, never identified.","ref":"2 Corinthians 12:8-9","quoteHead":"The prayer","quote":"For this thing I besought the Lord thrice, that it might depart from me. And he said unto me, My grace is sufficient for thee: for my power is made perfect through weakness.","afterHead":"What followed","after":"The answer was no. Unanswered prayer is recorded plainly in Scripture — by an apostle, about himself — and he was told why rather than given what he asked.","category":"surrender"}],"jesus":[{"kind":"jesus","title":"In secret","sub":"Jesus","context":"","ref":"Matthew 6:5-6","quoteHead":"What he said","quote":"But when thou prayest, enter into thy chamber, and when thou hast shut thy door, pray unto thy Father which is in secret, and thy Father which seeth in secret, shall reward thee openly.","afterHead":"What it means","after":"Aimed at prayer performed for an audience. The door is the point — prayer is first a private conversation, not a public display.","category":""},{"kind":"jesus","title":"Not many words","sub":"Jesus","context":"","ref":"Matthew 6:7-8","quoteHead":"What he said","quote":"When ye pray, use no vain repetitions as the heathen: for they think to be heard for their much babbling. Your Father knoweth whereof ye have need, before ye ask of him.","afterHead":"What it means","after":"Length and repetition do not earn a hearing. Jesus gives the reason: the one you are speaking to already knows.","category":""},{"kind":"jesus","title":"After this manner","sub":"Jesus","context":"","ref":"Matthew 6:9-13","quoteHead":"What he said","quote":"After this manner therefore pray ye, Our Father which art in heaven, hallowed be thy Name.","afterHead":"What it means","after":"Given as a pattern, not only a text: praise, his kingdom, daily need, forgiveness asked and given, protection. The order puts God before the list.","category":""},{"kind":"jesus","title":"Forgive when you stand praying","sub":"Jesus","context":"","ref":"Mark 11:25","quoteHead":"What he said","quote":"And when ye shall stand, and pray, forgive, if ye have any thing against any man, that your Father also which is in heaven, may forgive you your trespasses.","afterHead":"What it means","after":"Prayer and unforgiveness are treated as incompatible. Jesus ties the two together in the same breath every time he teaches on it.","category":""},{"kind":"jesus","title":"The friend at midnight","sub":"Jesus","context":"","ref":"Luke 11:5-8","quoteHead":"What he said","quote":"Though he would not rise and give him, because he is his friend, yet doubtless because of his importunity he would rise, and give him as much as he needed.","afterHead":"What it means","after":"Importunity means shameless persistence. Jesus tells a story about pestering someone, and approves of it.","category":""},{"kind":"jesus","title":"Ask, seek, knock","sub":"Jesus","context":"","ref":"Luke 11:9-13","quoteHead":"What he said","quote":"Ask, and it shall be given you: seek, and ye shall find: knock, and it shall be opened unto you.","afterHead":"What it means","after":"Three verbs, each more active than the last. Followed at once by the comparison with a father who would not give a stone for bread.","category":""},{"kind":"jesus","title":"Always pray, and not faint","sub":"Jesus","context":"","ref":"Luke 18:1-8","quoteHead":"What he said","quote":"And he spake also a parable unto them, to this end, that they ought always to pray, and not to wax faint.","afterHead":"What it means","after":"The unjust judge gives in only to be left alone. The parable's purpose is stated before it starts: do not give up.","category":""},{"kind":"jesus","title":"Two men went up to pray","sub":"Jesus","context":"","ref":"Luke 18:9-14","quoteHead":"What he said","quote":"For every man that exalteth himself, shall be brought low, and he that humbleth himself, shall be exalted.","afterHead":"What it means","after":"Everything the Pharisee said about himself was true. The problem was the comparison, and who he was actually addressing.","category":""},{"kind":"jesus","title":"Believe that ye shall have it","sub":"Jesus","context":"","ref":"Mark 11:24","quoteHead":"What he said","quote":"Therefore I say unto you, whatsoever ye desire when ye pray, believe that ye shall have it, and it shall be done unto you.","afterHead":"What it means","after":"Said beside a withered fig tree, and followed in the very next verse by the command to forgive. Faith and forgiveness are taught as a pair.","category":""},{"kind":"jesus","title":"Two or three","sub":"Jesus","context":"","ref":"Matthew 18:19-20","quoteHead":"What he said","quote":"For where two or three are gathered together in my Name, there am I in the midst of them.","afterHead":"What it means","after":"The smallest gathering counts. Prayer together is given its own promise.","category":""},{"kind":"jesus","title":"In my name","sub":"Jesus","context":"","ref":"John 14:13-14","quoteHead":"What he said","quote":"And whatsoever ye ask in my Name, that will I do, that the Father may be glorified in the Son.","afterHead":"What it means","after":"Not a formula to append. To ask in someone's name is to ask what they would ask.","category":""},{"kind":"jesus","title":"Watch and pray","sub":"Jesus","context":"","ref":"Matthew 26:41","quoteHead":"What he said","quote":"Watch, and pray, that ye enter not into temptation: the spirit indeed is ready, but the flesh is weak.","afterHead":"What it means","after":"Said to friends who kept falling asleep. He names the weakness without scorning it, and still asks.","category":""},{"kind":"jesus","title":"Pray for them that hurt you","sub":"Jesus","context":"","ref":"Matthew 5:44","quoteHead":"What he said","quote":"Love your enemies: bless them that curse you: do good to them that hate you, and pray for them which hurt you, and persecute you.","afterHead":"What it means","after":"The hardest instruction on prayer in the Gospels, and he later did it himself from the cross.","category":""},{"kind":"jesus","title":"The harvest is great","sub":"Jesus","context":"","ref":"Matthew 9:37-38","quoteHead":"What he said","quote":"The harvest truly is great, but the labourers are few. Wherefore pray the Lord of the harvest, that he will send forth labourers into his harvest.","afterHead":"What it means","after":"Sometimes the prayer asked for is not for yourself at all, and not for a thing — but for people to be sent.","category":""}],"apostles":[{"kind":"apostles","title":"Ask for wisdom","sub":"James","context":"","ref":"James 1:5-7","quoteHead":"What was written","quote":"If any of you lack wisdom, let him ask of God, which giveth to all men liberally, and reproacheth no man, and it shall be given him. But let him ask in faith, and waver not.","afterHead":"What it means","after":"Two promises: God gives generously and does not scold you for asking. The warning is against being double-minded, not against doubt honestly brought.","category":""},{"kind":"apostles","title":"Ye have not, because ye ask not","sub":"James","context":"","ref":"James 4:2-3","quoteHead":"What was written","quote":"Ye get nothing, because ye ask not. Ye ask, and receive not, because ye ask amiss, that ye might lay the same out on your pleasures.","afterHead":"What it means","after":"Two failures named side by side: not asking at all, and asking for the wrong reasons. Most people recognise at least one.","category":""},{"kind":"apostles","title":"Is any afflicted? Is any merry?","sub":"James","context":"","ref":"James 5:13","quoteHead":"What was written","quote":"Is any among you afflicted? let him pray. Is any merry? let him sing.","afterHead":"What it means","after":"Prayer for the hard days, song for the good ones. Neither mood is outside the reach of worship.","category":""},{"kind":"apostles","title":"Confess to one another","sub":"James","context":"","ref":"James 5:14-16","quoteHead":"What was written","quote":"Acknowledge your faults one to another, and pray one for another, that ye may be healed: for the prayer of a righteous man availeth much, if it be fervent.","afterHead":"What it means","after":"Healing is tied to honesty between people, not only between a person and God.","category":""},{"kind":"apostles","title":"A man subject to like passions","sub":"James","context":"","ref":"James 5:17-18","quoteHead":"What was written","quote":"Elias was a man subject to like passions as we are, and he prayed earnestly that it might not rain, and it rained not on the earth for three years and six months.","afterHead":"What it means","after":"James picks Elijah on purpose and calls him ordinary — the same man who ran and asked to die. The example of powerful prayer is someone with our weaknesses.","category":""},{"kind":"apostles","title":"Pray continually","sub":"Paul","context":"","ref":"1 Thessalonians 5:17-18","quoteHead":"What was written","quote":"Pray continually. In all things give thanks: for this is the will of God in Christ Jesus toward you.","afterHead":"What it means","after":"Not unbroken speech but an unbroken posture. Thanks is given in all things, not for all things.","category":""},{"kind":"apostles","title":"Be nothing careful","sub":"Paul","context":"","ref":"Philippians 4:6-7","quoteHead":"What was written","quote":"Be nothing careful: but in all things let your requests be shewed unto God in prayer and supplication with giving of thanks. And the peace of God which passeth all understanding, shall preserve your hearts.","afterHead":"What it means","after":"Written from prison. The promise is peace guarding the heart — not that every request will be granted.","category":""},{"kind":"apostles","title":"When we know not what to pray","sub":"Paul","context":"","ref":"Romans 8:26","quoteHead":"What was written","quote":"Likewise the Spirit also helpeth our infirmities: for we know not what to pray as we ought: but the Spirit itself maketh request for us with sighs which cannot be expressed.","afterHead":"What it means","after":"Permission to have no words. Even heaven's response to speechless sorrow is not words.","category":""},{"kind":"apostles","title":"With all manner of prayer","sub":"Paul","context":"","ref":"Ephesians 6:18","quoteHead":"What was written","quote":"And pray always with all manner prayer and supplication in the Spirit: and watch thereunto with all perseverance and supplication for all Saints.","afterHead":"What it means","after":"The last piece of the armour of God is not armour at all. It is prayer, for yourself and everyone else.","category":""},{"kind":"apostles","title":"For all men, and for kings","sub":"Paul","context":"","ref":"1 Timothy 2:1-2","quoteHead":"What was written","quote":"I exhort therefore, that first of all supplications, prayers, intercessions, and giving of thanks be made for all men: for Kings, and for all that are in authority.","afterHead":"What it means","after":"Written under Nero. Praying for rulers was never conditional on liking them.","category":""},{"kind":"apostles","title":"Cast your care","sub":"Peter","context":"","ref":"1 Peter 5:7","quoteHead":"What was written","quote":"Cast all your care on him: for he careth for you.","afterHead":"What it means","after":"The reason given is not that God is powerful, though he is. It is that he cares.","category":""},{"kind":"apostles","title":"That your prayers be not interrupted","sub":"Peter","context":"","ref":"1 Peter 3:7","quoteHead":"What was written","quote":"Likewise ye husbands, dwell with them as men of knowledge, giving honour unto the woman, as unto the weaker vessel, even as they which are heirs together of the grace of life, that your prayers be not interrupted.","afterHead":"What it means","after":"How someone treats the person closest to them is named as a hindrance to their prayers. Prayer is never only private.","category":""},{"kind":"apostles","title":"According to his will","sub":"John","context":"","ref":"1 John 5:14-15","quoteHead":"What was written","quote":"And this is the assurance that we have in him, that if we ask anything according to his will, he heareth us.","afterHead":"What it means","after":"The confidence rests on his will, not on the strength of the asking. It explains Gethsemane as much as any answered prayer.","category":""},{"kind":"apostles","title":"If we acknowledge our sins","sub":"John","context":"","ref":"1 John 1:9","quoteHead":"What was written","quote":"If we acknowledge our sins, he is faithful and just, to forgive us our sins, and to cleanse us from all unrighteousness.","afterHead":"What it means","after":"Faithful and just — forgiveness is described as the fair thing for God to do, not a reluctant exception.","category":""}],"fasting":[{"kind":"fasting","title":"Forty days on the mountain","sub":"Moses · a recorded fast","context":"","ref":"Exodus 34:28","quoteHead":"The fast","quote":"He was there with the LORD forty days and forty nights, and did neither eat bread nor drink water.","afterHead":"What to notice","after":"A fast in the direct presence of God, and one no reader should imitate — it is recorded as extraordinary, not as instruction.","category":""},{"kind":"fasting","title":"If I perish, I perish","sub":"Esther · a recorded fast","context":"","ref":"Esther 4:16","quoteHead":"The fast","quote":"Fast ye for me, and eat not nor drink in three days, day nor night. I also and my maids will fast likewise, and so will I go in to the King, which is not according to the law: and if I perish, I perish.","afterHead":"What to notice","after":"A fast asked of others and shared, before an action that could cost her life. Fasting here is preparation for courage.","category":""},{"kind":"fasting","title":"No pleasant bread","sub":"Daniel · a recorded fast","context":"","ref":"Daniel 10:2-3","quoteHead":"The fast","quote":"I ate no pleasant bread, neither came flesh nor wine in my mouth, neither did I anoint myself at all, till three weeks of days were fulfilled.","afterHead":"What to notice","after":"A partial fast — plain food only, for three weeks. Fasting in Scripture was not always going without everything.","category":""},{"kind":"fasting","title":"From the greatest to the least","sub":"The people of Nineveh · a recorded fast","context":"","ref":"Jonah 3:5-10","quoteHead":"The fast","quote":"So the people of Nineveh believed God, and proclaimed a fast, and put on sackcloth from the greatest of them even to the least of them.","afterHead":"What to notice","after":"A city that did not know God fasted in repentance, and God relented. The prophet who preached to them was the one who objected.","category":""},{"kind":"fasting","title":"Not by bread only","sub":"Jesus · a recorded fast","context":"","ref":"Matthew 4:1-4","quoteHead":"The fast","quote":"And when he had fasted forty days and forty nights, he was afterward hungry. It is written, Man shall not live by bread only, but by every word that proceedeth out of the mouth of God.","afterHead":"What to notice","after":"The first temptation came through the fast itself. Hunger is not hidden in the account — it is the point where the test began.","category":""},{"kind":"fasting","title":"A right way","sub":"Ezra · a recorded fast","context":"","ref":"Ezra 8:21-23","quoteHead":"The fast","quote":"I proclaimed a fast there by the river, that we might humble ourselves before our God, and seek of him a right way for us.","afterHead":"What to notice","after":"He was ashamed to ask the king for soldiers after telling him God protects his own, so they fasted instead. Fasting before a journey, for guidance.","category":""},{"kind":"fasting","title":"We know not what to do","sub":"Jehoshaphat · a recorded fast","context":"","ref":"2 Chronicles 20:3-4, 12","quoteHead":"The fast","quote":"Jehoshaphat feared, and set himself to seek the LORD, and proclaimed a fast throughout all Judah. We know not what to do: but our eyes are toward thee.","afterHead":"What to notice","after":"A king admitting in public that he had no plan. Fear was the first thing recorded; the fast was what he did with it.","category":""},{"kind":"fasting","title":"I shall go to him","sub":"David · a recorded fast","context":"","ref":"2 Samuel 12:16-23","quoteHead":"The fast","quote":"While the child was yet alive, I fasted and wept: for I said, Who can tell whether God will have mercy on me, that the child may live? But now being dead, wherefore should I now fast? can I bring him again?","afterHead":"What to notice","after":"He fasted and the child died. Then he washed, ate, and explained himself — the Bible's plainest account of a fast that did not change the outcome, and of a man who went on anyway.","category":""},{"kind":"fasting","title":"Night and day","sub":"Anna · a recorded fast","context":"","ref":"Luke 2:37","quoteHead":"The fast","quote":"She was widow about fourscore and four years, and went not out of the Temple, but served God with fastings and prayers, night and day.","afterHead":"What to notice","after":"A lifetime rather than an event. She was there when the child was brought in.","category":""},{"kind":"fasting","title":"As they ministered and fasted","sub":"The church at Antioch · a recorded fast","context":"","ref":"Acts 13:2-3","quoteHead":"The fast","quote":"As they ministered to the Lord and fasted, the holy Ghost said, Separate me Barnabas and Saul for the work whereunto I have called them.","afterHead":"What to notice","after":"Guidance came while a group was fasting together, not an individual alone.","category":""},{"kind":"fasting","title":"The fast that I have chosen","sub":"Isaiah · on fasting","context":"","ref":"Isaiah 58:6-7","quoteHead":"What was written","quote":"Is not this the fasting that I have chosen, to loose the bands of wickedness, to take off the heavy burdens, and to let the oppressed go free? Is it not to deal thy bread to the hungry?","afterHead":"What to notice","after":"The heart of it. Going without food while mistreating people is named as no fast at all — the fast God wants is justice and generosity.","category":""},{"kind":"fasting","title":"Not to be seen of men","sub":"Jesus · on fasting","context":"","ref":"Matthew 6:16-18","quoteHead":"What was written","quote":"When ye fast, be not sad as the hypocrites: for they disfigure their faces, that they might seem unto men to fast. Anoint thine head, and wash thy face, that thou seem not unto men to fast.","afterHead":"What to notice","after":"Jesus says when, not if. And the fast is to be hidden — nobody should be able to tell.","category":""},{"kind":"fasting","title":"When the bridegroom is taken","sub":"Jesus · on fasting","context":"","ref":"Matthew 9:14-15","quoteHead":"What was written","quote":"Can the children of the marriage chamber mourn as long as the bridegroom is with them? But the days will come when the bridegroom shall be taken from them, and then shall they fast.","afterHead":"What to notice","after":"Fasting tied to longing and absence, not to earning anything.","category":""},{"kind":"fasting","title":"Did ye fast unto me?","sub":"Zechariah · on fasting","context":"","ref":"Zechariah 7:5","quoteHead":"What was written","quote":"When ye fasted and mourned in the fifth and seventh month, even these seventy years, did ye fast unto me?","afterHead":"What to notice","after":"A seventy-year habit questioned in one line. A fast can be kept faithfully and still not be for God.","category":""},{"kind":"fasting","title":"Rent your heart","sub":"Joel · on fasting","context":"","ref":"Joel 2:12-13","quoteHead":"What was written","quote":"Turn you unto me with all your heart, and with fasting, and with weeping, and with mourning. And rent your heart, and not your clothes.","afterHead":"What to notice","after":"The outward sign is not the thing. The change is meant to happen underneath.","category":""},{"kind":"fasting","title":"This kind","sub":"Jesus · on fasting","context":"","ref":"Mark 9:29","quoteHead":"What was written","quote":"This kind can by no other means come forth, but by prayer and fasting.","afterHead":"What to notice","after":"Worth knowing: the words and fasting are not in the earliest surviving manuscripts of Mark, and many modern versions read by prayer alone. The Geneva Bible includes them.","category":""}]};
+</script>
+
+<script>
+(function(){
+'use strict';
+var EXPAND_ICO = "<svg class='xp-ico' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><g><path d='M8 8 L12.4 3.6'/><path d='M9.4 3 H13 V6.6'/></g><g transform='rotate(180 8 8)'><path d='M8 8 L12.4 3.6'/><path d='M9.4 3 H13 V6.6'/></g></svg>";
+var COLLAPSE_ICO = "<svg class='xp-ico' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><g><path d='M13 3 L9.2 6.8'/><path d='M12.6 7 H9 V3.4'/></g><g transform='rotate(180 8 8)'><path d='M13 3 L9.2 6.8'/><path d='M12.6 7 H9 V3.4'/></g></svg>";
+// ── Draw pile ────────────────────────────────────────────────────────
+// A physical deck doesn't put a card back before the next draw. This
+// mirrors that: every card dealt is SET ASIDE and cannot come up again
+// until the pile is gathered back in. Survives reloads, so finishing a
+// story and reopening the page doesn't hand you the same name again.
+function DrawPile(storeKey){
+  var drawn = {};                       // id -> true
+  try {
+    var raw = window.localStorage.getItem(storeKey);
+    if(raw) drawn = JSON.parse(raw) || {};
+  } catch(e) { drawn = {}; }
+
+  function persist(){
+    try { window.localStorage.setItem(storeKey, JSON.stringify(drawn)); }
+    catch(e) { /* private mode — the pile just won't outlive the session */ }
+  }
+
+  return {
+    // Cards still in the pile, out of the pool currently in play
+    remaining: function(pool, idOf){
+      return pool.filter(function(x){ return !drawn[idOf(x)]; });
+    },
+    setAsideCount: function(){
+      var n=0; for(var k in drawn) if(drawn[k]) n++; return n;
+    },
+    // Deal one, without replacement. Returns null when the pile is spent.
+    deal: function(pool, idOf){
+      var left = pool.filter(function(x){ return !drawn[idOf(x)]; });
+      if(!left.length) return null;
+      var pick = left[Math.floor(Math.random()*left.length)];
+      drawn[idOf(pick)] = true;
+      persist();
+      return pick;
+    },
+    // Gather every set-aside card back into the pile
+    gather: function(){ drawn = {}; persist(); },
+    isSetAside: function(id){ return !!drawn[id]; }
+  };
+}
+// ── Scripture links ───────────────────────────────────────────────
+// Canonical references open in the Geneva Bible, because that is the text
+// quoted on the page. The deuterocanonical books are NOT in Bible Gateway's
+// Geneva edition, so those open in NRSVCE, which carries them under the
+// same modern book names used here. 1 Enoch is on neither, so it stays
+// plain text rather than becoming a link that goes nowhere.
+
+// Mobile Chrome treats window.open() with a features string as a popup, which
+// is how a correct URL ends up as a bare biblegateway.com/passage/ page. A
+// real anchor click is an ordinary navigation and is never blocked.
+function openExternal(url){
+  var a=document.createElement('a');
+  a.href=url; a.target='_blank'; a.rel='noopener noreferrer';
+  a.style.display='none';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){ if(a.parentNode) a.parentNode.removeChild(a); }, 0);
+}
+
+var BG='https://www.biblegateway.com/passage/?search=';
+
+function refUrl(ref, version){
+  var clean = ref.replace(/\s*\([^)]*\)\s*/g,' ').trim();   // drop "(whole book)"
+  var v = version||'GNV';
+  // Apocrypha lookups need the Gateway's own book name
+  if(v!=='GNV' && typeof gatewayRef==='function') clean = gatewayRef(clean);
+  return BG + encodeURIComponent(clean) + '&version=' + v;
+}
+function refLink(ref, version){
+  if(!ref) return '';
+  var safe = String(ref).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  var deut = (version === 'CEB' || version === 'NRSVCE') ? ' data-deutero="1"' : '';
+  return '<a class="ref-link" data-ref="' + safe + '"' + deut
+       + ' target="_blank" rel="noopener noreferrer" href="'
+       + refUrl(ref, version || preferredVersion() || 'GNV') + '">' + safe + '</a>';
+}
+// Pseudepigraphal sources are not hosted anywhere linkable, so they are
+// returned unlinked rather than pointing at a 404.
+// ── Bible version picker ──────────────────────────────────────────
+// GNV is the text these pages quote, so it stays the default. A reader
+// can choose another and it is remembered, because being asked on every
+// tap would be worse than not being asked at all.
+//
+// Two lists: Bible Gateway's Geneva edition and most modern Protestant
+// versions do NOT carry the deuterocanonical books, so a Sirach or Tobit
+// reference is only offered versions that actually contain it.
+var BIBLE_VERSIONS = [
+  {code:'GNV',    name:'Geneva Bible',        note:'1599 — quoted on this page'},
+  {code:'KJV',    name:'King James'},
+  {code:'NKJV',   name:'New King James'},
+  {code:'NIV',    name:'New International'},
+  {code:'ESV',    name:'English Standard'},
+  {code:'NASB',   name:'New American Standard'},
+  {code:'NLT',    name:'New Living'},
+  {code:'CSB',    name:'Christian Standard'},
+  {code:'AMP',    name:'Amplified'},
+  {code:'MSG',    name:'The Message',         note:'paraphrase'},
+  {code:'NRSVUE', name:'New Revised Standard'},
+  {code:'ASV',    name:'American Standard',   note:'1901'},
+  {code:'YLT',    name:"Young's Literal"}
+];
+
+// Versions that include the Apocrypha / deuterocanonical books
+var DEUTERO_VERSIONS = [
+  {code:'CEB',    name:'Common English',       note:'widest Apocrypha on Bible Gateway'},
+  {code:'NRSVCE', name:'New Revised Standard', note:'Catholic edition'},
+  {code:'RSVCE',  name:'Revised Standard',     note:'Catholic edition'},
+  {code:'NABRE',  name:'New American',         note:'revised edition'},
+  {code:'GNT',    name:'Good News',            note:'with Apocrypha'},
+  {code:'DRA',    name:'Douay-Rheims',         note:'1899 — older book names'}
+];
+
+// Bible Gateway indexes a few of these under a different name than the one
+// used here. Without this, "Bel and the Dragon 1" resolves to nothing —
+// which is exactly what it did.
+var GATEWAY_BOOK_NAMES = {
+  'Wisdom of Solomon': 'Wisdom',
+  'Song of the Three': 'Prayer of Azariah',
+  'Additions to Esther': 'Greek Esther',
+  'Letter of Jeremiah': 'Letter of Jeremiah'
+};
+function gatewayRef(ref){
+  var out = String(ref);
+  for(var from in GATEWAY_BOOK_NAMES){
+    if(out.indexOf(from) === 0){
+      out = GATEWAY_BOOK_NAMES[from] + out.slice(from.length);
+      break;
+    }
+  }
+  return out;
+}
+
+var VER_KEY='wordspinBibleVersion';
+function preferredVersion(){
+  try { return window.localStorage.getItem(VER_KEY) || ''; } catch(e){ return ''; }
+}
+function setPreferredVersion(code){
+  try { window.localStorage.setItem(VER_KEY, code); } catch(e){}
+}
+
+function sourceLink(source, status){
+  if(status === 'pseudepigraphal') return String(source);
+  return refLink(source, 'CEB');
+}
+
+
+// Builds the foot bar for an expanded editor: a saved/edited line on the
+// left, and the actions on the right so a long entry can be committed
+// without collapsing the screen first.
+function attachEditorBar(wrap, opts){
+  if(!wrap || wrap.querySelector('.medit-bar')) return wrap && wrap.querySelector('.medit-bar');
+  var bar=document.createElement('div');
+  bar.className='medit-bar';
+  bar.innerHTML='<div class="bar-meta"></div><div class="bar-actions"></div>';
+  var actions=bar.querySelector('.bar-actions');
+  (opts.buttons||[]).forEach(function(b){
+    var el=document.createElement('button');
+    el.type='button';
+    el.className='bar-btn'+(b.primary?' primary':'');
+    el.textContent=b.label;
+    el.addEventListener('click', b.onClick);
+    actions.appendChild(el);
+  });
+  wrap.appendChild(bar);
+  return bar;
+}
+function stampMeta(bar, written, edited){
+  if(!bar) return;
+  var m=bar.querySelector('.bar-meta');
+  if(!m) return;
+  var parts=[];
+  if(written) parts.push('Written '+written);
+  if(edited)  parts.push('edited '+edited);
+  m.textContent=parts.join('  ·  ');
+}
+
+// Makes a modal's edit textarea expand to full screen, like the main box
+function makeExpandable(textarea, expandIco, collapseIco){
+  if(!textarea || textarea.dataset.expandable) return;
+  textarea.dataset.expandable='1';
+  var wrap=document.createElement('div');
+  wrap.className='medit-wrap';
+  textarea.parentNode.insertBefore(wrap, textarea);
+  wrap.appendChild(textarea);
+  var btn=document.createElement('button');
+  btn.type='button'; btn.className='medit-x';
+  btn.setAttribute('aria-label','Expand the editor');
+  btn.innerHTML=expandIco;
+  wrap.appendChild(btn);
+
+  function setOpen(on){
+    wrap.classList.toggle('expanded', on);
+    document.body.classList.toggle('box-open', on);
+    btn.innerHTML = on ? collapseIco : expandIco;
+    btn.setAttribute('aria-label', on?'Collapse the editor':'Expand the editor');
+    if(on) textarea.focus();
+  }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); setOpen(!wrap.classList.contains('expanded')); });
+  textarea._collapse = function(){ if(wrap.classList.contains('expanded')) setOpen(false); };
+  return wrap;
+}
+
+var root=document.documentElement,
+    tBtn=document.getElementById('themeBtn'),
+    tLbl=document.getElementById('themeLabel'),
+    tIco=document.getElementById('themeIcon');
+function isDark(){
+  var s=root.getAttribute('data-theme');
+  if(s) return s==='dark';
+  return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+}
+function paintToggle(){ var d=isDark(); tLbl.textContent=d?'Light':'Dark'; tIco.textContent=d?'\u2600':'\u263E'; }
+tBtn.addEventListener('click', function(){ root.setAttribute('data-theme', isDark()?'light':'dark'); paintToggle(); });
+paintToggle();
+
+var toastEl=document.getElementById('toast'), toastT;
+function toast(msg){
+  toastEl.textContent=msg; toastEl.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(function(){ toastEl.classList.remove('show'); },2200);
+}
+
+var STORE_KEY='wordspinPrayerEntries';
+var entries=[];
+try { var raw=window.localStorage.getItem(STORE_KEY); if(raw) entries=JSON.parse(raw)||[]; } catch(e){ entries=[]; }
+function persist(){ try{ window.localStorage.setItem(STORE_KEY, JSON.stringify(entries)); }catch(e){} }
+
+var group='prayers', category='all', spinning=false, current=null, onlyMode=false;
+function cardLabel(b){ return b ? (b.title||'') : ''; }
+function bookId(b){ return b.kind+'|'+b.title; }
+var pile=DrawPile('wordspinPrayerPile');
+function pool(){
+  var deck=PRAYER_DATA[group]||PRAYER_DATA.prayers;
+  if(group==='prayers' && category!=='all')
+    deck=deck.filter(function(b){ return b.category===category; });
+  return deck;
+}
+function asidePool(){ return pool().filter(function(b){ return pile.isSetAside(bookId(b)); }); }
+
+var deckArea=document.getElementById('deckArea'),
+    spinCount=document.getElementById('spinCount'),
+    pileAside=document.getElementById('pileAside'),
+    asideSheet=document.getElementById('asideSheet'),
+    asideList=document.getElementById('asideList');
+
+function refreshPile(){
+  var pooled=pool(), aside=asidePool(), left=pooled.length-aside.length;
+  if(onlyMode){ spinCount.textContent=aside.length+' set aside \u00b7 replaying'; deckArea.classList.remove('spent'); }
+  else if(left===0){ spinCount.textContent='Deck empty'; deckArea.classList.add('spent'); }
+  else { spinCount.textContent=left+'/'+pooled.length+' left'; deckArea.classList.remove('spent'); }
+  pileAside.textContent = onlyMode ? 'replaying '+aside.length+' \u2014 back to deck'
+    : (aside.length===1 ? '1 set aside' : aside.length+' set aside');
+  pileAside.classList.toggle('only-mode', onlyMode);
+  pileAside.style.display=(aside.length>0||onlyMode)?'block':'none';
+}
+function openAside(){
+  var aside=asidePool();
+  if(!aside.length){ toast('Nothing set aside yet'); return; }
+  asideList.innerHTML=aside.map(function(b){ return '<span class="aside-chip">'+b.name+'</span>'; }).join('');
+  asideSheet.classList.add('open'); document.body.style.overflow='hidden';
+}
+function closeAside(){ asideSheet.classList.remove('open'); document.body.style.overflow=''; }
+pileAside.addEventListener('click', function(){
+  if(onlyMode){ onlyMode=false; refreshPile(); toast('Back to the full deck'); return; }
+  openAside();
+});
+document.getElementById('asideClose').addEventListener('click', closeAside);
+asideSheet.addEventListener('click', function(e){ if(e.target===asideSheet) closeAside(); });
+document.getElementById('asideReturn').addEventListener('click', function(){
+  pile.gather(); onlyMode=false; closeAside(); refreshPile(); toast('Shuffled back into the deck');
+});
+document.getElementById('asideOnly').addEventListener('click', function(){
+  onlyMode=true; closeAside(); refreshPile(); toast('Replaying the set-aside cards');
+});
+
+function buildDeck(){
+  deckArea.innerHTML='';
+  for(var i=3;i>=1;i--){
+    var b=document.createElement('div');
+    b.className='deck-card back'; b.style.zIndex=i;
+    b.style.transform='translateY('+(i*3)+'px) translateX('+(i*2)+'px)';
+    deckArea.appendChild(b);
+  }
+  var f=document.createElement('div');
+  f.className='deck-card front'; f.style.zIndex=10;
+  f.style.boxShadow='3px 3px 14px rgba(26,16,8,0.18)';
+  f.innerHTML='<div class="card-header">WordSpin</div>'+
+    '<div class="card-pip-row top"><span>\u2726</span><span>\u2726</span></div>'+
+    '<div class="card-word-text" id="cardWordText">?</div>'+
+    '<div class="card-rule"></div>'+
+    '<div class="card-pip-row bot"><span>\u2726</span><span>\u2726</span></div>';
+  deckArea.appendChild(f);
+}
+buildDeck();
+
+function sizeClass(w){
+  var L=w.length;
+  if(L>=16) return 'len-xl';
+  if(L>=12) return 'len-l';
+  if(L>=9)  return 'len-m';
+  return '';
+}
+function openPanel(panel, open){
+  if(!panel) return;
+  if(open){
+    panel.classList.add('open');
+    panel.style.maxHeight=panel.scrollHeight+'px';
+    setTimeout(function(){ if(panel.classList.contains('open')) panel.style.maxHeight='none'; },440);
+  } else {
+    panel.style.maxHeight=panel.scrollHeight+'px';
+    void panel.offsetHeight;
+    panel.classList.remove('open');
+    panel.style.maxHeight='0px';
+  }
+}
+function pronHTML(b){
+  var spk='\uD83D\uDDE3\uFE0F';
+  return '<div class="pron-row"><span class="pron-lang">English</span>'+
+         '<span class="pron-val">'+spk+'&nbsp;&nbsp;'+b.pronunciation+'</span></div>';
+}
+function origHTML(b){
+  if(!b.original) return '';
+  return '<span class="orig-script">'+b.original+'</span> &nbsp;'+
+         b.originalLanguage+' \u2014 '+b.originalMeaning;
+}
+function statusNote(b){
+  if(b.status==='deuterocanonical')
+    return 'In the Apocrypha of the 1599 Geneva Bible, and canon for Catholic and Orthodox readers.';
+  if(b.status==='pseudepigraphal')
+    return 'Outside the canon of most traditions. Read as an old writing, not as Scripture.';
+  return '';
+}
+function startHTML(b){
+  // Removed books are on no Bible Gateway version. Instead of a dead link or
+  // inert text, the reference opens a note saying where the text actually is.
+  if(b.status==='pseudepigraphal'){
+    if(!b.startNote) return b.start;
+    var h='<button class="note-ref" type="button">'+b.start+
+          '<span class="note-cue">note</span></button>'+
+          '<div class="note-panel"><div class="note-body">'+b.startNote+'</div>';
+    if(b.startExcerpt){
+      h+='<div class="excerpt">&ldquo;'+b.startExcerpt+'&rdquo;'+
+         '<span class="excerpt-src">'+(b.startExcerptSource||'')+'</span></div>';
+    }
+    return h+'</div>';
+  }
+  return refLink(b.start, b.status==='deuterocanonical' ? 'CEB' : 'GNV');
+}
+
+// One delegated handler covers both the card and the modal
+document.addEventListener('click', function(e){
+  var btn = e.target.closest && e.target.closest('.note-ref');
+  if(!btn) return;
+  var panel = btn.nextElementSibling;
+  if(!panel || !panel.classList.contains('note-panel')) return;
+  var open = !panel.classList.contains('open');
+  panel.classList.toggle('open', open);
+  btn.classList.toggle('is-open', open);
+  if(open){
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+    setTimeout(function(){
+      if(panel.classList.contains('open')) panel.style.maxHeight='none';
+      // the breakdown around it just grew
+      var dp=document.getElementById('defPanel');
+      if(dp && dp.classList.contains('open')) dp.style.maxHeight='none';
+      var lp=document.getElementById('learnPanel');
+      if(lp && lp.classList.contains('open')) lp.style.maxHeight='none';
+    },420);
+  } else {
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+    void panel.offsetHeight;
+    panel.style.maxHeight = '0px';
+  }
+});
+
+var chosenSec=document.getElementById('chosen'),
+    chosenName=document.getElementById('chosenName'),
+    chosenSection=document.getElementById('chosenSection'),
+    defPanel=document.getElementById('defPanel'),
+    defToggle=document.getElementById('defToggle'),
+    learnBtn=document.getElementById('learnBtn'),
+    learnPanel=document.getElementById('learnPanel'),
+    writeSec=document.getElementById('writeSec');
+
+function setLearn(open){
+  learnBtn.setAttribute('aria-expanded', open?'true':'false');
+  learnBtn.querySelector('span').textContent = open ? 'Show less' : 'Learn more?';
+  openPanel(learnPanel, open);
+  if(open) setTimeout(function(){
+    if(defPanel.classList.contains('open')) defPanel.style.maxHeight='none';
+  },460);
+}
+learnBtn.addEventListener('click', function(){ setLearn(learnBtn.getAttribute('aria-expanded')!=='true'); });
+defToggle.addEventListener('click', function(){
+  var open=!defPanel.classList.contains('open');
+  openPanel(defPanel, open);
+  defToggle.textContent = open ? '\uD83D\uDD0D Hide the breakdown' : '\uD83D\uDD0D Read the breakdown';
+});
+
+function spin(){
+  if(spinning) return;
+  spinning=true;
+  openPanel(defPanel,false);
+  defToggle.textContent='\uD83D\uDD0D Read the breakdown';
+  var picked;
+  if(onlyMode){
+    var r=asidePool();
+    picked=r.length? r[Math.floor(Math.random()*r.length)] : null;
+  } else { picked=pile.deal(pool(), bookId); }
+  if(!picked){
+    spinning=false; refreshPile();
+    toast(onlyMode?'Nothing set aside here':'Deck empty \u2014 tap "set aside" to return them');
+    return;
+  }
+  var front=deckArea.querySelector('.deck-card.front');
+  var backs=deckArea.querySelectorAll('.deck-card.back');
+  var wordEl=document.getElementById('cardWordText');
+  front.classList.remove('revealed');
+  wordEl.textContent='?';
+  var STEPS=6, STEP_MS=95, step=0, last=0;
+  var easing='cubic-bezier(0.25,0.46,0.45,0.94)';
+  backs.forEach(function(c){ c.style.transition='transform '+STEP_MS+'ms '+easing; });
+  front.style.transition='transform '+STEP_MS+'ms '+easing;
+  function stepFn(ts){
+    if(step>=STEPS){ deal(picked, front, backs, wordEl); return; }
+    if(ts-last<STEP_MS && last!==0){ requestAnimationFrame(stepFn); return; }
+    last=ts;
+    var dir=(step%2===0)?1:-1;
+    backs.forEach(function(c,i){
+      var spread=(i+1)*10*dir, lift=-Math.abs(spread)*0.3;
+      c.style.transform='translateY('+(lift-i*2)+'px) translateX('+(spread+i)+'px) rotate('+(spread*0.35)+'deg)';
+    });
+    front.style.transform='translateY(-4px) rotate('+((step%2===0)?-4:4)+'deg)';
+    step++;
+    requestAnimationFrame(stepFn);
+  }
+  requestAnimationFrame(stepFn);
+}
+
+function deal(b, front, backs, wordEl){
+  backs.forEach(function(c,i){ c.style.transform='translateY('+((3-i)*3)+'px) translateX('+((3-i)*2)+'px)'; });
+  front.style.transform='translateY(0) rotate(0deg)';
+  setTimeout(function(){
+    var label=cardLabel(b);
+    wordEl.className='card-word-text '+sizeClass(label);
+    wordEl.textContent=label;
+    front.classList.add('revealed');
+    current=b;
+    chosenName.textContent=label;
+    document.getElementById('chosenLabel').textContent =
+      {prayers:'A prayer',jesus:'Jesus on prayer',apostles:'The apostles on prayer',fasting:'Fasting'}[b.kind]||'Your card';
+    document.getElementById('chosenSection').textContent=b.sub;
+    document.getElementById('secContext').style.display=b.context?'block':'none';
+    document.getElementById('defContext').textContent=b.context;
+    document.getElementById('hQuote').textContent=b.quoteHead;
+    document.getElementById('defQuote').innerHTML='&ldquo;'+b.quote+'&rdquo;';
+    document.getElementById('defRef').innerHTML=refLink(b.ref)+'  \u00b7  GNV';
+    document.getElementById('hAfter').textContent=b.afterHead;
+    document.getElementById('defAfter').textContent=b.after;
+    document.getElementById('chosenPrompt').textContent = b.kind==='fasting'
+      ? 'Write what you are laying down, and why. Nobody has to read it.'
+      : 'Write your own prayer. Nobody has to read it.';
+    setLearn(false);
+    chosenSec.style.display='flex';
+    writeSec.classList.add('on');
+    refreshPile();
+    spinning=false;
+    chosenSec.scrollIntoView({behavior:'smooth', block:'start'});
+  },180);
+}
+deckArea.addEventListener('click', spin);
+
+var catRow=document.getElementById('catRow'), fastNote=document.getElementById('fastNote');
+function paintDeckUI(){
+  catRow.style.display = group==='prayers' ? 'flex' : 'none';
+  fastNote.style.display = group==='fasting' ? 'block' : 'none';
+}
+document.querySelectorAll('.grp-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.grp-btn').forEach(function(x){ x.classList.remove('active'); });
+    btn.classList.add('active');
+    group=btn.dataset.g; onlyMode=false;
+    paintDeckUI(); refreshPile();
+    toast(pile.remaining(pool(), bookId).length+' left');
+  });
+});
+document.querySelectorAll('.cat-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.cat-btn').forEach(function(x){ x.classList.remove('active'); });
+    btn.classList.add('active');
+    category=btn.dataset.c; onlyMode=false;
+    refreshPile();
+    var n=pool().length;
+    toast(category==='all' ? 'All prayers' : n+' '+category+(n===1?' prayer':' prayers'));
+  });
+});
+paintDeckUI();
+
+var box=document.getElementById('storyBox'),
+    wc=document.getElementById('wordCount'),
+    boxWrap=document.getElementById('boxWrap'),
+    expandBtn=document.getElementById('expandBtn'),
+    expandedCount=document.getElementById('expandedCount');
+function countWords(s){ var t=s.trim(); return t? t.split(/\s+/).length : 0; }
+function syncCount(){
+  var n=countWords(box.value), t=(n===1?'1 word':n+' words');
+  wc.textContent=t; expandedCount.textContent=t;
+}
+box.addEventListener('input', syncCount);
+function setExpanded(on){
+  boxWrap.classList.toggle('expanded', on);
+  document.body.classList.toggle('box-open', on);
+  expandBtn.innerHTML = on ? COLLAPSE_ICO : EXPAND_ICO;
+  if(on){ boxWrap.appendChild(expandedCount); syncCount(); box.focus(); }
+  else { writeSec.insertBefore(expandedCount, wc.nextSibling); }
+}
+expandBtn.addEventListener('click', function(){ setExpanded(!boxWrap.classList.contains('expanded')); });
+
+document.getElementById('saveBtn').addEventListener('click', function(){
+  var text=box.value.trim();
+  if(!text){ toast('Nothing to save yet'); box.focus(); return; }
+  if(!current){ toast('Shuffle a book first'); return; }
+  entries.unshift({
+    id:'pr_'+Date.now().toString(36)+Math.random().toString(36).slice(2,7),
+    title: cardLabel(current),
+    deck: {prayers:'Prayer',jesus:'Jesus',apostles:'Apostles',fasting:'Fasting'}[current.kind]||'Prayer',
+    ref: current.ref, level:'prayer', text:text, date:Date.now(),
+    snap:{ sub:current.sub, context:current.context, ref:current.ref,
+           quoteHead:current.quoteHead, quote:current.quote,
+           afterHead:current.afterHead, after:current.after }
+  });
+  persist(); renderSaved();
+  box.value=''; syncCount();
+  if(boxWrap.classList.contains('expanded')) setExpanded(false);
+  toast('Saved');
+});
+document.getElementById('clearBtn').addEventListener('click', function(){
+  if(!box.value.trim()) return;
+  box.value=''; syncCount(); toast('Cleared');
+});
+
+var savedList=document.getElementById('savedList');
+function fmtDate(ts){
+  var d=new Date(ts), m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return d.getDate()+' '+m[d.getMonth()]+' '+d.getFullYear();
+}
+function deleteMany(ids){
+  var kill={}; ids.forEach(function(i){ kill[i]=true; });
+  entries=entries.filter(function(x){ return !kill[x.id]; });
+  persist(); renderSaved();
+}
+
+function renderSaved(){
+  if(!entries.length){
+    savedList.innerHTML='<p class="saved-empty">Nothing written yet. Shuffle a book and begin.</p>';
+    return;
+  }
+  savedList.innerHTML='';
+  entries.forEach(function(e){
+    var row=document.createElement('div');
+    row.className='saved-row';
+    row.dataset.id=e.id;
+    row.innerHTML='<span class="sel-box">\u2713</span>'+'<span class="saved-name">'+(e.title||cardLabel(e)||'')+'</span>'+
+      '<span class="saved-tag">'+(e.deck||'Prayer')+'</span>'+
+      '<span class="saved-date">'+fmtDate(e.date)+(e.edited?'<em>edited</em>':'')+'</span>';
+    row.addEventListener('click', function(){
+      if(selecting){ picked[row.dataset.id]=!picked[row.dataset.id]; paintSel(); return; }
+      openEntry(e.id);
+    });
+    savedList.appendChild(row);
+  });
+}
+
+var mBack=document.getElementById('modalBack'),
+    mName=document.getElementById('mName'),
+    mMeta=document.getElementById('mMeta'),
+    mText=document.getElementById('mText'),
+    mEdit=document.getElementById('mEdit'),
+    mFootRead=document.getElementById('mFootRead'),
+    mFootEdit=document.getElementById('mFootEdit'),
+    mBreakBtn=document.getElementById('mBreakBtn'),
+    mBreakPanel=document.getElementById('mBreakPanel'),
+    openId=null;
+
+mBreakBtn.addEventListener('click', function(){
+  var open=!mBreakPanel.classList.contains('open');
+  openPanel(mBreakPanel, open);
+  mBreakBtn.textContent = open ? '\uD83D\uDD0D Hide the breakdown' : '\uD83D\uDD0D Show the breakdown';
+});
+function setEditing(on){
+  mEdit.classList.toggle('on', on);
+  mText.style.display=on?'none':'block';
+  mFootRead.style.display=on?'none':'flex';
+  mFootEdit.style.display=on?'flex':'none';
+  // The wrapper and its expand button must go too, or the button floats
+  // over the footer while the textarea underneath it is hidden.
+  var wrap=mEdit.parentNode;
+  if(wrap && wrap.classList.contains('medit-wrap')) wrap.classList.toggle('editing', on);
+}
+function openEntry(id){
+  var e=entries.filter(function(x){ return x.id===id; })[0];
+  if(!e) return;
+  openId=id;
+  mName.textContent=e.name;
+  stampMeta(mEdit.parentNode && mEdit.parentNode.querySelector('.medit-bar'),
+            fmtDate(e.date), e.edited?fmtDate(e.edited):null);
+  mName.textContent = e.title || cardLabel(e) || '';
+  var bits=[];
+  if(e.deck) bits.push(e.deck);
+  if(e.snap && e.snap.sub) bits.push(e.snap.sub);
+  bits.push(fmtDate(e.date));
+  if(e.edited) bits.push('edited '+fmtDate(e.edited));
+  mMeta.textContent = bits.join('  \u00b7  ');
+  mText.textContent=e.text;
+  var s=e.snap;
+  if(s){
+    mBreakBtn.style.display='inline-block';
+    var sn=e.snap||{};
+    document.getElementById('mSecContext').style.display = sn.context ? 'block' : 'none';
+    document.getElementById('mContext').textContent = sn.context||'';
+    document.getElementById('mHQuote').textContent = sn.quoteHead||'';
+    document.getElementById('mQuote').innerHTML = sn.quote ? '&ldquo;'+sn.quote+'&rdquo;' : '';
+    document.getElementById('mRef').innerHTML = sn.ref ? refLink(sn.ref)+'  \u00b7  GNV' : '';
+    document.getElementById('mHAfter').textContent = sn.afterHead||'';
+    document.getElementById('mAfter').textContent = sn.after||'';
+  } else { mBreakBtn.style.display='none'; }
+  openPanel(mBreakPanel, false);
+  mBreakBtn.textContent='\uD83D\uDD0D Show the breakdown';
+  setEditing(false);
+  mBack.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeEntry(){
+  if(mEdit && mEdit._collapse) mEdit._collapse();
+  mBack.classList.remove('open'); document.body.style.overflow=''; openId=null;
+}
+document.getElementById('mClose').addEventListener('click', closeEntry);
+mBack.addEventListener('click', function(e){ if(e.target===mBack) closeEntry(); });
+document.addEventListener('keydown', function(e){
+  if(e.key!=='Escape') return;
+  if(mBack.classList.contains('open')) { closeEntry(); return; }
+  if(asideSheet.classList.contains('open')) { closeAside(); return; }
+  if(boxWrap.classList.contains('expanded')) setExpanded(false);
+});
+document.getElementById('mEditBtn').addEventListener('click', function(){
+  mEdit.value=mText.textContent; setEditing(true); mEdit.focus();
+  mEdit.setSelectionRange(mEdit.value.length, mEdit.value.length);
+});
+document.getElementById('mCancelEdit').addEventListener('click', function(){ setEditing(false); });
+document.getElementById('mSaveEdit').addEventListener('click', function(){
+  var t=mEdit.value.trim();
+  if(!t){ toast('An entry cannot be empty'); mEdit.focus(); return; }
+  var e=entries.filter(function(x){ return x.id===openId; })[0];
+  if(!e) return;
+  e.text=t; e.edited=Date.now(); persist();
+  mText.textContent=t; setEditing(false);
+  // reopen the entry so the meta line picks up the edited date
+  var keep=openId; if(keep){ openEntry(keep); } renderSaved(); toast('Saved');
+});
+document.getElementById('mDelete').addEventListener('click', function(){
+  if(!openId) return;
+  entries=entries.filter(function(x){ return x.id!==openId; });
+  persist(); renderSaved(); closeEntry(); toast('Deleted');
+});
+
+makeExpandable(mEdit, EXPAND_ICO, COLLAPSE_ICO);
+// Sheet that opens when a reference is tapped. Remembers the choice, and
+// offers a way back to it, so the question is asked once rather than always.
+(function(){
+  var sheet, list, titleEl, subEl, pending=null;
+
+  function build(){
+    sheet=document.createElement('div');
+    sheet.className='ver-sheet';
+    sheet.innerHTML=
+      '<div class="ver-panel">'+
+        '<div class="ver-head">'+
+          '<div><span class="ver-title" id="verTitle"></span>'+
+          '<span class="ver-sub" id="verSub"></span></div>'+
+          '<button class="ver-x" aria-label="Close">&#10005;</button>'+
+        '</div>'+
+        '<div class="ver-list" id="verList"></div>'+
+      '</div>';
+    document.body.appendChild(sheet);
+    list=sheet.querySelector('#verList');
+    titleEl=sheet.querySelector('#verTitle');
+    subEl=sheet.querySelector('#verSub');
+    sheet.querySelector('.ver-x').addEventListener('click', close);
+    sheet.addEventListener('click', function(e){ if(e.target===sheet) close(); });
+    document.addEventListener('keydown', function(e){
+      if(e.key==='Escape' && sheet.classList.contains('open')) close();
+    });
+  }
+  function close(){
+    sheet.classList.remove('open');
+    document.body.style.overflow='';
+    pending=null;
+  }
+  function open(ref, deutero){
+    if(!sheet) build();
+    var versions = (deutero ? DEUTERO_VERSIONS : BIBLE_VERSIONS).slice();
+    var pref = preferredVersion();
+    if(pref){
+      var i = versions.map(function(v){ return v.code; }).indexOf(pref);
+      if(i > 0) versions.unshift(versions.splice(i,1)[0]);
+    }
+    titleEl.textContent = ref;
+    subEl.textContent = deutero
+      ? 'Only versions that include the Apocrypha'
+      : 'Choose a version to read it in';
+    list.innerHTML = versions.map(function(v){
+      var on = (v.code===pref) ? ' is-pref' : '';
+      return '<button class="ver-item'+on+'" data-code="'+v.code+'">'+
+        '<span class="ver-code">'+v.code+'</span>'+
+        '<span class="ver-name">'+v.name+
+          (v.note?'<small>'+v.note+'</small>':'')+'</span></button>';
+    }).join('');
+    Array.prototype.forEach.call(list.querySelectorAll('.ver-item'), function(b){
+      b.addEventListener('click', function(){
+        var code=b.dataset.code;
+        // Only remember a choice from the full list; the Apocrypha list is
+        // a narrower set and should not become the default for everything.
+        if(!deutero) setPreferredVersion(code);
+        var url=refUrl(pending, code);
+        close();
+        openExternal(url);
+      });
+    });
+    pending=ref;
+    sheet.classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+
+  // Intercept taps on any reference link
+  document.addEventListener('click', function(e){
+    var a=e.target.closest && e.target.closest('a.ref-link');
+    if(!a) return;
+    e.preventDefault();
+    var ref=a.dataset.ref || a.textContent.trim();
+    var deutero = a.dataset.deutero === '1';
+    // Always offer the choice. Skipping the sheet once a preference existed
+    // meant a line labelled GNV silently opened in KJV, which is worse than
+    // one extra tap. The remembered version is listed first and marked.
+    open(ref, deutero);
+  }, true);
+
+  window.openVersionPicker = open;
+})();
+
+// ── Save bars on the expanded editors ──
+(function(){
+  var mainWrap=document.getElementById('boxWrap');
+  if(mainWrap){
+    attachEditorBar(mainWrap, {buttons:[
+      {label:'Save', primary:true, onClick:function(){ document.getElementById('saveBtn').click(); }},
+      {label:'Done', onClick:function(){ document.getElementById('expandBtn').click(); }}
+    ]});
+  }
+  var mEditEl=document.getElementById('mEdit');
+  if(mEditEl && mEditEl.parentNode && mEditEl.parentNode.classList.contains('medit-wrap')){
+    attachEditorBar(mEditEl.parentNode, {buttons:[
+      {label:'Save changes', primary:true, onClick:function(){ document.getElementById('mSaveEdit').click(); }},
+      {label:'Cancel', onClick:function(){ document.getElementById('mCancelEdit').click(); }}
+    ]});
+  }
+})();
+
+renderSaved();
+
+// ── Unravelling intro: openers open, tapping an open block ravels it ──
+(function(){
+  var SEEN='wordspinPrayerSeen';
+  function seen(){ try{ return !!window.localStorage.getItem(SEEN); }catch(e){ return false; } }
+  function mark(){ try{ window.localStorage.setItem(SEEN,'1'); }catch(e){} }
+  function setReveal(p, open){
+    if(open){ p.classList.add('open'); p.style.maxHeight=p.scrollHeight+'px';
+      setTimeout(function(){ if(p.classList.contains('open')) p.style.maxHeight='none'; },520); }
+    else { p.style.maxHeight=p.scrollHeight+'px'; void p.offsetHeight;
+      p.classList.remove('open'); p.style.maxHeight='0px'; }
+  }
+  var l1=document.getElementById('layer1'), rest=document.getElementById('restWrap'),
+      ow=document.getElementById('openWhy'), why=document.getElementById('whyWrap'),
+      l2=document.getElementById('layer2'), l3=document.getElementById('layer3');
+  if(seen()){ document.getElementById('dot1').classList.add('quiet');
+              document.getElementById('dot2').classList.add('quiet'); }
+  function closeWhy(){ ow.setAttribute('aria-expanded','false'); setReveal(why,false); }
+  function closeRest(){ l1.setAttribute('data-open','false'); l1.setAttribute('aria-expanded','false');
+                        closeWhy(); setReveal(rest,false); }
+  l1.addEventListener('click', function(){
+    if(l1.getAttribute('data-open')==='true'){ closeRest(); return; }
+    l1.setAttribute('data-open','true'); l1.setAttribute('aria-expanded','true');
+    setReveal(rest,true); mark();
+  });
+  ow.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(ow.getAttribute('aria-expanded')==='true'){ closeWhy(); return; }
+    ow.setAttribute('aria-expanded','true'); setReveal(why,true); mark();
+    if(rest.classList.contains('open')) rest.style.maxHeight='none';
+  });
+  l2.addEventListener('click', function(e){ e.stopPropagation(); closeRest(); });
+  l3.addEventListener('click', function(e){ e.stopPropagation(); closeWhy(); });
+})();
+
+// ── Select mode ───────────────────────────────────────────────────
+// Deleting one entry at a time through the modal is fine for one and
+// tedious for ten, so the list can be put into a picking state.
+var selecting=false, picked={};
+var selBar=document.getElementById('selBar'),
+    selCount=document.getElementById('selCount'),
+    selToggle=document.getElementById('selToggle');
+
+function selIds(){ return Object.keys(picked).filter(function(k){ return picked[k]; }); }
+
+function paintSel(){
+  var n=selIds().length;
+  selCount.textContent = n===1 ? '1 selected' : n+' selected';
+  selBar.classList.toggle('on', selecting);
+  document.body.classList.toggle('selecting', selecting);
+  if(selToggle) selToggle.textContent = selecting ? 'Done' : 'Select';
+  Array.prototype.forEach.call(document.querySelectorAll('.saved-row'), function(r){
+    r.classList.toggle('picked', !!picked[r.dataset.id]);
+  });
+  var del=document.getElementById('selDelete');
+  del.disabled = n===0;
+  del.style.opacity = n===0 ? 0.45 : 1;
+}
+
+function setSelecting(on){
+  selecting=on;
+  if(!on) picked={};
+  paintSel();
+}
+
+if(selToggle) selToggle.addEventListener('click', function(){ setSelecting(!selecting); });
+document.getElementById('selCancel').addEventListener('click', function(){ setSelecting(false); });
+document.getElementById('selAll').addEventListener('click', function(){
+  var rows=document.querySelectorAll('.saved-row');
+  var all=selIds().length===rows.length;
+  picked={};
+  if(!all) Array.prototype.forEach.call(rows, function(r){ picked[r.dataset.id]=true; });
+  paintSel();
+});
+document.getElementById('selDelete').addEventListener('click', function(){
+  var ids=selIds();
+  if(!ids.length) return;
+  if(!window.confirm('Delete '+ids.length+' '+(ids.length===1?'entry':'entries')+'? This cannot be undone.')) return;
+  deleteMany(ids);
+  setSelecting(false);
+  toast(ids.length+' deleted');
+});
+paintSel();
+refreshPile();
+
+})();
+</script>
+
+</body>
+</html>
